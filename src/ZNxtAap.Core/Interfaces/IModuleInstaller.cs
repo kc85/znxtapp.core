@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZNxtAap.Core
+namespace ZNxtAap.Core.Interfaces
 {
-    public class Class1
+    public interface IModuleInstaller
     {
+        bool Install();
     }
 }
