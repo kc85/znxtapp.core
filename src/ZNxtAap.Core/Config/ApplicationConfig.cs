@@ -18,6 +18,15 @@ namespace ZNxtAap.Core.Config
             }
         }
 
+        public static string MongoDBConnectionString
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["MongoDBConnectionString"];
+            }
+        }
+
+
         public static string ClientId
         {
             get
