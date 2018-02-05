@@ -9,6 +9,8 @@ namespace ZNxtAap.Core.Interfaces
 {
     public interface IDBService
     {
+        string Collection { get; set; }
+        
         bool WriteData(JObject data);
 
         long GetCount(string bsonQuery);

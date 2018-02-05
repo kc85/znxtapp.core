@@ -41,15 +41,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Compile Include="Handler\RequestHandler.cs" />
     <Compile Include="Handler\RequestHandlerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxies\HttpContextProxy.cs" />
+    <Compile Include="Routings\Routings.cs" />
+    <Compile Include="Services\Logger.cs" />
+    <Compile Include="Services\PingService.cs" />
     <Compile Include="Util\AssemblyLoader.cs" />
+    <Compile Include="Util\StaticContentHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZNxtAap.Core.csproj">
       <Project>{82ca2f2e-4aac-48f5-ba04-96bea1d0d667}</Project>
       <Name>ZNxtAap.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZNxtAap.Core.DB.Mongo\ZNxtAap.Core.DB.Mongo.csproj">
+      <Project>{80b58e76-bf74-404c-a359-1946a3f1df37}</Project>
+      <Name>ZNxtAap.Core.DB.Mongo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZNxtAap.CoreAppInstaller\ZNxtAap.CoreAppInstaller.csproj">
+      <Project>{79192a0a-4e4b-4204-b0e1-3ff2e17ff935}</Project>
+      <Name>ZNxtAap.CoreAppInstaller</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

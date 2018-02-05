@@ -20,7 +20,27 @@ namespace ZNxtAap.Core.DB.Mongo
         private MongoClient _mongoClient;
 
         private string _collection;
+
+        public string Collection
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_collection.Trim()))
+                {
+                    throw new InvalidOperationException("Collection canont be empty");
+                }
+                return _collection;
+
+            }
+            set { _collection = value; }
+        }
         private string _dbName;
+
+        public MongoDBService(string dbName)
+        {
+            _dbName = dbName;
+            Init();
+        }
 
         public MongoDBService(string dbName, string collection)
         {

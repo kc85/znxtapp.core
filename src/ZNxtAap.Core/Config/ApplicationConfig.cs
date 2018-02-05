@@ -25,31 +25,14 @@ namespace ZNxtAap.Core.Config
                 return ConfigurationManager.AppSettings["MongoDBConnectionString"];
             }
         }
-
-
-        public static string ClientId
+        public static string DataBaseName
         {
             get
             {
-                return ConfigurationManager.AppSettings["ClientId"];
+                return ConfigurationManager.AppSettings["DataBaseName"];
             }
         }
 
-        public static string DBServiceBaseURL
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["DBServiceBaseURL"];
-            }
-        }
-
-        public static string ClientKey
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["ClientKey"];
-            }
-        }
 
         public static string AppPath
         {
@@ -59,13 +42,6 @@ namespace ZNxtAap.Core.Config
             }
         }
 
-        public static string InstallAppRoute
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["InstallAppRoute"];
-            }
-        }
 
         public static string TempFolder
         {
@@ -80,11 +56,28 @@ namespace ZNxtAap.Core.Config
             }
         }
 
+        public static ApplicationMode GetApplicationMode
+        {
+            get
+            {
+                string appMode = ConfigurationManager.AppSettings["AppMode"];
+                ApplicationMode appModeEnum = ApplicationMode.Maintance;
+                Enum.TryParse<ApplicationMode>(appMode, out appModeEnum);
+                return appModeEnum;
+            }
+        }
         public static string AuthToken { get; set; }
 
         public static double SessionDuration { get { return 30; } }
 
         public static string AppBinPath { get; set; }
         public static string AppWWWRootPath { get; set; }
+    }
+
+    public enum ApplicationMode
+    {  
+        Maintance,
+        Debug,
+        Live
     }
 }

@@ -8,28 +8,44 @@ namespace ZNxtAap.Core.Consts
 {
     public  static partial class CommonConst
     {
-        public static class Collection
-        {
-            public const string USERS = "users";
-            public const string USER_INFO = "user_info";
-            public const string USER_GROUPS = "user_groups";
-            public const string STATIC_CONTECT = "wwwroot";
-            public const string MODULES = "modules";
-            public const string DLLS = "dlls";
-            public const string APP_INFO = "app_info";
-            public const string ROUTS_FIELD = "Route";
-            public const string EMAIL_QUEUE = "email_queue";
-            public const string EMAIL_TEMPLETE = "email_templete";
-            public const string SMS_QUEUE = "sms_queue";
-            public const string SMS_TEMPLETE = "sms_templete";
-            public const string APP_SETTING = "app_settings";
-            public const string SESSION_DATA = "__session_storage";
-            public const string CRON_JOB = "cron_job";
-            public const string SERVER_LOGS = "_server_logs";
-            public const string OTPs = "_otps";
-            public const string RESOURCE_STRING = "resource_string";
-            
-        }
+        public const string CONTENT_TYPE_APPLICATION_JSON = "application/json";
+        public const string CONTENT_TYPE_TEXT_HTML = "text/html";
         
+        // ""
+        public const int _404_RESOURCE_NOT_FOUND = 404;
+        public const int _200_OK = 200;
+        public const int _400_BAD_REQUEST = 400;
+        public static MessageText Messages
+        {
+            get
+            {
+                return new MessageText();
+            }
+        }
+        public  class MessageText
+        {
+            private  Dictionary<int, string> text = new Dictionary<int, string>();
+            public string this[int value]
+            {
+                get
+                {
+                    if(text.ContainsKey(value))
+                    {
+                        return text[value];
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+            public MessageText()
+            {
+                text[CommonConst._200_OK] = "OK";
+                text[CommonConst._404_RESOURCE_NOT_FOUND] = "NOT_FOUND";
+                text[CommonConst._400_BAD_REQUEST] = "BAD_REQUEST";
+            }
+        }
+
     }
 }

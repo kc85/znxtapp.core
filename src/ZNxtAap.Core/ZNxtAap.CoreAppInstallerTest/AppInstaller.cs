@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ZNxtAap.Core.Interfaces;
 using ZNxtAap.CoreAppInstaller;
+using ZNxtAap.Core.Web.Services;
+using ZNxtAap.Core.DB.Mongo;
 
 namespace ZNxtAap.CoreAppInstallerTest
 {
@@ -11,7 +13,8 @@ namespace ZNxtAap.CoreAppInstallerTest
         [TestMethod]
         public void InitAppInstaller()
         {
-            IAppInstaller installer = new Installer(new Core.Config.AppInstallerConfig() { InstallType = Core.Config.AppInstallerConfig.AppInstallType.New });
+            IAppInstaller installer = Installer.GetInstance(new PingService(new MongoDBService("test_db")), new Core.Helpers.DataBuilderHelper());
+            installer.Install(new HttpContextProxyMock());
             Assert.IsNotNull(installer);
         }
     }

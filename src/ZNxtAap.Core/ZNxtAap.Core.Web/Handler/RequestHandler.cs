@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using ZNxtAap.Core.Config;
 
 namespace ZNxtAap.Core.Web.Handler
 {
@@ -12,9 +13,28 @@ namespace ZNxtAap.Core.Web.Handler
     {
         public override void ProcessRequest(HttpContext context)
         {
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            context.Response.StatusDescription = HttpStatusCode.InternalServerError.ToString();
-            context.Response.Write(HttpStatusCode.OK.ToString());
+            base.ProcessRequest(context);
+
+            //var requestUriPath = _httpProxy.GetURIAbsolutePath();
+
+           //  var route = _routings.GetRoute(_httpProxy.GetHttpMethod(), requestUriPath);
+            if (ApplicationMode.Maintance == ApplicationConfig.GetApplicationMode && _appInstaller.Status != Enums.AppInstallStatus.Finish)
+            {
+                _appInstaller.Install(_httpProxy);
+            }
+            //else if (route != null)
+            //{
+            //    // TODO handle the routes 
+
+
+            //}
+
+            //else
+            //{
+            //    // Handle the  non route request 
+
+            //}
+            WriteResponse();
         }
     }
 }

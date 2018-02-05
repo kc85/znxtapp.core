@@ -10,10 +10,17 @@ namespace ZNxtAap.Core.Config
     {
         public AppInstallType InstallType;
 
-        public enum AppInstallType
-        {
-            New,
-            Reset
-        }
+        public string Name { get; set; }
+
+        public string AdminAccount { get; set; }
+     
+        public string AdminPassword { get; set; }
+
+    }
+
+    public enum AppInstallType
+    {
+        New = 0,
+        Reset= 1
     }
 }
