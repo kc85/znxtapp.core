@@ -45,6 +45,7 @@
       <HintPath>packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Compile Include="AppStart\InitApp.cs" />
     <Compile Include="Handler\RequestHandler.cs" />
     <Compile Include="Handler\RequestHandlerBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

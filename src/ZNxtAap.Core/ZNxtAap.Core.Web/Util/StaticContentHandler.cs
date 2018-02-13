@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using ZNxtAap.Core.Consts;
 using ZNxtAap.Core.Interfaces;
 
@@ -29,7 +24,7 @@ namespace ZNxtAap.Core.Web.Util
             else
             {
                 return null;
-               // return StaticContentHelper.GetContent(_dbProxy, _logger, path, HttpContext.Current.Server.MapPath("~/wwwroot"));
+                // return StaticContentHelper.GetContent(_dbProxy, _logger, path, HttpContext.Current.Server.MapPath("~/wwwroot"));
             }
         }
     }

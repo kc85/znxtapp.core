@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ZNxtAap.Core.ModuleInstaller.Installer;
 
 namespace ZNxtAap.Core.ModuleInstallerTest

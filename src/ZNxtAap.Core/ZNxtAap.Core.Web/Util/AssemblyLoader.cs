@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtAap.Core.Config;
 
 namespace ZNxtAap.Core.Web.Util
@@ -13,14 +10,16 @@ namespace ZNxtAap.Core.Web.Util
     {
         private static object _lock = new object();
         private static AssemblyLoader _assemblyLoader;
+
         //private WebDBProxy _dbProxy;
         public Dictionary<string, byte[]> _loadedAssembly = new Dictionary<string, byte[]>();
+
         //private Logger _logger;
 
         private AssemblyLoader()
         {
-          //  _logger = Logger.GetLogger(this.GetType().FullName);
-          //  _dbProxy = new WebDBProxy(_logger);
+            //  _logger = Logger.GetLogger(this.GetType().FullName);
+            //  _dbProxy = new WebDBProxy(_logger);
         }
 
         public static AssemblyLoader GetAssemblyLoader()
@@ -37,7 +36,7 @@ namespace ZNxtAap.Core.Web.Util
 
         public Type GetType(string assemblyName, string executeType)
         {
-          //  _logger.Info(string.Format("GetType: {0}, executeType: {1}", assemblyName, executeType));
+            //  _logger.Info(string.Format("GetType: {0}, executeType: {1}", assemblyName, executeType));
             var assembly = Load(assemblyName);
             return assembly.GetType(executeType);
         }
@@ -49,7 +48,7 @@ namespace ZNxtAap.Core.Web.Util
             {
                 string localPath = String.Format("{0}{1}", ApplicationConfig.AppBinPath, assemblyName);
 
-               // _logger.Info(string.Format("Laoding Assemmbly:{0}, LocalPath : {1}", assemblyName, localPath));
+                // _logger.Info(string.Format("Laoding Assemmbly:{0}, LocalPath : {1}", assemblyName, localPath));
                 Byte[] assemblyBytes = null;
                 if (_loadedAssembly.ContainsKey(assemblyName))
                 {
@@ -62,7 +61,7 @@ namespace ZNxtAap.Core.Web.Util
                 }
                 else
                 {
-                   // assemblyBytes = Download(assemblyName);
+                    // assemblyBytes = Download(assemblyName);
                     if (assemblyBytes != null)
                     {
                         _loadedAssembly[assemblyName] = assemblyBytes;
@@ -70,7 +69,7 @@ namespace ZNxtAap.Core.Web.Util
                 }
                 if (assemblyBytes == null)
                 {
-                  //  _logger.Info(string.Format("No Assembly found :{0}", assemblyName));
+                    //  _logger.Info(string.Format("No Assembly found :{0}", assemblyName));
                 }
                 else
                 {
@@ -105,7 +104,7 @@ namespace ZNxtAap.Core.Web.Util
             {
                 if ((assembly.ManifestModule).ScopeName == fullName)
                 {
-                   // _logger.Info(string.Format("Find assembly on App Domain : {0}", fullName));
+                    // _logger.Info(string.Format("Find assembly on App Domain : {0}", fullName));
                     return assembly;
                 }
             }

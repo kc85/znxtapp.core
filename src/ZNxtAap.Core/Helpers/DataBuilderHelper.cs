@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtAap.Core.Consts;
 
 namespace ZNxtAap.Core.Helpers
@@ -13,7 +8,7 @@ namespace ZNxtAap.Core.Helpers
         private const string DATA_KEY = "data";
         private const string CODE_KEY = "code";
         private const string MESSAGE_KEY = "message";
-       
+
         public DataBuilderHelper AddDataToArray(JObject data, JObject addedValue)
         {
             if (data[DATA_KEY] == null)
@@ -23,6 +18,7 @@ namespace ZNxtAap.Core.Helpers
             (data[DATA_KEY] as JArray).Add(addedValue);
             return this;
         }
+
         public JObject GetResponseObject(int code, string message = null)
         {
             var data = new JObject();
@@ -43,6 +39,7 @@ namespace ZNxtAap.Core.Helpers
             data[key] = value;
             return this;
         }
+
         public DataBuilderHelper AddData(JObject data, string key, JToken value)
         {
             data[key] = value;

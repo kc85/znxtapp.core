@@ -91,7 +91,13 @@ namespace ZNxtAap.CoreAppInstaller {
         ///    getStatus();
         ///
         ///    $(&quot;#btnInstall&quot;).click(function () {
-        ///        startInstall();
+        ///        prerequisiteCheck(function () {
+        ///            startInstall();
+        ///        }, function (data) {
+        ///            console.log(data);
+        ///            alert(&quot;prerequisiteCheck error&quot;);
+        ///        }
+        ///        );
         ///    });
         ///
         ///
@@ -99,22 +105,8 @@ namespace ZNxtAap.CoreAppInstaller {
         ///
         ///        var jqxhr = $.get(&quot;/install/checkstatus&quot;, function (data) {
         ///            console.log(&quot;success&quot;, data);
-        ///        })
-        ///        .done(function () {
-        ///
-        ///        })
-        ///        .fail(function () {
-        ///             console.log(&quot;error&quot;);
-        ///        })
-        ///        .always(function () {
-        ///
-        ///        });
-        ///    };
-        ///
-        ///    function startInstall() {
-        ///
-        ///
-        ///        va [rest of string was truncated]&quot;;.
+        ///            if (!data.is_prerequisite_check) {
+        ///         [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string installer_js {
             get {

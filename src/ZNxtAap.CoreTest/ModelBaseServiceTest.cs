@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ZNxtAap.CoreTest
 {
-    class Module1 : ZNxtAap.Core.Module.ModuleServiceBase
+    internal class Module1 : ZNxtAap.Core.Module.ModuleServiceBase
     {
-
     }
+
     [TestClass]
     public class ModelBaseServiceTest
     {

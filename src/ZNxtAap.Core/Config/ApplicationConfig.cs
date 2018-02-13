@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZNxtAap.Core.Config
 {
@@ -18,6 +14,14 @@ namespace ZNxtAap.Core.Config
             }
         }
 
+        public static string AppID
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["AppId"];
+            }
+        }
+
         public static string MongoDBConnectionString
         {
             get
@@ -25,6 +29,7 @@ namespace ZNxtAap.Core.Config
                 return ConfigurationManager.AppSettings["MongoDBConnectionString"];
             }
         }
+
         public static string DataBaseName
         {
             get
@@ -33,7 +38,6 @@ namespace ZNxtAap.Core.Config
             }
         }
 
-
         public static string AppPath
         {
             get
@@ -41,7 +45,6 @@ namespace ZNxtAap.Core.Config
                 return ConfigurationManager.AppSettings["AppPath"];
             }
         }
-
 
         public static string TempFolder
         {
@@ -66,16 +69,33 @@ namespace ZNxtAap.Core.Config
                 return appModeEnum;
             }
         }
+
         public static string AuthToken { get; set; }
 
         public static double SessionDuration { get { return 30; } }
 
         public static string AppBinPath { get; set; }
+
         public static string AppWWWRootPath { get; set; }
+
+        public static string AppTempFolder
+        {
+            get
+            {
+                var temppath = string.Format("{0}\\{1}\\{2}", Environment.GetEnvironmentVariable("TEMP"), AppName, AppID);
+
+                var di = new DirectoryInfo(temppath);
+                if (!di.Exists)
+                {
+                    di.Create();
+                }
+                return temppath;
+            }
+        }
     }
 
     public enum ApplicationMode
-    {  
+    {
         Maintance,
         Debug,
         Live

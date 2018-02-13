@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ZNxtAap.Core.Config;
 
 namespace ZNxtAap.CoreTest
@@ -10,8 +9,8 @@ namespace ZNxtAap.CoreTest
         [TestMethod]
         public void AppConfigInit()
         {
-            AppInstallerConfig installConfig = new AppInstallerConfig() { InstallType = AppInstallerConfig.AppInstallType.New};
+            AppInstallerConfig installConfig = new AppInstallerConfig() { InstallType = AppInstallType.New };
             Assert.IsNotNull(installConfig);
-        } 
+        }
     }
 }

@@ -1,0 +1,23 @@
+﻿[
+    {
+        "name": "ExpiredSessionClean",
+        "repeat_in": 10,
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.SessionCleanCrobJob",
+        "ExecuteMethod": "Execute"
+    },
+    {
+        "name": "EmailSender",
+        "repeat_in": 1,
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.EmailSendingCrobJob",
+        "ExecuteMethod": "Execute"
+    },
+    {
+        "name": "SMSSender",
+        "repeat_in": 1,
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.SMSSendingCrobJob",
+        "ExecuteMethod": "Execute"
+    }
+]

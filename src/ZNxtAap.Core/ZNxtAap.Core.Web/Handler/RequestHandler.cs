@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Web;
 using ZNxtAap.Core.Config;
 
 namespace ZNxtAap.Core.Web.Handler
@@ -17,21 +11,20 @@ namespace ZNxtAap.Core.Web.Handler
 
             //var requestUriPath = _httpProxy.GetURIAbsolutePath();
 
-           //  var route = _routings.GetRoute(_httpProxy.GetHttpMethod(), requestUriPath);
+            //  var route = _routings.GetRoute(_httpProxy.GetHttpMethod(), requestUriPath);
             if (ApplicationMode.Maintance == ApplicationConfig.GetApplicationMode && _appInstaller.Status != Enums.AppInstallStatus.Finish)
             {
                 _appInstaller.Install(_httpProxy);
             }
             //else if (route != null)
             //{
-            //    // TODO handle the routes 
-
+            //    // TODO handle the routes
 
             //}
 
             //else
             //{
-            //    // Handle the  non route request 
+            //    // Handle the  non route request
 
             //}
             WriteResponse();

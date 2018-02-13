@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ZNxtAap.Core.Module
+﻿namespace ZNxtAap.Core.Module
 {
     public abstract class ModuleServiceBase
     {
-
     }
 }

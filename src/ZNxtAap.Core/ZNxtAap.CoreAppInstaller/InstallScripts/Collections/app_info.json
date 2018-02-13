@@ -1,0 +1,22 @@
+﻿[
+    {
+        "auth_users": [ "*" ],
+        "key": "name",
+        "value": "ZApplication"
+    },
+    {
+        "auth_users": [ "*" ],
+        "key": "version",
+        "value": "0.0.1"
+    },
+    {
+        "auth_users": [ "sys_admin" ],
+        "key": "owner_name",
+        "value": "Khanin"
+    },
+    {
+        "auth_users": [ "sys_admin" ],
+        "key": "owner_email",
+        "value": "Khanin@gmail.com"
+    }
+]

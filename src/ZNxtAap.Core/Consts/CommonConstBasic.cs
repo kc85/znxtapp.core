@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ZNxtAap.Core.Consts
+﻿namespace ZNxtAap.Core.Consts
 {
     public static partial class CommonConst
     {
@@ -13,6 +7,12 @@ namespace ZNxtAap.Core.Consts
             public const string DISPLAY_ID = "id";
             public const string ID = "_id";
             public const string SERVER_SIDE_PROCESS_HTML_EXTENSION = ".shtml";
+            public const string DATA_KEY = "key";
+            public const string CREATED_DATA_DATE_TIME = "created_datetime";
+            public const string STATUS = "status";
+            public const string TRANSATTION_ID = "transaction_is";
+            public static string DATA_MODULE_NAME = "module";
+            public const string UPDATED_DATE_TIME = "updated_datetime";
         }
     }
 }

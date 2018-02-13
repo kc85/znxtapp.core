@@ -3,9 +3,6 @@ using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtAap.Core.Config;
 using ZNxtAap.Core.Consts;
 using ZNxtAap.Core.Exceptions;
@@ -30,10 +27,10 @@ namespace ZNxtAap.Core.DB.Mongo
                     throw new InvalidOperationException("Collection canont be empty");
                 }
                 return _collection;
-
             }
             set { _collection = value; }
         }
+
         private string _dbName;
 
         public MongoDBService(string dbName)
@@ -54,7 +51,7 @@ namespace ZNxtAap.Core.DB.Mongo
             try
             {
                 UpdateID(data);
-                var dbcollection = _mongoDataBase.GetCollection<BsonDocument>(_collection);
+                var dbcollection = _mongoDataBase.GetCollection<BsonDocument>(Collection);
                 MongoDB.Bson.BsonDocument document = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(data.ToString());
                 dbcollection.InsertOne(document);
                 return true;
@@ -119,7 +116,7 @@ namespace ZNxtAap.Core.DB.Mongo
 
         private JArray GetData(string bsonQuery, FindOptions<BsonDocument> findOptions)
         {
-            IMongoCollection<BsonDocument> query = _mongoDataBase.GetCollection<BsonDocument>(_collection);
+            IMongoCollection<BsonDocument> query = _mongoDataBase.GetCollection<BsonDocument>(Collection);
             JArray resultData = new JArray();
 
             using (var cursor = query.FindAsync<BsonDocument>(GetFilter(bsonQuery), findOptions).Result)
@@ -141,14 +138,14 @@ namespace ZNxtAap.Core.DB.Mongo
 
         public long Delete(string bsonQuery)
         {
-            var result = _mongoDataBase.GetCollection<BsonDocument>(_collection).DeleteMany(GetFilter(bsonQuery));
+            var result = _mongoDataBase.GetCollection<BsonDocument>(Collection).DeleteMany(GetFilter(bsonQuery));
             return result.DeletedCount;
         }
 
         public long Update(string bsonQuery, Newtonsoft.Json.Linq.JObject data, bool overrideData = false, MergeArrayHandling mergeType = MergeArrayHandling.Union)
         {
             var dataResut = Get(bsonQuery, null, null);
-            var dbcollection = _mongoDataBase.GetCollection<BsonDocument>(_collection);
+            var dbcollection = _mongoDataBase.GetCollection<BsonDocument>(Collection);
             if (overrideData)
             {
                 if (dataResut.Count > 1)
@@ -187,7 +184,7 @@ namespace ZNxtAap.Core.DB.Mongo
                         MergeArrayHandling = mergeType
                     });
                 }
-                var collection = _mongoDataBase.GetCollection<BsonDocument>(_collection);
+                var collection = _mongoDataBase.GetCollection<BsonDocument>(Collection);
                 foreach (var item in dataResut)
                 {
                     if (data[CommonConst.CommonField.ID] != null)
@@ -217,7 +214,7 @@ namespace ZNxtAap.Core.DB.Mongo
 
         public long GetCount(string bsonQuery)
         {
-            IMongoCollection<BsonDocument> query = _mongoDataBase.GetCollection<BsonDocument>(_collection);
+            IMongoCollection<BsonDocument> query = _mongoDataBase.GetCollection<BsonDocument>(Collection);
             var result = query.Find<BsonDocument>(GetFilter(bsonQuery)).Count();
             return result;
         }

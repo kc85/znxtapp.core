@@ -1,10 +1,10 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ZNxtAap.Core.Interfaces;
-using ZNxtAap.Core.DB.Mongo;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
-using ZNxtAap.Core.Exceptions;
+using System;
 using System.Collections.Generic;
+using ZNxtAap.Core.DB.Mongo;
+using ZNxtAap.Core.Exceptions;
+using ZNxtAap.Core.Interfaces;
 
 namespace ZNxtAap.Core.DB.MongoTest
 {
@@ -21,6 +21,7 @@ namespace ZNxtAap.Core.DB.MongoTest
             var jsonData = dbService.Get("{'_id':'" + id + "'}");
             Assert.AreEqual(1, jsonData.Count);
         }
+
         [TestMethod]
         public void WriteBulkData()
         {

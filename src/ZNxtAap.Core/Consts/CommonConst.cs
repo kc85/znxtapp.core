@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ZNxtAap.Core.Consts
 {
-    public  static partial class CommonConst
+    public static partial class CommonConst
     {
         public const string CONTENT_TYPE_APPLICATION_JSON = "application/json";
         public const string CONTENT_TYPE_TEXT_HTML = "text/html";
-        
-        // ""
+        public const string ENVIRONMENT_SETTING_KEY = "Environment";
+        public const string CONFIG_FILE_EXTENSION = ".json";
+        public const string EMPTY_JSON_OBJECT = "{}";
         public const int _404_RESOURCE_NOT_FOUND = 404;
         public const int _200_OK = 200;
         public const int _400_BAD_REQUEST = 400;
+
         public static MessageText Messages
         {
             get
@@ -22,14 +20,16 @@ namespace ZNxtAap.Core.Consts
                 return new MessageText();
             }
         }
-        public  class MessageText
+
+        public class MessageText
         {
-            private  Dictionary<int, string> text = new Dictionary<int, string>();
+            private Dictionary<int, string> text = new Dictionary<int, string>();
+
             public string this[int value]
             {
                 get
                 {
-                    if(text.ContainsKey(value))
+                    if (text.ContainsKey(value))
                     {
                         return text[value];
                     }
@@ -39,6 +39,7 @@ namespace ZNxtAap.Core.Consts
                     }
                 }
             }
+
             public MessageText()
             {
                 text[CommonConst._200_OK] = "OK";
@@ -46,6 +47,5 @@ namespace ZNxtAap.Core.Consts
                 text[CommonConst._400_BAD_REQUEST] = "BAD_REQUEST";
             }
         }
-
     }
 }

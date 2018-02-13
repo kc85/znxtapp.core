@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using ZNxtAap.Core.Config;
 using ZNxtAap.Core.Consts;
@@ -21,10 +19,12 @@ namespace ZNxtAap.Core.Web.Proxies
         private ILogger _logger;
         private DataBuilderHelper _dataBuilderHelper;
         private byte[] _response;
+
         public byte[] Response
         {
             get { return _response; }
         }
+
         private int _responseStatusCode;
         private string _responseStatusMessage;
         public int ResponseStatusCode { get { return _responseStatusCode; } }
@@ -34,8 +34,8 @@ namespace ZNxtAap.Core.Web.Proxies
         public HttpContextProxy(HttpContext context)
         {
             _context = context;
-           _logger = Logger.GetLogger(this.GetType().FullName);
-           _dataBuilderHelper = new DataBuilderHelper();
+            _logger = Logger.GetLogger(this.GetType().FullName);
+            _dataBuilderHelper = new DataBuilderHelper();
             _responseStatusCode = (int)HttpStatusCode.OK;
             _responseStatusMessage = HttpStatusCode.OK.ToString();
             ContentType = CommonConst.CONTENT_TYPE_TEXT_HTML;
@@ -55,6 +55,7 @@ namespace ZNxtAap.Core.Web.Proxies
         {
             return _context.Request.HttpMethod;
         }
+
         public void SetResponse(int statusCode, JObject data = null)
         {
             if (data != null)
@@ -70,16 +71,19 @@ namespace ZNxtAap.Core.Web.Proxies
                 }
             }
         }
+
         public void SetResponse(int statusCode, string data)
         {
             SetResponse(statusCode);
             SetResponse(data);
         }
-        public void SetResponse(int statusCode, byte [] data)
+
+        public void SetResponse(int statusCode, byte[] data)
         {
             SetResponse(statusCode);
             SetResponse(data);
         }
+
         private void SetResponse(int statusCode)
         {
             var code = HttpStatusCode.BadRequest;
@@ -110,7 +114,7 @@ namespace ZNxtAap.Core.Web.Proxies
         {
             return MimeMapping.GetMimeMapping(fileName);
         }
-        
+
         public string GetRequestBody()
         {
             if (_context.Request.InputStream != null)
@@ -122,6 +126,7 @@ namespace ZNxtAap.Core.Web.Proxies
                 return string.Empty;
             }
         }
+
         public T GetRequestBody<T>()
         {
             string body = GetRequestBody();
@@ -148,10 +153,10 @@ namespace ZNxtAap.Core.Web.Proxies
             var qkey = _context.Request.QueryString.AllKeys.FirstOrDefault(f => f.ToLower() == key.ToLower());
             return _context.Request.QueryString[qkey];
         }
+
         public string GetFormData(string key)
         {
             return _context.Request.Form[key];
         }
-
     }
 }

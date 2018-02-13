@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ZNxtAap.Core.Config
+﻿namespace ZNxtAap.Core.Config
 {
     public class AppInstallerConfig
     {
@@ -13,14 +7,13 @@ namespace ZNxtAap.Core.Config
         public string Name { get; set; }
 
         public string AdminAccount { get; set; }
-     
-        public string AdminPassword { get; set; }
 
+        public string AdminPassword { get; set; }
     }
 
     public enum AppInstallType
     {
         New = 0,
-        Reset= 1
+        Reset = 1
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ZNxtAap.Core.Exceptions.ErrorCodes
+﻿namespace ZNxtAap.Core.Exceptions.ErrorCodes
 {
     public static class ErrorCode
     {
@@ -32,6 +26,5 @@ namespace ZNxtAap.Core.Exceptions.ErrorCodes
         {
             AUTH_REQUEST_REQUIRED_PARAMETER_MISSING = 6000
         }
-
     }
 }
