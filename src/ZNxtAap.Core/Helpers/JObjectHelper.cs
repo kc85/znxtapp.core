@@ -21,7 +21,7 @@ namespace ZNxtAap.Core.Helpers
             return jobjData;
         }
 
-        public static void WriteJSONData(string filePath, JObject data)
+        public static void WriteJSONData(string filePath, JToken data)
         {
             File.WriteAllText(filePath, data.ToString());
         }

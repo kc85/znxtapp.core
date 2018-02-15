@@ -12,8 +12,16 @@ namespace ZNxtAap.CoreAppInstallerTest
         [TestMethod]
         public void InitAppInstaller()
         {
-            IAppInstaller installer = Installer.GetInstance(new PingService(new MongoDBService("test_db")), new Core.Helpers.DataBuilderHelper(), Logger.GetLogger(typeof(Installer).Name), new MongoDBService("aaa"));
+            IAppInstaller installer = Installer.GetInstance(
+                new PingService(new MongoDBService("test_db")), 
+                new Core.Helpers.DataBuilderHelper(), 
+                Logger.GetLogger(typeof(Installer).Name), 
+                new MongoDBService("aaa"),
+                new EncryptionService());
+
+
             installer.Install(new HttpContextProxyMock());
+
             Assert.IsNotNull(installer);
         }
     }

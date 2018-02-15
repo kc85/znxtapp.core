@@ -86,8 +86,6 @@ namespace ZNxtAap.CoreAppInstaller {
         
         /// <summary>
         ///   Looks up a localized string similar to $(document).ready(function () {
-        ///
-        ///
         ///    getStatus();
         ///
         ///    $(&quot;#btnInstall&quot;).click(function () {
@@ -100,13 +98,11 @@ namespace ZNxtAap.CoreAppInstaller {
         ///        );
         ///    });
         ///
-        ///
         ///    function getStatus() {
-        ///
         ///        var jqxhr = $.get(&quot;/install/checkstatus&quot;, function (data) {
         ///            console.log(&quot;success&quot;, data);
         ///            if (!data.is_prerequisite_check) {
-        ///         [rest of string was truncated]&quot;;.
+        ///                 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string installer_js {
             get {

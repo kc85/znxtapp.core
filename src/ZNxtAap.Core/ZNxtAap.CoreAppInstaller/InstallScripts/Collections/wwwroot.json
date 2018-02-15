@@ -1,0 +1,10 @@
+﻿[
+    {
+        "key" :  "/welcome/installcomplete.html",
+        "file_path": "/welcome/installcomplete.html",
+        "data": "<h1> Welcome To ZNxtApp </h1>",
+        "content_type": "text/html",
+        "is_override": false,
+        "override_by_module": "_none"
+    }
+]

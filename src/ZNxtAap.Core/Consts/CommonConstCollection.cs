@@ -23,6 +23,8 @@
             public const string OTPs = "_otps";
             public const string RESOURCE_STRING = "resource_string";
             public const string PING = "ping";
+            public const string DEFAULT_INSTALL_MODULES = "default_install_modules";
+           
         }
     }
 }

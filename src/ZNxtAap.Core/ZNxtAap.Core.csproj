@@ -64,6 +64,7 @@
     <Compile Include="Helpers\JObjectHelper.cs" />
     <Compile Include="Interfaces\IAppInstaller.cs" />
     <Compile Include="Interfaces\IDBService.cs" />
+    <Compile Include="Interfaces\IEncryption.cs" />
     <Compile Include="Interfaces\IHttpContextProxy.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IModuleInstaller.cs" />

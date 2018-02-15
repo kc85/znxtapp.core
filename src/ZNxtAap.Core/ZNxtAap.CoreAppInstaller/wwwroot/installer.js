@@ -59,10 +59,12 @@ $(document).ready(function () {
         installData.AdminPassword = "password";
         installData.Name = "ZNxtApp";
         installData.InstallType = 0;
+        installData.DefaultModules = ["ZNxtApp.Base"];
+
         $.post("/install/start", JSON.stringify(installData),
             function (data, status) {
                 console.log(data, status);
-                window.location = "./welcome/installcomplete";
+                window.location = "./welcome/installcomplete.html";
             });
     }
 });

@@ -47,5 +47,6 @@ namespace ZNxtAap.Core.Consts
                 text[CommonConst._400_BAD_REQUEST] = "BAD_REQUEST";
             }
         }
+
     }
 }

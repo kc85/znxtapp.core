@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using Newtonsoft.Json.Linq;
+using System.IO;
+using System.Text;
+using ZNxtAap.Core.Config;
 using ZNxtAap.Core.Consts;
 using ZNxtAap.Core.Interfaces;
 
@@ -6,26 +9,43 @@ namespace ZNxtAap.Core.Web.Util
 {
     public class StaticContentHandler
     {
-        private ILogger _logger;
-        //private IWebDBProxy _dbProxy;
 
-        public StaticContentHandler()
+        public static byte[] GetContent(IDBService dbProxy, ILogger logger, string path)
         {
-            //_logger = Logger.GetLogger(this.GetType().FullName);
-            //_dbProxy = new WebDBProxy(_logger);
-        }
+            string wwwrootpath = ApplicationConfig.AppWWWRootPath;
 
-        public byte[] GetContent(string path)
-        {
-            if (new FileInfo(path).Extension.ToLower() == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION)
+            dbProxy.Collection = CommonConst.Collection.STATIC_CONTECT;
+            JObject document = (JObject)dbProxy.Get(GetFilter(path)).First;
+            if (document != null)
             {
-                return null;
+                var data = document[CommonConst.CommonField.DATA];
+                if (data != null)
+                {
+                    if (document[CommonConst.CommonField.CONTENT_TYPE].ToString().Contains("text"))
+                    {
+                        return Encoding.ASCII.GetBytes(data.ToString());
+                    }
+                    else
+                    {
+                        byte[] dataByte = System.Convert.FromBase64String(data.ToString());
+                        return dataByte;
+                    }
+                }
             }
             else
             {
-                return null;
-                // return StaticContentHelper.GetContent(_dbProxy, _logger, path, HttpContext.Current.Server.MapPath("~/wwwroot"));
+                string filePath = string.Format("{0}{1}", wwwrootpath, path);
+                if (File.Exists(filePath))
+                {
+                    return File.ReadAllBytes(filePath);
+                }
             }
+            return null;
+        }
+
+        private static string GetFilter(string path)
+        {
+            return "{ $and: [ { " + CommonConst.CommonField.IS_OVERRIDE + ":{ $ne: true}  }, {'" + CommonConst.CommonField.FILE_PATH + "':  {$regex :'^" + path.ToLower() + "$','$options' : 'i'}}] }";
         }
     }
 }

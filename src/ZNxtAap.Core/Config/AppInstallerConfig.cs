@@ -1,4 +1,5 @@
-﻿namespace ZNxtAap.Core.Config
+﻿using System.Collections.Generic;
+namespace ZNxtAap.Core.Config
 {
     public class AppInstallerConfig
     {
@@ -9,6 +10,13 @@
         public string AdminAccount { get; set; }
 
         public string AdminPassword { get; set; }
+     
+        public List<string> DefaultModules { get; set; }
+        
+        public AppInstallerConfig()
+        {
+            DefaultModules = new List<string>();
+        }
     }
 
     public enum AppInstallType

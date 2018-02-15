@@ -299,8 +299,6 @@
   </data>
   <data name="installer_js" xml:space="preserve">
     <value>$(document).ready(function () {
-
-
     getStatus();
 
     $("#btnInstall").click(function () {
@@ -313,9 +311,7 @@
         );
     });
 
-
     function getStatus() {
-
         var jqxhr = $.get("/install/checkstatus", function (data) {
             console.log("success", data);
             if (!data.is_prerequisite_check) {
@@ -328,11 +324,10 @@
             console.log("error");
         })
         .always(function () {
-
         });
     };
 
-    function prerequisiteCheck(callback,errorCallback) {
+    function prerequisiteCheck(callback, errorCallback) {
         var jqxhr = $.get("/install/checkprerequisite", function (data) {
             console.log("success", data);
 
@@ -350,31 +345,28 @@
             }
         })
         .done(function () {
-
         })
         .fail(function () {
             console.log("error");
         })
         .always(function () {
-
         });
     };
 
-
-
     function startInstall() {
         var installData = {};
-        installData.AdminAccount= "khanin@znxtapp.com";
+        installData.AdminAccount = "khanin@znxtapp.com";
         installData.AdminPassword = "password";
         installData.Name = "ZNxtApp";
         installData.InstallType = 0;
-        $.post("/install/start",  JSON.stringify(installData),
+        installData.DefaultModules = ["ZNxtApp.Base"];
+
+        $.post("/install/start", JSON.stringify(installData),
             function (data, status) {
                 console.log(data, status);
-                window.location = "./welcome/installcomplete";
-        });
+                window.location = "./welcome/installcomplete.html";
+            });
     }
-
 });</value>
   </data>
   <data name="jquery_js" xml:space="preserve">

@@ -92,6 +92,18 @@ namespace ZNxtAap.Core.Config
                 return temppath;
             }
         }
+
+        public static bool StaticContentCache
+        {
+            get
+            {
+                bool result = false;
+                bool.TryParse(ConfigurationManager.AppSettings["StaticContentCache"], out result);
+                return result;
+
+            }
+
+        }
     }
 
     public enum ApplicationMode

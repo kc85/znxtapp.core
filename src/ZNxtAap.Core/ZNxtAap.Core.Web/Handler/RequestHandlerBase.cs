@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using System;
+using System.Net;
+using System.Web;
 using System.Web.SessionState;
 using ZNxtAap.Core.Config;
 using ZNxtAap.Core.Consts;
@@ -7,6 +9,7 @@ using ZNxtAap.Core.Interfaces;
 using ZNxtAap.Core.Web.AppStart;
 using ZNxtAap.Core.Web.Proxies;
 using ZNxtAap.Core.Web.Services;
+using ZNxtAap.Core.Web.Util;
 using ZNxtAap.CoreAppInstaller;
 
 namespace ZNxtAap.Core.Web.Handler
@@ -29,14 +32,16 @@ namespace ZNxtAap.Core.Web.Handler
         protected IRoutings _routings;
         protected IAppInstaller _appInstaller;
         protected IPingService _pingService;
-
+        protected IDBService _dbProxy;
         //protected IStaticContentHandler _staticContentHandler;
-        // protected ILogger _logger;
+        protected ILogger _logger;
         public RequestHandlerBase()
         {
             InitApp.Run();
+            _logger = Logger.GetLogger(this.GetType().Name);
+            _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
             _pingService = new PingService(new MongoDBService(ApplicationConfig.DataBaseName, CommonConst.Collection.PING));
-            _appInstaller = Installer.GetInstance(_pingService, new Helpers.DataBuilderHelper(), Logger.GetLogger(typeof(Installer).Name), new MongoDBService(ApplicationConfig.DataBaseName));
+            _appInstaller = Installer.GetInstance(_pingService, new Helpers.DataBuilderHelper(), Logger.GetLogger(typeof(Installer).Name), _dbProxy, new EncryptionService());
         }
 
         public virtual void ProcessRequest(HttpContext context)
@@ -55,5 +60,6 @@ namespace ZNxtAap.Core.Web.Handler
                 _httpContext.Response.OutputStream.Write(_httpProxy.Response, 0, _httpProxy.Response.Length);
             }
         }
+       
     }
 }

@@ -24,24 +24,26 @@ namespace ZNxtAap.CoreAppInstaller
         private const string defaultResourceName = "index.html";
         private const string _installStatusFile = "install_status." + CommonConst.CONFIG_FILE_EXTENSION;
         private readonly ILogger _logger;
+        private readonly IEncryption _encryptionService;
         private readonly IDBService _dbProxy;
 
-        private Installer(IPingService pingService, DataBuilderHelper dataBuilderHelper, ILogger logger, IDBService dbProxy)
+        private Installer(IPingService pingService, DataBuilderHelper dataBuilderHelper, ILogger logger, IDBService dbProxy, IEncryption encryptionService)
         {
             _pingService = pingService;
             _dataBuilderHelper = dataBuilderHelper;
             _logger = logger;
             _dbProxy = dbProxy;
+            _encryptionService = encryptionService;
             GetInstallStatus();
         }
 
-        public static IAppInstaller GetInstance(IPingService pingService, DataBuilderHelper dataBuilderHelper, ILogger logger, IDBService dbProxy)
+        public static IAppInstaller GetInstance(IPingService pingService, DataBuilderHelper dataBuilderHelper, ILogger logger, IDBService dbProxy, IEncryption encryptionService)
         {
             if (_appInstaller == null)
             {
                 lock (lockObject)
                 {
-                    _appInstaller = new Installer(pingService, dataBuilderHelper, logger, dbProxy);
+                    _appInstaller = new Installer(pingService, dataBuilderHelper, logger, dbProxy, encryptionService);
                 }
             }
             return _appInstaller;
@@ -118,11 +120,70 @@ namespace ZNxtAap.CoreAppInstaller
             }
             UpdateInstallStatus(AppInstallStatus.Inprogress);
 
+            WriteCustomConfig(requestData);
+
             RunInstallScripts();
 
             UpdateInstallStatus(AppInstallStatus.Finish);
             httpProxy.SetResponse(CommonConst._200_OK, GetStatus());
             httpProxy.ContentType = CommonConst.CONTENT_TYPE_APPLICATION_JSON;
+        }
+
+        private void WriteCustomConfig(AppInstallerConfig requestData)
+        {
+            JObject customConfig = JObject.Parse(@"{
+                    'groups': [
+                        'user',
+                        'sys_admin'
+                    ]
+                }");
+
+            customConfig[CommonConst.CommonField.USER_TYPE] = "Email";
+            customConfig[CommonConst.CommonField.IS_EMAIL_VALIDATE] = true;
+            customConfig[CommonConst.CommonField.DATA_KEY] =
+                customConfig[CommonConst.CommonField.NAME] =
+                customConfig[CommonConst.CommonField.EMAIL] =
+                customConfig[CommonConst.CommonField.USER_ID] = requestData.AdminAccount;
+            customConfig[CommonConst.CommonField.PASSWORD] = _encryptionService.Encrypt(requestData.AdminPassword);
+
+            JArray configData = new JArray();
+            configData.Add(customConfig);
+
+            var path = GetCustomConfigDirectoryPath();
+            string configFile = string.Format("{0}\\{1}{2}", path, CommonConst.Collection.USERS, CommonConst.CONFIG_FILE_EXTENSION);
+            JObjectHelper.WriteJSONData(configFile, configData);
+
+            customConfig = new JObject();
+            customConfig[CommonConst.CommonField.DATA_KEY] = CommonConst.CommonField.NAME;
+            customConfig[CommonConst.CommonField.VALUE] = requestData.Name;
+            configData = new JArray();
+            configData.Add(customConfig);
+            configFile = string.Format("{0}\\{1}{2}", path, CommonConst.Collection.APP_INFO, CommonConst.CONFIG_FILE_EXTENSION);
+            JObjectHelper.WriteJSONData(configFile, configData);
+
+            configData = new JArray();
+            foreach (var item in requestData.DefaultModules)
+            {
+                customConfig = new JObject();
+                customConfig[CommonConst.CommonField.DATA_KEY] = item;
+                customConfig[CommonConst.CommonField.VALUE] = item;
+                configData.Add(customConfig);
+
+            }
+            configFile = string.Format("{0}\\{1}{2}", path, CommonConst.Collection.DEFAULT_INSTALL_MODULES, CommonConst.CONFIG_FILE_EXTENSION);
+            JObjectHelper.WriteJSONData(configFile, configData);
+        }
+
+        private string GetCustomConfigDirectoryPath()
+        {
+            var tempFolder = ApplicationConfig.AppTempFolder;
+            string path = string.Format("{0}\\Collections", tempFolder);
+            var di = new DirectoryInfo(path);
+            if (!di.Exists)
+            {
+                di.Create();
+            }
+            return path;
         }
 
         private void RunInstallScripts()
@@ -135,6 +196,30 @@ namespace ZNxtAap.CoreAppInstaller
             var environment = CommonUtility.GetAppConfigValue(CommonConst.ENVIRONMENT_SETTING_KEY);
             environment = environment == null ? string.Empty : environment;
             string envExtension = string.Format(".{0}{1}", environment, CommonConst.CONFIG_FILE_EXTENSION);
+            WriteConfigFileToDB(serverpath);
+
+            /// Install Env specific files.
+            if (!string.IsNullOrEmpty(environment))
+            {
+                string[] envFiles = Directory.GetFiles(serverpath, string.Format("*{0}{1}", environment, CommonConst.CONFIG_FILE_EXTENSION));
+
+                foreach (var filePath in envFiles)
+                {
+                    var fi = new FileInfo(filePath);
+                    var collectionName = fi.Name.Replace(fi.Extension, "").Replace(string.Format(".{0}", environment), "");
+                    JArray arrData = JObjectHelper.GetJArrayFromFile(fi.FullName);
+                    _dbProxy.Collection = collectionName;
+                    WriteInstallData(arrData, collectionName);
+                }
+            }
+
+            // Install custom configs
+            WriteConfigFileToDB(GetCustomConfigDirectoryPath(), false);
+            _logger.Debug("END RunInstallScripts");
+        }
+
+        private void WriteConfigFileToDB(string serverpath, bool cleanExistingData = true)
+        {
             string[] files = Directory.GetFiles(serverpath, string.Format("*{0}", CommonConst.CONFIG_FILE_EXTENSION));
 
             foreach (var filePath in files)
@@ -151,7 +236,10 @@ namespace ZNxtAap.CoreAppInstaller
                     }
                     JArray arrData = JObjectHelper.GetJArrayFromFile(fi.FullName);
                     _dbProxy.Collection = collectionName;
-                    _dbProxy.Delete(CommonConst.EMPTY_JSON_OBJECT);
+                    if (cleanExistingData)
+                    {
+                        _dbProxy.Delete(CommonConst.EMPTY_JSON_OBJECT);
+                    }
                     WriteInstallData(arrData, collectionName);
                 }
                 catch (Exception ex)
@@ -159,22 +247,6 @@ namespace ZNxtAap.CoreAppInstaller
                     _logger.Error(string.Format("Error in installing {0} collection. Error {1}", filePath, ex.Message), ex);
                 }
             }
-
-            /// Install Env specific files.
-            if (!string.IsNullOrEmpty(environment))
-            {
-                string[] envFiles = Directory.GetFiles(serverpath, string.Format("*{0}{1}", environment, CommonConst.CONFIG_FILE_EXTENSION));
-
-                foreach (var filePath in envFiles)
-                {
-                    var fi = new FileInfo(filePath);
-                    var collectionName = fi.Name.Replace(fi.Extension, "").Replace(string.Format(".{0}", environment), "");
-                    JArray arrData = JObjectHelper.GetJArrayFromFile(fi.FullName);
-                    _dbProxy.Collection = collectionName;
-                    WriteInstallData(arrData, collectionName);
-                }
-            }
-            _logger.Debug("END RunInstallScripts");
         }
 
         private void WriteInstallData(JArray arrData, string collection, string moduleName = "ZApp")
