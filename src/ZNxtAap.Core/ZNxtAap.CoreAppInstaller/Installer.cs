@@ -10,8 +10,12 @@ using ZNxtAap.Core.Interfaces;
 
 namespace ZNxtAap.CoreAppInstaller
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Installer : IAppInstaller
     {
+
         private static object lockObject = new object();
         private AppInstallStatus _status;
         private IPingService _pingService;
@@ -168,7 +172,6 @@ namespace ZNxtAap.CoreAppInstaller
                 customConfig[CommonConst.CommonField.DATA_KEY] = item;
                 customConfig[CommonConst.CommonField.VALUE] = item;
                 configData.Add(customConfig);
-
             }
             configFile = string.Format("{0}\\{1}{2}", path, CommonConst.Collection.DEFAULT_INSTALL_MODULES, CommonConst.CONFIG_FILE_EXTENSION);
             JObjectHelper.WriteJSONData(configFile, configData);
