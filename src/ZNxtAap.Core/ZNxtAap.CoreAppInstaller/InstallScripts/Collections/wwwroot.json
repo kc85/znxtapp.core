@@ -1,6 +1,5 @@
 ﻿[
     {
-        "key" :  "/welcome/installcomplete.html",
         "file_path": "/welcome/installcomplete.html",
         "data": "<h1> Welcome To ZNxtApp </h1>",
         "content_type": "text/html",

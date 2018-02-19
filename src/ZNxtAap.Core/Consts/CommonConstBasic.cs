@@ -24,6 +24,11 @@
             public const string IS_OVERRIDE = "is_override";
             public const string DATA = "data";
             public const string CONTENT_TYPE = "content_type";
+            public const string FILE_SIZE = "file_size";
+            public const string MODULE_NAME = "module_name";
+            public const string ÌS_OVERRIDE = "is_override";
+            public const string OVERRIDE_BY = "override_by";
+            public const string LAST_OVERRIDES = "last_overrides";
         }
     }
 }

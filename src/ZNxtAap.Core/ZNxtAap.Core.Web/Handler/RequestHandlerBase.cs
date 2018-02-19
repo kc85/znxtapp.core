@@ -41,7 +41,15 @@ namespace ZNxtAap.Core.Web.Handler
             _logger = Logger.GetLogger(this.GetType().Name);
             _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
             _pingService = new PingService(new MongoDBService(ApplicationConfig.DataBaseName, CommonConst.Collection.PING));
-            _appInstaller = Installer.GetInstance(_pingService, new Helpers.DataBuilderHelper(), Logger.GetLogger(typeof(Installer).Name), _dbProxy, new EncryptionService());
+
+            var appInstallerLogger = Logger.GetLogger(typeof(Installer).Name);
+            _appInstaller = Installer.GetInstance(
+                _pingService,
+                new Helpers.DataBuilderHelper(),
+                appInstallerLogger,
+                _dbProxy,
+                new EncryptionService(),
+                new ModuleInstaller.Installer.Installer(appInstallerLogger, _dbProxy));
         }
 
         public virtual void ProcessRequest(HttpContext context)

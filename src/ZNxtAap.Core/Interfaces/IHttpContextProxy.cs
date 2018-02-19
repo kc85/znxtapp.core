@@ -61,7 +61,7 @@ namespace ZNxtAap.Core.Interfaces
 
         //RoutingModel GetRoute(string method, string path);
 
-        //string GetContentType(string path);
+        string GetContentType(string path);
 
         //List<string> GetSessionUserGroups();
 

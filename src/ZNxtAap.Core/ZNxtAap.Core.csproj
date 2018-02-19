@@ -53,6 +53,7 @@
     <Compile Include="Consts\CommonConstBasic.cs" />
     <Compile Include="Consts\CommonConstCollection.cs" />
     <Compile Include="Consts\CommonConstHTMLPages.cs" />
+    <Compile Include="Consts\CommonConstValues.cs" />
     <Compile Include="Enums\AppInstallStatus.cs" />
     <Compile Include="Exceptions\ClientValidationError.cs" />
     <Compile Include="Exceptions\DuplicateDBIDException.cs" />

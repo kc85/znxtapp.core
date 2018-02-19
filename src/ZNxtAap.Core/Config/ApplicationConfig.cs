@@ -78,6 +78,9 @@ namespace ZNxtAap.Core.Config
 
         public static string AppWWWRootPath { get; set; }
 
+        public static string AppModulePath{ get; set; }
+
+
         public static string AppTempFolder
         {
             get

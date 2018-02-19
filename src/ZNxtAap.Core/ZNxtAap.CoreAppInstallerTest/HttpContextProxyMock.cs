@@ -91,5 +91,11 @@ namespace ZNxtAap.CoreAppInstallerTest
         {
             throw new NotImplementedException();
         }
+
+
+        public string GetContentType(string path)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

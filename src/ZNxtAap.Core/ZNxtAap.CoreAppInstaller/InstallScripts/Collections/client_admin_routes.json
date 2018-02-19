@@ -1,6 +1,6 @@
 ﻿[
     {
-        "name": "moduleconfig",
+        "key": "moduleconfig",
         "label": "App Module Config",
         "href": "/mconfig",
         "icon": "fa-upload",
@@ -15,7 +15,7 @@
         "index": 90
     },
     {
-        "name": "wwwroot",
+        "key": "wwwroot",
         "label": "Static Contant",
         "href": "/wwwroot",
         "icon": "fa-upload",
@@ -30,7 +30,7 @@
         "index": 80
     },
     {
-        "name": "appconfigs",
+        "key": "appconfigs",
         "label": "App Configs",
         "href": "/appconfigs",
         "icon": "fa-upload",
@@ -45,7 +45,7 @@
         "index": 80
     },
     {
-        "name": "editwwwroot",
+        "key": "editwwwroot",
         "label": "Edit Static Contant",
         "href": "/editwwwroot",
         "icon": "fa-upload",
@@ -60,7 +60,7 @@
         "index": 100
     },
     {
-        "name": "appsettings",
+        "key": "appsettings",
         "label": "App Settings",
         "href": "/appsettings/moduleconfig",
         "icon": "fa-gear",
@@ -75,7 +75,7 @@
         "index": 9000
     },
     {
-        "name": "serverlogs",
+        "key": "serverlogs",
         "label": "Server Logs",
         "href": "/logs",
         "icon": "fa-paw",
@@ -90,7 +90,7 @@
         "index": 9010
     },
     {
-        "name": "users",
+        "key": "users",
         "label": "Users",
         "href": "/users",
         "icon": "fa-users",
@@ -105,7 +105,7 @@
         "index": 8090
     },
     {
-        "name": "userinfo",
+        "key": "userinfo",
         "label": "User Info",
         "href": "/user",
         "icon": "fa-user",
@@ -120,7 +120,7 @@
         "index": 9010
     },
     {
-        "name": "useraddressinfo",
+        "key": "useraddressinfo",
         "label": "Address",
         "icon": "fa-map-marker",
         "view_location": "user_info_tab",
@@ -133,7 +133,7 @@
         "index": 10
     },
     {
-        "name": "usersettings",
+        "key": "usersettings",
         "label": "Settings",
         "icon": "fa-gear",
         "view_location": "user_info_tab",

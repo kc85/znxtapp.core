@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using ZNxtAap.Core.Config;
 using ZNxtAap.Core.Consts;
+using ZNxtAap.Core.Helpers;
 using ZNxtAap.Core.Interfaces;
 
 namespace ZNxtAap.Core.Web.Util
@@ -21,7 +22,7 @@ namespace ZNxtAap.Core.Web.Util
                 var data = document[CommonConst.CommonField.DATA];
                 if (data != null)
                 {
-                    if (document[CommonConst.CommonField.CONTENT_TYPE].ToString().Contains("text"))
+                    if (CommonUtility.IsTextConent(document[CommonConst.CommonField.CONTENT_TYPE].ToString()))
                     {
                         return Encoding.ASCII.GetBytes(data.ToString());
                     }

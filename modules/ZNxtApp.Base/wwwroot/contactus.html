@@ -1,0 +1,315 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="	">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Toranj demo 4</title>
+
+        <!-- CSS styles -->
+        <link rel="stylesheet" href="./assets/css/base.css">
+      	<!-- /CSS styles -->
+
+    </head>
+    <body>
+    	<a href="#" id="menu-toggle-wrapper">
+			<div id="menu-toggle"></div>	
+		</a>
+		
+		<!-- inner bar wrapper -->
+    	<a href="#" id="inner-bar">
+			<!-- Small logo -->
+			<div class="logo-alt">
+				<img src="./assets/img/logo-mini.png" alt="logo-mini">
+			</div>
+			<!-- /Small logo -->
+		</a>
+		<!-- /inner bar wrapper -->
+
+		
+    	<!-- Sidebar -->	
+		<div id="side-bar">
+			<div class="inner-wrapper">	
+				<div id="side-inner">
+
+					<!-- Logo -->	
+					<div id="logo-wrapper">
+						<a href="index.html"><img src="./assets/img/logo.png" alt="logo"></a>
+					</div>
+					<!-- /Logo -->	
+
+					<div id="side-contents">
+
+						<!-- Navigation -->	
+						<ul id="navigation">
+							<li class="current-menu-item">
+								<a href="index.html">Home</a>
+							</li>
+							<li>
+								<a href="portfolio.html">Portfolio</a>
+							</li>
+							<li>
+								<a href="about.html">About</a>
+							</li>
+							<li>
+								<a href="services.html">Services</a>
+							</li>
+							<li>
+								<a href="gallery.html">Gallery</a>
+							</li>
+							<li>
+								<a href="blog.html">Blog</a>
+							</li>
+							<li>
+								<a href="contactus.html">Contact</a>
+							</li>
+						</ul>
+						<!-- /Navigation -->	
+
+					</div>	
+
+					<!-- Sidebar footer -->	
+					<div id="side-footer">
+						<!-- Social icons -->	
+						<ul class="social-icons">
+							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="#"><i class="fa fa-flickr"></i></a></li>
+							<li><a href="#"><i class="fa fa-youtube"></i></a></li>
+							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+						</ul>
+						<!-- /Social icons -->	
+						<div id="copyright">
+							@owwwlab
+						</div>
+					</div>
+					<!-- /Sidebar footer -->	
+
+				</div>
+			</div>
+			
+							
+		</div>
+		<!-- /Sidebar -->	
+
+		<!--Page main wrapper-->
+		<div id="main-content"> 
+			<div class="page-wrapper regular-page">
+				<div class="container">
+
+					<!-- breadcrumbs -->
+					<ol class="breadcrumb">
+						<li><a href="#">Home</a></li>
+						<li><a href="#">Pages</a></li>
+						<li class="active">Contact</li>
+					</ol>
+					<!--/ breadcrumbs -->
+
+					
+					<!-- page title -->
+					<h2 class="section-title double-title">
+						<span></span>Contact us
+					</h2>
+					<!--/ page title -->
+
+					<!-- google map, the attribute id="gmap" is required -->
+					<div class="row mb-large">
+						<div class="col-md-12">
+							<div id="gmap" data-address="Footscray VIC 3011 Australia"></div>
+						</div>
+					</div>
+
+					
+					<div class="row mb-large">
+						<div class="col-md-4">
+							<h3 class="lined allcaps">adresses</h3>
+							<ul class="list-iconed">
+							    <li><i class="fa fa-envelope"></i>Email: john@doe.com</li>
+							    <li><i class="fa fa-phone"></i>Phone: +0000000000</li>
+							    <li><i class="fa fa-phone"></i>Fax: +0000000001</li>
+							    <li><i class="fa fa-map-marker"></i>Footscray VIC 3011 Australia</li>
+							</ul>
+						</div>
+						<div class="col-md-8">
+							<h3 class="lined allcaps">How to contact</h3>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						</div>
+					</div>
+
+					
+					<div class="row mb-large">
+						
+						<div class="col-md-6">
+							<h3 class="lined allcaps">Contact form</h3>
+							<form action="php/contact.php" method="post" id="contact-form"> <!-- do not change the id attribute -->
+								
+									
+								<input class="form-control requiredField" type="text" name="author" id="author" value="" placeholder="Name" aria-required="true">
+							
+								<br/>
+							
+								<input class="form-control requiredField" type="text" name="email" id="email" value="" placeholder="Email" aria-required="true">
+							
+								<br/>
+							
+								<input class="form-control requiredField" type="text" name="url" id="url" value="" placeholder="Website" aria-required="true">
+							
+								<br/>
+							
+								<textarea class="form-control requiredField" id="comment" name="comment" rows="8" placeholder="Comment" aria-required="true"></textarea>
+							
+								<br/>
+																		
+								<input class="btn btn-toranj pull-right" name="submit" type="submit" id="submit" value="Send">
+							</form>
+						</div>
+
+						<div class="col-md-6">
+							<h3 class="lined allcaps">FAQ</h3>
+							<div class="accordion">
+								<div class="item">
+									<div class="head">
+										<a href="#">How to order a Shooting?</a>
+									</div>
+									<div class="body">
+										<div class="contents">
+											<strong>Some Content</strong>
+											<br>
+											There are dozens of us! Dozens! That's my son, you pothead! So Ann, the question is, do you want a man or a boy? I know how I would answer
+										</div>
+									</div>
+								</div>
+
+								<div class="item">
+									<div class="head">
+										<a href="#">How to apply for a job?</a>
+									</div>
+									<div class="body">
+										<div class="contents">
+											<strong>Some Content</strong>
+											<br>
+											There are dozens of us! Dozens! That's my son, you pothead! So Ann, the question is, do you want a man or a boy? I know how I would answer
+										</div>
+									</div>
+								</div>
+
+								<div class="item">
+									<div class="head">
+										<a href="#">Do we work abroud?</a>
+									</div>
+									<div class="body">
+										<div class="contents">
+											<strong>Some Content</strong>
+											<br>
+											There are dozens of us! Dozens! That's my son, you pothead! So Ann, the question is, do you want a man or a boy? I know how I would answer
+										</div>
+									</div>
+								</div>
+
+								<div class="item">
+									<div class="head">
+										<a href="#">How to get a quote?</a>
+									</div>
+									<div class="body">
+										<div class="contents">
+											<strong>Some Content</strong>
+											<br>
+											There are dozens of us! Dozens! That's my son, you pothead! So Ann, the question is, do you want a man or a boy? I know how I would answer
+										</div>
+									</div>
+								</div>
+
+								<div class="item">
+									<div class="head">
+										<a href="#">How to get a quote?</a>
+									</div>
+									<div class="body">
+										<div class="contents">
+											<strong>Some Content</strong>
+											<br>
+											There are dozens of us! Dozens! That's my son, you pothead! So Ann, the question is, do you want a man or a boy? I know how I would answer
+										</div>
+									</div>
+								</div>
+
+								<div class="item">
+									<div class="head">
+										<a href="#">How to get a quote?</a>
+									</div>
+									<div class="body">
+										<div class="contents">
+											<strong>Some Content</strong>
+											<br>
+											There are dozens of us! Dozens! That's my son, you pothead! So Ann, the question is, do you want a man or a boy? I know how I would answer
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>					
+
+					<hr/>
+					<a class="back-to-top" href="#"></a>
+				</div>
+			</div>
+		</div>
+		<!--/Page main wrapper-->
+
+		<!-- JavaScript files-->	
+		
+		<!-- jquery core -->
+		<script type="text/javascript" src="./assets/js/vendors/jquery-1.11.0.min.js"></script>
+
+		<!-- imagesLoaded jquery plugin -->
+		<script type="text/javascript" src="./assets/js/vendors/imagesloaded.pkgd.min.js"></script>
+		
+		<!-- jquery isotop plugin -->
+		<script type="text/javascript" src="./assets/js/vendors/isotope.pkgd.min.js"></script>
+
+		<!-- jquery history neede for ajax pages -->
+		<script type="text/javascript" src="./assets/js/vendors/jquery.history.js"></script>
+
+		<!-- owwwlab jquery kenburn slider plugin -->
+		<script type="text/javascript" src="./assets/js/jquery.owwwlab-kenburns.js"></script>
+
+		<!-- owwwlab jquery double carousel plugin -->
+		<script type="text/javascript" src="./assets/js/jquery.owwwlab-DoubleCarousel.js"></script>
+
+		<!-- owwwwlab jquery video background plugin -->
+		<script type="text/javascript" src="./assets/js/jquery.owwwlab-video.js"></script>
+
+		<!-- tweenmax animation framework -->
+		<script type="text/javascript" src="./assets/js/vendors/TweenMax.min.js"></script>
+
+		<!-- jquery nice scroll plugin needed for vertical portfolio page -->
+		<script type="text/javascript" src="./assets/js/vendors/jquery.nicescroll.min.js"></script>
+
+		<!-- jquery magnific popup needed for ligh-boxes -->
+		<script type="text/javascript" src="./assets/js/vendors/jquery.magnific-popup.js"></script>
+
+		<!-- html5 media player -->
+		<script type="text/javascript" src="./assets/js/vendors/mediaelement-and-player.min.js"></script>
+
+		<!-- jquery inview plugin -->
+		<script type="text/javascript" src="./assets/js/vendors/jquery.inview.min.js"></script>
+
+		<!-- smooth scroll -->
+		<script type="text/javascript" src="./assets/js/vendors/smoothscroll.js"></script>
+
+		<!-- google map -->
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
+		<script type="text/javascript" src="./assets/js/vendors/gmap3.min.js"></script>
+
+		<!-- Master Slider -->
+		<script src="./assets/masterslider/jquery.easing.min.js"></script>
+		<script src="./assets/masterslider/masterslider.min.js"></script>
+		
+		<!-- theme custom scripts -->
+		<script type="text/javascript" src="./assets/js/custom.js"></script>
+
+		<!-- /JavaScript files-->	
+
+		
+    </body>
+</html>

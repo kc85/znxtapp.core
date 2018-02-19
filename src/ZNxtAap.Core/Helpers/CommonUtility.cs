@@ -58,5 +58,10 @@ namespace ZNxtAap.Core.Helpers
         {
             return System.Configuration.ConfigurationManager.AppSettings[key];
         }
+
+        public static bool IsTextConent(string contentType)
+        {
+            return contentType.Contains("text");
+        }
     }
 }

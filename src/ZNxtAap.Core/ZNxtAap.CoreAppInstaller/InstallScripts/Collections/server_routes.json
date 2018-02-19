@@ -1,5 +1,6 @@
 ﻿[
     {
+        "key" :  "GET:/api/ping",
         "ContentType": "application/json",
         "Method": "GET",
         "Route": "/api/ping",

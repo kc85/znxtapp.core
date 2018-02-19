@@ -9,9 +9,13 @@ namespace ZNxtAap.Core.Consts
         public const string ENVIRONMENT_SETTING_KEY = "Environment";
         public const string CONFIG_FILE_EXTENSION = ".json";
         public const string EMPTY_JSON_OBJECT = "{}";
+        public const string MODULE_INSTALL_WWWROOT_FOLDER  = "wwwroot";
+        public const string MODULE_INSTALL_DLLS_FOLDER = "dlls";
+        public const string MODULE_INSTALL_COLLECTIONS_FOLDER = "collections";
         public const int _404_RESOURCE_NOT_FOUND = 404;
         public const int _200_OK = 200;
         public const int _400_BAD_REQUEST = 400;
+        
 
         public static MessageText Messages
         {

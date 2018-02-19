@@ -27,8 +27,11 @@ namespace ZNxtAap.Core.Web.AppStart
 
         private void InitAppRun()
         {
+            
             ApplicationConfig.AppBinPath = HttpContext.Current.Server.MapPath("~/bin");
             ApplicationConfig.AppWWWRootPath = string.Format(@"{0}\..\{1}", ApplicationConfig.AppBinPath,CommonConst.Collection.STATIC_CONTECT);
+            ApplicationConfig.AppModulePath = string.Format(@"{0}\..\..\..\..\{1}", ApplicationConfig.AppBinPath, CommonConst.Collection.MODULES);
+            
         }
     }
 }

@@ -67,6 +67,10 @@
       <Project>{80b58e76-bf74-404c-a359-1946a3f1df37}</Project>
       <Name>ZNxtAap.Core.DB.Mongo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ZNxtAap.Core.ModuleInstaller\ZNxtAap.Core.ModuleInstaller.csproj">
+      <Project>{659f8af0-4c67-4495-a89e-60a41a4840e4}</Project>
+      <Name>ZNxtAap.Core.ModuleInstaller</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ZNxtAap.CoreAppInstaller\ZNxtAap.CoreAppInstaller.csproj">
       <Project>{79192a0a-4e4b-4204-b0e1-3ff2e17ff935}</Project>
       <Name>ZNxtAap.CoreAppInstaller</Name>

@@ -158,5 +158,11 @@ namespace ZNxtAap.Core.Web.Proxies
         {
             return _context.Request.Form[key];
         }
+
+
+        public string GetContentType(string path)
+        {
+            return MimeMapping.GetMimeMapping(path);
+        }
     }
 }

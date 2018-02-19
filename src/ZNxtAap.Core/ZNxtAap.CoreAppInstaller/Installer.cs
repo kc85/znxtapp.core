@@ -30,24 +30,26 @@ namespace ZNxtAap.CoreAppInstaller
         private readonly ILogger _logger;
         private readonly IEncryption _encryptionService;
         private readonly IDBService _dbProxy;
+        private readonly IModuleInstaller _moduleInstaller; 
 
-        private Installer(IPingService pingService, DataBuilderHelper dataBuilderHelper, ILogger logger, IDBService dbProxy, IEncryption encryptionService)
+        private Installer(IPingService pingService, DataBuilderHelper dataBuilderHelper, ILogger logger, IDBService dbProxy, IEncryption encryptionService, IModuleInstaller moduleInstaller)
         {
             _pingService = pingService;
             _dataBuilderHelper = dataBuilderHelper;
             _logger = logger;
             _dbProxy = dbProxy;
             _encryptionService = encryptionService;
+            _moduleInstaller = moduleInstaller;
             GetInstallStatus();
         }
 
-        public static IAppInstaller GetInstance(IPingService pingService, DataBuilderHelper dataBuilderHelper, ILogger logger, IDBService dbProxy, IEncryption encryptionService)
+        public static IAppInstaller GetInstance(IPingService pingService, DataBuilderHelper dataBuilderHelper, ILogger logger, IDBService dbProxy, IEncryption encryptionService, IModuleInstaller moduleInstaller)
         {
             if (_appInstaller == null)
             {
                 lock (lockObject)
                 {
-                    _appInstaller = new Installer(pingService, dataBuilderHelper, logger, dbProxy, encryptionService);
+                    _appInstaller = new Installer(pingService, dataBuilderHelper, logger, dbProxy, encryptionService, moduleInstaller);
                 }
             }
             return _appInstaller;
@@ -128,9 +130,19 @@ namespace ZNxtAap.CoreAppInstaller
 
             RunInstallScripts();
 
+            InstallModule(requestData, httpProxy);
+
             UpdateInstallStatus(AppInstallStatus.Finish);
             httpProxy.SetResponse(CommonConst._200_OK, GetStatus());
             httpProxy.ContentType = CommonConst.CONTENT_TYPE_APPLICATION_JSON;
+        }
+
+        private void InstallModule(AppInstallerConfig requestData,IHttpContextProxy httpProxy)
+        {
+            foreach (var item in requestData.DefaultModules)
+            {
+                _moduleInstaller.Install(item, httpProxy);
+            }
         }
 
         private void WriteCustomConfig(AppInstallerConfig requestData)
@@ -192,8 +204,6 @@ namespace ZNxtAap.CoreAppInstaller
         private void RunInstallScripts()
         {
             _logger.Debug("START RunInstallScripts");
-
-            Thread.Sleep(1000 * 5);
 
             var serverpath = string.Format("{0}\\InstallScripts\\Collections", ApplicationConfig.AppBinPath);
             var environment = CommonUtility.GetAppConfigValue(CommonConst.ENVIRONMENT_SETTING_KEY);
@@ -265,6 +275,8 @@ namespace ZNxtAap.CoreAppInstaller
 
                 item[CommonConst.CommonField.CREATED_DATA_DATE_TIME] = DateTime.Now;
                 item[CommonConst.CommonField.DATA_MODULE_NAME] = moduleName;
+                item[CommonConst.CommonField.ÌS_OVERRIDE] = false;
+                item[CommonConst.CommonField.OVERRIDE_BY] = CommonConst.CommonValue.NONE;
 
                 if (key != null)
                 {
