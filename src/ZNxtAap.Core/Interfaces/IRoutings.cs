@@ -1,4 +1,4 @@
-﻿using ZNxtAap.Core.Module;
+﻿using ZNxtAap.Core.Model;
 
 namespace ZNxtAap.Core.Interfaces
 {

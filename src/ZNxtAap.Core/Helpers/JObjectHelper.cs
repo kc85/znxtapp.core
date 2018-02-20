@@ -25,5 +25,14 @@ namespace ZNxtAap.Core.Helpers
         {
             File.WriteAllText(filePath, data.ToString());
         }
+
+        public static  JObject Marge(JObject obj1, JObject obj2, MergeArrayHandling mergeType)
+        {
+            obj1.Merge(obj2, new JsonMergeSettings
+            {
+                MergeArrayHandling = mergeType
+            });
+            return obj1;
+        }
     }
 }

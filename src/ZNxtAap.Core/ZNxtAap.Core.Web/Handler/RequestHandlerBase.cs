@@ -7,6 +7,7 @@ using ZNxtAap.Core.Consts;
 using ZNxtAap.Core.DB.Mongo;
 using ZNxtAap.Core.Interfaces;
 using ZNxtAap.Core.Web.AppStart;
+using ZNxtAap.Core.Web.Interfaces;
 using ZNxtAap.Core.Web.Proxies;
 using ZNxtAap.Core.Web.Services;
 using ZNxtAap.Core.Web.Util;
@@ -34,6 +35,7 @@ namespace ZNxtAap.Core.Web.Handler
         protected IPingService _pingService;
         protected IDBService _dbProxy;
         //protected IStaticContentHandler _staticContentHandler;
+        protected IRouteExecuter _routeExecuter;
         protected ILogger _logger;
         public RequestHandlerBase()
         {
@@ -50,6 +52,8 @@ namespace ZNxtAap.Core.Web.Handler
                 _dbProxy,
                 new EncryptionService(),
                 new ModuleInstaller.Installer.Installer(appInstallerLogger, _dbProxy));
+            _routings = Routings.Routings.GetRoutings(_dbProxy, _logger);
+            _routeExecuter = new RouteExecuter();
         }
 
         public virtual void ProcessRequest(HttpContext context)

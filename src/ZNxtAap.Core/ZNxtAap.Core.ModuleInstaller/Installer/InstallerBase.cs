@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json.Linq;
+using ZNxtAap.Core.Consts;
 using ZNxtAap.Core.Interfaces;
 
 namespace ZNxtAap.Core.ModuleInstaller.Installer
@@ -11,11 +8,33 @@ namespace ZNxtAap.Core.ModuleInstaller.Installer
     {
         protected readonly ILogger _logger;
         protected IHttpContextProxy _httpProxy;
-        protected readonly  IDBService _dbProxy;
+        protected readonly IDBService _dbProxy;
+
         public InstallerBase(ILogger logger, IDBService dbProxy)
         {
             _logger = logger;
             _dbProxy = dbProxy;
+        }
+
+        protected void CleanDBCollection(string moduleName, string collection)
+        {
+            string cleanupFilter = "{ " + CommonConst.CommonField.MODULE_NAME + ":'" + moduleName + "'}";
+            _dbProxy.Collection = collection;
+            _dbProxy.Delete(cleanupFilter);
+        }
+
+        protected JObject GetModule(JObject moduleObject)
+        {
+            _dbProxy.Collection = CommonConst.Collection.MODULES;
+            var data = _dbProxy.Get(moduleObject.ToString());
+            if (data.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return data[0] as JObject;
+            }
         }
     }
 }

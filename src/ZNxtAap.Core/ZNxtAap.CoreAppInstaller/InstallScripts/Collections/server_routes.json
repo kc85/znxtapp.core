@@ -4,9 +4,9 @@
         "ContentType": "application/json",
         "Method": "GET",
         "Route": "/api/ping",
-        "ExecultAssembly": "PingModule.dll",
-        "ExecuteType": "PingModule.PingCtrl",
-        "ExecuteMethod": "ProcessRequest",
+        "ExecultAssembly": "ZNxtAap.Core.Web.dll",
+        "ExecuteType": "ZNxtAap.Core.Web.Services.Api.PingController",
+        "ExecuteMethod": "Ping",
         "auth_users": [
             "*"
         ]

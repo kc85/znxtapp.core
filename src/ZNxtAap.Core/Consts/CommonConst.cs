@@ -15,6 +15,7 @@ namespace ZNxtAap.Core.Consts
         public const int _404_RESOURCE_NOT_FOUND = 404;
         public const int _200_OK = 200;
         public const int _400_BAD_REQUEST = 400;
+        public const int _500_SERVER_ERROR= 500;
         
 
         public static MessageText Messages
@@ -49,6 +50,8 @@ namespace ZNxtAap.Core.Consts
                 text[CommonConst._200_OK] = "OK";
                 text[CommonConst._404_RESOURCE_NOT_FOUND] = "NOT_FOUND";
                 text[CommonConst._400_BAD_REQUEST] = "BAD_REQUEST";
+                text[CommonConst._500_SERVER_ERROR] = "SERVER_ERROR";
+
             }
         }
 

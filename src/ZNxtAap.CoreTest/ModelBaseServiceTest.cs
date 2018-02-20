@@ -2,7 +2,7 @@
 
 namespace ZNxtAap.CoreTest
 {
-    internal class Module1 : ZNxtAap.Core.Module.ModuleServiceBase
+    internal class Module1 : ZNxtAap.Core.Model.ModuleServiceBase
     {
     }
 

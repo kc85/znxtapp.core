@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ZNxtAap.Core.Consts;
+using ZNxtAap.Core.DB.Mongo;
 using ZNxtAap.Core.Interfaces;
-using ZNxtAap.Core.Module;
+using ZNxtAap.Core.Model;
+using ZNxtAap.Core.Web.Services;
 
 namespace ZNxtAap.Core.Web.Routings
 {
@@ -13,28 +16,31 @@ namespace ZNxtAap.Core.Web.Routings
         private static Routings _routs;
         private List<RoutingModel> _routsModules;
 
-        //private WebDBProxy _dbProxy;
+        private IDBService _dbProxy;
         private ILogger _logger;
 
-        private Routings()
+        private Routings(IDBService dbProxy, ILogger logger)
         {
-            //_logger = Logger.GetLogger(this.GetType().FullName);
-            //_dbProxy = new WebDBProxy(_logger);
-            ResetRouts();
+            _logger = logger;
+            _dbProxy = dbProxy;
+            LoadRouts();
         }
 
-        public void ResetRouts()
-        {
-            _routsModules = new List<RoutingModel>();
 
-            GetRoutsDataFromDB();
-        }
 
-        private void GetRoutsDataFromDB()
+        private void LoadRouts()
         {
             try
             {
-                LoadRouts();
+                _routsModules = new List<RoutingModel>();
+                _dbProxy.Collection = CommonConst.Collection.SERVER_ROUTES;
+                var filter = "{" + CommonConst.CommonField.IS_OVERRIDE + " : " + CommonConst.CommonValue.FALSE + "}";
+                var dataResponse = _dbProxy.Get(filter);
+                foreach (var item in dataResponse)
+                {
+                    _routsModules.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<RoutingModel>(item.ToString()));
+                }
+
             }
             catch (Exception ex)
             {
@@ -42,35 +48,13 @@ namespace ZNxtAap.Core.Web.Routings
             }
         }
 
-        private void LoadRouts()
-        {
-            //_routsModules = new List<RoutingModel>();
-            //List<RoutingModel> dbRoutsModules = new List<RoutingModel>();
-            //var dataResponse = _dbProxy.GetData(Common.CommonConsts.DB_SERVER_ROUTE_FIELD_NAME, CommonConsts.EMPTY_JSON_OBJECT);
-            //if (dataResponse != null && dataResponse[CommonConsts.GETDATA_DATA_NODE_KEY] != null)
-            //{
-            //    if ((dataResponse[CommonConsts.GETDATA_DATA_NODE_KEY] as JArray).Count > 0)
-            //    {
-            //        foreach (JObject item in (dataResponse[CommonConsts.GETDATA_DATA_NODE_KEY] as JArray))
-            //        {
-            //            dbRoutsModules.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<RoutingModel>(item.ToString()));
-            //        }
-            //    }
-            //}
-            //if (dbRoutsModules.Count != 0)
-            //{
-            //    _routsModules = dbRoutsModules;
-            //}
-        }
-
-        public static Routings GetRoutings()
+        public static Routings GetRoutings(IDBService dbService, ILogger logger)
         {
             if (_routs == null)
             {
                 lock (_lock)
                 {
-                    _routs = new Routings();
-
+                    _routs = new Routings(dbService, logger);
                     return _routs;
                 }
             }

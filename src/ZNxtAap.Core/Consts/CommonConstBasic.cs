@@ -28,7 +28,7 @@
             public const string MODULE_NAME = "module_name";
             public const string ÌS_OVERRIDE = "is_override";
             public const string OVERRIDE_BY = "override_by";
-            public const string LAST_OVERRIDES = "last_overrides";
+            
         }
     }
 }

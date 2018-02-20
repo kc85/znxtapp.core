@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ZNxtAap.Core.Consts;
 
-namespace ZNxtAap.Core.Module
+namespace ZNxtAap.Core.Model
 {
     public class RoutingModel
     {

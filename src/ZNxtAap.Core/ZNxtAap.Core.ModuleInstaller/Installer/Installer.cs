@@ -10,29 +10,79 @@ namespace ZNxtAap.Core.ModuleInstaller.Installer
 {
     public class Installer : InstallerBase, IModuleInstaller
     {
-       
-        public Installer(ILogger logger, IDBService dbProxy): base(logger,dbProxy)
+        private const string MODULE_INFO_FILE = "module" + CommonConst.CONFIG_FILE_EXTENSION;
+
+        public Installer(ILogger logger, IDBService dbProxy)
+            : base(logger, dbProxy)
         {
         }
-        public bool Install(string moduleName,IHttpContextProxy httpProxy)
+
+        public bool Install(string moduleName, IHttpContextProxy httpProxy, bool IsOverride = true)
         {
             _httpProxy = httpProxy;
-            var moduleDir =  string.Format("{0}\\{1}", ApplicationConfig.AppModulePath, moduleName);
+            var moduleDir = string.Format("{0}\\{1}", ApplicationConfig.AppModulePath, moduleName);
             if (Directory.Exists(moduleDir))
             {
-                InstallWWWRoot(moduleDir,moduleName);
+                JObject moduleObject = new JObject();
+                moduleObject[CommonConst.CommonField.DATA_KEY] = moduleName;
+                if (!CheckOverrideModule(moduleName, IsOverride, ref moduleObject) && !IsOverride)
+                {
+                    return false;
+                }
+                UpdateModuleInfo(moduleDir, ref moduleObject);
+                var moduleCollections = new JArray();
+                if (moduleObject[CommonConst.MODULE_INSTALL_COLLECTIONS_FOLDER] != null)
+                {
+                    moduleCollections = moduleObject[CommonConst.MODULE_INSTALL_COLLECTIONS_FOLDER] as JArray;
+                }
+                else
+                {
+                    moduleObject[CommonConst.MODULE_INSTALL_COLLECTIONS_FOLDER] = moduleCollections;
+                }
+                moduleCollections.Add(CommonConst.Collection.STATIC_CONTECT);
+                moduleCollections.Add(CommonConst.Collection.DLLS);
+
+                InstallWWWRoot(moduleDir, moduleName);
                 InstallDlls(moduleDir, moduleName);
-                InstallCollections(moduleDir, moduleName);
+                InstallCollections(moduleDir, moduleName, moduleCollections);
+                _dbProxy.Collection = CommonConst.Collection.MODULES;
+                _dbProxy.Update("{" + CommonConst.CommonField.DATA_KEY + " :'" + moduleName + "'}", moduleObject, true);
                 return true;
             }
             else
             {
-                _logger.Error(string.Format("Module directory not found {0}", moduleDir),null);
+                _logger.Error(string.Format("Module directory not found {0}", moduleDir), null);
                 return false;
             }
         }
 
-        private void InstallCollections(string moduleDir, string moduleName)
+        private void UpdateModuleInfo(string baseModulePath, ref JObject moduleObject)
+        {
+            string filePath = string.Format("{0}\\{1}", baseModulePath, MODULE_INFO_FILE);
+            if (File.Exists(filePath))
+            {
+                var moduleFileData = JObjectHelper.GetJObjectFromFile(filePath);
+                moduleObject = JObjectHelper.Marge(moduleObject, moduleFileData, MergeArrayHandling.Union);
+            }
+        }
+
+        private bool CheckOverrideModule(string moduleName, bool IsOverride, ref JObject moduleObject)
+        {
+            var data = GetModule(moduleObject);
+            if (!IsOverride && data != null)
+            {
+                _logger.Error(string.Format("Module already installed : {0}", moduleName), null);
+                return false;
+            }
+            if (data != null)
+            {
+                moduleObject = JObjectHelper.Marge(data, moduleObject, MergeArrayHandling.Union);
+            }
+
+            return true;
+        }
+
+        private void InstallCollections(string moduleDir, string moduleName, JArray moduleCollections)
         {
             var collectionsPath = string.Format("{0}\\{1}", moduleDir, CommonConst.MODULE_INSTALL_COLLECTIONS_FOLDER);
             if (Directory.Exists(collectionsPath))
@@ -47,11 +97,13 @@ namespace ZNxtAap.Core.ModuleInstaller.Installer
                     {
                         continue;
                     }
+                    moduleCollections.Add(collectionName);
+
                     CleanDBCollection(moduleName, collectionName);
 
                     foreach (JObject joData in JObjectHelper.GetJArrayFromFile(fi.FullName))
                     {
-                        joData[CommonConst.CommonField.DISPLAY_ID] = Guid.NewGuid().ToString(); 
+                        joData[CommonConst.CommonField.DISPLAY_ID] = Guid.NewGuid().ToString();
                         joData[CommonConst.CommonField.CREATED_DATA_DATE_TIME] = DateTime.Now;
                         joData[CommonConst.CommonField.MODULE_NAME] = moduleName;
                         joData[CommonConst.CommonField.ÌS_OVERRIDE] = false;
@@ -74,11 +126,10 @@ namespace ZNxtAap.Core.ModuleInstaller.Installer
                 {
                     FileInfo fi = new FileInfo(item.FullName);
                     var contentType = _httpProxy.GetContentType(fi.FullName);
-                    var joData = GetJObjectData(fi, contentType, string.Format("{0}\\",di.FullName), moduleName);
+                    var joData = GetJObjectData(fi, contentType, string.Format("{0}\\", di.FullName), moduleName);
                     WriteToDB(joData, moduleName, CommonConst.Collection.DLLS, CommonConst.CommonField.FILE_PATH);
                 }
             }
-            
         }
 
         private void InstallWWWRoot(string path, string moduleName)
@@ -101,13 +152,6 @@ namespace ZNxtAap.Core.ModuleInstaller.Installer
             }
         }
 
-        private void CleanDBCollection(string moduleName,string collection)
-        {
-            string cleanupFilter = "{ " + CommonConst.CommonField.MODULE_NAME + ":'" + moduleName + "'}";
-            _dbProxy.Collection = collection;
-            _dbProxy.Delete(cleanupFilter);
-        }
-
         private void WriteToDB(JObject joData, string moduleName, string collection, string compareKey)
         {
             OverrideData(joData, moduleName, compareKey);
@@ -119,16 +163,16 @@ namespace ZNxtAap.Core.ModuleInstaller.Installer
 
         private void OverrideData(JObject joData, string moduleName, string compareKey)
         {
-            string updateOverrideFilter = "{ $and: [ { is_override:false }, {" + compareKey + ":'" + joData[compareKey].ToString() + "'}] } ";
+            string updateOverrideFilter = "{ $and: [ { " + CommonConst.CommonField.IS_OVERRIDE + ":false }, {" + compareKey + ":'" + joData[compareKey].ToString() + "'}] } ";
             var updateObject = new JObject();
             updateObject[CommonConst.CommonField.ÌS_OVERRIDE] = true;
-            JArray lastOverrides = new JArray();
-            if (updateObject[CommonConst.CommonField.LAST_OVERRIDES] != null)
-            {
-                lastOverrides = updateObject[CommonConst.CommonField.LAST_OVERRIDES] as JArray;
-            }
-            lastOverrides.Add(updateObject[CommonConst.CommonField.OVERRIDE_BY]);
-            updateObject[CommonConst.CommonField.LAST_OVERRIDES] = lastOverrides;
+            //JArray lastOverrides = new JArray();
+            //if (updateObject[CommonConst.CommonField.LAST_OVERRIDES] != null)
+            //{
+            //    lastOverrides = updateObject[CommonConst.CommonField.LAST_OVERRIDES] as JArray;
+            //}
+            //lastOverrides.Add(updateObject[CommonConst.CommonField.OVERRIDE_BY]);
+            //updateObject[CommonConst.CommonField.LAST_OVERRIDES] = lastOverrides;
 
             updateObject[CommonConst.CommonField.OVERRIDE_BY] = moduleName;
             _dbProxy.Update(updateOverrideFilter, updateObject);
@@ -160,7 +204,6 @@ namespace ZNxtAap.Core.ModuleInstaller.Installer
             else
             {
                 return GetBinaryData(path);
-
             }
         }
 

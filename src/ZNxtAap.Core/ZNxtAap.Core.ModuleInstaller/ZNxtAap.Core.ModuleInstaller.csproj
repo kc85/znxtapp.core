@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Installer\Installer.cs" />
+    <Compile Include="Installer\InstallerBase.cs" />
+    <Compile Include="Installer\Uninstaller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

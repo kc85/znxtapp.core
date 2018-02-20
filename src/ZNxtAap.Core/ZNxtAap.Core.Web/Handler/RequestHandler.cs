@@ -3,6 +3,9 @@ using System.Net;
 using System.Web;
 using ZNxtAap.Core.Config;
 using ZNxtAap.Core.Consts;
+using ZNxtAap.Core.DB.Mongo;
+using ZNxtAap.Core.Interfaces;
+using ZNxtAap.Core.ModuleInstaller.Installer;
 using ZNxtAap.Core.Web.Util;
 
 namespace ZNxtAap.Core.Web.Handler
@@ -15,15 +18,28 @@ namespace ZNxtAap.Core.Web.Handler
 
             var requestUriPath = _httpProxy.GetURIAbsolutePath();
 
-            //  var route = _routings.GetRoute(_httpProxy.GetHttpMethod(), requestUriPath);
+            
             if (ApplicationMode.Maintance == ApplicationConfig.GetApplicationMode && _appInstaller.Status != Enums.AppInstallStatus.Finish)
             {
                 _appInstaller.Install(_httpProxy);
             }
             else
             {
-
-                HandleStaticContent(requestUriPath);
+                var route = _routings.GetRoute(_httpProxy.GetHttpMethod(), requestUriPath);
+                if (route != null)
+                {
+                    _routeExecuter.Exec(route, _httpProxy);
+                }
+                else if (requestUriPath.Contains("uninstall"))
+                {
+                    IModuleUninstaller uninstall = new Uninstaller(_logger, new MongoDBService(ApplicationConfig.DataBaseName));
+                    uninstall.Uninstall("ZNxtApp.Base", _httpProxy);
+                    _httpProxy.SetResponse(200, "Uninstall");
+                }
+                else
+                {
+                    HandleStaticContent(requestUriPath);
+                }
             }
             WriteResponse();
         }

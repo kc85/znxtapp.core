@@ -2,6 +2,6 @@
 {
     public interface IModuleInstaller
     {
-        bool Install(string moduleName,IHttpContextProxy httpProxy);
+        bool Install(string moduleName, IHttpContextProxy httpProxy, bool IsOverride = true);
     }
 }

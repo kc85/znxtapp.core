@@ -20,6 +20,7 @@
             public const string SESSION_DATA = "__session_storage";
             public const string CRON_JOB = "cron_job";
             public const string SERVER_LOGS = "_server_logs";
+            public const string SERVER_ROUTES = "server_routes";
             public const string OTPs = "_otps";
             public const string RESOURCE_STRING = "resource_string";
             public const string PING = "ping";
