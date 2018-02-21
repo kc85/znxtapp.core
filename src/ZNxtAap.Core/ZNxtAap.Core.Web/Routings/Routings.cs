@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ZNxtAap.Core.Config;
 using ZNxtAap.Core.Consts;
 using ZNxtAap.Core.DB.Mongo;
 using ZNxtAap.Core.Interfaces;
@@ -19,10 +20,10 @@ namespace ZNxtAap.Core.Web.Routings
         private IDBService _dbProxy;
         private ILogger _logger;
 
-        private Routings(IDBService dbProxy, ILogger logger)
+        private Routings()
         {
-            _logger = logger;
-            _dbProxy = dbProxy;
+            _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
+            _logger = Logger.GetLogger(this.GetType().Name);
             LoadRouts();
         }
 
@@ -48,13 +49,13 @@ namespace ZNxtAap.Core.Web.Routings
             }
         }
 
-        public static Routings GetRoutings(IDBService dbService, ILogger logger)
+        public static Routings GetRoutings()
         {
             if (_routs == null)
             {
                 lock (_lock)
                 {
-                    _routs = new Routings(dbService, logger);
+                    _routs = new Routings();
                     return _routs;
                 }
             }

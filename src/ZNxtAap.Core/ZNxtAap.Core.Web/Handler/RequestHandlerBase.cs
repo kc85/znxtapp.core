@@ -25,35 +25,23 @@ namespace ZNxtAap.Core.Web.Handler
             }
         }
 
-        protected HttpContext _httpContext;
-
-        // protected IExecuteController _executeController;
+        private HttpContext _httpContext;
         protected IHttpContextProxy _httpProxy;
-
         protected IRoutings _routings;
-        protected IAppInstaller _appInstaller;
-        protected IPingService _pingService;
-        protected IDBService _dbProxy;
-        //protected IStaticContentHandler _staticContentHandler;
         protected IRouteExecuter _routeExecuter;
         protected ILogger _logger;
         public RequestHandlerBase()
         {
             InitApp.Run();
             _logger = Logger.GetLogger(this.GetType().Name);
-            _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
-            _pingService = new PingService(new MongoDBService(ApplicationConfig.DataBaseName, CommonConst.Collection.PING));
-
-            var appInstallerLogger = Logger.GetLogger(typeof(Installer).Name);
-            _appInstaller = Installer.GetInstance(
-                _pingService,
-                new Helpers.DataBuilderHelper(),
-                appInstallerLogger,
-                _dbProxy,
-                new EncryptionService(),
-                new ModuleInstaller.Installer.Installer(appInstallerLogger, _dbProxy));
-            _routings = Routings.Routings.GetRoutings(_dbProxy, _logger);
+             CreateRoute();
             _routeExecuter = new RouteExecuter();
+            
+        }
+
+        private void CreateRoute()
+        {
+            _routings = Routings.Routings.GetRoutings();
         }
 
         public virtual void ProcessRequest(HttpContext context)
@@ -70,6 +58,27 @@ namespace ZNxtAap.Core.Web.Handler
             if (_httpProxy.Response != null)
             {
                 _httpContext.Response.OutputStream.Write(_httpProxy.Response, 0, _httpProxy.Response.Length);
+            }
+        }
+
+        protected void HandleStaticContent(string requestUriPath)
+        {
+            var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
+            var data = StaticContentHandler.GetContent(dbProxy, _logger, requestUriPath);
+            _httpProxy.ContentType = MimeMapping.GetMimeMapping(requestUriPath);
+            if (ApplicationConfig.StaticContentCache)
+            {
+                _httpContext.Response.Cache.SetCacheability(HttpCacheability.Public);
+                _httpContext.Response.Cache.SetExpires(DateTime.Now.AddDays(10));
+                _httpContext.Response.Cache.SetMaxAge(new TimeSpan(10, 0, 0, 0));
+            }
+            if (data != null)
+            {
+                _httpProxy.SetResponse(CommonConst._200_OK, data);
+            }
+            else
+            {
+                _httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND, data);
             }
         }
        

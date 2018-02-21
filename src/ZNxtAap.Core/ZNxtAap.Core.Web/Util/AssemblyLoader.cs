@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using ZNxtAap.Core.Config;
+using ZNxtAap.Core.Consts;
+using ZNxtAap.Core.DB.Mongo;
+using ZNxtAap.Core.Interfaces;
+using ZNxtAap.Core.Web.Services;
 
 namespace ZNxtAap.Core.Web.Util
 {
@@ -11,15 +15,15 @@ namespace ZNxtAap.Core.Web.Util
         private static object _lock = new object();
         private static AssemblyLoader _assemblyLoader;
 
-        //private WebDBProxy _dbProxy;
+       private IDBService _dbProxy;
         public Dictionary<string, byte[]> _loadedAssembly = new Dictionary<string, byte[]>();
 
-        //private Logger _logger;
+        private ILogger _logger;
 
         private AssemblyLoader()
         {
-            //  _logger = Logger.GetLogger(this.GetType().FullName);
-            //  _dbProxy = new WebDBProxy(_logger);
+            _logger = Logger.GetLogger(this.GetType().FullName);
+            _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
         }
 
         public static AssemblyLoader GetAssemblyLoader()
@@ -36,7 +40,7 @@ namespace ZNxtAap.Core.Web.Util
 
         public Type GetType(string assemblyName, string executeType)
         {
-            //  _logger.Info(string.Format("GetType: {0}, executeType: {1}", assemblyName, executeType));
+            _logger.Info(string.Format("GetType: {0}, executeType: {1}", assemblyName, executeType));
             var assembly = Load(assemblyName);
             return assembly.GetType(executeType);
         }
@@ -48,7 +52,6 @@ namespace ZNxtAap.Core.Web.Util
             {
                 string localPath = String.Format("{0}{1}", ApplicationConfig.AppBinPath, assemblyName);
 
-                // _logger.Info(string.Format("Laoding Assemmbly:{0}, LocalPath : {1}", assemblyName, localPath));
                 Byte[] assemblyBytes = null;
                 if (_loadedAssembly.ContainsKey(assemblyName))
                 {
@@ -61,7 +64,7 @@ namespace ZNxtAap.Core.Web.Util
                 }
                 else
                 {
-                    // assemblyBytes = Download(assemblyName);
+                    assemblyBytes = GetAsssemblyFromDB(assemblyName);
                     if (assemblyBytes != null)
                     {
                         _loadedAssembly[assemblyName] = assemblyBytes;
@@ -69,7 +72,7 @@ namespace ZNxtAap.Core.Web.Util
                 }
                 if (assemblyBytes == null)
                 {
-                    //  _logger.Info(string.Format("No Assembly found :{0}", assemblyName));
+                    _logger.Error(string.Format("No Assembly found :{0}", assemblyName), null);
                 }
                 else
                 {
@@ -79,22 +82,21 @@ namespace ZNxtAap.Core.Web.Util
             return assembly;
         }
 
-        //private byte[] Download(string assemblyName)
-        //{
-        //    _logger.Info(string.Format("Laoding Assemmbly:{0}, from Download ", assemblyName));
+        private byte[] GetAsssemblyFromDB(string assemblyName)
+        {
+            _logger.Info(string.Format("Laoding Assemmbly:{0}, from Download ", assemblyName));
 
-        //    string filter = "{ " + CommonConsts.DATA_FILE_PATH_FIELD_NAME + ":'" + assemblyName.ToLower() + "'}";
-        //    var dataResponse = _dbProxy.GetData(Common.CommonConsts.DB_COLLECTION_DLLS, filter);
-        //    if (dataResponse != null && dataResponse[CommonConsts.GETDATA_DATA_NODE_KEY] != null)
-        //    {
-        //        if ((dataResponse[CommonConsts.GETDATA_DATA_NODE_KEY] as JArray).Count > 0)
-        //        {
-        //            var assemblyData = dataResponse[CommonConsts.GETDATA_DATA_NODE_KEY][0][CommonConsts.GETDATA_DATA_NODE_KEY.ToLower()].ToString();
-        //            return System.Convert.FromBase64String(assemblyData);
-        //        }
-        //    }
-        //    return null;
-        //}
+            string filter = "{ " + CommonConst.CommonField.IS_OVERRIDE + " : " + CommonConst.CommonValue.FALSE + ", " + CommonConst.CommonField.FILE_PATH + ":'" + assemblyName.ToLower() + "'}";
+            _dbProxy.Collection = CommonConst.Collection.DLLS;
+            var dataResponse = _dbProxy.Get(filter);
+
+            if (dataResponse.Count > 0)
+            {
+                var assemblyData = dataResponse[0][CommonConst.CommonField.DATA].ToString();
+                return System.Convert.FromBase64String(assemblyData);
+            }
+            return null;
+        }
 
         private Assembly GetFromAppDomain(string fullName)
         {
@@ -104,7 +106,6 @@ namespace ZNxtAap.Core.Web.Util
             {
                 if ((assembly.ManifestModule).ScopeName == fullName)
                 {
-                    // _logger.Info(string.Format("Find assembly on App Domain : {0}", fullName));
                     return assembly;
                 }
             }

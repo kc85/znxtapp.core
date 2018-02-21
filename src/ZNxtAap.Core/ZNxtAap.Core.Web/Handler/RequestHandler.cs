@@ -6,64 +6,73 @@ using ZNxtAap.Core.Consts;
 using ZNxtAap.Core.DB.Mongo;
 using ZNxtAap.Core.Interfaces;
 using ZNxtAap.Core.ModuleInstaller.Installer;
+using ZNxtAap.Core.Web.Services;
 using ZNxtAap.Core.Web.Util;
 
 namespace ZNxtAap.Core.Web.Handler
 {
     public class RequestHandler : RequestHandlerBase
     {
+        private IAppInstaller _appInstaller;
+     
         public override void ProcessRequest(HttpContext context)
         {
             base.ProcessRequest(context);
 
             var requestUriPath = _httpProxy.GetURIAbsolutePath();
 
-            
-            if (ApplicationMode.Maintance == ApplicationConfig.GetApplicationMode && _appInstaller.Status != Enums.AppInstallStatus.Finish)
+            if (ApplicationMode.Maintance == ApplicationConfig.GetApplicationMode)
             {
-                _appInstaller.Install(_httpProxy);
-            }
-            else
-            {
-                var route = _routings.GetRoute(_httpProxy.GetHttpMethod(), requestUriPath);
-                if (route != null)
+                CreateInstallInstance();
+                if (_appInstaller.Status != Enums.AppInstallStatus.Finish)
                 {
-                    _routeExecuter.Exec(route, _httpProxy);
-                }
-                else if (requestUriPath.Contains("uninstall"))
-                {
-                    IModuleUninstaller uninstall = new Uninstaller(_logger, new MongoDBService(ApplicationConfig.DataBaseName));
-                    uninstall.Uninstall("ZNxtApp.Base", _httpProxy);
-                    _httpProxy.SetResponse(200, "Uninstall");
+                    _appInstaller.Install(_httpProxy);
                 }
                 else
                 {
-                    HandleStaticContent(requestUriPath);
+                    HandleRequest(requestUriPath);
                 }
+            }
+            else
+            {
+                HandleRequest(requestUriPath);
             }
             WriteResponse();
         }
 
-        private void HandleStaticContent(string requestUriPath)
+        private void HandleRequest(string requestUriPath)
         {
-            var data = StaticContentHandler.GetContent(_dbProxy, _logger, requestUriPath);
-            _httpProxy.ContentType = MimeMapping.GetMimeMapping(requestUriPath);
-            if (ApplicationConfig.StaticContentCache)
+            var route = _routings.GetRoute(_httpProxy.GetHttpMethod(), requestUriPath);
+            if (route != null)
             {
-                _httpContext.Response.Cache.SetCacheability(HttpCacheability.Public);
-                _httpContext.Response.Cache.SetExpires(DateTime.Now.AddDays(10));
-                _httpContext.Response.Cache.SetMaxAge(new TimeSpan(10, 0, 0, 0));
+                _routeExecuter.Exec(route, _httpProxy);
             }
-            if (data != null)
+            else if (requestUriPath.Contains("uninstall"))
             {
-                _httpProxy.SetResponse(CommonConst._200_OK, data);
+                IModuleUninstaller uninstall = new Uninstaller(_logger, new MongoDBService(ApplicationConfig.DataBaseName));
+                uninstall.Uninstall("ZNxtApp.Base", _httpProxy);
+                _httpProxy.SetResponse(200, "Uninstall");
             }
             else
             {
-                _httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND, data);
+                HandleStaticContent(requestUriPath);
             }
         }
 
-      
+        private void CreateInstallInstance()
+        {
+            var appInstallerLogger = Logger.GetLogger(typeof(Installer).Name);
+            var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
+            var pingService = new PingService(new MongoDBService(ApplicationConfig.DataBaseName, CommonConst.Collection.PING));
+
+            _appInstaller =  ZNxtAap.CoreAppInstaller.Installer.GetInstance(
+               pingService,
+               new Helpers.DataBuilderHelper(),
+               appInstallerLogger,
+               dbProxy,
+               new EncryptionService(),
+               new ModuleInstaller.Installer.Installer(appInstallerLogger, dbProxy));
+
+        }
     }
 }
