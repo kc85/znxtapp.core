@@ -1,9 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 
 namespace ZNxtAap.Core.Interfaces
 {
     public interface IHttpContextProxy
     {
+        DateTime InitDateTime { get; }
+        string TransactionId { get; }
         string GetURIAbsolutePath();
 
         string GetHttpMethod();

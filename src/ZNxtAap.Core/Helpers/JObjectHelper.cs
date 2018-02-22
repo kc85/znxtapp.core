@@ -34,5 +34,17 @@ namespace ZNxtAap.Core.Helpers
             });
             return obj1;
         }
+        public static bool TryParseJson(string data, ref JObject jsonObj)
+        {
+            try
+            {
+                jsonObj = JObject.Parse(data);
+                return true;
+            }
+            catch (System.Exception)
+            {
+                return false;
+            }
+        }
     }
 }

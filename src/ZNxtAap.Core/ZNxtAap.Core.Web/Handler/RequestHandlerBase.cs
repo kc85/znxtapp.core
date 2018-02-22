@@ -33,8 +33,6 @@ namespace ZNxtAap.Core.Web.Handler
         public RequestHandlerBase()
         {
             InitApp.Run();
-            _logger = Logger.GetLogger(this.GetType().Name);
-             CreateRoute();
             _routeExecuter = new RouteExecuter();
             
         }
@@ -46,8 +44,10 @@ namespace ZNxtAap.Core.Web.Handler
 
         public virtual void ProcessRequest(HttpContext context)
         {
-            _httpContext = context;
             _httpProxy = new HttpContextProxy(context);
+            _logger = Logger.GetLogger(this.GetType().Name, _httpProxy.TransactionId);
+            CreateRoute();
+            _httpContext = context;
         }
 
         protected void WriteResponse()

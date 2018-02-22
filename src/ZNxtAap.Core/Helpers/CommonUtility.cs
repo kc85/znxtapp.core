@@ -6,7 +6,7 @@ namespace ZNxtAap.Core.Helpers
 {
     public static class CommonUtility
     {
-        public static double GetTimestamp(DateTime dt)
+        public static double GetUnixTimestamp(DateTime dt)
         {
             TimeSpan epochTicks = new TimeSpan(new DateTime(1970, 1, 1).Ticks);
             TimeSpan unixTicks = new TimeSpan(dt.Ticks) - epochTicks;
@@ -63,5 +63,10 @@ namespace ZNxtAap.Core.Helpers
         {
             return contentType.Contains("text");
         }
+        public static string GetTimestamp(DateTime value)
+        {
+            return value.ToString("yyyyMMddHHmmssffff");
+        }
+        
     }
 }

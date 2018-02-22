@@ -16,6 +16,7 @@ namespace ZNxtAap.Core.Web.Proxies
     public class HttpContextProxy : IHttpContextProxy
     {
         private HttpContext _context;
+        public DateTime InitDateTime { get; private set; }
         private ILogger _logger;
         private DataBuilderHelper _dataBuilderHelper;
         private byte[] _response;
@@ -24,21 +25,32 @@ namespace ZNxtAap.Core.Web.Proxies
         {
             get { return _response; }
         }
-
+        public string TransactionId { get; private set; }
         private int _responseStatusCode;
         private string _responseStatusMessage;
         public int ResponseStatusCode { get { return _responseStatusCode; } }
         public string ResponseStatusMessage { get { return _responseStatusMessage; } }
         public string ContentType { get; set; }
+        private string _requestBody = string.Empty;
 
         public HttpContextProxy(HttpContext context)
         {
+            InitDateTime = DateTime.Now;
             _context = context;
-            _logger = Logger.GetLogger(this.GetType().FullName);
             _dataBuilderHelper = new DataBuilderHelper();
             _responseStatusCode = (int)HttpStatusCode.OK;
             _responseStatusMessage = HttpStatusCode.OK.ToString();
             ContentType = CommonConst.CONTENT_TYPE_TEXT_HTML;
+
+            if (context.Request.Headers[CommonConst.CommonValue.TRANSACTION_ID_KEY] != null)
+            {
+                TransactionId = context.Request.Headers[CommonConst.CommonValue.TRANSACTION_ID_KEY];
+            }
+            else
+            {
+                TransactionId = string.Format("{0}{1}", CommonUtility.GetTimestamp(DateTime.Now), CommonUtility.RandomNumber(2));
+            }
+            _logger = Logger.GetLogger(this.GetType().FullName,TransactionId);
         }
 
         public string GetURIAbsolutePath()
@@ -119,11 +131,12 @@ namespace ZNxtAap.Core.Web.Proxies
         {
             if (_context.Request.InputStream != null)
             {
-                return new StreamReader(_context.Request.InputStream).ReadToEnd();
+                _requestBody = new StreamReader(_context.Request.InputStream).ReadToEnd();
+                return _requestBody;
             }
             else
             {
-                return string.Empty;
+                return _requestBody;
             }
         }
 

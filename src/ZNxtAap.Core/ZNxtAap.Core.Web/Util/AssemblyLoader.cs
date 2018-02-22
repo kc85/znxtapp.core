@@ -22,7 +22,7 @@ namespace ZNxtAap.Core.Web.Util
 
         private AssemblyLoader()
         {
-            _logger = Logger.GetLogger(this.GetType().FullName);
+            _logger = Logger.GetLogger(this.GetType().FullName,string.Empty);
             _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
         }
 

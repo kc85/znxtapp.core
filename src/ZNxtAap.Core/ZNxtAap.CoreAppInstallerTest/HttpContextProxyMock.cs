@@ -97,5 +97,15 @@ namespace ZNxtAap.CoreAppInstallerTest
         {
             throw new NotImplementedException();
         }
+
+        public DateTime InitDateTime
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public string TransactionId
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

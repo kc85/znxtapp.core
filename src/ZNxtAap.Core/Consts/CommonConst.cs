@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using ZNxtAap.Core.Interfaces;
 
 namespace ZNxtAap.Core.Consts
 {
@@ -14,22 +17,24 @@ namespace ZNxtAap.Core.Consts
         public const string MODULE_INSTALL_COLLECTIONS_FOLDER = "collections";
         public const int _404_RESOURCE_NOT_FOUND = 404;
         public const int _200_OK = 200;
+        public const int _1_SUCCESS = 1;
         public const int _400_BAD_REQUEST = 400;
         public const int _500_SERVER_ERROR= 500;
-        
+        private const string UNKNOWN_MESSAGE = "UNKNOWN_STATUS_CODE";
 
         public static MessageText Messages
         {
             get
             {
-                return new MessageText();
+                return MessageText.GetMessage();
             }
         }
 
         public class MessageText
         {
             private Dictionary<int, string> text = new Dictionary<int, string>();
-
+            private static MessageText _messageText;
+            private static object lockObj = new object();
             public string this[int value]
             {
                 get
@@ -40,18 +45,54 @@ namespace ZNxtAap.Core.Consts
                     }
                     else
                     {
-                        return null;
+                        var result = GetMessage(value);
+                        if (!string.IsNullOrEmpty(result))
+                        {
+                            text[value] = result;
+                            return result;
+                        }
+                        else
+                        {
+                            return UNKNOWN_MESSAGE;
+                        }
                     }
                 }
             }
 
-            public MessageText()
+            private string GetMessage(int code )
+            {
+                foreach (var assemble in AppDomain.CurrentDomain.GetAssemblies())
+                {
+                    foreach (Type messageType in assemble.GetTypes()
+               .Where(mytype => mytype.GetInterfaces().Contains(typeof(IMessageCodeContainer))))
+                    {
+                        dynamic obj = Activator.CreateInstance(messageType);
+                        return obj.Get(code);
+                    }
+                }
+              
+                return string.Empty;
+            }
+
+            private MessageText()
             {
                 text[CommonConst._200_OK] = "OK";
                 text[CommonConst._404_RESOURCE_NOT_FOUND] = "NOT_FOUND";
                 text[CommonConst._400_BAD_REQUEST] = "BAD_REQUEST";
                 text[CommonConst._500_SERVER_ERROR] = "SERVER_ERROR";
-
+                text[CommonConst._1_SUCCESS] = "SUCCESS";
+            }
+            
+            public static MessageText GetMessage()
+            {
+                if (_messageText == null)
+                {
+                    lock (lockObj)
+                    {
+                        _messageText = new MessageText();
+                    }
+                }
+                return _messageText;
             }
         }
 

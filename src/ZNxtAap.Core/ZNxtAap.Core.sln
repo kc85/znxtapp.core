@@ -12,6 +12,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZNxtAap.Core.ModuleInstallerTest", "ZNxtAap.Core.ModuleInstallerTest\ZNxtAap.Core.ModuleInstallerTest.csproj", "{4578E785-5969-43D8-BCB6-268F0F704372}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTest", "UnitTest", "{A685F246-C984-4CC7-B68F-F240285B57A5}"
+	ProjectSection(SolutionItems) = preProject
+		ZNxtAap.Core.Web\Services\IAppSettings.cs = ZNxtAap.Core.Web\Services\IAppSettings.cs
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZNxtAap.CoreAppInstaller", "ZNxtAap.CoreAppInstaller\ZNxtAap.CoreAppInstaller.csproj", "{79192A0A-4E4B-4204-B0E1-3FF2E17FF935}"
 EndProject

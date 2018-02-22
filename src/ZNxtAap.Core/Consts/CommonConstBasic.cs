@@ -11,7 +11,7 @@
             public const string VALUE = "value";
             public const string CREATED_DATA_DATE_TIME = "created_datetime";
             public const string STATUS = "status";
-            public const string TRANSATTION_ID = "transaction_is";
+            public const string TRANSATTION_ID = "transaction_id";
             public static string DATA_MODULE_NAME = "module";
             public const string UPDATED_DATE_TIME = "updated_datetime";
             public const string NAME = "name";
@@ -28,7 +28,22 @@
             public const string MODULE_NAME = "module_name";
             public const string ÌS_OVERRIDE = "is_override";
             public const string OVERRIDE_BY = "override_by";
-            
+            public const string HTTP_RESPONE_CODE = "Code";
+            public const string HTTP_RESPONE_MESSAGE = "Message";
+            public const string HTTP_RESPONE_DATA = "Data";
+            public const string HTTP_RESPONE_TRANSACTION_ID = "TxnId";
+            public const string HTTP_RESPONE_DEBUG_INFO = "Debug";
+            public const string LOG_LOG_LEVELS = "log_levels";
+            public const string LOGGER_NAME = "logger";
+            public const string LOG_TYPE = "type";
+            public const string LOG_MESSAGE = "message";
+            public const string STACKTRACE = "stack_trace";
+            public const string ERR_MESSAGE = "error_message";
+            public const string URL = "Url";
+            public const string ROUTE = "Route";
+            public const string PAYLOAD = "Payload";
+            public const string USER = "User";
+            public const string TRANSACTION_STATE = "TransactionState";
         }
     }
 }

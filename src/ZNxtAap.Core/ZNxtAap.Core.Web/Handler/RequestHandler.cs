@@ -47,12 +47,12 @@ namespace ZNxtAap.Core.Web.Handler
             {
                 _routeExecuter.Exec(route, _httpProxy);
             }
-            else if (requestUriPath.Contains("uninstall"))
-            {
-                IModuleUninstaller uninstall = new Uninstaller(_logger, new MongoDBService(ApplicationConfig.DataBaseName));
-                uninstall.Uninstall("ZNxtApp.Base", _httpProxy);
-                _httpProxy.SetResponse(200, "Uninstall");
-            }
+            //else if (requestUriPath.Contains("uninstall"))
+            //{
+            //    IModuleUninstaller uninstall = new Uninstaller(_logger, new MongoDBService(ApplicationConfig.DataBaseName));
+            //    uninstall.Uninstall("ZNxtApp.Base", _httpProxy);
+            //    _httpProxy.SetResponse(200, "Uninstall");
+            //}
             else
             {
                 HandleStaticContent(requestUriPath);
@@ -61,7 +61,7 @@ namespace ZNxtAap.Core.Web.Handler
 
         private void CreateInstallInstance()
         {
-            var appInstallerLogger = Logger.GetLogger(typeof(Installer).Name);
+            var appInstallerLogger = Logger.GetLogger(typeof(Installer).Name,_httpProxy.TransactionId);
             var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
             var pingService = new PingService(new MongoDBService(ApplicationConfig.DataBaseName, CommonConst.Collection.PING));
 

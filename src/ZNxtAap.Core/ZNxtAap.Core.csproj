@@ -63,12 +63,16 @@
     <Compile Include="Helpers\CommonUtility.cs" />
     <Compile Include="Helpers\DataBuilderHelper.cs" />
     <Compile Include="Helpers\JObjectHelper.cs" />
+    <Compile Include="Helpers\ResponseBuilder.cs" />
     <Compile Include="Interfaces\IActionExecuter.cs" />
     <Compile Include="Interfaces\IAppInstaller.cs" />
+    <Compile Include="Interfaces\IAppSettingService.cs" />
     <Compile Include="Interfaces\IDBService.cs" />
     <Compile Include="Interfaces\IEncryption.cs" />
     <Compile Include="Interfaces\IHttpContextProxy.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\ILogReader.cs" />
+    <Compile Include="Interfaces\IMessageCodeContainer.cs" />
     <Compile Include="Interfaces\IModuleInstaller.cs" />
     <Compile Include="Interfaces\IModuleUninstaller.cs" />
     <Compile Include="Interfaces\IPingService.cs" />
@@ -77,6 +81,7 @@
     <Compile Include="Module\ParamContainer.cs" />
     <Compile Include="Module\RoutingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BaseController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

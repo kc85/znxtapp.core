@@ -13,11 +13,17 @@ namespace ZNxtAap.Core.Consts
             public const string NONE = "none";
             public const string FALSE = "false";
             public const string TRUE = "true";
-            public static string PARAM_ROUTE = "_param_route";
-            public static string PARAM_DBPROXY = "_param_dbproxy";
-            public static string PARAM_HTTPREQUESTPROXY = "_param_httpproxy";
-            public static string PARAM_LOGGER = "_param_logger";
-            public static string PARAM_ACTIONEXECUTER = "_param_actionexecuter";
+            public const string PARAM_ROUTE = "_param_route";
+            public const string PARAM_DBPROXY = "_param_dbproxy";
+            public const string PARAM_HTTPREQUESTPROXY = "_param_httpproxy";
+            public const string PARAM_LOGGER = "_param_logger";
+            public const string PARAM_ACTIONEXECUTER = "_param_actionexecuter";
+            public const string PARAM_PING_SERVICE = "_param_ping_service";
+            public const string PARAM_RESPONBUILDER = "_param_response_builder";
+            public const string PARAM_APP_SETTING = "_param_app_setting_service";
+            public const string TIME_SPAN = "TimeSpan";
+            public const string TRANSACTION_ID_KEY = "zapp-transactionid";
+            public const string LOGS = "Logs";
         }
     }
 }

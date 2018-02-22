@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ZNxtAap.Core.Config;
 using ZNxtAap.Core.Consts;
 using ZNxtAap.Core.DB.Mongo;
+using ZNxtAap.Core.Helpers;
 using ZNxtAap.Core.Interfaces;
 using ZNxtAap.Core.Model;
 using ZNxtAap.Core.Web.Interfaces;
@@ -18,21 +19,15 @@ namespace ZNxtAap.Core.Web.Services
          
         public void Exec(RoutingModel route,IHttpContextProxy httpProxy)
         {
-            ILogger loggerController = Logger.GetLogger(route.ExecuteType);
+            ILogger loggerController = Logger.GetLogger(route.ExecuteType, httpProxy.TransactionId);
+
 
             try
             {
-                IDBService dbService = new MongoDBService(ApplicationConfig.DataBaseName);
+                loggerController.Info(string.Format("{0}:: Route: [{1}]", "RouteExecuter.Exec", route.ToString()));
                 IActionExecuter actionExecuter = new ActionExecuter(loggerController);
-                loggerController.Info(string.Format("{0}::{1}", "RouteExecuter.Exec", route.ToString()));
-
-                ParamContainer pamamContainer = new ParamContainer();
-                pamamContainer.AddKey(CommonConst.CommonValue.PARAM_ROUTE, () => { return route; });
-                pamamContainer.AddKey(CommonConst.CommonValue.PARAM_DBPROXY, () => { return dbService; });
-                pamamContainer.AddKey(CommonConst.CommonValue.PARAM_HTTPREQUESTPROXY, () => { return httpProxy; });
-                pamamContainer.AddKey(CommonConst.CommonValue.PARAM_LOGGER, () => { return loggerController; });
-                pamamContainer.AddKey(CommonConst.CommonValue.PARAM_ACTIONEXECUTER, () => { return actionExecuter; });
-
+                ParamContainer pamamContainer = CreateParamContainer(route, httpProxy, loggerController, actionExecuter);
+                WriteStartTransaction(loggerController, httpProxy, route);
                 var objResult = actionExecuter.Exec(route, pamamContainer);
                 httpProxy.ContentType = route.ContentType;
 
@@ -42,15 +37,19 @@ namespace ZNxtAap.Core.Web.Services
                 }
                 else if (objResult is byte[])
                 {
+                    WriteEndTransaction(loggerController, "*** Binary Data ***");
                     httpProxy.SetResponse(CommonConst._200_OK, (byte[])objResult);
                 }
                 else if (objResult is string)
                 {
+                    WriteEndTransaction(loggerController, (objResult as string));
                     httpProxy.SetResponse(CommonConst._200_OK, objResult as string);
                 }
                 else
                 {
-                    httpProxy.SetResponse(CommonConst._200_OK, Encoding.UTF8.GetBytes((objResult as JObject).ToString()));
+                    var responseData = (objResult as JObject).ToString();
+                    WriteEndTransaction(loggerController, responseData);
+                    httpProxy.SetResponse(CommonConst._200_OK, Encoding.UTF8.GetBytes(responseData));
                 }
 
                 //    List<string> userGroups = _httpProxy.GetSessionUserGroups();
@@ -83,6 +82,63 @@ namespace ZNxtAap.Core.Web.Services
                 httpProxy.SetResponse(CommonConst._500_SERVER_ERROR);
                 loggerController.Error(string.Format("Error While executing Route : {0}, Error : {1}", route.ToString(), ex.Message), ex);
             }
+        }
+
+        private void WriteStartTransaction(ILogger loggerController, IHttpContextProxy httpProxy, RoutingModel route)
+        {
+            JObject objTxnStartData = new JObject();
+            objTxnStartData[CommonConst.CommonField.URL] = httpProxy.GetURIAbsolutePath();
+            objTxnStartData[CommonConst.CommonField.ROUTE] = JObject.Parse(route.GetJson());
+            string strPayload = httpProxy.GetRequestBody(); ;
+            JObject payload = null;
+            if (JObjectHelper.TryParseJson(strPayload, ref payload))
+            {
+                objTxnStartData[CommonConst.CommonField.PAYLOAD] = payload;
+            }
+            else
+            {
+                objTxnStartData[CommonConst.CommonField.PAYLOAD] = strPayload;
+            }
+            objTxnStartData[CommonConst.CommonField.USER] = httpProxy.GetRequestBody();
+            loggerController.Transaction(objTxnStartData, TransactionState.Start);
+        }
+        private void WriteEndTransaction(ILogger loggerController, string response )
+        {
+            JObject objTxnStartData = new JObject();
+            JObject payload = null;
+            if (JObjectHelper.TryParseJson(response, ref payload))
+            {
+                payload.Remove(CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO);
+                objTxnStartData[CommonConst.CommonField.PAYLOAD] = payload;
+            }
+            else
+            {
+                objTxnStartData[CommonConst.CommonField.PAYLOAD] = response;
+            }
+            loggerController.Transaction(objTxnStartData, TransactionState.Finish);
+        }
+
+        private ParamContainer CreateParamContainer(RoutingModel route, IHttpContextProxy httpProxy, ILogger loggerController, IActionExecuter actionExecuter)
+        {
+
+            ILogReader logReader = Logger.GetLogReader();
+            ResponseBuilder responseBuilder = new ResponseBuilder(loggerController, logReader, httpProxy);
+            IDBService dbService = new MongoDBService(ApplicationConfig.DataBaseName);
+            IPingService pingService = new PingService(new MongoDBService(ApplicationConfig.DataBaseName, CommonConst.Collection.PING));
+            ParamContainer pamamContainer = new ParamContainer();
+            IAppSettingService appSettingService = AppSettingService.Instance;
+
+            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_ROUTE, () => { return route; });
+            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_DBPROXY, () => { return dbService; });
+            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_HTTPREQUESTPROXY, () => { return httpProxy; });
+            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_LOGGER, () => { return loggerController; });
+            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_ACTIONEXECUTER, () => { return actionExecuter; });
+            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_PING_SERVICE, () => { return pingService; });
+            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_PING_SERVICE, () => { return pingService; });
+            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_RESPONBUILDER, () => { return responseBuilder; });
+            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_APP_SETTING, () => { return appSettingService; });
+           
+            return pamamContainer;
         }
 
     }

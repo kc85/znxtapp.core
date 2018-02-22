@@ -23,7 +23,7 @@ namespace ZNxtAap.Core.Web.Routings
         private Routings()
         {
             _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
-            _logger = Logger.GetLogger(this.GetType().Name);
+            _logger = Logger.GetLogger(this.GetType().Name,string.Empty);
             LoadRouts();
         }
 

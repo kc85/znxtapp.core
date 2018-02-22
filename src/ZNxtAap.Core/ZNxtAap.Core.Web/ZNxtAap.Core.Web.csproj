@@ -54,6 +54,8 @@
     <Compile Include="Routings\Routings.cs" />
     <Compile Include="Services\ActionExecuter.cs" />
     <Compile Include="Services\Api\PingController.cs" />
+    <Compile Include="Services\Api\PingResponseCode.cs" />
+    <Compile Include="Services\AppSettingService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Interfaces\IRouteExecuter.cs" />
     <Compile Include="Services\Logger.cs" />
