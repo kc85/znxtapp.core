@@ -14,15 +14,11 @@ namespace ZNxtAap.Core.Web.Util
     {
         private static object _lock = new object();
         private static AssemblyLoader _assemblyLoader;
-
-       private IDBService _dbProxy;
+        private IDBService _dbProxy;
         public Dictionary<string, byte[]> _loadedAssembly = new Dictionary<string, byte[]>();
-
-        private ILogger _logger;
-
+        
         private AssemblyLoader()
-        {
-            _logger = Logger.GetLogger(this.GetType().FullName,string.Empty);
+        {   
             _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
         }
 
@@ -38,14 +34,14 @@ namespace ZNxtAap.Core.Web.Util
             return _assemblyLoader;
         }
 
-        public Type GetType(string assemblyName, string executeType)
+        public Type GetType(string assemblyName, string executeType,ILogger logger)
         {
-            _logger.Info(string.Format("GetType: {0}, executeType: {1}", assemblyName, executeType));
-            var assembly = Load(assemblyName);
+            logger.Info(string.Format("GetType: {0}, executeType: {1}", assemblyName, executeType));
+            var assembly = Load(assemblyName,logger);
             return assembly.GetType(executeType);
         }
 
-        public Assembly Load(string assemblyName)
+        public Assembly Load(string assemblyName,ILogger logger)
         {
             var assembly = GetFromAppDomain(assemblyName);
             if (assembly == null)
@@ -64,7 +60,7 @@ namespace ZNxtAap.Core.Web.Util
                 }
                 else
                 {
-                    assemblyBytes = GetAsssemblyFromDB(assemblyName);
+                    assemblyBytes = GetAsssemblyFromDB(assemblyName,logger);
                     if (assemblyBytes != null)
                     {
                         _loadedAssembly[assemblyName] = assemblyBytes;
@@ -72,7 +68,7 @@ namespace ZNxtAap.Core.Web.Util
                 }
                 if (assemblyBytes == null)
                 {
-                    _logger.Error(string.Format("No Assembly found :{0}", assemblyName), null);
+                    logger.Error(string.Format("No Assembly found :{0}", assemblyName), null);
                 }
                 else
                 {
@@ -82,9 +78,9 @@ namespace ZNxtAap.Core.Web.Util
             return assembly;
         }
 
-        private byte[] GetAsssemblyFromDB(string assemblyName)
+        private byte[] GetAsssemblyFromDB(string assemblyName, ILogger logger)
         {
-            _logger.Info(string.Format("Laoding Assemmbly:{0}, from Download ", assemblyName));
+            logger.Info(string.Format("Laoding Assemmbly:{0}, from Download ", assemblyName));
 
             string filter = "{ " + CommonConst.CommonField.IS_OVERRIDE + " : " + CommonConst.CommonValue.FALSE + ", " + CommonConst.CommonField.FILE_PATH + ":'" + assemblyName.ToLower() + "'}";
             _dbProxy.Collection = CommonConst.Collection.DLLS;

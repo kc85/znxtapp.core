@@ -3,10 +3,9 @@ using System;
 
 namespace ZNxtAap.Core.Interfaces
 {
-    public interface IHttpContextProxy
+    public interface IHttpContextProxy : IInitData
     {
-        DateTime InitDateTime { get; }
-        string TransactionId { get; }
+     
         string GetURIAbsolutePath();
 
         string GetHttpMethod();

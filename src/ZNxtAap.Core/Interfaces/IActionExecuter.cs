@@ -10,5 +10,6 @@ namespace ZNxtAap.Core.Interfaces
     public interface IActionExecuter
     {
         object Exec(RoutingModel route, ParamContainer helper);
+        object Exec(string execultAssembly, string executeType, string executeMethod, ParamContainer helper);
     }
 }

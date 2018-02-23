@@ -7,7 +7,7 @@ namespace ZNxtAap.Core.Interfaces
     {
         void Debug(string message, JObject logData = null);
 
-        void Error(string message, Exception ex = null);
+        void Error(string message, Exception ex);
 
         void Error(string message, Exception ex = null, JObject logData = null);
 

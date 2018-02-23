@@ -104,6 +104,7 @@ namespace ZNxtAap.Core.Web.Services
         }
         private void WriteEndTransaction(ILogger loggerController, string response )
         {
+            
             JObject objTxnStartData = new JObject();
             JObject payload = null;
             if (JObjectHelper.TryParseJson(response, ref payload))

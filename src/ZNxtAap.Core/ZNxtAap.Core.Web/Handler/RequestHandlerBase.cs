@@ -32,7 +32,7 @@ namespace ZNxtAap.Core.Web.Handler
         protected ILogger _logger;
         public RequestHandlerBase()
         {
-            InitApp.Run();
+          
             _routeExecuter = new RouteExecuter();
             
         }

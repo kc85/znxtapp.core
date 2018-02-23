@@ -70,6 +70,7 @@
     <Compile Include="Interfaces\IDBService.cs" />
     <Compile Include="Interfaces\IEncryption.cs" />
     <Compile Include="Interfaces\IHttpContextProxy.cs" />
+    <Compile Include="Interfaces\IInitData.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\ILogReader.cs" />
     <Compile Include="Interfaces\IMessageCodeContainer.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Module\RoutingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BaseController.cs" />
+    <Compile Include="Services\CronServiceBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

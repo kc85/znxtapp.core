@@ -21,9 +21,11 @@ namespace ZNxtAap.Core.Consts
             public const string PARAM_PING_SERVICE = "_param_ping_service";
             public const string PARAM_RESPONBUILDER = "_param_response_builder";
             public const string PARAM_APP_SETTING = "_param_app_setting_service";
+            public const string PARAM_ROUTING_OBJECT = "_param_app_routing_obj";
             public const string TIME_SPAN = "TimeSpan";
             public const string TRANSACTION_ID_KEY = "zapp-transactionid";
             public const string LOGS = "Logs";
+            
         }
     }
 }

@@ -15,12 +15,12 @@ namespace ZNxtAap.Core.Helpers
 
         private readonly ILogger _logger;
         public ILogReader _logReader;
-        private readonly IHttpContextProxy _httProxy;
+        private readonly IInitData _initData;
 
-        public ResponseBuilder(ILogger logger, ILogReader logReader, IHttpContextProxy httProxy)
+        public ResponseBuilder(ILogger logger, ILogReader logReader, IInitData initData)
         {
             _logger = logger;
-            _httProxy = httProxy;
+            _initData = initData;
             _logReader = logReader;
         }
         public JObject CreateReponse(int code, JToken data = null, JObject extraData = null)
@@ -67,13 +67,13 @@ namespace ZNxtAap.Core.Helpers
             JObject response = new JObject();
             response[CommonConst.CommonField.HTTP_RESPONE_CODE] = code;
             response[CommonConst.CommonField.HTTP_RESPONE_MESSAGE] = CommonConst.Messages[code];
-            response[CommonConst.CommonField.HTTP_RESPONE_TRANSACTION_ID] = _httProxy.TransactionId;
+            response[CommonConst.CommonField.HTTP_RESPONE_TRANSACTION_ID] = _initData.TransactionId;
 
             if (ApplicationMode.Maintance == ApplicationConfig.GetApplicationMode)
             {
                 JObject objDebugData = new JObject();
-                objDebugData[CommonConst.CommonValue.TIME_SPAN] = (DateTime.Now - _httProxy.InitDateTime).TotalMilliseconds;
-                objDebugData[CommonConst.CommonValue.LOGS] = _logReader.GetLogs(_httProxy.TransactionId);
+                objDebugData[CommonConst.CommonValue.TIME_SPAN] = (DateTime.Now - _initData.InitDateTime).TotalMilliseconds;
+                objDebugData[CommonConst.CommonValue.LOGS] = _logReader.GetLogs(_initData.TransactionId);
                 response[CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO] = objDebugData;
 
             }

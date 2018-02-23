@@ -44,6 +44,10 @@
             public const string PAYLOAD = "Payload";
             public const string USER = "User";
             public const string TRANSACTION_STATE = "TransactionState";
+            public const string REPEAT_IN = "repeat_in";
+            public const string EXECULT_ASSEMBLY = "ExecultAssembly";
+            public const string EXECUTE_TYPE = "ExecuteType";
+            public const string EXECUTE_METHOD = "ExecuteMethod";            
         }
     }
 }
