@@ -5,18 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using ZNxtAap.Core.Model;
 using ZNxtAap.Core.Services;
+using ZNxtAap.Core.Web.Services;
 
 namespace ZNxtAap.Core.Web.CronJobs
 {
-    public class CheckAppHealthCronJob : CronServiceBase
+    public class UpdateAppSettingCronJob :  CronServiceBase
     {
-        public CheckAppHealthCronJob(ParamContainer pamamContainer)
+        public UpdateAppSettingCronJob(ParamContainer pamamContainer)
             : base(pamamContainer)
         {
 
         }
-        public int Check()
+        public int Update()
         {
+            (AppSettingService as AppSettingService).ReloadSettings(true);
             return 1;
         }
     }

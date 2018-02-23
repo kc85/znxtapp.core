@@ -1,0 +1,13 @@
+﻿[
+    {
+        "key": "user_email_registration",
+        "body": "user_email_registration {#email#}",
+        "subject": "User Registration",
+        "is_from_file":  true
+    },
+    {
+        "key": "user_forgetpassword",
+        "body": "user_forgetpassword {#otp#}",
+        "subject" :  "Forget password"
+    }
+]

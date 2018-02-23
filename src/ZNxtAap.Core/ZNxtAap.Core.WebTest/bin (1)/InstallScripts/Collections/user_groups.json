@@ -1,0 +1,22 @@
+﻿[
+    {
+        "name": "sys_admin",
+        "key": "sys_admin",
+        "is_default": false
+    },
+    {
+        "name": "admin",
+        "key": "admin",
+        "is_default": false
+    },
+    {
+        "name": "user",
+        "key": "user",
+        "is_default": true
+    },
+    {
+        "key": "customer",
+        "name": "customer",
+        "is_default": true
+    }
+]

@@ -1,0 +1,421 @@
+﻿[
+    {
+        "key" :  "GET:/api/ping",
+        "ContentType": "application/json",
+        "Method": "GET",
+        "Route": "/api/ping",
+        "ExecultAssembly": "ZNxtAap.Core.Web.dll",
+        "ExecuteType": "ZNxtAap.Core.Web.Services.Api.PingController",
+        "ExecuteMethod": "Ping",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/user/registration/SendOTP",
+        "ExecultAssembly": "RegistrationModule.dll",
+        "ExecuteType": "RegistrationModule.Api.UserRegistrationCtrl",
+        "ExecuteMethod": "SendMobileOTP",
+        "auth_users": [
+            "*"
+        ]
+    },
+     {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/user/registration/username",
+        "ExecultAssembly": "RegistrationModule.dll",
+        "ExecuteType": "RegistrationModule.Api.UserRegistrationCtrl",
+        "ExecuteMethod": "UsernameRegister",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "text/html",
+        "Method": "GET",
+        "Route": "/signup",
+        "ExecultAssembly": "RegistrationModule.dll",
+        "ExecuteType": "RegistrationModule.Views.SignupViewCtrl",
+        "ExecuteMethod": "SignupHtml",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "text/html",
+        "Method": "GET",
+        "Route": "/login",
+        "ExecultAssembly": "RegistrationModule.dll",
+        "ExecuteType": "RegistrationModule.Views.LoginViewCtrl",
+        "ExecuteMethod": "LoginHtml",
+        "auth_users": [
+            "*"
+        ]
+    },
+     {
+        "ContentType": "text/html",
+        "Method": "GET",
+        "Route": "/mobilelogin",
+        "ExecultAssembly": "RegistrationModule.dll",
+        "ExecuteType": "RegistrationModule.Views.LoginViewCtrl",
+        "ExecuteMethod": "MobileLoginHtml",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "text/html",
+        "Method": "GET",
+        "Route": "/forgetpassword",
+        "ExecultAssembly": "RegistrationModule.dll",
+        "ExecuteType": "RegistrationModule.Views.ForgetpasswordViewCtrl",
+        "ExecuteMethod": "ForgetPasswordHtml",
+        "auth_users": [
+            "*"
+        ]
+    },
+     {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/forgetpassword/sendotp",
+        "ExecultAssembly": "RegistrationModule.dll",
+        "ExecuteType": "RegistrationModule.Api.ForgetPasswordCtrl",
+        "ExecuteMethod": "ForgetPasswordOTPSend",
+        "auth_users": [
+            "*"
+        ]
+    },
+
+    {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/user/registration/OTP",
+        "ExecultAssembly": "RegistrationModule.dll",
+        "ExecuteType": "RegistrationModule.Api.UserRegistrationCtrl",
+        "ExecuteMethod": "RegisterPhoneNumber",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/auth/login/SendOTP",
+        "ExecultAssembly": "RegistrationModule.dll",
+        "ExecuteType": "RegistrationModule.Api.LoginCtrl",
+        "ExecuteMethod": "SendOTPLogin",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/auth/login/OTP",
+        "ExecultAssembly": "RegistrationModule.dll",
+        "ExecuteType": "RegistrationModule.Api.LoginCtrl",
+        "ExecuteMethod": "LoginOTP",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/auth/login",
+        "ExecultAssembly": "RegistrationModule.dll",
+        "ExecuteType": "RegistrationModule.Api.LoginCtrl",
+        "ExecuteMethod": "Login",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/auth/setpassword",
+        "ExecultAssembly": "RegistrationModule.dll",
+        "ExecuteType": "RegistrationModule.OPTAuthUser",
+        "ExecuteMethod": "SetPassword",
+        "auth_users": [
+            "user"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/user/facebook/auth",
+        "ExecultAssembly": "RegistrationModule.dll",
+        "ExecuteType": "RegistrationModule.FacebookAuthUser",
+        "ExecuteMethod": "GetOAuthRequestData",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "text/html",
+        "Method": "GET",
+        "Route": "/facebookauthsuccess",
+        "ExecultAssembly": "RegistrationModule.dll",
+        "ExecuteType": "RegistrationModule.FacebookAuthUser",
+        "ExecuteMethod": "Callback",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/auth/logout",
+        "ExecultAssembly": "AuthModule.dll",
+        "ExecuteType": "AuthModule.Logout",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "GET",
+        "Route": "/api/auth/loginuserinfo",
+        "ExecultAssembly": "AuthModule.dll",
+        "ExecuteType": "AuthModule.GetUser",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "text/javascript",
+        "Method": "GET",
+        "Route": "/getuserdata.js",
+        "ExecultAssembly": "AuthModule.dll",
+        "ExecuteType": "AuthModule.GetUserData",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/app/uploadcontent",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.RefreshAppContent",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "sys_admin"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "GET",
+        "Route": "/api/app/modules",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.GetAppModule",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "sys_admin"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/module/delete",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.DeleteAppModule",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "sys_admin"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/app/module",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.UploadAppModule",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "sys_admin"
+        ]
+    },
+    {
+        "ContentType": "text/javascript",
+        "Method": "GET",
+        "Route": "/getall.js",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.GetAllJs",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "text/css",
+        "Method": "GET",
+        "Route": "/getall.css",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.GetAllCSS",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "text/javascript",
+        "Method": "GET",
+        "Route": "/getrouts.js",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.GetRouts",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "text/javascript",
+        "Method": "POST",
+        "Route": "/api/app/reload",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.ReloadAppDomain",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "sys_admin"
+        ]
+    },
+    {
+        "ContentType": "text/javascript",
+        "Method": "GET",
+        "Route": "/appinfo.js",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.AppInfo",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [ "*" ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "GET",
+        "Route": "/api/admin/appsetting",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.GetAppSetting",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "sys_admin"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "GET",
+        "Route": "/api/admin/appsettings",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.GetAppSetting",
+        "ExecuteMethod": "GetAll",
+        "auth_users": [
+            "sys_admin"
+        ]
+    },
+    {
+        "ContentType": "text/javascript",
+        "Method": "GET",
+        "Route": "/appsettings.js",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.GetAppSetting",
+        "ExecuteMethod": "GetAllAsJS",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/admin/appsetting",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.SetAppSetting",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "sys_admin"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "GET",
+        "Route": "/api/admin/serverlogs",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.GetLogs",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "sys_admin"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "GET",
+        "Route": "/api/admin/users",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.GetUsers",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "sys_admin"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/admin/userinfo",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.GetUsers",
+        "ExecuteMethod": "UpdateUserInfo",
+        "auth_users": [
+            "sys_admin"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "GET",
+        "Route": "/api/admin/userinfo",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.GetUsers",
+        "ExecuteMethod": "GetUserInfoAdmin",
+        "auth_users": [
+            "sys_admin"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "GET",
+        "Route": "/api/userinfo",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.GetUsers",
+        "ExecuteMethod": "GetUserInfo",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "GET",
+        "Route": "/api/admin/wwwroot",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.GetAllwwwroot",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "sys_admin"
+        ]
+    },
+    {
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/admin/wwwroot",
+        "ExecultAssembly": "AppServiceModule.dll",
+        "ExecuteType": "AppServiceModule.Updatewwroot",
+        "ExecuteMethod": "ProcessRequest",
+        "auth_users": [
+            "sys_admin"
+        ]
+    }
+
+]

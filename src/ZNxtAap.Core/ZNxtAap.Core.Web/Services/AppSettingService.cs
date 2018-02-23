@@ -39,9 +39,9 @@ namespace ZNxtAap.Core.Web.Services
         }
 
 
-        public void ReloadSettings()
+        public void ReloadSettings(bool forceReload = false)
         {
-            if (_settings == null)
+            if (_settings == null || forceReload)
             {
                 lock (_lockObj)
                 {

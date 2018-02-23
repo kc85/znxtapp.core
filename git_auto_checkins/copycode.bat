@@ -1,0 +1,1 @@
+XCOPY "C:\Users\Khanin\Google Drive\Code\znxtapp.core" "C:\Users\Khanin\Documents\GitHub\znxtapp.core" /S /Y /C

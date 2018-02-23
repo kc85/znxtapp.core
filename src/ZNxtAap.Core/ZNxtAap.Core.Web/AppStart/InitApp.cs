@@ -95,7 +95,7 @@ namespace ZNxtAap.Core.Web.AppStart
             var jobData = (_cronJobs.FirstOrDefault(f => f[CommonConst.CommonField.DATA_KEY].ToString() == key) as JObject);
             if (jobData != null)
             {
-                _logger.Debug(string.Format("Executing Cron Jon {0}", key), jobData);
+                _logger.Debug(string.Format("Executing Cron Job {0}", key), jobData);
                 job.Exec(jobData);
             }
             AddTask(key, Convert.ToInt32(val));
