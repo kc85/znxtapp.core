@@ -20,16 +20,23 @@ namespace ZNxtAap.Core.Web.Services
         public void Exec(RoutingModel route,IHttpContextProxy httpProxy)
         {
             ILogger loggerController = Logger.GetLogger(route.ExecuteType, httpProxy.TransactionId);
-
-
+            RouteEventHandler routeEventHandler = new RouteEventHandler();
+            
             try
             {
+                
                 loggerController.Info(string.Format("{0}:: Route: [{1}]", "RouteExecuter.Exec", route.ToString()));
                 IActionExecuter actionExecuter = new ActionExecuter(loggerController);
-                ParamContainer pamamContainer = CreateParamContainer(route, httpProxy, loggerController, actionExecuter);
+                ParamContainer paramContainer = CreateParamContainer(route, httpProxy, loggerController, actionExecuter);
                 WriteStartTransaction(loggerController, httpProxy, route);
-                var objResult = actionExecuter.Exec(route, pamamContainer);
+                // Execute before Events 
+                routeEventHandler.ExecBeforeEvent(actionExecuter, route, paramContainer);
+                
+                var objResult = actionExecuter.Exec(route, paramContainer);
                 httpProxy.ContentType = route.ContentType;
+
+                // Execute after Events 
+                routeEventHandler.ExecAfterEvent(actionExecuter, route, paramContainer, objResult);
 
                 if (objResult == null)
                 {

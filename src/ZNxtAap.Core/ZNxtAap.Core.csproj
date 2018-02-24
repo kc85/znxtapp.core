@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Config\AppInstallerConfig.cs" />
     <Compile Include="Config\ApplicationConfig.cs" />
+    <Compile Include="Consts\CommonConstFIlter.cs" />
     <Compile Include="Consts\CommonConst.cs" />
     <Compile Include="Consts\CommonConstBasic.cs" />
     <Compile Include="Consts\CommonConstCollection.cs" />

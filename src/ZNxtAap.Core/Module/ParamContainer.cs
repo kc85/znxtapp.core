@@ -27,7 +27,14 @@ namespace ZNxtAap.Core.Model
         }
         public dynamic GetKey(string key)
         {
-            return _keys[key];
+            if (_keys.ContainsKey(key))
+            {
+                return _keys[key]();
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

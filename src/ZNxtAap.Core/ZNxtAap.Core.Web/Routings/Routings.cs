@@ -35,8 +35,7 @@ namespace ZNxtAap.Core.Web.Routings
             {
                 _routsModules = new List<RoutingModel>();
                 _dbProxy.Collection = CommonConst.Collection.SERVER_ROUTES;
-                var filter = "{" + CommonConst.CommonField.IS_OVERRIDE + " : " + CommonConst.CommonValue.FALSE + "}";
-                var dataResponse = _dbProxy.Get(filter);
+                var dataResponse = _dbProxy.Get(CommonConst.Filters.IS_OVERRIDE_FILTER);
                 foreach (var item in dataResponse)
                 {
                     _routsModules.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<RoutingModel>(item.ToString()));

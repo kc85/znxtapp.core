@@ -25,7 +25,7 @@
             public const string RESOURCE_STRING = "resource_string";
             public const string PING = "ping";
             public const string DEFAULT_INSTALL_MODULES = "default_install_modules";
-           
+            public const string EVENT_SUBSCRIPTION = "event_subscription";
         }
     }
 }

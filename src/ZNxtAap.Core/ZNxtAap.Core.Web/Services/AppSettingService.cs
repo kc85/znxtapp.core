@@ -45,8 +45,7 @@ namespace ZNxtAap.Core.Web.Services
             {
                 lock (_lockObj)
                 {
-                    var filter = "{" + CommonConst.CommonField.IS_OVERRIDE + " : " + CommonConst.CommonValue.FALSE + "}";
-                    _settings = _dbService.Get(filter);
+                    _settings = _dbService.Get(CommonConst.Filters.IS_OVERRIDE_FILTER);
                 }
             }
         }

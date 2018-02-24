@@ -29,5 +29,9 @@ namespace ZNxtAap.Core.Model
         {
             return string.Format("{0}: {1}, Type: {2}, Assembly: {3}, Method: {4}, Module:{5}", Method, Route, ExecuteType, ExecultAssembly, ExecuteMethod,module);
         }
+        public string GetEventName()
+        {
+            return string.Format("{0}.{1}", ExecuteType, ExecuteMethod);
+        }
     }
 }

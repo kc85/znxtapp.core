@@ -19,6 +19,7 @@ namespace ZNxtAap.Core.Web.CronJobs
         public int Update()
         {
             (AppSettingService as AppSettingService).ReloadSettings(true);
+            EventSubscription.GetInstance(DBProxy, Logger).LoadEvents(true);
             return 1;
         }
     }
