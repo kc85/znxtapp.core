@@ -1,0 +1,18 @@
+﻿[
+    {
+        "key" :  "GET:/api/ping_Init",
+        "EventName": "GET:/api/ping",
+        "EventType": "Init",
+        "ExecultAssembly": "ZNxtApp.Core.Web.dll",
+        "ExecuteType": "ZNxtApp.Core.Web.Services.Api.PingInitEventSubscriber",
+        "ExecuteMethod": "PingBeforeStart"
+    },
+    {
+        "key" :  "GET:/api/ping_Completed",
+        "EventName": "GET:/api/ping",
+        "EventType": "Completed",
+        "ExecultAssembly": "ZNxtApp.Core.Web.dll",
+        "ExecuteType": "ZNxtApp.Core.Web.Services.Api.PingCompletedEventSubscriber",
+        "ExecuteMethod": "PingCompleted"
+    }
+]

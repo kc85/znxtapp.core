@@ -1,1 +1,1 @@
-Start implementation on Events subscriptions for Routes.
+Compeleted Event Subscriber functionalities. Added Ping API Init and Completed event. Completed event clean up the DB for ping.
