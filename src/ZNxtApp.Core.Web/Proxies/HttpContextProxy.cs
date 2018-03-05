@@ -177,5 +177,11 @@ namespace ZNxtApp.Core.Web.Proxies
         {
             return MimeMapping.GetMimeMapping(path);
         }
+
+
+        public string SessionID
+        {
+            get { return _context.Session.SessionID; }
+        }
     }
 }

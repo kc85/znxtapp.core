@@ -136,20 +136,22 @@ namespace ZNxtApp.Core.Web.Services
             ResponseBuilder responseBuilder = new ResponseBuilder(loggerController, logReader, httpProxy);
             IDBService dbService = new MongoDBService(ApplicationConfig.DataBaseName);
             IPingService pingService = new PingService(new MongoDBService(ApplicationConfig.DataBaseName, CommonConst.Collection.PING));
-            ParamContainer pamamContainer = new ParamContainer();
+            ISessionProvider sessionProvider = new SessionProvider(httpProxy, dbService, loggerController);
+            ParamContainer paramContainer = new ParamContainer();
             IAppSettingService appSettingService = AppSettingService.Instance;
 
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_ROUTE, () => { return route; });
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_DBPROXY, () => { return dbService; });
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_HTTPREQUESTPROXY, () => { return httpProxy; });
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_LOGGER, () => { return loggerController; });
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_ACTIONEXECUTER, () => { return actionExecuter; });
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_PING_SERVICE, () => { return pingService; });
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_PING_SERVICE, () => { return pingService; });
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_RESPONBUILDER, () => { return responseBuilder; });
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_APP_SETTING, () => { return appSettingService; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_ROUTE, () => { return route; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_DBPROXY, () => { return dbService; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_HTTPREQUESTPROXY, () => { return httpProxy; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_LOGGER, () => { return loggerController; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_ACTIONEXECUTER, () => { return actionExecuter; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_PING_SERVICE, () => { return pingService; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_PING_SERVICE, () => { return pingService; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_RESPONBUILDER, () => { return responseBuilder; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_APP_SETTING, () => { return appSettingService; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_SESSION_PROVIDER, () => { return sessionProvider; });
            
-            return pamamContainer;
+            return paramContainer;
         }
 
     }

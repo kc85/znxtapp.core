@@ -79,6 +79,7 @@
     <Compile Include="Interfaces\IModuleUninstaller.cs" />
     <Compile Include="Interfaces\IPingService.cs" />
     <Compile Include="Interfaces\IRoutings.cs" />
+    <Compile Include="Interfaces\ISessionProvider.cs" />
     <Compile Include="Module\ModuleServiceBase.cs" />
     <Compile Include="Module\ParamContainer.cs" />
     <Compile Include="Module\RoutingModel.cs" />

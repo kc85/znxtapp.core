@@ -36,6 +36,8 @@ namespace ZNxtApp.Core.Interfaces
 
         string GetFormData(string key);
 
+        string SessionID{get;}
+
         //dynamic GetFiles();
 
         //string GetFormData(string key);

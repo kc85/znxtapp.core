@@ -24,11 +24,11 @@ namespace ZNxtApp.Core.Consts
             public const string PARAM_APP_SETTING = "_param_app_setting_service";
             public const string PARAM_ROUTING_OBJECT = "_param_app_routing_obj";
             public const string PARAM_API_RESPONSE = "_param_api_response";
+            public const string PARAM_SESSION_PROVIDER = "_param_session_prvider";
 
             public const string TIME_SPAN = "TimeSpan";
             public const string TRANSACTION_ID_KEY = "zapp-transactionid";
             public const string LOGS = "Logs";
-            
         }
     }
 }
