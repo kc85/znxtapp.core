@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Web;
+using System.Web.SessionState;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.DB.Mongo;
@@ -13,6 +14,7 @@ namespace ZNxtApp.Core.Web.Handler
 {
     public class RequestHandler : RequestHandlerBase
     {
+      
         private IAppInstaller _appInstaller;
      
         public override void ProcessRequest(HttpContext context)
@@ -64,14 +66,15 @@ namespace ZNxtApp.Core.Web.Handler
             var appInstallerLogger = Logger.GetLogger(typeof(Installer).Name,_httpProxy.TransactionId);
             var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
             var pingService = new PingService(new MongoDBService(ApplicationConfig.DataBaseName, CommonConst.Collection.PING));
-
+            var routings = ZNxtApp.Core.Web.Routings.Routings.GetRoutings();
             _appInstaller =  ZNxtApp.Core.AppInstaller.Installer.GetInstance(
                pingService,
                new Helpers.DataBuilderHelper(),
                appInstallerLogger,
                dbProxy,
                new EncryptionService(),
-               new ModuleInstaller.Installer.Installer(appInstallerLogger, dbProxy));
+               new ModuleInstaller.Installer.Installer(appInstallerLogger, dbProxy),
+              routings);
 
         }
     }

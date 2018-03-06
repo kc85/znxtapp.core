@@ -55,7 +55,7 @@ namespace ZNxtApp.Core.Interfaces
         //int HttpResponseStatusCode { get; set; }
         //string HttpResponseStatusMessage { get; set; }
 
-        //void ResetSession();
+        
 
         //void SetSessionValue(string key, Newtonsoft.Json.Linq.JObject value);
 

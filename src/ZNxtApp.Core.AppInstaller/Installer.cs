@@ -30,9 +30,10 @@ namespace ZNxtApp.Core.AppInstaller
         private readonly ILogger _logger;
         private readonly IEncryption _encryptionService;
         private readonly IDBService _dbProxy;
-        private readonly IModuleInstaller _moduleInstaller; 
+        private readonly IModuleInstaller _moduleInstaller;
+        private readonly IRoutings _routings;
 
-        private Installer(IPingService pingService, DataBuilderHelper dataBuilderHelper, ILogger logger, IDBService dbProxy, IEncryption encryptionService, IModuleInstaller moduleInstaller)
+        private Installer(IPingService pingService, DataBuilderHelper dataBuilderHelper, ILogger logger, IDBService dbProxy, IEncryption encryptionService, IModuleInstaller moduleInstaller, IRoutings routing)
         {
             _pingService = pingService;
             _dataBuilderHelper = dataBuilderHelper;
@@ -40,16 +41,18 @@ namespace ZNxtApp.Core.AppInstaller
             _dbProxy = dbProxy;
             _encryptionService = encryptionService;
             _moduleInstaller = moduleInstaller;
+            _routings = routing;
             GetInstallStatus();
+
         }
 
-        public static IAppInstaller GetInstance(IPingService pingService, DataBuilderHelper dataBuilderHelper, ILogger logger, IDBService dbProxy, IEncryption encryptionService, IModuleInstaller moduleInstaller)
+        public static IAppInstaller GetInstance(IPingService pingService, DataBuilderHelper dataBuilderHelper, ILogger logger, IDBService dbProxy, IEncryption encryptionService, IModuleInstaller moduleInstaller,IRoutings routing)
         {
             if (_appInstaller == null)
             {
                 lock (lockObject)
                 {
-                    _appInstaller = new Installer(pingService, dataBuilderHelper, logger, dbProxy, encryptionService, moduleInstaller);
+                    _appInstaller = new Installer(pingService, dataBuilderHelper, logger, dbProxy, encryptionService, moduleInstaller,routing);
                 }
             }
             return _appInstaller;
@@ -133,6 +136,7 @@ namespace ZNxtApp.Core.AppInstaller
             InstallModule(requestData, httpProxy);
 
             UpdateInstallStatus(AppInstallStatus.Finish);
+            _routings.LoadRoutes();
             httpProxy.SetResponse(CommonConst._200_OK, GetStatus());
             httpProxy.ContentType = CommonConst.CONTENT_TYPE_APPLICATION_JSON;
         }

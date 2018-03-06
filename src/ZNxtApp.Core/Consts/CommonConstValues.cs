@@ -29,6 +29,7 @@ namespace ZNxtApp.Core.Consts
             public const string TIME_SPAN = "TimeSpan";
             public const string TRANSACTION_ID_KEY = "zapp-transactionid";
             public const string LOGS = "Logs";
+            public const string SESSION_COOKIE = "za_s_k";
         }
     }
 }

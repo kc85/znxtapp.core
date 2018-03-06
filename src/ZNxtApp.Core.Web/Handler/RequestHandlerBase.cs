@@ -15,7 +15,7 @@ using ZNxtApp.Core.AppInstaller;
 
 namespace ZNxtApp.Core.Web.Handler
 {
-    public abstract class RequestHandlerBase : IHttpHandler, IRequiresSessionState
+    public abstract class RequestHandlerBase : IHttpHandler
     {
         public bool IsReusable
         {
@@ -44,6 +44,7 @@ namespace ZNxtApp.Core.Web.Handler
 
         public virtual void ProcessRequest(HttpContext context)
         {
+            HandleSession(context);
             _httpProxy = new HttpContextProxy(context);
             _logger = Logger.GetLogger(this.GetType().Name, _httpProxy.TransactionId);
             CreateRoute();
@@ -55,6 +56,7 @@ namespace ZNxtApp.Core.Web.Handler
             _httpContext.Response.StatusCode = _httpProxy.ResponseStatusCode;
             _httpContext.Response.StatusDescription = _httpProxy.ResponseStatusMessage;
             _httpContext.Response.ContentType = _httpProxy.ContentType;
+
             if (_httpProxy.Response != null)
             {
                 _httpContext.Response.OutputStream.Write(_httpProxy.Response, 0, _httpProxy.Response.Length);
@@ -81,6 +83,22 @@ namespace ZNxtApp.Core.Web.Handler
                 _httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND, data);
             }
         }
-       
+
+        private void HandleSession(HttpContext context)
+        {
+            if(context.Request.Cookies[CommonConst.CommonValue.SESSION_COOKIE]==null)
+            {
+                CreateSession(context);
+            }
+        }
+
+        private void CreateSession(HttpContext context)
+        {
+            var cookie = new HttpCookie(CommonConst.CommonValue.SESSION_COOKIE,Guid.NewGuid().ToString());
+            var expires = DateTime.Now.AddMinutes(ApplicationConfig.SessionDuration);            
+            cookie.Expires = expires;
+            cookie.HttpOnly = true;
+            context.Response.Cookies.Add(cookie);
+        }
     }
 }

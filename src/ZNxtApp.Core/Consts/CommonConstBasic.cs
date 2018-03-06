@@ -48,8 +48,7 @@
             public const string EXECULT_ASSEMBLY = "ExecultAssembly";
             public const string EXECUTE_TYPE = "ExecuteType";
             public const string EXECUTE_METHOD = "ExecuteMethod";
-
-            public static string SESSION_ID { get; set; }
+            public const string SESSION_ID = "session_id";
         }
     }
 }

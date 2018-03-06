@@ -181,7 +181,22 @@ namespace ZNxtApp.Core.Web.Proxies
 
         public string SessionID
         {
-            get { return _context.Session.SessionID; }
+            get
+            {
+                if (_context.Request.Cookies[CommonConst.CommonValue.SESSION_COOKIE] != null)
+                {
+                    return _context.Request.Cookies[CommonConst.CommonValue.SESSION_COOKIE].Value;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+        }
+        public void ResetSession()
+        {
+            _context.Response.Cookies.Remove(CommonConst.CommonValue.SESSION_COOKIE);
         }
     }
 }

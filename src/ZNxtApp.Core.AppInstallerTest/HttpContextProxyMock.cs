@@ -107,5 +107,11 @@ namespace ZNxtApp.Core
         {
             get { throw new NotImplementedException(); }
         }
+
+
+        public string SessionID
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

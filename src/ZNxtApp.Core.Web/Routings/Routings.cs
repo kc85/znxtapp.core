@@ -24,12 +24,12 @@ namespace ZNxtApp.Core.Web.Routings
         {
             _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
             _logger = Logger.GetLogger(this.GetType().Name,string.Empty);
-            LoadRouts();
+            LoadRoutes();
         }
 
 
 
-        private void LoadRouts()
+        public void LoadRoutes()
         {
             try
             {

@@ -20,7 +20,11 @@ namespace ZNxtApp.Core.Web.Services.Api
 
         public JObject Ping()
         {
-            
+            SessionProvider.SetValue<String>("PingStr", DateTime.Now.ToShortTimeString());
+            SessionProvider.SetValue<DateTime>("Ping", DateTime.Now);
+
+            var val1 =  SessionProvider.GetValue<String>("PingStr");
+            var val2 = SessionProvider.GetValue<DateTime>("Ping");
             if (PingService.PingDb())
             {
                 return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS);

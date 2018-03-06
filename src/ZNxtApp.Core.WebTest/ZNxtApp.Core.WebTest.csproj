@@ -92,6 +92,10 @@
       <Project>{622bc05c-d210-47c3-b83d-7b4c7e25386c}</Project>
       <Name>ZNxtApp.Core.Web</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ZNxtApp.Core\ZNxtApp.Core.csproj">
+      <Project>{82ca2f2e-4aac-48f5-ba04-96bea1d0d667}</Project>
+      <Name>ZNxtApp.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
