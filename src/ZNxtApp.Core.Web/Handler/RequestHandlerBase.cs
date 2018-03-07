@@ -12,6 +12,7 @@ using ZNxtApp.Core.Web.Proxies;
 using ZNxtApp.Core.Web.Services;
 using ZNxtApp.Core.Web.Util;
 using ZNxtApp.Core.AppInstaller;
+using System.IO;
 
 namespace ZNxtApp.Core.Web.Handler
 {
@@ -27,14 +28,15 @@ namespace ZNxtApp.Core.Web.Handler
 
         private HttpContext _httpContext;
         protected IHttpContextProxy _httpProxy;
+        protected IInitData _initData;
         protected IRoutings _routings;
         protected IRouteExecuter _routeExecuter;
         protected ILogger _logger;
+        protected IViewEngine _viewEngine;
         public RequestHandlerBase()
         {
-          
+            _viewEngine = ViewEngine.GetEngine();
             _routeExecuter = new RouteExecuter();
-            
         }
 
         private void CreateRoute()
@@ -46,6 +48,7 @@ namespace ZNxtApp.Core.Web.Handler
         {
             HandleSession(context);
             _httpProxy = new HttpContextProxy(context);
+            _initData = _httpProxy;
             _logger = Logger.GetLogger(this.GetType().Name, _httpProxy.TransactionId);
             CreateRoute();
             _httpContext = context;
@@ -61,27 +64,63 @@ namespace ZNxtApp.Core.Web.Handler
             {
                 _httpContext.Response.OutputStream.Write(_httpProxy.Response, 0, _httpProxy.Response.Length);
             }
+            RemoveHeaders();
+        }
+        private void RemoveHeaders()
+        {
+            HttpContext.Current.Response.Headers.Remove("Server");
+            HttpContext.Current.Response.Headers.Remove("X-SourceFiles");
+            HttpContext.Current.Response.Headers.Remove("X-Powered-By");
+            HttpContext.Current.Response.Headers.Remove("X-AspNet-Version");
+            HttpContext.Current.Response.Headers.Remove("X-AspNetMvc-Version");
+            HttpContext.Current.Response.Headers.Remove("X-AspNet-Version");
         }
 
         protected void HandleStaticContent(string requestUriPath)
         {
             var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
-            var data = StaticContentHandler.GetContent(dbProxy, _logger, requestUriPath);
-            _httpProxy.ContentType = MimeMapping.GetMimeMapping(requestUriPath);
+            var fi = new FileInfo(requestUriPath);
+            if (fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION)
+            {
+                var data = StaticContentHandler.GetStringContent(dbProxy, _logger, requestUriPath);
+                data = _viewEngine.Compile(data, requestUriPath, null);
+                if (data != null)
+                {
+                    _httpProxy.SetResponse(CommonConst._200_OK, data);
+                }
+                else
+                {
+                    _httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND);
+                }
+                _httpProxy.ContentType = CommonConst.CONTENT_TYPE_TEXT_HTML;
+            }
+            else
+            {
+                var data = StaticContentHandler.GetContent(dbProxy, _logger, requestUriPath);
+                if (data != null)
+                {
+                    _httpProxy.SetResponse(CommonConst._200_OK, data);
+                }
+                else
+                {
+                    _httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND, data);
+                }
+                _httpProxy.ContentType = MimeMapping.GetMimeMapping(requestUriPath);
+            }
+            
             if (ApplicationConfig.StaticContentCache)
             {
                 _httpContext.Response.Cache.SetCacheability(HttpCacheability.Public);
                 _httpContext.Response.Cache.SetExpires(DateTime.Now.AddDays(10));
                 _httpContext.Response.Cache.SetMaxAge(new TimeSpan(10, 0, 0, 0));
             }
-            if (data != null)
+
+            if (ApplicationMode.Maintance == ApplicationConfig.GetApplicationMode)
             {
-                _httpProxy.SetResponse(CommonConst._200_OK, data);
+                _httpContext.Response.Headers[string.Format("{0}.{1}", CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO, CommonConst.CommonValue.TIME_SPAN)] = (DateTime.Now - _initData.InitDateTime).TotalMilliseconds.ToString();
+                _httpContext.Response.Headers[string.Format("{0}.{1}", CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO, CommonConst.CommonField.TRANSATTION_ID)] = _initData.TransactionId;
             }
-            else
-            {
-                _httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND, data);
-            }
+            RemoveHeaders();
         }
 
         private void HandleSession(HttpContext context)

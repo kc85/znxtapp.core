@@ -70,7 +70,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
-    <Content Include="wwwroot\index.html" />
+    <None Include="wwwroot\index.z" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

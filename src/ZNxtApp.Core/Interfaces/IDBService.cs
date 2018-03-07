@@ -17,6 +17,8 @@ namespace ZNxtApp.Core.Interfaces
 
         long Update(string bsonQuery, JObject data, bool overrideData = false, MergeArrayHandling mergeType = MergeArrayHandling.Union);
 
+        JObject GetPageData(string query, List<string> fields = null, Dictionary<string, int> sortColumns = null, int pageSize = 10, int currentPage = 1);
+
         bool DropDB();
     }
 

@@ -20,14 +20,20 @@ namespace ZNxtApp.Core.Web.Services.Api
 
         public JObject Ping()
         {
-            SessionProvider.SetValue<String>("PingStr", DateTime.Now.ToShortTimeString());
-            SessionProvider.SetValue<DateTime>("Ping", DateTime.Now);
+            string template = "Hello @Model[\"Name\"], welcome to RazorEngine! @Model[\"dt\"]()";
 
-            var val1 =  SessionProvider.GetValue<String>("PingStr");
-            var val2 = SessionProvider.GetValue<DateTime>("Ping");
+            var inputData = new Dictionary<string, dynamic>();
+            inputData["Name"] = "Khanin";
+            Func<string> dt = () => { return DateTime.Now.ToString() ; };
+            inputData["dt"] = dt;
+
+            JObject data = new JObject();
+            data["Text"] = ViewEngine.Compile(template, "templateKey", inputData);
+
+
             if (PingService.PingDb())
             {
-                return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS);
+                return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, data);
             }
             else
             {

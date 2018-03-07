@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="Config\AppInstallerConfig.cs" />
     <Compile Include="Config\ApplicationConfig.cs" />
-    <Compile Include="Consts\CommonConstFIlter.cs" />
+    <Compile Include="Consts\CommonConstFilter.cs" />
     <Compile Include="Consts\CommonConst.cs" />
     <Compile Include="Consts\CommonConstBasic.cs" />
     <Compile Include="Consts\CommonConstCollection.cs" />
@@ -80,6 +80,7 @@
     <Compile Include="Interfaces\IPingService.cs" />
     <Compile Include="Interfaces\IRoutings.cs" />
     <Compile Include="Interfaces\ISessionProvider.cs" />
+    <Compile Include="Interfaces\IViewEngine.cs" />
     <Compile Include="Module\ModuleServiceBase.cs" />
     <Compile Include="Module\ParamContainer.cs" />
     <Compile Include="Module\RoutingModel.cs" />

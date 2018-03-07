@@ -136,6 +136,27 @@ namespace ZNxtApp.Core.DB.Mongo
             return resultData;
         }
 
+        public JObject GetPageData(string query, List<string> fields = null, Dictionary<string, int> sortColumns = null, int pageSize = 10, int currentPage = 1)
+        {
+            int? top = null;
+            int? skip = null;
+
+            top = pageSize;
+            skip = (pageSize * (currentPage - 1));
+
+            var dbArrData = Get(query, fields, sortColumns, top, skip);
+            JObject extraData = new JObject();
+            long count = GetCount(query);
+
+            extraData[CommonConst.CommonField.TOTAL_RECORD_COUNT_KEY] = count;
+            extraData[CommonConst.CommonField.TOTAL_PAGES_KEY] = Math.Ceiling(((double)count / pageSize));
+            extraData[CommonConst.CommonField.PAGE_SIZE_KEY] = pageSize;
+            extraData[CommonConst.CommonField.CURRENT_PAGE_KEY] = currentPage;
+            extraData[CommonConst.CommonField.DATA] = dbArrData;
+
+            return extraData;
+        }
+
         public long Delete(string bsonQuery)
         {
             var result = _mongoDataBase.GetCollection<BsonDocument>(Collection).DeleteMany(GetFilter(bsonQuery));

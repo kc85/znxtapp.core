@@ -21,7 +21,7 @@ namespace ZNxtApp.Core.Web.Handler
         {
             base.ProcessRequest(context);
 
-            var requestUriPath = _httpProxy.GetURIAbsolutePath();
+            var requestUriPath = _httpProxy.GetURIAbsolutePath().ToLower() ;
 
             if (ApplicationMode.Maintance == ApplicationConfig.GetApplicationMode)
             {

@@ -42,17 +42,20 @@ namespace ZNxtApp.Core.Web.Services
             ResponseBuilder responseBuilder = new ResponseBuilder(loggerController, logReader, new CronJobInitData(loggerController.TransactionId));
             IDBService dbService = new MongoDBService(ApplicationConfig.DataBaseName);
             IPingService pingService = new PingService(new MongoDBService(ApplicationConfig.DataBaseName, CommonConst.Collection.PING));
-            ParamContainer pamamContainer = new ParamContainer();
+            ParamContainer paramContainer = new ParamContainer();
             IAppSettingService appSettingService = AppSettingService.Instance;
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_DBPROXY, () => { return dbService; });
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_LOGGER, () => { return loggerController; });
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_ACTIONEXECUTER, () => { return actionExecuter; });
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_PING_SERVICE, () => { return pingService; });
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_RESPONBUILDER, () => { return responseBuilder; });
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_APP_SETTING, () => { return appSettingService; });
-            pamamContainer.AddKey(CommonConst.CommonValue.PARAM_ROUTING_OBJECT, () => { return routings; });
+            IViewEngine viewEngine = ViewEngine.GetEngine();
 
-            return pamamContainer;
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_DBPROXY, () => { return dbService; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_LOGGER, () => { return loggerController; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_ACTIONEXECUTER, () => { return actionExecuter; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_PING_SERVICE, () => { return pingService; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_RESPONBUILDER, () => { return responseBuilder; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_APP_SETTING, () => { return appSettingService; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_ROUTING_OBJECT, () => { return routings; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_VIEW_ENGINE, () => { return viewEngine; });
+
+            return paramContainer;
         }
     }
 

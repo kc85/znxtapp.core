@@ -6,7 +6,7 @@
         {
             public const string DISPLAY_ID = "id";
             public const string ID = "_id";
-            public const string SERVER_SIDE_PROCESS_HTML_EXTENSION = ".shtml";
+            public const string SERVER_SIDE_PROCESS_HTML_EXTENSION = ".z";
             public const string DATA_KEY = "key";
             public const string VALUE = "value";
             public const string CREATED_DATA_DATE_TIME = "created_datetime";
@@ -49,6 +49,10 @@
             public const string EXECUTE_TYPE = "ExecuteType";
             public const string EXECUTE_METHOD = "ExecuteMethod";
             public const string SESSION_ID = "session_id";
+            public const string TOTAL_RECORD_COUNT_KEY = "TotalRecords";
+            public const string TOTAL_PAGES_KEY = "TotalPages";
+            public const string PAGE_SIZE_KEY = "PageSize";
+            public const string CURRENT_PAGE_KEY = "CurrentPage";
         }
     }
 }

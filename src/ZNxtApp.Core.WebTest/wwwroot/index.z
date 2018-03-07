@@ -1,0 +1,15 @@
+﻿@{
+    var date = DateTime.Now.ToShortDateString();
+    var message = "Hello World";
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <h1> Welcome @message </h1>
+	<p>@DateTime.Now</p>
+</body>
+</html>

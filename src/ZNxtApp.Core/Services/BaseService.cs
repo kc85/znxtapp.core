@@ -19,6 +19,7 @@ namespace ZNxtApp.Core.Services
         protected IPingService PingService { get; private set; }
         protected ResponseBuilder ResponseBuilder { get; private set; }
         protected IAppSettingService AppSettingService { get; private set; }
+        protected IViewEngine ViewEngine { get; private set; }
 
         public BaseService(ParamContainer paramContainer)
         {
@@ -28,7 +29,7 @@ namespace ZNxtApp.Core.Services
             ActionExecuter = paramContainer.GetKey(CommonConst.CommonValue.PARAM_ACTIONEXECUTER);
             PingService = paramContainer.GetKey(CommonConst.CommonValue.PARAM_PING_SERVICE);
             ResponseBuilder = paramContainer.GetKey(CommonConst.CommonValue.PARAM_RESPONBUILDER);
-            AppSettingService = paramContainer.GetKey(CommonConst.CommonValue.PARAM_APP_SETTING);
+            ViewEngine = paramContainer.GetKey(CommonConst.CommonValue.PARAM_VIEW_ENGINE);
         }
     }
 }
