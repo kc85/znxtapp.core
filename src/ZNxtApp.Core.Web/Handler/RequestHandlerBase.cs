@@ -13,6 +13,8 @@ using ZNxtApp.Core.Web.Services;
 using ZNxtApp.Core.Web.Util;
 using ZNxtApp.Core.AppInstaller;
 using System.IO;
+using ZNxtApp.Core.Web.Helper;
+using System.Collections.Generic;
 
 namespace ZNxtApp.Core.Web.Handler
 {
@@ -83,7 +85,15 @@ namespace ZNxtApp.Core.Web.Handler
             if (fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION)
             {
                 var data = StaticContentHandler.GetStringContent(dbProxy, _logger, requestUriPath);
-                data = _viewEngine.Compile(data, requestUriPath, null);
+                var pageModel = new Dictionary<string, dynamic>();
+                data = _viewEngine.Compile(data, requestUriPath, ServerPageModelHelper.SetDefaultModel(dbProxy, _httpProxy, _logger, _viewEngine, pageModel));
+                if (pageModel.ContainsKey(CommonConst.CommonValue.PAGE_TEMPLATE_PATH))
+                {
+                    var templateFileData = StaticContentHandler.GetStringContent(dbProxy, _logger, pageModel[CommonConst.CommonValue.PAGE_TEMPLATE_PATH]);
+                    pageModel[CommonConst.CommonValue.RENDERBODY_DATA] = data;
+                    data = _viewEngine.Compile(templateFileData, pageModel[CommonConst.CommonValue.PAGE_TEMPLATE_PATH], ServerPageModelHelper.SetDefaultModel(dbProxy, _httpProxy, _logger, _viewEngine, pageModel));
+                }
+
                 if (data != null)
                 {
                     _httpProxy.SetResponse(CommonConst._200_OK, data);

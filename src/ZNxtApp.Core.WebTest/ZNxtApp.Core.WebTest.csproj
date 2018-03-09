@@ -70,6 +70,9 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
+    <None Include="wwwroot\header.zb" />
+    <None Include="wwwroot\user_block.zb" />
+    <None Include="wwwroot\template.zt" />
     <None Include="wwwroot\index.z" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -1,11 +1,13 @@
 ﻿using RazorEngine;
 using RazorEngine.Configuration;
 using RazorEngine.Templating;
+using RazorEngine.Text;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Interfaces;
 
 namespace ZNxtApp.Core.Web.Services
@@ -22,6 +24,8 @@ namespace ZNxtApp.Core.Web.Services
             config.Language = Language.CSharp;
             config.DisableTempFileLocking = true;
             config.CachingProvider = new DefaultCachingProvider(t => { });
+            config.EncodedStringFactory = new RawStringFactory(); // Raw string encoding.
+            //config.EncodedStringFactory = new HtmlEncodedStringFactory(); // Html encoding.
 #if DEBUG
             config.Debug = true;
             config.DisableTempFileLocking = false;
@@ -49,6 +53,22 @@ namespace ZNxtApp.Core.Web.Services
         {
             try
             {
+                if (dataModel is Dictionary<string, dynamic>)
+                {
+                    StringBuilder headerAppender = new StringBuilder();
+                    headerAppender.AppendLine("@{");
+                    foreach (var item in (dataModel as Dictionary<string, dynamic>))
+                    {
+                        if (item.Key == CommonConst.CommonValue.METHODS)
+                        {
+                            foreach (var itemMethod in (item.Value as Dictionary<string, dynamic>))
+                            {
+                                headerAppender.AppendLine(string.Format("dynamic {0} = @Model[\"{1}\"][\"{0}\"];", itemMethod.Key, CommonConst.CommonValue.METHODS));
+                            }
+                        }
+                    }
+                    inputTemplete = headerAppender.AppendLine("}").AppendLine(inputTemplete).ToString();
+                }
                 string result = Engine.Razor.RunCompile(inputTemplete, key, null, dataModel);
                 return result;
             }

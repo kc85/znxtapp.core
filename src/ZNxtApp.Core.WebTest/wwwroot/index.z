@@ -1,15 +1,11 @@
-﻿@{
-    var date = DateTime.Now.ToShortDateString();
-    var message = "Hello World";
-}
+﻿@InclueTemplate("./template.zt")
+<h2> Users : @QueryString("name") </h2>
+<ul>
+	@foreach (var user in GetData("users","{}") )
+    {
+		<li>	
+			@Include("./user_block.zb",user)
+		</li>
+	}
+</ul>
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
-    <h1> Welcome @message </h1>
-	<p>@DateTime.Now</p>
-</body>
-</html>

@@ -31,7 +31,9 @@ namespace ZNxtApp.Core.Consts
             public const string TRANSACTION_ID_KEY = "zapp-transactionid";
             public const string LOGS = "Logs";
             public const string SESSION_COOKIE = "za_s_k";
-            
+            public const string METHODS = "Methods";
+            public const string PAGE_TEMPLATE_PATH = "_page_template_path";
+            public const string RENDERBODY_DATA = "_render_body_data";
         }
     }
 }

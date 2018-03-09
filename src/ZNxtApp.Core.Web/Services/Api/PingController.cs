@@ -20,7 +20,7 @@ namespace ZNxtApp.Core.Web.Services.Api
 
         public JObject Ping()
         {
-            string template = "Hello @Model[\"Name\"], welcome to RazorEngine! @Model[\"dt\"]()";
+            string template = "Hello @Name , welcome to RazorEngine! @dt()";
 
             var inputData = new Dictionary<string, dynamic>();
             inputData["Name"] = "Khanin";
@@ -29,8 +29,7 @@ namespace ZNxtApp.Core.Web.Services.Api
 
             JObject data = new JObject();
             data["Text"] = ViewEngine.Compile(template, "templateKey", inputData);
-
-
+            
             if (PingService.PingDb())
             {
                 return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, data);
