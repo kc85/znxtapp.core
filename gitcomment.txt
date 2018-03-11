@@ -1,1 +1,1 @@
-Added custom module installer
+added get content on httpproxy

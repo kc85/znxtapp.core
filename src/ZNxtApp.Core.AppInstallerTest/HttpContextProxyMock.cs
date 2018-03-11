@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using ZNxtApp.Core.Interfaces;
 
 namespace ZNxtApp.Core
@@ -94,6 +95,11 @@ namespace ZNxtApp.Core
 
 
         public string GetContentType(string path)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetContentType(FileInfo pathInfo)
         {
             throw new NotImplementedException();
         }
