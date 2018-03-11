@@ -1,0 +1,7 @@
+{
+  "name" : "ZNxtApp.Users",
+  "description" : "This is a base module for user management",
+  "version" : "1.0",
+ "dependent_mudules" :["ZNxtApp.Users"],
+    "collections" :[{"name":"app_settings", "access_type":"read_only"}]
+}

@@ -27,9 +27,9 @@ namespace ZNxtApp.Core.Consts
             public const string PARAM_SESSION_PROVIDER = "_param_session_prvider";
             public const string PARAM_VIEW_ENGINE = "_param_view_engine";
 
-            public const string TIME_SPAN = "TimeSpan";
+            public const string TIME_SPAN = "time_span";
             public const string TRANSACTION_ID_KEY = "zapp-transactionid";
-            public const string LOGS = "Logs";
+            public const string LOGS = "logs";
             public const string SESSION_COOKIE = "za_s_k";
             public const string METHODS = "Methods";
             public const string PAGE_TEMPLATE_PATH = "_page_template_path";

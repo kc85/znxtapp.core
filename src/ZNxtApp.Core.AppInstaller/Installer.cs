@@ -209,6 +209,7 @@ namespace ZNxtApp.Core.AppInstaller
         {
             _logger.Debug("START RunInstallScripts");
 
+            _dbProxy.DropDB();
             var serverpath = string.Format("{0}\\InstallScripts\\Collections", ApplicationConfig.AppBinPath);
             var environment = CommonUtility.GetAppConfigValue(CommonConst.ENVIRONMENT_SETTING_KEY);
             environment = environment == null ? string.Empty : environment;

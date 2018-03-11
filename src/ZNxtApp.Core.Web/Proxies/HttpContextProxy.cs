@@ -10,6 +10,8 @@ using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Web.Services;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace ZNxtApp.Core.Web.Proxies
 {
@@ -33,6 +35,8 @@ namespace ZNxtApp.Core.Web.Proxies
         public string ContentType { get; set; }
         private string _requestBody = string.Empty;
 
+        private Dictionary<string, string> _serverPagesContentType = new Dictionary<string, string>();
+
         public HttpContextProxy(HttpContext context)
         {
             InitDateTime = DateTime.Now;
@@ -40,6 +44,13 @@ namespace ZNxtApp.Core.Web.Proxies
             _dataBuilderHelper = new DataBuilderHelper();
             _responseStatusCode = (int)HttpStatusCode.OK;
             _responseStatusMessage = HttpStatusCode.OK.ToString();
+
+            _serverPagesContentType[CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION] = CommonConst.CONTENT_TYPE_TEXT_HTML;
+            _serverPagesContentType[CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_TEMPLATE_EXTENSION] = CommonConst.CONTENT_TYPE_TEXT_HTML;
+            _serverPagesContentType[CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_BLOCK_EXTENSION] = CommonConst.CONTENT_TYPE_TEXT_HTML;
+            _serverPagesContentType[CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_CSS_EXTENSION] = CommonConst.CONTENT_TYPE_TEXT_CSS;
+            _serverPagesContentType[CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_JS_EXTENSION] = CommonConst.CONTENT_TYPE_TEXT_JS;
+
             ContentType = CommonConst.CONTENT_TYPE_TEXT_HTML;
 
             if (context.Request.Headers[CommonConst.CommonValue.TRANSACTION_ID_KEY] != null)
@@ -124,7 +135,7 @@ namespace ZNxtApp.Core.Web.Proxies
 
         public string GetMimeType(string fileName)
         {
-            return MimeMapping.GetMimeMapping(fileName);
+            return GetContentType(fileName);
         }
 
         public string GetRequestBody()
@@ -175,7 +186,19 @@ namespace ZNxtApp.Core.Web.Proxies
 
         public string GetContentType(string path)
         {
-            return MimeMapping.GetMimeMapping(path);
+            FileInfo fi = new FileInfo(path);
+            return GetContentType(fi);
+        }
+        public string GetContentType(FileInfo pathInfo)
+        {
+            if (_serverPagesContentType.ContainsKey(pathInfo.Extension))
+            {
+                return _serverPagesContentType[pathInfo.Extension];
+            }
+            else
+            {
+                return MimeMapping.GetMimeMapping(pathInfo.FullName);
+            }
         }
 
 

@@ -69,10 +69,12 @@
     <Compile Include="Proxies\HttpContextProxy.cs" />
     <Compile Include="Routings\Routings.cs" />
     <Compile Include="Services\ActionExecuter.cs" />
-    <Compile Include="Services\Api\PingController.cs" />
-    <Compile Include="Services\Api\PingCompletedEventSubscriber.cs" />
-    <Compile Include="Services\Api\PingInitEventSubscriber.cs" />
-    <Compile Include="Services\Api\PingResponseCode.cs" />
+    <Compile Include="Services\Api\ModuleInstaller\ModuleInstaller.cs" />
+    <Compile Include="Services\Api\ModuleInstaller\ModuleInstallerResponseCode.cs" />
+    <Compile Include="Services\Api\Ping\PingController.cs" />
+    <Compile Include="Services\Api\Ping\PingCompletedEventSubscriber.cs" />
+    <Compile Include="Services\Api\Ping\PingInitEventSubscriber.cs" />
+    <Compile Include="Services\Api\Ping\PingResponseCode.cs" />
     <Compile Include="Services\AppSettingService.cs" />
     <Compile Include="Services\CronJobExecuter.cs" />
     <Compile Include="Services\EncryptionService.cs" />

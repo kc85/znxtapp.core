@@ -7,6 +7,10 @@
             public const string DISPLAY_ID = "id";
             public const string ID = "_id";
             public const string SERVER_SIDE_PROCESS_HTML_EXTENSION = ".z";
+            public const string SERVER_SIDE_PROCESS_HTML_TEMPLATE_EXTENSION = ".zt";
+            public const string SERVER_SIDE_PROCESS_HTML_BLOCK_EXTENSION = ".zb";
+            public const string SERVER_SIDE_PROCESS_HTML_JS_EXTENSION = ".zj";
+            public const string SERVER_SIDE_PROCESS_HTML_CSS_EXTENSION = ".zc";
             public const string DATA_KEY = "key";
             public const string VALUE = "value";
             public const string CREATED_DATA_DATE_TIME = "created_datetime";
@@ -28,11 +32,11 @@
             public const string MODULE_NAME = "module_name";
             public const string ÌS_OVERRIDE = "is_override";
             public const string OVERRIDE_BY = "override_by";
-            public const string HTTP_RESPONE_CODE = "Code";
-            public const string HTTP_RESPONE_MESSAGE = "Message";
-            public const string HTTP_RESPONE_DATA = "Data";
-            public const string HTTP_RESPONE_TRANSACTION_ID = "TxnId";
-            public const string HTTP_RESPONE_DEBUG_INFO = "Debug";
+            public const string HTTP_RESPONE_CODE = "code";
+            public const string HTTP_RESPONE_MESSAGE = "message";
+            public const string HTTP_RESPONE_DATA = "data";
+            public const string HTTP_RESPONE_TRANSACTION_ID = "txn_id";
+            public const string HTTP_RESPONE_DEBUG_INFO = "debug";
             public const string LOG_LOG_LEVELS = "log_levels";
             public const string LOGGER_NAME = "logger";
             public const string LOG_TYPE = "type";

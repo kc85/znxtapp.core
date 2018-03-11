@@ -84,9 +84,10 @@ namespace ZNxtApp.Core.Web.Handler
             var fi = new FileInfo(requestUriPath);
             if (fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION)
             {
+               
                 var data = StaticContentHandler.GetStringContent(dbProxy, _logger, requestUriPath);
                 var pageModel = new Dictionary<string, dynamic>();
-                data = _viewEngine.Compile(data, requestUriPath, ServerPageModelHelper.SetDefaultModel(dbProxy, _httpProxy, _logger, _viewEngine, pageModel));
+                data = _viewEngine.Compile(data, requestUriPath, ServerPageModelHelper.SetDefaultModel(dbProxy, _httpProxy, _logger, _viewEngine, pageModel, fi.DirectoryName));
                 if (pageModel.ContainsKey(CommonConst.CommonValue.PAGE_TEMPLATE_PATH))
                 {
                     var templateFileData = StaticContentHandler.GetStringContent(dbProxy, _logger, pageModel[CommonConst.CommonValue.PAGE_TEMPLATE_PATH]);

@@ -145,7 +145,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                 foreach (var item in files)
                 {
                     FileInfo fi = new FileInfo(item.FullName);
-                    var contentType = _httpProxy.GetContentType(fi.FullName);
+                    var contentType = _httpProxy.GetContentType(fi);
                     var joData = GetJObjectData(fi, contentType, di.FullName, moduleName);
                     WriteToDB(joData, moduleName, CommonConst.Collection.STATIC_CONTECT, CommonConst.CommonField.FILE_PATH);
                 }
@@ -216,6 +216,28 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
         private string GetTextData(string path)
         {
             return File.ReadAllText(path);
+        }
+
+        public JObject GetDetails(string moduleName)
+        {
+            var moduleDir = string.Format("{0}\\{1}", ApplicationConfig.AppModulePath, moduleName);
+            if (Directory.Exists(moduleDir))
+            {
+                string filePath = string.Format("{0}\\{1}", moduleDir, MODULE_INFO_FILE);
+                if (File.Exists(filePath))
+                {
+                    var moduleFileData = JObjectHelper.GetJObjectFromFile(filePath);
+                    return moduleFileData;
+                }
+                else
+                {
+                    throw new FileNotFoundException();
+                }
+            }
+            else
+            {
+                throw new DirectoryNotFoundException();
+            }
         }
     }
 }

@@ -9,6 +9,8 @@ namespace ZNxtApp.Core.Consts
     {
         public const string CONTENT_TYPE_APPLICATION_JSON = "application/json";
         public const string CONTENT_TYPE_TEXT_HTML = "text/html";
+        public const string CONTENT_TYPE_TEXT_JS = "text/javascript";
+        public const string CONTENT_TYPE_TEXT_CSS = "text/css";
         public const string ENVIRONMENT_SETTING_KEY = "Environment";
         public const string CONFIG_FILE_EXTENSION = ".json";
         public const string EMPTY_JSON_OBJECT = "{}";
@@ -67,7 +69,11 @@ namespace ZNxtApp.Core.Consts
                .Where(mytype => mytype.GetInterfaces().Contains(typeof(IMessageCodeContainer))))
                     {
                         dynamic obj = Activator.CreateInstance(messageType);
-                        return obj.Get(code);
+                        string text = obj.Get(code);
+                        if (!string.IsNullOrEmpty(text))
+                        {
+                            return text;
+                        }
                     }
                 }
               

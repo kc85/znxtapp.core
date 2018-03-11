@@ -60,7 +60,7 @@ namespace ZNxtApp.Core.Web.Util
                 var data = document[CommonConst.CommonField.DATA];
                 if (data != null)
                 {
-                    data.ToString();
+                   return data.ToString();
                 }
             }
             else

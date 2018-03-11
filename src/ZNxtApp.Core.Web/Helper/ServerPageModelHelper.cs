@@ -13,7 +13,7 @@ namespace ZNxtApp.Core.Web.Helper
 {
     public static class ServerPageModelHelper
     {
-        public static Dictionary<string, dynamic> SetDefaultModel(IDBService dbProxy, IHttpContextProxy httpProxy, ILogger logger, IViewEngine viewEngine, Dictionary<string, dynamic> model)
+        public static Dictionary<string, dynamic> SetDefaultModel(IDBService dbProxy, IHttpContextProxy httpProxy, ILogger logger, IViewEngine viewEngine, Dictionary<string, dynamic> model,string folderPath = null)
         {
             if (model == null)
             {
@@ -56,6 +56,7 @@ namespace ZNxtApp.Core.Web.Helper
                             inputBlockModel[item.Key] = item.Value;
                         }
                     }
+                    
                     var data = StaticContentHandler.GetStringContent(dbProxy, logger, blockPath);
                     data = viewEngine.Compile(data, blockId, ServerPageModelHelper.SetDefaultModel(dbProxy, httpProxy, logger, viewEngine, inputBlockModel));
                     return data;

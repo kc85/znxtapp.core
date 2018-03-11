@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.IO;
 
 namespace ZNxtApp.Core.Interfaces
 {
@@ -27,6 +28,7 @@ namespace ZNxtApp.Core.Interfaces
         string ContentType { get; set; }
 
         string GetMimeType(string fileName);
+        string GetContentType(FileInfo pathInfo);
 
         string GetRequestBody();
 
