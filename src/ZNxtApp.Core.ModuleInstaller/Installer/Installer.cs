@@ -5,6 +5,7 @@ using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
+using System.Linq;
 
 namespace ZNxtApp.Core.ModuleInstaller.Installer
 {
@@ -38,9 +39,9 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                 else
                 {
                     moduleObject[CommonConst.MODULE_INSTALL_COLLECTIONS_FOLDER] = moduleCollections;
-                }
-                moduleCollections.Add(CommonConst.Collection.STATIC_CONTECT);
-                moduleCollections.Add(CommonConst.Collection.DLLS);
+                }                
+                moduleCollections.Add(CreateCollectionEntry(CommonConst.Collection.STATIC_CONTECT, CommonConst.CollectionAccessTypes.READONLY));
+                moduleCollections.Add(CreateCollectionEntry(CommonConst.Collection.DLLS, CommonConst.CollectionAccessTypes.READONLY));
 
                 InstallWWWRoot(moduleDir, moduleName);
                 InstallDlls(moduleDir, moduleName);
@@ -54,6 +55,14 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                 _logger.Error(string.Format("Module directory not found {0}", moduleDir), null);
                 return false;
             }
+        }
+
+        private JObject CreateCollectionEntry(string name, string accessType)
+        {
+            JObject result = new JObject();
+            result[CommonConst.CommonField.NAME] = name;
+            result[CommonConst.CommonField.ACCESS_TYPE] = accessType;
+            return result;
         }
 
         private void UpdateModuleInfo(string baseModulePath, ref JObject moduleObject)
@@ -93,22 +102,27 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                 {
                     FileInfo fi = new FileInfo(item.FullName);
                     var collectionName = fi.Name.Replace(fi.Extension, "");
-                    if (collectionName.Contains("."))
-                    {
-                        continue;
-                    }
-                    moduleCollections.Add(collectionName);
+                    //Find collection in config
 
-                    CleanDBCollection(moduleName, collectionName);
-
-                    foreach (JObject joData in JObjectHelper.GetJArrayFromFile(fi.FullName))
+                    var collectionConfig = moduleCollections.FirstOrDefault(f => f[CommonConst.CommonField.NAME].ToString() == collectionName);
+                    if (collectionConfig != null)
                     {
-                        joData[CommonConst.CommonField.DISPLAY_ID] = Guid.NewGuid().ToString();
-                        joData[CommonConst.CommonField.CREATED_DATA_DATE_TIME] = DateTime.Now;
-                        joData[CommonConst.CommonField.MODULE_NAME] = moduleName;
-                        joData[CommonConst.CommonField.ÌS_OVERRIDE] = false;
-                        joData[CommonConst.CommonField.OVERRIDE_BY] = CommonConst.CommonValue.NONE;
-                        WriteToDB(joData, moduleName, collectionName, CommonConst.CommonField.DATA_KEY);
+                        if (collectionName.Contains("."))
+                        {
+                            continue;
+                        }
+
+                        CleanDBCollection(moduleName, collectionName);
+
+                        foreach (JObject joData in JObjectHelper.GetJArrayFromFile(fi.FullName))
+                        {
+                            joData[CommonConst.CommonField.DISPLAY_ID] = Guid.NewGuid().ToString();
+                            joData[CommonConst.CommonField.CREATED_DATA_DATE_TIME] = DateTime.Now;
+                            joData[CommonConst.CommonField.MODULE_NAME] = moduleName;
+                            joData[CommonConst.CommonField.ÌS_OVERRIDE] = false;
+                            joData[CommonConst.CommonField.OVERRIDE_BY] = CommonConst.CommonValue.NONE;
+                            WriteToDB(joData, moduleName, collectionName, CommonConst.CommonField.DATA_KEY);
+                        }
                     }
                 }
             }

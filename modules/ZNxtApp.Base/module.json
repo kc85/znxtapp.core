@@ -1,5 +1,9 @@
 {
   "name" : "ZNxtApp.Base",
   "description" : "This is a base module of ZNxtApp",
-  "version" : "1.0"
+  "version" : "1.0",
+    "collections" :[
+	   {"name":"client_admin_routes", "access_type":"read_only"},
+	   {"name":"server_routes", "access_type":"read_only"}
+	]
 }

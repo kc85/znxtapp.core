@@ -50,7 +50,7 @@ namespace ZNxtApp.Core.DB.Mongo
         {
             try
             {
-                UpdateID(data);
+                UpdateID(data);                
                 var dbcollection = _mongoDataBase.GetCollection<BsonDocument>(Collection);
                 MongoDB.Bson.BsonDocument document = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(data.ToString());
                 dbcollection.InsertOne(document);

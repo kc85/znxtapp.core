@@ -46,6 +46,7 @@ namespace ZNxtApp.Core.Web.Util
 
         private static string GetFilter(string path)
         {
+            path = path.Replace("\\", "/");
             return "{ $and: [ { " + CommonConst.CommonField.IS_OVERRIDE + ":{ $ne: true}  }, {'" + CommonConst.CommonField.FILE_PATH + "':  {$regex :'^" + path.ToLower() + "$','$options' : 'i'}}] }";
         }
 

@@ -19,6 +19,7 @@
             public static string DATA_MODULE_NAME = "module";
             public const string UPDATED_DATE_TIME = "updated_datetime";
             public const string NAME = "name";
+            public const string ACCESS_TYPE = "access_type";
             public const string EMAIL = "email";
             public const string USER_ID = "user_id";
             public const string PASSWORD = "password";

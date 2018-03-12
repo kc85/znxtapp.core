@@ -20,6 +20,7 @@ namespace ZNxtApp.Core.Interfaces
         JObject GetPageData(string query, List<string> fields = null, Dictionary<string, int> sortColumns = null, int pageSize = 10, int currentPage = 1);
 
         bool DropDB();
+        
     }
 
     public enum SortBy

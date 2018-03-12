@@ -1,1 +1,1 @@
-added get content on httpproxy
+Added Install Module collection check. Implement Include files using relative path from server side pages. 

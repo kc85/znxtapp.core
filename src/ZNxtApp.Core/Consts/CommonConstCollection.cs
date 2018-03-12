@@ -27,5 +27,11 @@
             public const string DEFAULT_INSTALL_MODULES = "default_install_modules";
             public const string EVENT_SUBSCRIPTION = "event_subscription";
         }
+        public static class CollectionAccessTypes
+        {
+            public const string READONLY = "read_only";
+            public const string OWNER = "owner";
+            public const string READ_WRITE = "read_write";
+        }
     }
 }
