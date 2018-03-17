@@ -6,6 +6,8 @@ using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 using System.Linq;
+using System.Net;
+using System.IO.Compression;
 
 namespace ZNxtApp.Core.ModuleInstaller.Installer
 {
@@ -21,7 +23,12 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
         public bool Install(string moduleName, IHttpContextProxy httpProxy, bool IsOverride = true)
         {
             _httpProxy = httpProxy;
-            var moduleDir = string.Format("{0}\\{1}", ApplicationConfig.AppModulePath, moduleName);
+            string moduleFolder = moduleName.Replace("/", "_");
+            var moduleDir = string.Format("{0}\\{1}", ApplicationConfig.AppModulePath, moduleFolder);
+            if (!Directory.Exists(moduleDir))
+            {
+                DownloadNugetPackage(moduleName);
+            }
             if (Directory.Exists(moduleDir))
             {
                 JObject moduleObject = new JObject();
@@ -57,6 +64,24 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
             }
         }
 
+        private void DownloadNugetPackage(string moduleName)
+        {
+            try
+            {
+                WebClient client = new WebClient();
+                var downloadUrl = string.Format("{0}{1}", "https://www.nuget.org/api/v2/package/", moduleName);
+                var folderPath = string.Format("{0}\\{1}", ApplicationConfig.AppModulePath, moduleName.Replace("/", "_"));
+                var filePath = string.Format("{0}.zip", folderPath);
+                client.DownloadFile(downloadUrl, filePath);
+                ZipFile.ExtractToDirectory(filePath, folderPath);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(string.Format("Error in downloading nuger package {0}, Error: {1}", moduleName, ex.Message), ex);
+            }
+
+        }
+
         private JObject CreateCollectionEntry(string name, string accessType)
         {
             JObject result = new JObject();
@@ -67,7 +92,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
 
         private void UpdateModuleInfo(string baseModulePath, ref JObject moduleObject)
         {
-            string filePath = string.Format("{0}\\{1}", baseModulePath, MODULE_INFO_FILE);
+            string filePath = string.Format("{0}\\Content\\{1}", baseModulePath, MODULE_INFO_FILE);
             if (File.Exists(filePath))
             {
                 var moduleFileData = JObjectHelper.GetJObjectFromFile(filePath);
@@ -93,7 +118,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
 
         private void InstallCollections(string moduleDir, string moduleName, JArray moduleCollections)
         {
-            var collectionsPath = string.Format("{0}\\{1}", moduleDir, CommonConst.MODULE_INSTALL_COLLECTIONS_FOLDER);
+            var collectionsPath = string.Format("{0}\\Content\\{1}", moduleDir, CommonConst.MODULE_INSTALL_COLLECTIONS_FOLDER);
             if (Directory.Exists(collectionsPath))
             {
                 DirectoryInfo di = new DirectoryInfo(collectionsPath);
@@ -130,7 +155,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
 
         private void InstallDlls(string moduleDir, string moduleName)
         {
-            var dllPath = string.Format("{0}\\{1}", moduleDir, CommonConst.MODULE_INSTALL_DLLS_FOLDER);
+            var dllPath = string.Format("{0}\\lib\\net452\\net452\\{1}", moduleDir, CommonConst.MODULE_INSTALL_DLLS_FOLDER);
             if (Directory.Exists(dllPath))
             {
                 DirectoryInfo di = new DirectoryInfo(dllPath);
@@ -148,7 +173,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
 
         private void InstallWWWRoot(string path, string moduleName)
         {
-            var wwwrootPath = string.Format("{0}\\{1}", path, CommonConst.MODULE_INSTALL_WWWROOT_FOLDER);
+            var wwwrootPath = string.Format("{0}\\Content\\{1}", path, CommonConst.MODULE_INSTALL_WWWROOT_FOLDER);
             if (Directory.Exists(wwwrootPath))
             {
                 DirectoryInfo di = new DirectoryInfo(wwwrootPath);

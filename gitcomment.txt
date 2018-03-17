@@ -1,1 +1,1 @@
-Working on Nuget package. Added ZNxtApp.Core, ZNxtApp.Core.Module and ZNxtApp.Core.Module.Theme in nuget.org
+Added module installer from nuget package

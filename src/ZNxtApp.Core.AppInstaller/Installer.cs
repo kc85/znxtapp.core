@@ -309,10 +309,25 @@ namespace ZNxtApp.Core.AppInstaller
         {
             var response = _dataBuilderHelper.GetResponseObject(CommonConst._200_OK);
             _dataBuilderHelper.AddDataToArray(response, JObject.Parse("{'type' : 'file_access',  'status' :  " + CheckFileAccess().ToString().ToLower() + "}"))
+             .AddDataToArray(response, JObject.Parse("{'type' : 'module_folder_write_access',  'status'  :  " + CheckModuleFileAccess().ToString().ToLower() + "}"))
                 .AddDataToArray(response, JObject.Parse("{'type' : 'mongo_db_access',  'status'  :  " + MongoDBConnection().ToString().ToLower() + "}"));
 
             IsPrerequisiteCheck = true;
             return response;
+        }
+        private bool CheckModuleFileAccess()
+        {
+            try
+            {
+                var tempFolder = ApplicationConfig.AppModulePath;
+                File.WriteAllText(string.Format("{0}\\{1}", tempFolder, "ping.txt"), string.Format("ping-{0}", DateTime.Now.ToString()));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(string.Format("Check file Access error {0}", ex.Message), ex);
+                return false;
+            }
         }
 
         private bool CheckFileAccess()
