@@ -1,0 +1,12 @@
+[{
+    "key": "key of your server side route. e.g: GET:/api/ping",
+    "ContentType": "application/json",
+    "Method": "http method, Action method , e.g: GET, ACTION",
+    "Route": "Server API route, e.g: /api/ping",
+    "ExecultAssembly": "Assembly name, e.g:  ZNxtApp.Core.Web.dll",
+    "ExecuteType": "Class Name e.g:  ZNxtApp.Core.Web.Services.Api.PingController",
+    "ExecuteMethod": "Method to exeute. e.g: Ping",
+    "auth_users": [
+      "*"
+    ]
+  }]

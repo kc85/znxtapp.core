@@ -1,0 +1,24 @@
+{
+  "name": "ZNxtApp.Code.Module.YOUR-MODULE-NAME",
+  "description": "MODULE DESCRIPPTION",
+  "version": "1.0",
+  "dependent_mudules": [ "ZNxtApp.Code.Module.App" ],
+  "collections": [
+    {
+      "name": "app_settings",
+      "access_type": "read_only"
+    },
+    {
+      "name": "client_admin_routes",
+      "access_type": "read_only"
+    },
+    {
+      "name": "server_routes",
+      "access_type": "read_only"
+    },
+    {
+      "name": "my_collection",
+      "access_type": "onwer"
+    }
+  ]
+}

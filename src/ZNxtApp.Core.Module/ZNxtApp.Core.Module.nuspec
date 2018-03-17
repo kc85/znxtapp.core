@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ZNxtApp.Core.Module</id>
+    <version>1.0.4-Alpha</version>
+    <title>ZNxtApp.Core.Module</title>
+    <authors>Khanin Choudhury</authors>
+    <owners>Khanin Choudhury</owners>
+    <licenseUrl>https://github.com/kc85/znxtapp.core/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/kc85/znxtapp.core</projectUrl>
+    <iconUrl>https://github.com/settings/profile</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ZNxtApp.Core.Module nuget package</description>
+    <releaseNotes>Initial nuget check</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.Core ZNxtApp.Core.Module</tags>
+	<dependencies>
+      <dependency id="ZNxtApp.Core" version="1.0.1-Alpha"  />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="readme.md" target="Content" />
+	<file src="wwwroot/**/*.*" target="Content" />
+	<file src="collections/**/*.*" target="Content" />
+	<file src="module.json" target="Content" />
+	<file src="ZNxtApp.Core.Module.YOUR-MODULE-NAME.nuspec.txt" target="Content" />
+  </files>
+</package>

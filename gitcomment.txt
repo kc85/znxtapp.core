@@ -1,1 +1,1 @@
-Added Install Module collection check. Implement Include files using relative path from server side pages. 
+Working on Nuget package. Added ZNxtApp.Core, ZNxtApp.Core.Module and ZNxtApp.Core.Module.Theme in nuget.org

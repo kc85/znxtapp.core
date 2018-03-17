@@ -1,0 +1,7 @@
+﻿<b>@Model["name"]</b>
+<ul>
+  @foreach(var group in Model["groups"])
+  {
+  <li>@group</li>
+  }
+</ul>

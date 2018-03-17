@@ -1,0 +1,32 @@
+[
+    {
+        "key": "moduleconfig",
+        "label": "App Module Config",
+        "href": "/mconfig",
+        "icon": "fa-upload",
+        "url": "/mconfig",
+        "view_location": "app_setting_tab",
+        "config": {
+            "templateUrl": "app/moduleconfig/moduleconfigbody.html"
+        },
+        "auth_users": [
+            "sys_admin"
+        ],
+        "index": 90
+    },
+    {
+        "key": "wwwroot",
+        "label": "Static Contant",
+        "href": "/wwwroot",
+        "icon": "fa-upload",
+        "url": "/wwwroot",
+        "view_location": "app_setting_tab",
+        "config": {
+            "templateUrl": "app/appsettings/wwwroot.html"
+        },
+        "auth_users": [
+            "sys_admin"
+        ],
+        "index": 80
+    }
+]

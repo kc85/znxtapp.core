@@ -1,0 +1,1 @@
+ZNxtApp.core nuget package

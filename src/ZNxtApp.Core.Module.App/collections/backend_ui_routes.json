@@ -1,0 +1,17 @@
+[
+    {
+        "key": "routekey_should_be_unique",
+        "label": "Menu Item Label",
+        "href": "/mconfig",
+        "icon": "fa-upload",
+        "url": "/mconfig",
+        "view_location": "app_setting_tab",
+        "config": {
+            "templateUrl": "app/moduleconfig/moduleconfigbody.html"
+        },
+        "auth_users": [
+            "sys_admin"
+        ],
+        "index": 90
+    }
+]
