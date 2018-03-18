@@ -80,6 +80,7 @@ namespace ZNxtApp.Core.Web.Handler
 
         protected void HandleStaticContent(string requestUriPath)
         {
+            requestUriPath =  ManegePath(requestUriPath);
             var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
             var fi = new FileInfo(requestUriPath);
             if (fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION)
@@ -122,6 +123,22 @@ namespace ZNxtApp.Core.Web.Handler
                 _httpContext.Response.Headers[string.Format("{0}.{1}", CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO, CommonConst.CommonField.TRANSATTION_ID)] = _initData.TransactionId;
             }
             RemoveHeaders();
+        }
+
+        private string ManegePath(string requestUriPath)
+        {
+            if (requestUriPath.IndexOf(ApplicationConfig.AppBackendPath) == 0)
+            {
+                var path = requestUriPath.Remove(0, ApplicationConfig.AppBackendPath.Length);
+                path = string.Format("/{0}{1}", CommonConst.CommonValue.APP_BACKEND_FOLDERPATH, path);
+                return path;
+            }
+            else
+            {
+                var path = string.Format("/{0}{1}", CommonConst.CommonValue.APP_FRONTEND_FOLDERPATH, requestUriPath);
+
+                return path;
+            }
         }
 
         private void HandleSession(HttpContext context)

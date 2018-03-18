@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>ZNxtApp.Core.Module.Theme</id>
+    <version>1.0.1-Alpha</version>
+    <title>ZNxtApp.Core.Module.Theme</title>
+    <authors>Khanin Choudhury</authors>
+    <owners>Khanin Choudhury</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/kc85/znxtapp.core/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/kc85/znxtapp.core</projectUrl>
+    <iconUrl>https://lh4.googleusercontent.com/xbHv59ILXZ9z_fhRpjS0MwvpO4ddeho8XcsO__xmS9T5KW-DdBlvOulewrR6NgGjELoOQqJ2SthiVQMldD-x=w1600-h769-rw</iconUrl>
+    <description>ZNxtApp.Core.Module.Theme this is the default theme for ZNxtApp framework</description>
+    <releaseNotes>Init pre release</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.Core ZNxtApp.Core.Module ZNxtApp.Core.Module.Theme</tags>
+    <dependencies>
+      <dependency id="ZNxtApp.Core" version="1.0.1-Alpha" />
+    </dependencies>
+  </metadata>
+</package>

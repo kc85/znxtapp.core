@@ -43,7 +43,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="build-nuget.bat" />
     <None Include="collections\backend_ui_routes.json" />
     <None Include="collections\my_collection.json" />
     <None Include="collections\server_routes.json" />

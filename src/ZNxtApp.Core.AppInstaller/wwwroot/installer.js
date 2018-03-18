@@ -12,7 +12,7 @@ $(document).ready(function () {
     });
 
     function getStatus() {
-        var jqxhr = $.get("/install/checkstatus", function (data) {
+        var jqxhr = $.get("./install/checkstatus", function (data) {
             console.log("success", data);
             if (!data.is_prerequisite_check) {
                 prerequisiteCheck();
@@ -28,7 +28,7 @@ $(document).ready(function () {
     };
 
     function prerequisiteCheck(callback, errorCallback) {
-        var jqxhr = $.get("/install/checkprerequisite", function (data) {
+        var jqxhr = $.get("./install/checkprerequisite", function (data) {
             console.log("success", data);
 
             var success = true;
@@ -59,9 +59,9 @@ $(document).ready(function () {
         installData.AdminPassword = "password";
         installData.Name = "ZNxtApp";
         installData.InstallType = 0;
-        installData.DefaultModules = ["ZNxtApp.Core.Module.Theme/1.0.0-Alpha"];
+        installData.DefaultModules = ["ZNxtApp.Core.Module.Theme/1.0.3-Alpha"];
 
-        $.post("/install/start", JSON.stringify(installData),
+        $.post("./install/start", JSON.stringify(installData),
             function (data, status) {
                 console.log(data, status);
                 window.location = "./welcome/installcomplete.html";

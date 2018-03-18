@@ -2,15 +2,15 @@
 <package >
   <metadata>
     <id>ZNxtApp.Core</id>
-    <version>1.0.1-Alpha</version>
+    <version>1.0.2-Alpha</version>
     <title>ZNxtApp.Core</title>
     <authors>Khanin Choudhury</authors>
     <owners>Khanin Choudhury</owners>
     <licenseUrl>https://github.com/kc85/znxtapp.core/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/kc85/znxtapp.core</projectUrl>
-    <iconUrl>https://github.com/settings/profile</iconUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>ZNxtApp.Core nuget package</description>
+   <iconUrl>https://lh4.googleusercontent.com/xbHv59ILXZ9z_fhRpjS0MwvpO4ddeho8XcsO__xmS9T5KW-DdBlvOulewrR6NgGjELoOQqJ2SthiVQMldD-x=w1600-h769-rw</iconUrl>
+      <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ZNxtApp.Core is the core nuget package for all ZNxtApp framework and modules</description>
     <releaseNotes>Initial nuget check</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.Core</tags>

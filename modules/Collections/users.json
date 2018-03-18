@@ -1,0 +1,15 @@
+[
+  {
+    "groups": [
+      "user",
+      "sys_admin"
+    ],
+    "user_type": "Email",
+    "is_email_validate": true,
+    "user_id": "khanin@znxtapp.com",
+    "email": "khanin@znxtapp.com",
+    "name": "khanin@znxtapp.com",
+    "key": "khanin@znxtapp.com",
+    "password": "10R79AFZe2VFaCiPTP1JvQ=="
+  }
+]

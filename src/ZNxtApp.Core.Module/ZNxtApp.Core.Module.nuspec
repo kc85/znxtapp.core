@@ -2,15 +2,15 @@
 <package >
   <metadata>
     <id>ZNxtApp.Core.Module</id>
-    <version>1.0.4-Alpha</version>
+    <version>1.0.5-Alpha</version>
     <title>ZNxtApp.Core.Module</title>
     <authors>Khanin Choudhury</authors>
     <owners>Khanin Choudhury</owners>
     <licenseUrl>https://github.com/kc85/znxtapp.core/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/kc85/znxtapp.core</projectUrl>
-    <iconUrl>https://github.com/settings/profile</iconUrl>
+    <iconUrl>https://lh4.googleusercontent.com/xbHv59ILXZ9z_fhRpjS0MwvpO4ddeho8XcsO__xmS9T5KW-DdBlvOulewrR6NgGjELoOQqJ2SthiVQMldD-x=w1600-h769-rw</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>ZNxtApp.Core.Module nuget package</description>
+    <description>ZNxtApp.Core.Module nuget package is base nuget for creating modules in ZNxtApp framework</description>
     <releaseNotes>Initial nuget check</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.Core ZNxtApp.Core.Module</tags>

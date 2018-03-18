@@ -26,6 +26,7 @@
             public const string PING = "ping";
             public const string DEFAULT_INSTALL_MODULES = "default_install_modules";
             public const string EVENT_SUBSCRIPTION = "event_subscription";
+            public const string APP_INSTALL_STATUS = "app_install_status";
         }
         public static class CollectionAccessTypes
         {

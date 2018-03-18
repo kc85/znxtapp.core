@@ -1,0 +1,13 @@
+@import url(vendors/bootstrap.css);             /*Bootstrap base CSS*/
+@import url(fonts/font-faces.css);         		/*font-faces.css*/
+@import url(vendors/font-awesome.css);         	/*font-awesome.css*/
+@import url(vendors/magnific-popup.css);
+@import url(vendors/mediaelementplayer.css);
+
+@import url(../masterslider/style/masterslider.css); /*Base MasterSlider style sheet*/ 
+@import url(../masterslider/skins/default/style.css); /*Base MasterSlider style sheet*/ 
+
+@import url(style.css);          	   /*template style*/
+
+/*@import url(styles/skin1.css);*/
+/*@import url(styles/skin2.css);*/

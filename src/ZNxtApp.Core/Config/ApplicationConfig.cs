@@ -45,7 +45,20 @@ namespace ZNxtApp.Core.Config
                 return ConfigurationManager.AppSettings["AppPath"];
             }
         }
-
+        public static string AppBackendPath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["BackendPath"];
+            }
+        }
+        public static string AppDefaultPage
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["DefaultPage"];
+            }
+        }
         public static string TempFolder
         {
             get
@@ -88,18 +101,19 @@ namespace ZNxtApp.Core.Config
         }
 
 
-        public static string AppTempFolder
+        public static string AppInstallFolder
         {
             get
             {
-                var temppath = string.Format("{0}\\{1}\\{2}", Environment.GetEnvironmentVariable("TEMP"), AppName, AppID);
+                return ConfigurationManager.AppSettings["ModuleCachePath"];
+                //var temppath = string.Format("{0}\\{1}\\{2}", Environment.GetEnvironmentVariable("TEMP"), AppName, AppID);
 
-                var di = new DirectoryInfo(temppath);
-                if (!di.Exists)
-                {
-                    di.Create();
-                }
-                return temppath;
+                //var di = new DirectoryInfo(temppath);
+                //if (!di.Exists)
+                //{
+                //    di.Create();
+                //}
+                //return temppath;
             }
         }
 

@@ -51,7 +51,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="build-nuget.bat" />
     <None Include="collections\backend_ui_routes.json" />
     <None Include="collections\server_routes.json" />
     <None Include="module.json" />
@@ -65,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\backend\app\" />
+    <Folder Include="wwwroot\frontend\assets\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

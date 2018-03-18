@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Net;
 using System.Web;
 using System.Web.SessionState;
@@ -14,25 +15,39 @@ namespace ZNxtApp.Core.Web.Handler
 {
     public class RequestHandler : RequestHandlerBase
     {
-      
+
         private IAppInstaller _appInstaller;
-     
+
         public override void ProcessRequest(HttpContext context)
         {
             base.ProcessRequest(context);
 
-            var requestUriPath = _httpProxy.GetURIAbsolutePath().ToLower() ;
+            var requestUriPath = _httpProxy.GetURIAbsolutePath().ToLower();
+            requestUriPath = ManagePageUrl(requestUriPath);
 
             if (ApplicationMode.Maintance == ApplicationConfig.GetApplicationMode)
             {
-                CreateInstallInstance();
-                if (_appInstaller.Status != Enums.AppInstallStatus.Finish)
+                try
                 {
-                    _appInstaller.Install(_httpProxy);
+                    CreateInstallInstance();
+                    if (_appInstaller.Status != Enums.AppInstallStatus.Finish)
+                    {
+
+                        _appInstaller.Install(_httpProxy);
+
+
+                    }
+                    else
+                    {
+                        HandleRequest(requestUriPath);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    HandleRequest(requestUriPath);
+                    _logger.Error(ex.Message, ex);
+                    JObject data = new JObject();
+                    data["Error"] = ex.Message;
+                    _httpProxy.SetResponse(CommonConst._500_SERVER_ERROR, data);
                 }
             }
             else
@@ -63,11 +78,11 @@ namespace ZNxtApp.Core.Web.Handler
 
         private void CreateInstallInstance()
         {
-            var appInstallerLogger = Logger.GetLogger(typeof(Installer).Name,_httpProxy.TransactionId);
+            var appInstallerLogger = Logger.GetLogger(typeof(Installer).Name, _httpProxy.TransactionId);
             var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
             var pingService = new PingService(new MongoDBService(ApplicationConfig.DataBaseName, CommonConst.Collection.PING));
             var routings = ZNxtApp.Core.Web.Routings.Routings.GetRoutings();
-            _appInstaller =  ZNxtApp.Core.AppInstaller.Installer.GetInstance(
+            _appInstaller = ZNxtApp.Core.AppInstaller.Installer.GetInstance(
                pingService,
                new Helpers.DataBuilderHelper(),
                appInstallerLogger,
@@ -76,6 +91,22 @@ namespace ZNxtApp.Core.Web.Handler
                new ModuleInstaller.Installer.Installer(appInstallerLogger, dbProxy),
               routings);
 
+        }
+
+        private string ManagePageUrl(string pageUri)
+        {
+            return SetDefaultPage(pageUri);
+        }
+        private string SetDefaultPage(string pageUri)
+        {
+            if (pageUri == "/")
+            {
+                return ApplicationConfig.AppDefaultPage;
+            }
+            else
+            {
+                return pageUri;
+            }
         }
     }
 }

@@ -99,10 +99,10 @@ namespace ZNxtApp.Core.AppInstaller {
         ///    });
         ///
         ///    function getStatus() {
-        ///        var jqxhr = $.get(&quot;/install/checkstatus&quot;, function (data) {
+        ///        var jqxhr = $.get(&quot;./install/checkstatus&quot;, function (data) {
         ///            console.log(&quot;success&quot;, data);
         ///            if (!data.is_prerequisite_check) {
-        ///                 [rest of string was truncated]&quot;;.
+        ///                [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string installer_js {
             get {

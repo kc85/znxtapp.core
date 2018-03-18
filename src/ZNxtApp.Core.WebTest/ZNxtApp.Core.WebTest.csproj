@@ -16,7 +16,7 @@
     <RootNamespace>ZNxtApp.Core.WebTest</RootNamespace>
     <AssemblyName>ZNxtApp.Core.WebTest</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -70,6 +70,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\ZNxtApp.Local.pubxml" />
     <None Include="wwwroot\header.zb" />
     <None Include="wwwroot\user_block.zb" />
     <None Include="wwwroot\template.zt" />
@@ -115,11 +116,10 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>55258</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:55258/</IISUrl>
+          <IISUrl>http://localhost/ZNxtApp</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://www.bucketjs.com/</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
