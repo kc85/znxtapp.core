@@ -397,6 +397,7 @@ namespace ZNxtApp.Core.AppInstaller
             installStatusObj[CommonConst.CommonField.UPDATED_DATE_TIME] = DateTime.Now;
             installStatusObj[CommonConst.CommonField.STATUS] = (int)installStatus;
             installStatusObj[CommonConst.CommonField.TRANSATTION_ID] = _logger.TransactionId;
+            _dbProxy.Collection = CommonConst.Collection.APP_INSTALL_STATUS;
             _dbProxy.Update("{id:'" + idKey + "'}", installStatusObj, true);
             
             //var tempFolder = ApplicationConfig.AppInstallFolder;

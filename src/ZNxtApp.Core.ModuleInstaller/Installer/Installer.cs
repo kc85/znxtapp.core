@@ -68,10 +68,11 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
         {
             try
             {
-                WebClient client = new WebClient();
+                WebClient client = new WebClientWithTimeout();
                 var downloadUrl = string.Format("{0}{1}", "https://www.nuget.org/api/v2/package/", moduleName);
                 var folderPath = string.Format("{0}\\{1}", ApplicationConfig.AppModulePath, moduleName.Replace("/", "_"));
                 var filePath = string.Format("{0}.zip", folderPath);
+                
                 client.DownloadFile(downloadUrl, filePath);
                 ZipFile.ExtractToDirectory(filePath, folderPath);
             }
@@ -277,6 +278,16 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
             {
                 throw new DirectoryNotFoundException();
             }
+        }
+    }
+
+    public class WebClientWithTimeout : WebClient
+    {
+        protected override WebRequest GetWebRequest(Uri address)
+        {
+            WebRequest wr = base.GetWebRequest(address);
+            wr.Timeout = ((60*1000)*60); // timeout in milliseconds (ms)
+            return wr;
         }
     }
 }

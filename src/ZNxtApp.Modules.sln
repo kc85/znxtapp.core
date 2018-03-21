@@ -5,6 +5,13 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZNxtApp.Core.Module.App", "ZNxtApp.Core.Module.App\ZNxtApp.Core.Module.App.csproj", "{0CC74ECF-C308-436E-8AD9-2C6A46ADD143}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F8B93BBF-2D6F-4809-9DB1-C214C8BA95E3}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZNxtApp.Core.Module", "ZNxtApp.Core.Module\ZNxtApp.Core.Module.csproj", "{5C31BCCF-FB66-4F2B-AAC7-CD8A5B25216E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZNxtApp.Core.Module.Theme", "ZNxtApp.Core.Module.Theme\ZNxtApp.Core.Module.Theme.csproj", "{B2EFB33F-2D12-49B1-A887-A421B990C0E7}"

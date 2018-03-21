@@ -5,4 +5,4 @@ nuget pack "C:\Users\Khanin\Google Drive\Code\znxtapp.core\src\ZNxtApp.Core.Modu
 
 nuget setApiKey  oy2jjgmvgdoclr3alu2qnaq6oqris32upeqogl56tadogi
 
-nuget  push ZNxtApp.Core.Module.Theme.1.0.3-Alpha.nupkg -Source https://api.nuget.org/v3/index.json
+nuget  push ZNxtApp.Core.Module.Theme.1.0.4-Alpha.nupkg -Source https://api.nuget.org/v3/index.json

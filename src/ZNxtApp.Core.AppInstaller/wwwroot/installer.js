@@ -3,6 +3,7 @@ $(document).ready(function () {
 
     $("#btnInstall").click(function () {
         prerequisiteCheck(function () {
+            $("#btnInstall").html("Installing...");
             startInstall();
         }, function (data) {
             console.log(data);
@@ -59,12 +60,12 @@ $(document).ready(function () {
         installData.AdminPassword = "password";
         installData.Name = "ZNxtApp";
         installData.InstallType = 0;
-        installData.DefaultModules = ["ZNxtApp.Core.Module.Theme/1.0.3-Alpha"];
+        installData.DefaultModules = ["ZNxtApp.Core.Module.Theme/1.0.4-Alpha"];
 
         $.post("./install/start", JSON.stringify(installData),
             function (data, status) {
                 console.log(data, status);
-                window.location = "./welcome/installcomplete.html";
+                window.location = "./installcomplete.z";
             });
     }
 });
