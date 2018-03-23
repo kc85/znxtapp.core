@@ -15,6 +15,7 @@ using ZNxtApp.Core.AppInstaller;
 using System.IO;
 using ZNxtApp.Core.Web.Helper;
 using System.Collections.Generic;
+using ZNxtApp.Core.Helpers;
 
 namespace ZNxtApp.Core.Web.Handler
 {
@@ -35,10 +36,13 @@ namespace ZNxtApp.Core.Web.Handler
         protected IRouteExecuter _routeExecuter;
         protected ILogger _logger;
         protected IViewEngine _viewEngine;
+        protected IwwwrootContentHandler _contentHandler;
+
         public RequestHandlerBase()
         {
             _viewEngine = ViewEngine.GetEngine();
             _routeExecuter = new RouteExecuter();
+            
         }
 
         private void CreateRoute()
@@ -54,6 +58,8 @@ namespace ZNxtApp.Core.Web.Handler
             _logger = Logger.GetLogger(this.GetType().Name, _httpProxy.TransactionId);
             CreateRoute();
             _httpContext = context;
+            var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
+            _contentHandler = new WwwrootContentHandler(_httpProxy, dbProxy, _viewEngine, _logger);
         }
 
         protected void WriteResponse()
@@ -80,43 +86,75 @@ namespace ZNxtApp.Core.Web.Handler
 
         protected void HandleStaticContent(string requestUriPath)
         {
-            requestUriPath =  ManegePath(requestUriPath);
-            var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
-            var fi = new FileInfo(requestUriPath);
-            if (fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION)
+
+            if (CommonUtility.IsTextConent(_httpProxy.GetContentType(requestUriPath)))
             {
-                var response =  ServerPageModelHelper.ServerSidePageHandler(requestUriPath, dbProxy, _httpProxy, _viewEngine, _logger);
-                if(!string.IsNullOrEmpty(response))
+                var responseString = _contentHandler.GetStringContent(requestUriPath);
+                if (!string.IsNullOrEmpty(responseString))
                 {
-                    _httpProxy.SetResponse(CommonConst._200_OK, response);
+                    _httpProxy.SetResponse(CommonConst._200_OK, responseString);
                 }
                 else
                 {
                     _httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND);
                 }
-                _httpProxy.ContentType = CommonConst.CONTENT_TYPE_TEXT_HTML;
             }
             else
             {
-                var data = StaticContentHandler.GetContent(dbProxy, _logger, requestUriPath);
-                if (data != null)
+                var responseData = _contentHandler.GetContent(requestUriPath);
+                if (responseData != null)
                 {
-                    _httpProxy.SetResponse(CommonConst._200_OK, data);
+                    _httpProxy.SetResponse(CommonConst._200_OK, responseData);
                 }
                 else
                 {
-                    _httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND, data);
+                    _httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND, responseData);
                 }
-                _httpProxy.ContentType = MimeMapping.GetMimeMapping(requestUriPath);
+
             }
-            
+            _httpProxy.ContentType = _httpProxy.GetContentType(requestUriPath);
+
+            //var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
+            // var fi = new FileInfo(requestUriPath);
+            // if (fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION)
+            // {
+            //     var response =  ServerPageModelHelper.ServerSidePageHandler(requestUriPath, dbProxy, _httpProxy, _viewEngine, _logger);
+            //     if(!string.IsNullOrEmpty(response))
+            //     {
+            //         _httpProxy.SetResponse(CommonConst._200_OK, response);
+            //     }
+            //     else
+            //     {
+            //         _httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND);
+            //     }
+            //     _httpProxy.ContentType = CommonConst.CONTENT_TYPE_TEXT_HTML;
+            // }
+            // else
+            // {
+            //     var data = StaticContentHandler.GetContent(dbProxy, _logger, requestUriPath);
+            //     if (data != null)
+            //     {
+            //         _httpProxy.SetResponse(CommonConst._200_OK, data);
+            //     }
+            //     else
+            //     {
+            //         _httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND, data);
+            //     }
+            //     _httpProxy.ContentType = MimeMapping.GetMimeMapping(requestUriPath);
+
+            //     if (ApplicationConfig.StaticContentCache)
+            //     {
+            //         _httpContext.Response.Cache.SetCacheability(HttpCacheability.Public);
+            //         _httpContext.Response.Cache.SetExpires(DateTime.Now.AddDays(10));
+            //         _httpContext.Response.Cache.SetMaxAge(new TimeSpan(10, 0, 0, 0));
+            //     }
+            // }
             if (ApplicationConfig.StaticContentCache)
             {
                 _httpContext.Response.Cache.SetCacheability(HttpCacheability.Public);
                 _httpContext.Response.Cache.SetExpires(DateTime.Now.AddDays(10));
                 _httpContext.Response.Cache.SetMaxAge(new TimeSpan(10, 0, 0, 0));
             }
-
             if (ApplicationMode.Maintance == ApplicationConfig.GetApplicationMode)
             {
                 _httpContext.Response.Headers[string.Format("{0}.{1}", CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO, CommonConst.CommonValue.TIME_SPAN)] = (DateTime.Now - _initData.InitDateTime).TotalMilliseconds.ToString();
@@ -125,22 +163,7 @@ namespace ZNxtApp.Core.Web.Handler
             RemoveHeaders();
         }
 
-        private string ManegePath(string requestUriPath)
-        {
-            if (requestUriPath.IndexOf(ApplicationConfig.AppBackendPath) == 0)
-            {
-                var path = requestUriPath.Remove(0, ApplicationConfig.AppBackendPath.Length);
-                path = string.Format("/{0}{1}", CommonConst.CommonValue.APP_BACKEND_FOLDERPATH, path);
-                return path;
-            }
-            else
-            {
-                var path = string.Format("/{0}{1}", CommonConst.CommonValue.APP_FRONTEND_FOLDERPATH, requestUriPath);
-
-                return path;
-            }
-        }
-
+       
         private void HandleSession(HttpContext context)
         {
             if(context.Request.Cookies[CommonConst.CommonValue.SESSION_COOKIE]==null)

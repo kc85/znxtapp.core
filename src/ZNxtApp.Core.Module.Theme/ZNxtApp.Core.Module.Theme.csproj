@@ -43,15 +43,17 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="ZNxtApp.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZNxtApp.Core.1.0.1-Alpha\lib\net452\net452\ZNxtApp.Core.dll</HintPath>
+      <HintPath>..\packages\ZNxtApp.Core.1.0.3-Alpha\lib\net452\ZNxtApp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Api\HomePage\HomePageService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="collections\backend_ui_routes.json" />
+    <None Include="collections\my_collection.json" />
     <None Include="collections\server_routes.json" />
     <None Include="module.json" />
     <None Include="packages.config" />
@@ -95,6 +97,8 @@
     <None Include="wwwroot\backend\vendors\bootstrap-datetimepicker\docs\theme\manifest.json" />
     <None Include="wwwroot\backend\vendors\bootstrap-datetimepicker\docs\Version 4 Changelog.md" />
     <None Include="wwwroot\backend\vendors\bootstrap-datetimepicker\docs\Version 4 Contributors guide.md" />
+    <None Include="wwwroot\backend\vendors\bootstrap-datetimepicker\docs\Version%25204%2520Changelog.md" />
+    <None Include="wwwroot\backend\vendors\bootstrap-datetimepicker\docs\Version%25204%2520Contributors%2520guide.md" />
     <None Include="wwwroot\backend\vendors\bootstrap-datetimepicker\LICENSE" />
     <None Include="wwwroot\backend\vendors\bootstrap-datetimepicker\mkdocs.yml" />
     <None Include="wwwroot\backend\vendors\bootstrap-datetimepicker\package.json" />
@@ -896,13 +900,18 @@
     <None Include="wwwroot\frontend\template\template.zt">
       <SubType>Designer</SubType>
     </None>
-    <None Include="wwwroot\frontend\installcomplete.z" />
+    <None Include="wwwroot\frontend\installcomplete.z">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="wwwroot\frontend\your_module_forntend_page_foler\your_module_page_page.z" />
     <None Include="ZNxtApp.Core.Module.Theme.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\frontend\assets\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="wwwroot\backend\app\your_module_backend\your_module.html" />
+    <Content Include="wwwroot\backend\app\your_module_backend\your_module.js" />
     <Content Include="wwwroot\backend\build\css\custom.css" />
     <Content Include="wwwroot\backend\build\css\custom.min.css" />
     <Content Include="wwwroot\backend\build\images\back_disabled.png" />
@@ -2839,37 +2848,48 @@
     <Content Include="wwwroot\backend\vendors\iCheck\icheck.js" />
     <Content Include="wwwroot\backend\vendors\iCheck\icheck.min.js" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\all.css" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\aero%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\aero%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\aero.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\aero.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\blue%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\blue%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\blue.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\blue.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\flat%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\flat%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\flat.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\flat.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\green%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\green%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\green.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\green.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\grey%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\grey%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\grey.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\grey.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\orange%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\orange%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\orange.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\orange.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\pink%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\pink%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\pink.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\pink.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\purple%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\purple%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\purple.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\purple.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\red%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\red%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\red.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\red.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\yellow%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\yellow%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\yellow.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\yellow.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\flat\_all.css" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\futurico\futurico%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\futurico\futurico%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\futurico\futurico.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\futurico\futurico.png" />
@@ -2877,6 +2897,7 @@
     <Content Include="wwwroot\backend\vendors\iCheck\skins\line\blue.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\line\green.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\line\grey.css" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\line\line%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\line\line%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\line\line.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\line\line.png" />
@@ -2886,67 +2907,88 @@
     <Content Include="wwwroot\backend\vendors\iCheck\skins\line\red.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\line\yellow.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\line\_all.css" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\aero%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\aero%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\aero.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\aero.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\blue%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\blue%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\blue.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\blue.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\green%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\green%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\green.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\green.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\grey%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\grey%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\grey.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\grey.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\minimal%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\minimal%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\minimal.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\minimal.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\orange%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\orange%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\orange.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\orange.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\pink%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\pink%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\pink.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\pink.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\purple%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\purple%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\purple.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\purple.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\red%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\red%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\red.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\red.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\yellow%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\yellow%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\yellow.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\yellow.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\minimal\_all.css" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\polaris\polaris%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\polaris\polaris%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\polaris\polaris.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\polaris\polaris.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\square\aero%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\aero%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\aero.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\aero.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\square\blue%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\blue%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\blue.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\blue.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\square\green%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\green%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\green.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\green.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\square\grey%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\grey%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\grey.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\grey.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\square\orange%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\orange%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\orange.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\orange.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\square\pink%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\pink%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\pink.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\pink.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\square\purple%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\purple%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\purple.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\purple.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\square\red%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\red%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\red.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\red.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\square\square%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\square%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\square.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\square.png" />
+    <Content Include="wwwroot\backend\vendors\iCheck\skins\square\yellow%25402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\yellow%402x.png" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\yellow.css" />
     <Content Include="wwwroot\backend\vendors\iCheck\skins\square\yellow.png" />
@@ -3287,6 +3329,7 @@
     <Content Include="wwwroot\backend\vendors\jszip\docs\APPNOTE.TXT" />
     <Content Include="wwwroot\backend\vendors\jszip\docs\references.txt" />
     <Content Include="wwwroot\backend\vendors\jszip\docs\ZIP spec.txt" />
+    <Content Include="wwwroot\backend\vendors\jszip\docs\ZIP%2520spec.txt" />
     <Content Include="wwwroot\backend\vendors\jszip\documentation\css\main.css" />
     <Content Include="wwwroot\backend\vendors\jszip\documentation\css\pygments.css" />
     <Content Include="wwwroot\backend\vendors\jszip\documentation\examples\download-zip-file.html" />
@@ -4352,6 +4395,7 @@
     <Content Include="wwwroot\backend\vendors\validator\index.html" />
     <Content Include="wwwroot\backend\vendors\validator\multifield.js" />
     <Content Include="wwwroot\backend\vendors\validator\validator.js" />
+    <Content Include="ZNxtApp.Core.Module.YOUR-MODULE-NAME.nuspec.txt" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\backend\vendors\devbridge-autocomplete\src\jquery.autocomplete.d.ts" />
@@ -4359,7 +4403,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Users\Khanin\Google Drive\Code\znxtapp.core\src\.nuget\nuget.exe" pack "C:\Users\Khanin\Google Drive\Code\znxtapp.core\src\ZNxtApp.Core.Module.Theme\ZNxtApp.Core.Module.Theme.nuspec"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

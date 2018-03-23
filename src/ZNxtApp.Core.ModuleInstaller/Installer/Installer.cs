@@ -66,18 +66,29 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
 
         private void DownloadNugetPackage(string moduleName)
         {
+            var folderPath = string.Format("{0}\\{1}", ApplicationConfig.AppModulePath, moduleName.Replace("/", "_"));
+            var filePath = string.Format("{0}.zip", folderPath);
+
             try
             {
                 WebClient client = new WebClientWithTimeout();
                 var downloadUrl = string.Format("{0}{1}", "https://www.nuget.org/api/v2/package/", moduleName);
-                var folderPath = string.Format("{0}\\{1}", ApplicationConfig.AppModulePath, moduleName.Replace("/", "_"));
-                var filePath = string.Format("{0}.zip", folderPath);
                 
                 client.DownloadFile(downloadUrl, filePath);
                 ZipFile.ExtractToDirectory(filePath, folderPath);
             }
             catch (Exception ex)
             {
+                try
+                {
+                    File.Delete(filePath);
+                    Directory.Delete(folderPath, true);
+
+                }
+                catch (Exception e)
+                {
+                    _logger.Error(e.Message, e);
+                }
                 _logger.Error(string.Format("Error in downloading nuger package {0}, Error: {1}", moduleName, ex.Message), ex);
             }
 
@@ -156,7 +167,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
 
         private void InstallDlls(string moduleDir, string moduleName)
         {
-            var dllPath = string.Format("{0}\\lib\\net452\\net452\\{1}", moduleDir, CommonConst.MODULE_INSTALL_DLLS_FOLDER);
+            var dllPath = string.Format("{0}\\lib\\net452\\", moduleDir);
             if (Directory.Exists(dllPath))
             {
                 DirectoryInfo di = new DirectoryInfo(dllPath);
@@ -166,7 +177,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                 {
                     FileInfo fi = new FileInfo(item.FullName);
                     var contentType = _httpProxy.GetContentType(fi.FullName);
-                    var joData = GetJObjectData(fi, contentType, string.Format("{0}\\", di.FullName), moduleName);
+                    var joData = GetJObjectData(fi, contentType, string.Format("{0}", di.FullName), moduleName);
                     WriteToDB(joData, moduleName, CommonConst.Collection.DLLS, CommonConst.CommonField.FILE_PATH);
                 }
             }

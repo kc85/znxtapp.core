@@ -13,6 +13,7 @@ namespace ZNxtApp.Core.Model
         public string ExecuteMethod { get; set; }
         public string module { get; set; }
         public List<string> auth_users { get; set; }
+        public string TemplateURL { get; set; }
 
         public RoutingModel()
         {

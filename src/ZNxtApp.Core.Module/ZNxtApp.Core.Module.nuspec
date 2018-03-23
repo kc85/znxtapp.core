@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ZNxtApp.Core.Module</id>
-    <version>1.0.5-Alpha</version>
+    <version>1.0.6-Alpha</version>
     <title>ZNxtApp.Core.Module</title>
     <authors>Khanin Choudhury</authors>
     <owners>Khanin Choudhury</owners>
@@ -15,7 +15,7 @@
     <copyright>Copyright 2018</copyright>
     <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.Core ZNxtApp.Core.Module</tags>
 	<dependencies>
-      <dependency id="ZNxtApp.Core" version="1.0.1-Alpha"  />
+      <dependency id="ZNxtApp.Core" version="1.0.3-Alpha"  />
     </dependencies>
   </metadata>
   <files>

@@ -10,7 +10,7 @@ echo String  %str% is %strlen% characters long
 
  
 if %strlen% GTR 0 (
-call "C:\Users\Khanin\Google Drive\Code\znxtapp.core\git_auto_checkins\gitreset.bat"
+REM call "C:\Users\Khanin\Google Drive\Code\znxtapp.core\git_auto_checkins\gitreset.bat"
 call "C:\Users\Khanin\Google Drive\Code\znxtapp.core\git_auto_checkins\copycode.bat"
 call "C:\Users\Khanin\Google Drive\Code\znxtapp.core\git_auto_checkins\gitcommit.bat"
  

@@ -68,6 +68,7 @@
     <Compile Include="Interfaces\IActionExecuter.cs" />
     <Compile Include="Interfaces\IAppInstaller.cs" />
     <Compile Include="Interfaces\IAppSettingService.cs" />
+    <Compile Include="Interfaces\IwwwrootContentHandler.cs" />
     <Compile Include="Interfaces\IDBService.cs" />
     <Compile Include="Interfaces\IEncryption.cs" />
     <Compile Include="Interfaces\IHttpContextProxy.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Services\ApiBaseService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\CronServiceBase.cs" />
+    <Compile Include="Services\ViewBaseService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

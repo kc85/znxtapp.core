@@ -9,7 +9,7 @@ using ZNxtApp.Core.Model;
 
 namespace ZNxtApp.Core.Services
 {
-    public class ApiBaseService : BaseService
+    public abstract class ApiBaseService : BaseService
     {
         protected RoutingModel Route { get; private set; }
         protected ISessionProvider SessionProvider { get; private set; }

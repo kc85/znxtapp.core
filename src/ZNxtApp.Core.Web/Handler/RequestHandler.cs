@@ -32,10 +32,7 @@ namespace ZNxtApp.Core.Web.Handler
                     CreateInstallInstance();
                     if (_appInstaller.Status != Enums.AppInstallStatus.Finish)
                     {
-
                         _appInstaller.Install(_httpProxy);
-
-
                     }
                     else
                     {
@@ -44,6 +41,7 @@ namespace ZNxtApp.Core.Web.Handler
                 }
                 catch (Exception ex)
                 {
+                    // TODO need to handle it better 
                     _logger.Error(ex.Message, ex);
                     JObject data = new JObject();
                     data["Error"] = ex.Message;

@@ -87,6 +87,7 @@
     <Compile Include="Services\RouteExecuter.cs" />
     <Compile Include="Services\SessionProvider.cs" />
     <Compile Include="Services\ViewEngine.cs" />
+    <Compile Include="Services\WwwrootContentHandler.cs" />
     <Compile Include="Util\AssemblyLoader.cs" />
     <Compile Include="Util\StaticContentHandler.cs" />
   </ItemGroup>

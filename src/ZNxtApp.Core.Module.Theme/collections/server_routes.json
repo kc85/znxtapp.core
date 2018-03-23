@@ -1,3 +1,15 @@
 [
-
+  {
+    "key": "GET:/index",
+    "ContentType": "text/html",
+    "Method": "GET",
+    "Route": "/index_home",
+    "ExecultAssembly": "ZNxtApp.Core.Module.Theme.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.Theme.Services.Api.HomePage.HomePageService",
+    "ExecuteMethod": "Index",
+     "TemplateURL" : "/index.z",
+    "auth_users": [
+      "*"
+    ]
+  }
 ]

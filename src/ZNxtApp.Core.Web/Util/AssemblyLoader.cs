@@ -82,9 +82,8 @@ namespace ZNxtApp.Core.Web.Util
         {
             logger.Info(string.Format("Laoding Assemmbly:{0}, from Download ", assemblyName));
 
-            string filter = "{ " + CommonConst.CommonField.IS_OVERRIDE + " : " + CommonConst.CommonValue.FALSE + ", " + CommonConst.CommonField.FILE_PATH + ":'" + assemblyName.ToLower() + "'}";
             _dbProxy.Collection = CommonConst.Collection.DLLS;
-            var dataResponse = _dbProxy.Get(filter);
+            var dataResponse = _dbProxy.Get(GetFilter(assemblyName));
 
             if (dataResponse.Count > 0)
             {
@@ -92,6 +91,11 @@ namespace ZNxtApp.Core.Web.Util
                 return System.Convert.FromBase64String(assemblyData);
             }
             return null;
+        }
+
+        private static string GetFilter(string path)
+        {
+            return "{ $and: [ { is_override:{ $ne: true}  }, {'" + CommonConst.CommonField.FILE_PATH + "':  {$regex :'^" + path.ToLower() + "$','$options' : 'i'}}] }";
         }
 
         private Assembly GetFromAppDomain(string fullName)

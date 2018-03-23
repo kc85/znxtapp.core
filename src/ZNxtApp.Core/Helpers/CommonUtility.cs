@@ -61,7 +61,7 @@ namespace ZNxtApp.Core.Helpers
 
         public static bool IsTextConent(string contentType)
         {
-            return contentType.Contains("text");
+            return contentType.Contains("text/") || contentType.Contains("application/json") || contentType.Contains("application/xml");
         }
         public static string GetTimestamp(DateTime value)
         {

@@ -140,7 +140,7 @@ namespace ZNxtApp.Core.Web.Services
             ParamContainer paramContainer = new ParamContainer();
             IAppSettingService appSettingService = AppSettingService.Instance;
             IViewEngine viewEngine = ViewEngine.GetEngine();
-
+            IwwwrootContentHandler ContentHandler = new WwwrootContentHandler(httpProxy, dbService, viewEngine, loggerController);
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_ROUTE, () => { return route; });
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_DBPROXY, () => { return dbService; });
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_HTTPREQUESTPROXY, () => { return httpProxy; });
@@ -152,7 +152,8 @@ namespace ZNxtApp.Core.Web.Services
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_APP_SETTING, () => { return appSettingService; });
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_SESSION_PROVIDER, () => { return sessionProvider; });
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_VIEW_ENGINE, () => { return viewEngine; });
-           
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_CONTENT_HANDLER, () => { return ContentHandler; });
+
             return paramContainer;
         }
 

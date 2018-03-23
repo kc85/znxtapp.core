@@ -41,7 +41,7 @@ namespace ZNxtApp.Core.Web.Helper
                 return string.Empty;
             }
         }
-        public static Dictionary<string, dynamic> SetDefaultModel(IDBService dbProxy, IHttpContextProxy httpProxy, ILogger logger, IViewEngine viewEngine, Dictionary<string, dynamic> model,string folderPath = null)
+        private static Dictionary<string, dynamic> SetDefaultModel(IDBService dbProxy, IHttpContextProxy httpProxy, ILogger logger, IViewEngine viewEngine, Dictionary<string, dynamic> model,string folderPath = null)
         {
             if (model == null)
             {

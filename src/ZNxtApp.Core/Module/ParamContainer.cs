@@ -36,5 +36,10 @@ namespace ZNxtApp.Core.Model
                 return null;
             }
         }
+
+        public void AddKey(object pARAM_CONTENT_HANDLER, Func<dynamic> p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

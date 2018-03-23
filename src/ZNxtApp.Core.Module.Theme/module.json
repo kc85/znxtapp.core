@@ -3,5 +3,9 @@
   "description": "This is default ZNxtApp Module theme",
   "version": "1.0",
   "dependent_mudules": [ "ZNxtApp.Code.Module.App" ],
-  "collections": [ ]
+  "collections": [
+    {"name":"backend_ui_routes", "access_type":"read_only"},
+	  {"name":"client_admin_routes", "access_type":"read_only"},
+	  {"name":"server_routes", "access_type":"read_only"}
+  ]
 }

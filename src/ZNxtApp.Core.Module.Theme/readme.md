@@ -1,1 +1,1 @@
-ZNxtApp.Core.Module.Theme this is the default Theme
+ZNxtApp.Core Module nuget package

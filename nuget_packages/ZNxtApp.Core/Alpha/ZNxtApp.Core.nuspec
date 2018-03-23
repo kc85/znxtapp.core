@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ZNxtApp.Core</id>
-    <version>1.0.2-Alpha</version>
+    <version>1.0.3-Alpha</version>
     <title>ZNxtApp.Core</title>
     <authors>Khanin Choudhury</authors>
     <owners>Khanin Choudhury</owners>
@@ -20,6 +20,6 @@
   </metadata>
   <files>
     <file src="readme.md" target="" />
-	<file src="lib\**" target="lib/net452" />
+	<file src="lib\net452\ZNxtApp.Core.dll" target="lib/net452" />
   </files>
 </package>

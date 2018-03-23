@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ZNxtApp.Core.Module.Theme</id>
-    <version>1.0.4-Alpha</version>
+    <version>1.0.5-Alpha</version>
     <title>ZNxtApp.Core.Module.Theme</title>
     <authors>Khanin Choudhury</authors>
     <owners>Khanin Choudhury</owners>
@@ -15,13 +15,14 @@
     <copyright>Copyright 2018</copyright>
     <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.Core ZNxtApp.Core.Module  ZNxtApp.Core.Module.Theme</tags>
 	<dependencies>
-      <dependency id="ZNxtApp.Core" version="1.0.1-Alpha"  />
+      <dependency id="ZNxtApp.Core" version="1.0.3-Alpha"  />
     </dependencies>
   </metadata>
   <files>
     <file src="readme.md" target="" />
-	<file src="wwwroot/**/*.*" target="Content" />
-	<file src="collections/**/*.*" target="Content" />
-	<file src="module.json" target="Content" />
+	 <file src="wwwroot/**/*.*" target="Content" />
+	 <file src="collections/**/*.*" target="Content" />
+	 <file src="module.json" target="Content" />
+   <file src="bin\Release\ZNxtApp.Core.Module.Theme.dll" target="lib/net452" />
   </files>
 </package>
