@@ -74,5 +74,39 @@ namespace ZNxtApp.Core.Web.Util
             }
             return null;
         }
+
+        public static string MappedUriPath(string url)
+        {
+            if (url.IndexOf(ApplicationConfig.AppBackendPath) == 0)
+            {
+                var path = url.Remove(0, ApplicationConfig.AppBackendPath.Length);
+                path = string.Format("/{0}{1}", CommonConst.CommonValue.APP_BACKEND_FOLDERPATH, path);
+                return path;
+            }
+            else
+            {
+                var path = string.Format("/{0}{1}", CommonConst.CommonValue.APP_FRONTEND_FOLDERPATH, url);
+
+                return path;
+            }
+        }
+        public static string UnmappedUriPath(string path)
+        {
+            if (path.IndexOf(string.Format("/{0}", CommonConst.CommonValue.APP_BACKEND_FOLDERPATH)) == 0)
+            {
+                path = path.Remove(0, CommonConst.CommonValue.APP_BACKEND_FOLDERPATH.Length+1);
+                path = string.Format("{0}{1}", ApplicationConfig.AppBackendPath, path);
+                return path;
+            }
+            else
+            {
+                 path = path.Remove(0, CommonConst.CommonValue.APP_FRONTEND_FOLDERPATH.Length + 1); 
+                return path;
+            }
+        }
+       public static bool IsAdminPage(string url)
+        {
+            return url.IndexOf(string.Format("/{0}", CommonConst.CommonValue.APP_BACKEND_FOLDERPATH)) == 0;
+        }
     }
 }

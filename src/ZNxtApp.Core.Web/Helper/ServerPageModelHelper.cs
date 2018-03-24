@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
@@ -24,8 +25,11 @@ namespace ZNxtApp.Core.Web.Helper
                 {
                     pageModel = new Dictionary<string, dynamic>();
                 }
+                var folderPath = requestUriPath.Replace(fi.Name, "");
 
-                data = viewEngine.Compile(data, requestUriPath, ServerPageModelHelper.SetDefaultModel(dbProxy, httpProxy, logger, viewEngine, pageModel, requestUriPath.Replace(fi.Name, "")));
+                UpdateBaseModel(pageModel, requestUriPath, fi.Name);
+
+                 data = viewEngine.Compile(data, requestUriPath, ServerPageModelHelper.SetDefaultModel(dbProxy, httpProxy, logger, viewEngine, pageModel,folderPath ));
                 if (pageModel.ContainsKey(CommonConst.CommonValue.PAGE_TEMPLATE_PATH))
                 {
                     FileInfo fiTemplete = new FileInfo(pageModel[CommonConst.CommonValue.PAGE_TEMPLATE_PATH]);
@@ -41,7 +45,22 @@ namespace ZNxtApp.Core.Web.Helper
                 return string.Empty;
             }
         }
-        private static Dictionary<string, dynamic> SetDefaultModel(IDBService dbProxy, IHttpContextProxy httpProxy, ILogger logger, IViewEngine viewEngine, Dictionary<string, dynamic> model,string folderPath = null)
+        private static void UpdateBaseModel(Dictionary<string,dynamic> pageModel, string requestUriPath, string pageName)
+        {
+            var uri = StaticContentHandler.UnmappedUriPath(requestUriPath);
+            if (StaticContentHandler.IsAdminPage(requestUriPath))
+            {
+                pageModel[CommonConst.CommonField.BASE_URI] = string.Format("{0}{1}", ApplicationConfig.AppPath, ApplicationConfig.AppBackendPath);
+            }
+            else
+            {
+                pageModel[CommonConst.CommonField.BASE_URI] = ApplicationConfig.AppPath;
+            }
+            pageModel[CommonConst.CommonField.PAGE_NAME] = pageName;
+            pageModel[CommonConst.CommonField.URI] = uri;
+
+        }
+        private static Dictionary<string, dynamic> SetDefaultModel(IDBService dbProxy, IHttpContextProxy httpProxy, ILogger logger, IViewEngine viewEngine, Dictionary<string, dynamic> model, string folderPath = null)
         {
             if (model == null)
             {
@@ -49,7 +68,7 @@ namespace ZNxtApp.Core.Web.Helper
             }
             model["Methods"] = new Dictionary<string, dynamic>();
 
-            Func<string, string,JArray> getData =
+            Func<string, string, JArray> getData =
                 (string collection, string filter) =>
             {
                 dbProxy.Collection = collection;
@@ -57,7 +76,8 @@ namespace ZNxtApp.Core.Web.Helper
 
             };
 
-            Func<string, string> viewTemplete = (string templatePath) => {
+            Func<string, string> includeTemplete = (string templatePath) =>
+            {
 
                 FileInfo fi = new FileInfo(string.Format("c:\\{0}{1}", folderPath, templatePath));
                 string path = fi.FullName.Replace("c:", "");
@@ -65,7 +85,7 @@ namespace ZNxtApp.Core.Web.Helper
                 return string.Empty;
             };
 
-            model[CommonConst.CommonValue.METHODS]["InclueTemplate"] = viewTemplete;
+            model[CommonConst.CommonValue.METHODS]["InclueTemplate"] = includeTemplete;
 
             model[CommonConst.CommonValue.METHODS]["GetData"] = getData;
 
@@ -86,16 +106,24 @@ namespace ZNxtApp.Core.Web.Helper
                             inputBlockModel[item.Key] = item.Value;
                         }
                     }
+                    if (model != null)
+                    {
+                        foreach (var item in model)
+                        {
+                            inputBlockModel[item.Key] = item.Value;
+                        }
+
+                    }
                     FileInfo fi = new FileInfo(string.Format("c:\\{0}{1}", folderPath, blockPath));
                     string path = fi.FullName.Replace("c:", "");
                     var data = StaticContentHandler.GetStringContent(dbProxy, logger, path);
-                    data = viewEngine.Compile(data, path, ServerPageModelHelper.SetDefaultModel(dbProxy, httpProxy, logger, viewEngine, inputBlockModel, path.Replace(fi.Name,"")));
+                    data = viewEngine.Compile(data, path, ServerPageModelHelper.SetDefaultModel(dbProxy, httpProxy, logger, viewEngine, inputBlockModel, path.Replace(fi.Name, "")));
                     return data;
                 };
             model[CommonConst.CommonValue.METHODS]["Include"] = includeBlock;
 
             Func<string> randerBody = () =>
-            {   
+            {
                 if (model.ContainsKey(CommonConst.CommonValue.RENDERBODY_DATA))
                 {
                     return model[CommonConst.CommonValue.RENDERBODY_DATA];

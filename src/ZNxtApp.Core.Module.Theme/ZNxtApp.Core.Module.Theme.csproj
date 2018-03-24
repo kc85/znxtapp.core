@@ -891,6 +891,9 @@
     <None Include="wwwroot\backend\vendors\validator\.bower.json" />
     <None Include="wwwroot\backend\vendors\validator\README.md" />
     <None Include="wwwroot\backend\vendors\validator\validator.jquery.json" />
+    <None Include="wwwroot\frontend\about\about.z">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="wwwroot\frontend\index.z" />
   </ItemGroup>
   <ItemGroup>

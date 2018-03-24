@@ -1,5 +1,7 @@
-﻿@InclueTemplate("./template/template.zt")
-
+﻿@{ 
+	InclueTemplate("./template/template.zt");
+	Model["PageTitle"] = "ZNxtApp : Home";
+}
 <div class="right_col" role="main">
           <!-- top tiles -->
           <div class="row tile_count">

@@ -67,7 +67,7 @@ namespace ZNxtApp.Core.Web.Proxies
         public string GetURIAbsolutePath()
         {
             var path = _context.Request.Url.AbsolutePath.ToLower();
-            if (path.IndexOf(ApplicationConfig.AppPath.ToLower()) == 0)
+            if (!string.IsNullOrEmpty(ApplicationConfig.AppPath) && path.IndexOf(ApplicationConfig.AppPath.ToLower()) == 0)
             {
                 path = path.Replace(ApplicationConfig.AppPath.ToLower(), "");
             }

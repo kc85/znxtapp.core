@@ -29,7 +29,7 @@ namespace ZNxtApp.Core.Web.Services
         }
         public string GetStringContent(string path)
         {
-            path = ManegePath(path);
+            path = StaticContentHandler.MappedUriPath(path);
             var fi = new FileInfo(path);
             if (fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION)
             {
@@ -44,25 +44,10 @@ namespace ZNxtApp.Core.Web.Services
         }
         public byte[] GetContent(string path)
         {
-            path = ManegePath(path);
+            path = StaticContentHandler.MappedUriPath(path);
             var data = StaticContentHandler.GetContent(_dbProxy, _logger, path);
             return data;
         }
-        private string ManegePath(string requestUriPath)
-        {
-            if (requestUriPath.IndexOf(ApplicationConfig.AppBackendPath) == 0)
-            {
-                var path = requestUriPath.Remove(0, ApplicationConfig.AppBackendPath.Length);
-                path = string.Format("/{0}{1}", CommonConst.CommonValue.APP_BACKEND_FOLDERPATH, path);
-                return path;
-            }
-            else
-            {
-                var path = string.Format("/{0}{1}", CommonConst.CommonValue.APP_FRONTEND_FOLDERPATH, requestUriPath);
-
-                return path;
-            }
-        }
-
+       
     }
 }

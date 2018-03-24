@@ -58,6 +58,9 @@
             public const string TOTAL_PAGES_KEY = "TotalPages";
             public const string PAGE_SIZE_KEY = "PageSize";
             public const string CURRENT_PAGE_KEY = "CurrentPage";
+            public const string BASE_URI = "base_uri";
+            public const string URI = "uri";
+            public const string PAGE_NAME = "page_name";
         }
     }
 }

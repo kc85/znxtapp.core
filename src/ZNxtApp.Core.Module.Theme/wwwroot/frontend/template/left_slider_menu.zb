@@ -6,7 +6,7 @@
 <a href="#" id="inner-bar">
   <!-- Small logo -->
   <div class="logo-alt">
-    <img src="./assets/img/logo-mini.png" alt="logo-mini">
+    <img src="@Model["base_uri"]/assets/img/logo-mini.png" alt="logo-mini">
   </div>
   <!-- /Small logo -->
 </a>
@@ -17,7 +17,7 @@
 
 					<!-- Logo -->	
 					<div id="logo-wrapper">
-						<a href="index.html"><img src="./assets/img/logo.png" alt="logo"></a>
+						<a href="index.html"><img src="@Model["base_uri"]/assets/img/logo.png" alt="logo"></a>
 					</div>
 					<!-- /Logo -->	
 
@@ -64,7 +64,7 @@
 						</ul>
 						<!-- /Social icons -->	
 						<div id="copyright">
-							@@owwwlab
+							ZNxtApp @@ 2018
 						</div>
 					</div>
 					<!-- /Sidebar footer -->	

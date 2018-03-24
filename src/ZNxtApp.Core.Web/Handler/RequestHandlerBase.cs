@@ -113,42 +113,7 @@ namespace ZNxtApp.Core.Web.Handler
 
             }
             _httpProxy.ContentType = _httpProxy.GetContentType(requestUriPath);
-
-            //var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
-            // var fi = new FileInfo(requestUriPath);
-            // if (fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION)
-            // {
-            //     var response =  ServerPageModelHelper.ServerSidePageHandler(requestUriPath, dbProxy, _httpProxy, _viewEngine, _logger);
-            //     if(!string.IsNullOrEmpty(response))
-            //     {
-            //         _httpProxy.SetResponse(CommonConst._200_OK, response);
-            //     }
-            //     else
-            //     {
-            //         _httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND);
-            //     }
-            //     _httpProxy.ContentType = CommonConst.CONTENT_TYPE_TEXT_HTML;
-            // }
-            // else
-            // {
-            //     var data = StaticContentHandler.GetContent(dbProxy, _logger, requestUriPath);
-            //     if (data != null)
-            //     {
-            //         _httpProxy.SetResponse(CommonConst._200_OK, data);
-            //     }
-            //     else
-            //     {
-            //         _httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND, data);
-            //     }
-            //     _httpProxy.ContentType = MimeMapping.GetMimeMapping(requestUriPath);
-
-            //     if (ApplicationConfig.StaticContentCache)
-            //     {
-            //         _httpContext.Response.Cache.SetCacheability(HttpCacheability.Public);
-            //         _httpContext.Response.Cache.SetExpires(DateTime.Now.AddDays(10));
-            //         _httpContext.Response.Cache.SetMaxAge(new TimeSpan(10, 0, 0, 0));
-            //     }
-            // }
+            
             if (ApplicationConfig.StaticContentCache)
             {
                 _httpContext.Response.Cache.SetCacheability(HttpCacheability.Public);

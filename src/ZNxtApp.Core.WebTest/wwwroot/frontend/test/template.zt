@@ -1,0 +1,13 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+@Include("./blocks/header.zb",null)
+<body>
+  <h1> Welcome </h1>
+  @RenderBody()
+  <hr/>
+  <h1>Uri:@Model["uri"]:</h1>
+<h1>Base:@Model["base_uri"]:</h1>
+
+  Footer
+</body>
+<html>
