@@ -1,6 +1,6 @@
 ﻿@{ 
 	InclueTemplate("./template/template.zt");
-	Model["PageTitle"] = "ZNxtApp : Home";
+	Model["page_title"] = " : Home";
 }
 <div class="right_col" role="main">
           <!-- top tiles -->

@@ -61,6 +61,8 @@
             public const string BASE_URI = "base_uri";
             public const string URI = "uri";
             public const string PAGE_NAME = "page_name";
+            public const string APP_NAME = "app_name";
+            public const string METHOD = "Method";
         }
     }
 }

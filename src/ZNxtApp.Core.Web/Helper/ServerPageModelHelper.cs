@@ -15,7 +15,7 @@ namespace ZNxtApp.Core.Web.Helper
 {
     public static class ServerPageModelHelper
     {
-        public static string ServerSidePageHandler(string requestUriPath, IDBService dbProxy, IHttpContextProxy httpProxy, IViewEngine viewEngine, ILogger logger, Dictionary<string, dynamic> pageModel= null)
+        public static string ServerSidePageHandler(string requestUriPath, IDBService dbProxy, IHttpContextProxy httpProxy, IViewEngine viewEngine, IActionExecuter actionExecuter, ILogger logger, Dictionary<string, dynamic> pageModel = null)
         {
             var fi = new FileInfo(requestUriPath);
             var data = StaticContentHandler.GetStringContent(dbProxy, logger, requestUriPath);
@@ -29,14 +29,14 @@ namespace ZNxtApp.Core.Web.Helper
 
                 UpdateBaseModel(pageModel, requestUriPath, fi.Name);
 
-                 data = viewEngine.Compile(data, requestUriPath, ServerPageModelHelper.SetDefaultModel(dbProxy, httpProxy, logger, viewEngine, pageModel,folderPath ));
+                data = viewEngine.Compile(data, requestUriPath, ServerPageModelHelper.SetDefaultModel(dbProxy, httpProxy, logger, viewEngine, actionExecuter, pageModel, folderPath));
                 if (pageModel.ContainsKey(CommonConst.CommonValue.PAGE_TEMPLATE_PATH))
                 {
                     FileInfo fiTemplete = new FileInfo(pageModel[CommonConst.CommonValue.PAGE_TEMPLATE_PATH]);
                     var templateFileData = StaticContentHandler.GetStringContent(dbProxy, logger, pageModel[CommonConst.CommonValue.PAGE_TEMPLATE_PATH]);
                     pageModel[CommonConst.CommonValue.RENDERBODY_DATA] = data;
                     data = viewEngine.Compile(templateFileData, pageModel[CommonConst.CommonValue.PAGE_TEMPLATE_PATH],
-                        ServerPageModelHelper.SetDefaultModel(dbProxy, httpProxy, logger, viewEngine, pageModel, pageModel[CommonConst.CommonValue.PAGE_TEMPLATE_PATH].Replace(fiTemplete.Name, "")));
+                        ServerPageModelHelper.SetDefaultModel(dbProxy, httpProxy, logger, viewEngine, actionExecuter, pageModel, pageModel[CommonConst.CommonValue.PAGE_TEMPLATE_PATH].Replace(fiTemplete.Name, "")));
                 }
                 return data;
             }
@@ -45,7 +45,7 @@ namespace ZNxtApp.Core.Web.Helper
                 return string.Empty;
             }
         }
-        private static void UpdateBaseModel(Dictionary<string,dynamic> pageModel, string requestUriPath, string pageName)
+        private static void UpdateBaseModel(Dictionary<string, dynamic> pageModel, string requestUriPath, string pageName)
         {
             var uri = StaticContentHandler.UnmappedUriPath(requestUriPath);
             if (StaticContentHandler.IsAdminPage(requestUriPath))
@@ -58,9 +58,10 @@ namespace ZNxtApp.Core.Web.Helper
             }
             pageModel[CommonConst.CommonField.PAGE_NAME] = pageName;
             pageModel[CommonConst.CommonField.URI] = uri;
+            pageModel[CommonConst.CommonField.APP_NAME] = ApplicationConfig.AppName;
 
         }
-        private static Dictionary<string, dynamic> SetDefaultModel(IDBService dbProxy, IHttpContextProxy httpProxy, ILogger logger, IViewEngine viewEngine, Dictionary<string, dynamic> model, string folderPath = null)
+        private static Dictionary<string, dynamic> SetDefaultModel(IDBService dbProxy, IHttpContextProxy httpProxy, ILogger logger, IViewEngine viewEngine, IActionExecuter actionExecuter, Dictionary<string, dynamic> model, string folderPath = null)
         {
             if (model == null)
             {
@@ -75,7 +76,6 @@ namespace ZNxtApp.Core.Web.Helper
                 return dbProxy.Get(filter);
 
             };
-
             Func<string, string> includeTemplete = (string templatePath) =>
             {
 
@@ -84,6 +84,14 @@ namespace ZNxtApp.Core.Web.Helper
                 model[CommonConst.CommonValue.PAGE_TEMPLATE_PATH] = path;
                 return string.Empty;
             };
+            Func<string, JObject, JObject> ActionExecute =
+               (string actionPath, JObject data) =>
+               {
+                   var param = ActionExecuterHelper.CreateParamContainer(null, httpProxy, logger, actionExecuter);
+                   return actionExecuter.Exec<JObject>(actionPath, dbProxy, param);
+
+               };
+            model[CommonConst.CommonValue.METHODS]["Execute"] = ActionExecute;
 
             model[CommonConst.CommonValue.METHODS]["InclueTemplate"] = includeTemplete;
 
@@ -117,7 +125,7 @@ namespace ZNxtApp.Core.Web.Helper
                     FileInfo fi = new FileInfo(string.Format("c:\\{0}{1}", folderPath, blockPath));
                     string path = fi.FullName.Replace("c:", "");
                     var data = StaticContentHandler.GetStringContent(dbProxy, logger, path);
-                    data = viewEngine.Compile(data, path, ServerPageModelHelper.SetDefaultModel(dbProxy, httpProxy, logger, viewEngine, inputBlockModel, path.Replace(fi.Name, "")));
+                    data = viewEngine.Compile(data, path, ServerPageModelHelper.SetDefaultModel(dbProxy, httpProxy, logger, viewEngine, actionExecuter, inputBlockModel, path.Replace(fi.Name, "")));
                     return data;
                 };
             model[CommonConst.CommonValue.METHODS]["Include"] = includeBlock;
@@ -138,6 +146,6 @@ namespace ZNxtApp.Core.Web.Helper
 
             return model;
         }
-       
+
     }
 }

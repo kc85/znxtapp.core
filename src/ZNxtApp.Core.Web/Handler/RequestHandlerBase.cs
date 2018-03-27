@@ -34,6 +34,7 @@ namespace ZNxtApp.Core.Web.Handler
         protected IInitData _initData;
         protected IRoutings _routings;
         protected IRouteExecuter _routeExecuter;
+        protected IActionExecuter _actionExecuter;
         protected ILogger _logger;
         protected IViewEngine _viewEngine;
         protected IwwwrootContentHandler _contentHandler;
@@ -56,10 +57,11 @@ namespace ZNxtApp.Core.Web.Handler
             _httpProxy = new HttpContextProxy(context);
             _initData = _httpProxy;
             _logger = Logger.GetLogger(this.GetType().Name, _httpProxy.TransactionId);
+            _actionExecuter = new ActionExecuter(_logger);
             CreateRoute();
             _httpContext = context;
             var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
-            _contentHandler = new WwwrootContentHandler(_httpProxy, dbProxy, _viewEngine, _logger);
+            _contentHandler = new WwwrootContentHandler(_httpProxy, dbProxy, _viewEngine,_actionExecuter, _logger);
         }
 
         protected void WriteResponse()

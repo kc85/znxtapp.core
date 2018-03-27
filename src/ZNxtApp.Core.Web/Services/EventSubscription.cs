@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Interfaces;
-using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Web.Interfaces;
 using ZNxtApp.Core.Web.Models;
 

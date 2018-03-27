@@ -102,6 +102,15 @@ namespace ZNxtApp.Core.Consts
             }
         }
 
-        
+
+        public static class ActionMethods
+        {
+            public const string GET = "GET";
+            public const string POST = "POST";
+            public const string ACTION = "ACTION";
+
+
+        }
+
     }
 }

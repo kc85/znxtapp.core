@@ -44,5 +44,11 @@ namespace ZNxtApp.Core.Web.Services.Api
         {
             return 1;
         }
+
+
+        public JObject ActionTest()
+        {
+            return ResponseBuilder.CreateReponse(CommonConst._200_OK);
+        }
     }
 }

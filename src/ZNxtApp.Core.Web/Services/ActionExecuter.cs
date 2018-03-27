@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZNxtApp.Core.Consts;
+using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Web.Util;
@@ -11,7 +14,7 @@ namespace ZNxtApp.Core.Web.Services
 {
     public class ActionExecuter : IActionExecuter
     {
-         private ILogger _logger;
+        private ILogger _logger;
         private AssemblyLoader _assemblyLoader;
         public ActionExecuter(ILogger logger)
         {
@@ -19,11 +22,36 @@ namespace ZNxtApp.Core.Web.Services
             _assemblyLoader = AssemblyLoader.GetAssemblyLoader();
 
         }
+        public T Exec<T>(string action, IDBService dbProxy, ParamContainer helper)
+        {
+            var result = Exec(action, dbProxy, helper);
+            return JObjectHelper.Deserialize<T>(result.ToString());
+        }
+        public object Exec(string action, IDBService dbProxy, ParamContainer helper)
+        {
+            dbProxy.Collection = CommonConst.Collection.SERVER_ROUTES;
+            JObject filter = JObject.Parse(CommonConst.Filters.IS_OVERRIDE_FILTER);
+            filter[CommonConst.CommonField.METHOD] = CommonConst.ActionMethods.ACTION;
+            filter[CommonConst.CommonField.ROUTE] = action;
+
+            var data = dbProxy.Get(filter.ToString());
+            if (data.Count == 0)
+            {
+                throw new KeyNotFoundException(string.Format("Not Found: {0}", filter.ToString()));
+            }
+            RoutingModel route = JObjectHelper.Deserialize<RoutingModel>(data[0].ToString());
+
+            Func<dynamic> routeAction  = () => { return route; };
+            helper[CommonConst.CommonValue.PARAM_ROUTE] = routeAction;
+
+            return Exec(route,helper);
+        }
 
         public object Exec(RoutingModel route, ParamContainer helper)
         {
             return Exec(route.ExecultAssembly, route.ExecuteType, route.ExecuteMethod, helper);
         }
+
         public object Exec(string execultAssembly, string executeType, string executeMethod, ParamContainer helper)
         {
             Type exeType = _assemblyLoader.GetType(execultAssembly, executeType, _logger);

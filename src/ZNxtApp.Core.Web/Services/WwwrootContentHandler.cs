@@ -19,13 +19,15 @@ namespace ZNxtApp.Core.Web.Services
         private IDBService _dbProxy;
         private IViewEngine _viewEngine;
         private ILogger _logger;
+        private IActionExecuter _actionExecuter;
 
-        public WwwrootContentHandler(IHttpContextProxy httpProxy, IDBService dbProxy, IViewEngine viewEngine, ILogger logger)
+        public WwwrootContentHandler(IHttpContextProxy httpProxy, IDBService dbProxy, IViewEngine viewEngine, IActionExecuter actionExecuter, ILogger logger)
         {
             _logger = logger;
             _dbProxy = dbProxy;
             _httpProxy = httpProxy;
             _viewEngine = viewEngine;
+            _actionExecuter = actionExecuter;
         }
         public string GetStringContent(string path)
         {
@@ -33,7 +35,7 @@ namespace ZNxtApp.Core.Web.Services
             var fi = new FileInfo(path);
             if (fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION)
             {
-                var response = ServerPageModelHelper.ServerSidePageHandler(path, _dbProxy, _httpProxy, _viewEngine, _logger);
+                var response = ServerPageModelHelper.ServerSidePageHandler(path, _dbProxy, _httpProxy, _viewEngine, _actionExecuter, _logger);
                 return response;
             }
             else

@@ -1,1 +1,1 @@
-Added base uri, page name and url @Model 
+Implement calling action from server side pages

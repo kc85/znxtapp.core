@@ -1,10 +1,20 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.IO;
 
 namespace ZNxtApp.Core.Helpers
 {
     public static class JObjectHelper
     {
+        public static T Deserialize<T>(JObject data)
+        {
+            return Deserialize<T>(data.ToString());
+        }
+        public static T Deserialize<T>(string data)
+        {
+           return JsonConvert.DeserializeObject<T>(data);
+        }
+        
         public static JArray GetJArrayFromFile(string filePath)
         {
             JArray arrData = new JArray();

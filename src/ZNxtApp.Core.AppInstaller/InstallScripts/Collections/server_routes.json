@@ -12,6 +12,18 @@
     ]
   },
   {
+    "key": "ACTION:/api/ping",
+    "ContentType": "application/json",
+    "Method": "ACTION",
+    "Route": "/api/ping",
+    "ExecultAssembly": "ZNxtApp.Core.Web.dll",
+    "ExecuteType": "ZNxtApp.Core.Web.Services.Api.PingController",
+    "ExecuteMethod": "ActionTest",
+    "auth_users": [
+      "*"
+    ]
+  },
+  {
     "key": "GET:/api/install/module",
     "ContentType": "application/json",
     "Method": "GET",
