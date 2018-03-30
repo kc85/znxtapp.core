@@ -63,6 +63,7 @@
             public const string PAGE_NAME = "page_name";
             public const string APP_NAME = "app_name";
             public const string METHOD = "Method";
+            public const string VERSION = "version";
         }
     }
 }

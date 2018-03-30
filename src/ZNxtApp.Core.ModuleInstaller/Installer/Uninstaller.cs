@@ -11,13 +11,19 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
         {
         }
 
-        public bool Uninstall(string moduleName, IHttpContextProxy httpProxy)
+        public bool Uninstall(string moduleFullName, IHttpContextProxy httpProxy)
         {
             _httpProxy = httpProxy;
-            JObject moduleObject = new JObject();
-            moduleObject[CommonConst.CommonField.DATA_KEY] = moduleName;
-            moduleObject = GetModule(moduleObject);
+            string moduleName = GetModuleName(moduleFullName);
 
+            JObject moduleObject = new JObject();
+            moduleObject[CommonConst.CommonField.NAME] = moduleName;
+            moduleObject = GetModule(moduleObject);
+            if (moduleObject == null)
+            {
+                _logger.Info(string.Format("Module not found :{0}", moduleFullName));
+                return false;
+            }
             RevertCollections(moduleName, CommonConst.Collection.STATIC_CONTECT, httpProxy);
             RevertCollections(moduleName, CommonConst.Collection.DLLS, httpProxy);
             foreach (var item in moduleObject[CommonConst.MODULE_INSTALL_COLLECTIONS_FOLDER])

@@ -1,5 +1,5 @@
 {
-  "name": "ZNxtApp.Code.Module.Theme",
+  "name": "ZNxtApp.Core.Module.Theme",
   "description": "This is default ZNxtApp Module theme",
   "version": "1.0",
   "dependent_mudules": [ "ZNxtApp.Code.Module.App" ],

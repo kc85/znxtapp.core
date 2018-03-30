@@ -104,6 +104,11 @@ namespace ZNxtApp.Core
             throw new NotImplementedException();
         }
 
+        public void UploadAppDomain()
+        {
+            throw new NotImplementedException();
+        }
+
         public DateTime InitDateTime
         {
             get { throw new NotImplementedException(); }

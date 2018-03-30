@@ -1,12 +1,14 @@
-[{
-    "key": "key of your server side route. e.g: GET:/api/ping",
+[
+  {
+    "key": "ACTION:/api/get_backend_menu",
     "ContentType": "application/json",
-    "Method": "http method, Action method , e.g: GET, ACTION",
-    "Route": "Server API route, e.g: /api/ping",
-    "ExecultAssembly": "Assembly name, e.g:  ZNxtApp.Core.Web.dll",
-    "ExecuteType": "Class Name e.g:  ZNxtApp.Core.Web.Services.Api.PingController",
-    "ExecuteMethod": "Method to exeute. e.g: Ping",
+    "Method": "ACTION",
+    "Route": "/api/get_backend_menu",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Menu.BackendMenuController",
+    "ExecuteMethod": "GetMenuItems",
     "auth_users": [
       "*"
     ]
-  }]
+  }
+]

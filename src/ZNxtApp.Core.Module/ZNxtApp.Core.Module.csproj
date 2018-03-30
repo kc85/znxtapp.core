@@ -56,9 +56,12 @@
     <None Include="module.json" />
     <None Include="packages.config" />
     <None Include="readme.md" />
+    <None Include="build-events-scripts\post-build\upload_module.bat" />
+    <None Include="build-events-scripts\post-build\winhttpjs.bat" />
     <None Include="ZNxtApp.Core.Module.nuspec" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="build-events-scripts\post-build\readme.md" />
     <Content Include="wwwroot\backend\app\your_module_backend\your_module.html" />
     <Content Include="wwwroot\backend\app\your_module_backend\your_module.js" />
     <None Include="wwwroot\frontend\your_module_forntend_page_foler\your_module_page_page.z" />

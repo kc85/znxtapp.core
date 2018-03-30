@@ -88,10 +88,19 @@ namespace ZNxtApp.Core.Web.Helper
                (string actionPath, JObject data) =>
                {
                    var param = ActionExecuterHelper.CreateParamContainer(null, httpProxy, logger, actionExecuter);
+
+                   if (data != null)
+                   {
+                       foreach (var item in data)
+                       {
+                           Func<dynamic> funcValue = () => { return item.Value; };
+                           param.AddKey(item.Key, funcValue);
+                       }
+                   }
                    return actionExecuter.Exec<JObject>(actionPath, dbProxy, param);
 
                };
-            model[CommonConst.CommonValue.METHODS]["Execute"] = ActionExecute;
+            model[CommonConst.CommonValue.METHODS]["ExecuteAction"] = ActionExecute;
 
             model[CommonConst.CommonValue.METHODS]["InclueTemplate"] = includeTemplete;
 

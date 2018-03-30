@@ -1,1 +1,1 @@
-ZNxtApp.Core Module nuget package
+ZNxtApp.Core.Module.App nuget package. This is ZNxtApp core app module. This module contains base APIs for the ZNxtApp

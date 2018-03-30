@@ -1,0 +1,28 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ZNxtApp.Core.Module.App</id>
+    <version>1.0.1.462-Alpha</version>
+    <title>ZNxtApp.Core.Module.App</title>
+    <authors>Khanin Choudhury</authors>
+    <owners>Khanin Choudhury</owners>
+    <licenseUrl>https://github.com/kc85/znxtapp.core/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/kc85/znxtapp.core</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/kc85/znxtapp.core/master/logo/ZNxtAppLogo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ZNxtApp.Core.Module.App is ZNxtApp core app nuget package. This module contains base APIs for the ZNxtApp</description>
+    <releaseNotes>Init push to nuget</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.Core ZNxtApp.Core.Module,ZNxtApp.Core.Module.App</tags>
+	<dependencies>
+      <dependency id="ZNxtApp.Core" version="1.0.4-Alpha"  />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="readme.md" target="" />
+	<file src="wwwroot/**/*.*" target="Content" />
+	<file src="collections/**/*.*" target="Content" />
+	<file src="module.json" target="Content" />
+  <file src="bin\Release\ZNxtApp.Core.Module.App.dll" target="lib/net452" />
+  </files>
+</package>

@@ -221,5 +221,9 @@ namespace ZNxtApp.Core.Web.Proxies
         {
             _context.Response.Cookies.Remove(CommonConst.CommonValue.SESSION_COOKIE);
         }
+        public void UploadAppDomain()
+        {
+            System.Web.HttpRuntime.UnloadAppDomain();
+        }
     }
 }

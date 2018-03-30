@@ -1,6 +1,6 @@
 [
     {
-        "key": "routekey_should_be_unique",
+        "key": "route key should be unique",
         "label": "Menu Item Label",
         "href": "/mconfig",
         "icon": "fa-upload",

@@ -36,5 +36,22 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                 return data[0] as JObject;
             }
         }
+        protected string GetModuleName(string moduleFullName)
+        {
+            return moduleFullName.Split('/')[0];
+        }
+
+        protected string GetModuleVersion(string moduleFullName)
+        {
+            var data =  moduleFullName.Split('/');
+            if (data.Length != 0)
+            {
+                return data[1];
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
     }
 }

@@ -2,27 +2,28 @@
 <package >
   <metadata>
     <id>ZNxtApp.Core.Module</id>
-    <version>1.0.6-Alpha</version>
+    <version>1.0.9-Alpha</version>
     <title>ZNxtApp.Core.Module</title>
     <authors>Khanin Choudhury</authors>
     <owners>Khanin Choudhury</owners>
     <licenseUrl>https://github.com/kc85/znxtapp.core/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/kc85/znxtapp.core</projectUrl>
-    <iconUrl>https://lh4.googleusercontent.com/xbHv59ILXZ9z_fhRpjS0MwvpO4ddeho8XcsO__xmS9T5KW-DdBlvOulewrR6NgGjELoOQqJ2SthiVQMldD-x=w1600-h769-rw</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/kc85/znxtapp.core/master/logo/ZNxtAppLogo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>ZNxtApp.Core.Module nuget package is base nuget for creating modules in ZNxtApp framework</description>
-    <releaseNotes>Initial nuget check</releaseNotes>
+    <releaseNotes>Added post build commands for create nuget package and deploy package to the ZNxtApp </releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.Core ZNxtApp.Core.Module</tags>
 	<dependencies>
-      <dependency id="ZNxtApp.Core" version="1.0.3-Alpha"  />
+      <dependency id="ZNxtApp.Core" version="1.0.4-Alpha"  />
     </dependencies>
   </metadata>
   <files>
     <file src="readme.md" target="Content" />
-	<file src="wwwroot/**/*.*" target="Content" />
-	<file src="collections/**/*.*" target="Content" />
-	<file src="module.json" target="Content" />
-	<file src="ZNxtApp.Core.Module.YOUR-MODULE-NAME.nuspec.txt" target="Content" />
+	  <file src="wwwroot/**/*.*" target="Content" />
+	  <file src="collections/**/*.*" target="Content" />
+    <file src="build-events-scripts/**/*.*" target="Content" />
+	  <file src="module.json" target="Content" />
+	  <file src="ZNxtApp.Core.Module.YOUR-MODULE-NAME.nuspec.txt" target="Content" />
   </files>
 </package>

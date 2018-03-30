@@ -35,14 +35,38 @@
       "*"
     ]
   },
-   {
-    "key": "POST:/api/install/module",
+  {
+    "key": "POST:/api/module/install",
     "ContentType": "application/json",
     "Method": "POST",
-    "Route": "/api/install/module",
+    "Route": "/api/module/install",
     "ExecultAssembly": "ZNxtApp.Core.Web.dll",
     "ExecuteType": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
     "ExecuteMethod": "Install",
+    "auth_users": [
+      "*"
+    ]
+  },
+  {
+    "key": "POST:/api/module/uninstall",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/module/uninstall",
+    "ExecultAssembly": "ZNxtApp.Core.Web.dll",
+    "ExecuteType": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+    "ExecuteMethod": "Uninstall",
+    "auth_users": [
+      "*"
+    ]
+  },
+  {
+    "key": "POST:/api/module/reinstall",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/module/reinstall",
+    "ExecultAssembly": "ZNxtApp.Core.Web.dll",
+    "ExecuteType": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+    "ExecuteMethod": "Reinstall",
     "auth_users": [
       "*"
     ]

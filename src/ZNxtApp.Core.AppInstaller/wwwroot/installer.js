@@ -60,7 +60,7 @@ $(document).ready(function () {
         installData.AdminPassword = "password";
         installData.Name = "ZNxtApp";
         installData.InstallType = 0;
-        installData.DefaultModules = ["ZNxtApp.Core.Module.Theme/1.0.4-Alpha"];
+        installData.DefaultModules = ["ZNxtApp.Core.Module.App/1.0.1-Alpha","ZNxtApp.Core.Module.Theme/1.0.6-Alpha"];
 
         $.post("./install/start", JSON.stringify(installData),
             function (data, status) {

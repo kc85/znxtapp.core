@@ -20,24 +20,26 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
         {
         }
 
-        public bool Install(string moduleName, IHttpContextProxy httpProxy, bool IsOverride = true)
+        public bool Install(string moduleFullName, IHttpContextProxy httpProxy, bool IsOverride = true)
         {
             _httpProxy = httpProxy;
-            string moduleFolder = moduleName.Replace("/", "_");
+            string moduleName = GetModuleName(moduleFullName);
+            string moduleVerion = GetModuleVersion(moduleFullName);
+            string moduleFolder = moduleFullName.Replace("/", "_");
             var moduleDir = string.Format("{0}\\{1}", ApplicationConfig.AppModulePath, moduleFolder);
             if (!Directory.Exists(moduleDir))
             {
-                DownloadNugetPackage(moduleName);
+                DownloadNugetPackage(moduleFullName);
             }
             if (Directory.Exists(moduleDir))
             {
                 JObject moduleObject = new JObject();
-                moduleObject[CommonConst.CommonField.DATA_KEY] = moduleName;
+                moduleObject[CommonConst.CommonField.NAME] = GetModuleName(moduleFullName);
                 if (!CheckOverrideModule(moduleName, IsOverride, ref moduleObject) && !IsOverride)
                 {
                     return false;
                 }
-                UpdateModuleInfo(moduleDir, ref moduleObject);
+                UpdateModuleInfo(moduleDir,moduleName, moduleVerion, ref moduleObject);
                 var moduleCollections = new JArray();
                 if (moduleObject[CommonConst.MODULE_INSTALL_COLLECTIONS_FOLDER] != null)
                 {
@@ -46,7 +48,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                 else
                 {
                     moduleObject[CommonConst.MODULE_INSTALL_COLLECTIONS_FOLDER] = moduleCollections;
-                }                
+                }
                 moduleCollections.Add(CreateCollectionEntry(CommonConst.Collection.STATIC_CONTECT, CommonConst.CollectionAccessTypes.READONLY));
                 moduleCollections.Add(CreateCollectionEntry(CommonConst.Collection.DLLS, CommonConst.CollectionAccessTypes.READONLY));
 
@@ -71,10 +73,12 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
 
             try
             {
-                WebClient client = new WebClientWithTimeout();
-                var downloadUrl = string.Format("{0}{1}", "https://www.nuget.org/api/v2/package/", moduleName);
-                
-                client.DownloadFile(downloadUrl, filePath);
+                if (!File.Exists(filePath))
+                {
+                    WebClient client = new WebClientWithTimeout();
+                    var downloadUrl = string.Format("{0}{1}", "https://www.nuget.org/api/v2/package/", moduleName);
+                    client.DownloadFile(downloadUrl, filePath);
+                }
                 ZipFile.ExtractToDirectory(filePath, folderPath);
             }
             catch (Exception ex)
@@ -102,12 +106,14 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
             return result;
         }
 
-        private void UpdateModuleInfo(string baseModulePath, ref JObject moduleObject)
+        private void UpdateModuleInfo(string baseModulePath,string moduleName, string moduleVersion, ref JObject moduleObject)
         {
             string filePath = string.Format("{0}\\Content\\{1}", baseModulePath, MODULE_INFO_FILE);
             if (File.Exists(filePath))
             {
                 var moduleFileData = JObjectHelper.GetJObjectFromFile(filePath);
+                moduleFileData[CommonConst.CommonField.NAME] = moduleName;
+                moduleFileData[CommonConst.CommonField.VERSION] = moduleVersion;
                 moduleObject = JObjectHelper.Marge(moduleObject, moduleFileData, MergeArrayHandling.Union);
             }
         }
@@ -269,36 +275,22 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
             return File.ReadAllText(path);
         }
 
+
         public JObject GetDetails(string moduleName)
         {
-            var moduleDir = string.Format("{0}\\{1}", ApplicationConfig.AppModulePath, moduleName);
-            if (Directory.Exists(moduleDir))
-            {
-                string filePath = string.Format("{0}\\{1}", moduleDir, MODULE_INFO_FILE);
-                if (File.Exists(filePath))
-                {
-                    var moduleFileData = JObjectHelper.GetJObjectFromFile(filePath);
-                    return moduleFileData;
-                }
-                else
-                {
-                    throw new FileNotFoundException();
-                }
-            }
-            else
-            {
-                throw new DirectoryNotFoundException();
-            }
+            JObject filter = new JObject();
+            filter[CommonConst.CommonField.NAME] = GetModuleName(moduleName);
+            return GetModule(filter);
         }
-    }
 
-    public class WebClientWithTimeout : WebClient
-    {
-        protected override WebRequest GetWebRequest(Uri address)
+        public class WebClientWithTimeout : WebClient
         {
-            WebRequest wr = base.GetWebRequest(address);
-            wr.Timeout = ((60*1000)*60); // timeout in milliseconds (ms)
-            return wr;
+            protected override WebRequest GetWebRequest(Uri address)
+            {
+                WebRequest wr = base.GetWebRequest(address);
+                wr.Timeout = ((60 * 1000) * 60); // timeout in milliseconds (ms)
+                return wr;
+            }
         }
     }
 }

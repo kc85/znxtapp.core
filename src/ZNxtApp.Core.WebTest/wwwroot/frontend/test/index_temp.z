@@ -4,7 +4,7 @@
 <h1>Base:@Model["base_uri"]:</h1>
 <script>
 
- var data = @Execute("/api/ping",null)
+ var data = @ExecuteAction("/api/ping",null)
  </script>
 <ul>
 	@foreach (var user in GetData("users","{}") )

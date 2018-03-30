@@ -25,6 +25,7 @@
 
 <script>
 
+
     var menu = [
     {
         "key": "advance",
@@ -93,7 +94,8 @@
     }
     ];
 
-
+    var menu_response  =  @ExecuteAction("/api/get_backend_menu",null)
+    menu = menu_response.data;
 
   function buildMenu(parentElement, parent_link) {
 
