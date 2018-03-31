@@ -1,1 +1,1 @@
-Added postbuild command for create nuget and deploy nuget to ZNxtApp.
+Created ZNxtApp.Web nuget package

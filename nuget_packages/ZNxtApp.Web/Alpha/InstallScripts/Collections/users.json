@@ -1,0 +1,30 @@
+﻿[
+    {
+        "key": "k@k.c",
+        "name": "Khanin choudhury",
+        "email": "k@k.c",
+        "user_id": "9623946679",
+        "user_type": "PhoneNumber",
+        "password": "EIG6tQ2RT+0=",
+        "groups": [
+            "user",
+            "customer",
+            "sys_admin",
+            "ecomm_admin"
+        ],
+        "is_email_validate": true,
+        "phone": "9623946679"
+    },
+    {
+        "key": "k@gmail.c",
+        "name": "Khanin Customer",
+        "email": "k@gmail.c",
+        "password": "k",
+        "groups": [
+            "user",
+            "customer"
+        ],
+        "is_email_validate": false,
+        "phone": "9623946678"
+    }
+]

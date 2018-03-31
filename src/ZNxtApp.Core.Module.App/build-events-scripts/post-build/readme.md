@@ -15,7 +15,7 @@ This code will generate @VersionNumber and the pust build command
     $(PostBuildEventDependsOn);
     PostBuildMacros;
   </PostBuildEventDependsOn>
-    <PostBuildEvent>call "$(ProjectDir)build-events-scripts\post-build\upload_module.bat" @(VersionNumber) "$(SolutionDir).nuget" "$(TargetDir)" "$(ProjectDir)$(ProjectName).nuspec" $(ProjectName) "$(ProjectDir)"</PostBuildEvent>
+    <PostBuildEvent>call "$(TargetDir)Scripts\upload_module.bat" @(VersionNumber) "$(SolutionDir).nuget" "$(TargetDir)" "$(ProjectDir)$(ProjectName).nuspec" $(ProjectName)</PostBuildEvent>
   </PropertyGroup>
 
 

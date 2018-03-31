@@ -71,6 +71,7 @@
     <Content Include="Global.asax" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\ZNxtApp.Local.pubxml" />
+    <None Include="Properties\PublishProfiles\ZNxtApp.Web.pubxml" />
     <None Include="wwwroot\frontend\test\blocks\header.zb" />
     <None Include="wwwroot\frontend\test\blocks\user_block.zb" />
     <None Include="wwwroot\frontend\test\template.zt" />

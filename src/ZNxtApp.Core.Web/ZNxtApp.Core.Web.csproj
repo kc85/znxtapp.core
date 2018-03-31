@@ -121,6 +121,12 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y "$(TargetDir)ZNxtApp.*.dll" "$(SolutionDir)..\nuget_packages\ZNxtApp.Web\Alpha\lib\net452\"
+del "$(SolutionDir)..\nuget_packages\ZNxtApp.Web\Alpha\lib\net452\ZNxtApp.Core.dll"
+xcopy  "$(TargetDir)InstallScripts\*.*" "$(SolutionDir)..\nuget_packages\ZNxtApp.Web\Alpha\InstallScripts\" /Y /I /E
+</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
 using ZNxtApp.Core.Web.AppStart;
 
 namespace ZNxtApp.Core.WebTest

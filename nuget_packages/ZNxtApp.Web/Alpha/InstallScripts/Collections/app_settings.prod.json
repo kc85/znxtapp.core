@@ -1,0 +1,34 @@
+﻿[
+    {
+        "auth_users": [ "sys_admin" ],
+        "key": "facebook_api_key",
+        "data": "527376057604352"
+    },
+    {
+        "auth_users": [ "sys_admin" ],
+        "key": "facebook_api_secret",
+        "data": "a8ad2eb2146b9db680db2e2d35831f48"
+    },
+    {
+        "auth_users": [ "sys_admin" ],
+        "key": "facebook_oauth_callback_url",
+        "data": "http://www.cloudjxq.com/prettyex/facebookauthsuccess"
+    },
+    {
+        "auth_users": [ "sys_admin" ],
+        "key": "g_recaptcha_secrect",
+        "comment": "Google recaptcha secrect",
+        "data": "6LfqzzIUAAAAAKM4f3kJrqlqe-EaCA0wIPUPDv95"
+    },
+    {
+        "auth_users": [ "sys_admin" ],
+        "key": "g_recaptcha_site_key",
+        "comment": "Google recaptcha site key",
+        "data": "6LfqzzIUAAAAALsT3YEe2H2hDPelvby5TgZiyC1b"
+    },
+     {
+        "auth_users": [ "*" ],
+        "key": "app_endpoint",
+        "data": "http://www.cloudjxq.com/prettyex"
+    }
+]

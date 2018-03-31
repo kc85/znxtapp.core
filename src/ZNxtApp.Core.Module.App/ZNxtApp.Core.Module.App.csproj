@@ -53,17 +53,14 @@
     <Compile Include="Services\Api\Menu\BackendMenuController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="build-events-scripts\post-build\readme.md" />
+    <None Include="build-events-scripts\post-build\upload_module.bat" />
+    <None Include="build-events-scripts\post-build\winhttpjs.bat" />
     <None Include="collections\backend_ui_routes.json" />
     <None Include="collections\server_routes.json" />
     <None Include="module.json" />
     <None Include="packages.config" />
     <None Include="readme.md" />
-    <None Include="Scripts\upload_module.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\winhttpjs.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="wwwroot\frontend\your_module_forntend_page_foler\your_module_page_page.z" />
   </ItemGroup>
   <ItemGroup>
@@ -87,7 +84,7 @@
     $(PostBuildEventDependsOn);
     PostBuildMacros;
   </PostBuildEventDependsOn>
-    <PostBuildEvent>call "$(TargetDir)Scripts\upload_module.bat" @(VersionNumber) "$(SolutionDir).nuget" "$(TargetDir)" "$(ProjectDir)$(ProjectName).nuspec" $(ProjectName)</PostBuildEvent>
+    <PostBuildEvent>call "$(ProjectDir)build-events-scripts\post-build\upload_module.bat" @(VersionNumber) "$(SolutionDir).nuget" "$(TargetDir)" "$(ProjectDir)$(ProjectName).nuspec" $(ProjectName) "$(ProjectDir)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
