@@ -10,5 +10,17 @@
     "auth_users": [
       "*"
     ]
+  },
+  {
+    "key": "ACTION:/api/model/signup",
+    "ContentType": "application/json",
+    "Method": "ACTION",
+    "Route": "/api/model/signup",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Signup.SignUpCommonController",
+    "ExecuteMethod": "SignupModel",
+    "auth_users": [
+      "*"
+    ]
   }
 ]

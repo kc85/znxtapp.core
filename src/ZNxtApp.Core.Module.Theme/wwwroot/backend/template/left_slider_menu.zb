@@ -25,77 +25,8 @@
 
 <script>
 
-
-    var menu = [
-    {
-        "key": "advance",
-        "label": "Advance",
-        "href": "#",
-        "icon": "fa-gear",
-        "url": "#",
-        "config": {
-            "templateUrl": "#"
-        },
-        "auth_users": [
-        "*"
-        ],
-        "index": 90
-    },
-    {
-        "key": "developer",
-        "label": "Developer",
-        "href": "/developer",
-        "icon": "fa-paw",
-        "url": "#",
-        "config": {
-            "templateUrl": "app/moduleconfig/moduleconfigbody.html"
-        },
-        "parent_links": [
-        "advance"
-        ],
-        "auth_users": [
-        "*"
-        ],
-        "index": 90
-    },
-    {
-        "key": "developer_modules",
-        "label": "Modules",
-        "href": "/modules",
-        "icon": "fa-upload",
-        "url": "#",
-        "config": {
-            "templateUrl": "app/moduleconfig/moduleconfigbody.html"
-        },
-        "parent_links": [
-        "developer"
-        ],
-        "auth_users": [
-        "*"
-        ],
-        "index": 10
-    },
-    {
-        "key": "developer_settings",
-        "label": "Settings",
-        "href": "/setings",
-        "icon": "fa-gear",
-        "url": "#",
-        "config": {
-            "templateUrl": "app/moduleconfig/moduleconfigbody.html"
-        },
-        "parent_links": [
-        "developer"
-        ],
-        "auth_users": [
-        "*"
-        ],
-        "index": 20
-    }
-    ];
-
     var menu_response  =  @ExecuteAction("/api/get_backend_menu",null)
-    menu = menu_response.data;
+    var menu = menu_response.data;
 
   function buildMenu(parentElement, parent_link) {
 

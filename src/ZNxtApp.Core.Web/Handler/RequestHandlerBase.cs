@@ -122,7 +122,7 @@ namespace ZNxtApp.Core.Web.Handler
                 _httpContext.Response.Cache.SetExpires(DateTime.Now.AddDays(10));
                 _httpContext.Response.Cache.SetMaxAge(new TimeSpan(10, 0, 0, 0));
             }
-            if (ApplicationMode.Maintance == ApplicationConfig.GetApplicationMode)
+            if (ApplicationMode.Maintenance == ApplicationConfig.GetApplicationMode)
             {
                 _httpContext.Response.Headers[string.Format("{0}.{1}", CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO, CommonConst.CommonValue.TIME_SPAN)] = (DateTime.Now - _initData.InitDateTime).TotalMilliseconds.ToString();
                 _httpContext.Response.Headers[string.Format("{0}.{1}", CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO, CommonConst.CommonField.TRANSATTION_ID)] = _initData.TransactionId;

@@ -1,26 +1,24 @@
 ZNxtApp.Web nuget package
 
 
-App Settings 
-
-    <add key="Environment" value="prod" />
+<appSettings>
+    <!-- Put you application name here -->
     <add key="AppName" value="ZNxtAppDummyApp" />
+    <!-- this is the unique key of your application. Should be unique in your deploped enviorments  -->
     <add key="AppId" value="b758bd68-e295-4088-a340-5114761c66e4" />
+    <!-- This is required in case if you are running application under some virtual directory in IIS-->
     <add key="AppPath" value="/ZNxtApp.Core.WebTest" />
+    <!-- ZNxtApp required write access to this path -->
+    <add key="ModuleCachePath" value="C:\temp\ZNxtApp" />
+    <!-- Mongo db name should be unique to that server-->
+    <add key="DataBaseName" value="ZNxtAppTest" />
+    <!-- mongoDB connection string-->
+    <add key="MongoDBConnectionString" value="mongodb://localhost:27017" />
     <!-- AppMode values  :  Maintance, Debug, Live -->
     <add key="AppMode" value="Maintance" />
-    <add key="DataBaseName" value="ZNxtAppTest" />
-    <add key="EncryptionKey" value="sscYyr+k1EjnpNoZnil2S6o67zaRWAaEdGVzdF8wYzhlY" />
-    <add key="HashKey" value="F8wYzhlYzdhZi1hOTIwLTQ5MWItODcyOC0yYzJhMzk2Z" />
-    <add key="MongoDBConnectionString" value="mongodb://localhost:27017" />
-   <!-- StaticContentCache : true/false -->
-    <add key="StaticContentCache" value="false"/>
-    <add key="ModuleCachePath" value="C:\temp\ZNxtApp" />
-    <add key="BackendPath" value="/admin001" />
-    <add key="DefaultPage" value="/index.z" />
-	
+</appSettings>	
 	----------------------
-	<system.webServer>
+<system.webServer>
     
     <httpProtocol>
       <customHeaders>

@@ -100,6 +100,35 @@ namespace ZNxtApp.Core.Web.Helper
                    return actionExecuter.Exec<JObject>(actionPath, dbProxy, param);
 
                };
+
+            Func<string, JObject, Dictionary<string, dynamic>> IncludeModel =
+               (string includeModelPath, JObject data) =>
+               {
+                   var param = ActionExecuterHelper.CreateParamContainer(null, httpProxy, logger, actionExecuter);
+
+                   Dictionary<string, dynamic> modelData = new Dictionary<string, dynamic>();
+
+                   if (data != null)
+                   {
+                       foreach (var item in data)
+                       {
+                           Func<dynamic> funcValue = () => { return item.Value; };
+                           param.AddKey(item.Key, funcValue);
+                       }
+                   }
+
+                   object response = actionExecuter.Exec(includeModelPath, dbProxy, param);
+                   if (response is Dictionary<string, dynamic>)
+                   {
+                       return response as Dictionary<string, dynamic>;
+                   }
+                   else
+                   {
+                       throw new InvalidCastException(string.Format("Invalid respone from {0}", includeModelPath));
+                   }
+               };
+            model[CommonConst.CommonValue.METHODS]["IncludeModel"] = IncludeModel;
+
             model[CommonConst.CommonValue.METHODS]["ExecuteAction"] = ActionExecute;
 
             model[CommonConst.CommonValue.METHODS]["InclueTemplate"] = includeTemplete;

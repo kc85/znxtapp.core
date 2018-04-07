@@ -49,14 +49,15 @@ namespace ZNxtApp.Core.Config
         {
             get
             {
-                return ConfigurationManager.AppSettings["BackendPath"];
+                return ( ConfigurationManager.AppSettings["BackendPath"] == null ?
+                    "/admin001" : ConfigurationManager.AppSettings["BackendPath"]);
             }
         }
         public static string AppDefaultPage
         {
             get
             {
-                return ConfigurationManager.AppSettings["DefaultPage"];
+                return (ConfigurationManager.AppSettings["DefaultPage"] ==null ? "/index.z" : ConfigurationManager.AppSettings["DefaultPage"]);
             }
         }
         public static string TempFolder
@@ -77,7 +78,7 @@ namespace ZNxtApp.Core.Config
             get
             {
                 string appMode = ConfigurationManager.AppSettings["AppMode"];
-                ApplicationMode appModeEnum = ApplicationMode.Maintance;
+                ApplicationMode appModeEnum = ApplicationMode.Maintenance;
                 Enum.TryParse<ApplicationMode>(appMode, out appModeEnum);
                 return appModeEnum;
             }
@@ -106,14 +107,6 @@ namespace ZNxtApp.Core.Config
             get
             {
                 return ConfigurationManager.AppSettings["ModuleCachePath"];
-                //var temppath = string.Format("{0}\\{1}\\{2}", Environment.GetEnvironmentVariable("TEMP"), AppName, AppID);
-
-                //var di = new DirectoryInfo(temppath);
-                //if (!di.Exists)
-                //{
-                //    di.Create();
-                //}
-                //return temppath;
             }
         }
 
@@ -132,7 +125,7 @@ namespace ZNxtApp.Core.Config
 
     public enum ApplicationMode
     {
-        Maintance,
+        Maintenance,
         Debug,
         Live
     }

@@ -72,6 +72,19 @@ namespace ZNxtApp.Core.Web.Services
                 ReloadSettings();
             }
         }
+        public string GetAppSettingData(string key)
+        {
+            var data = GetAppSetting(key);
+            if (data != null && data[CommonConst.CommonField.DATA]!=null)
+            {
+                return data[CommonConst.CommonField.DATA].ToString();
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
         public JArray GetAppSettings()
         {
             ReloadSettings();

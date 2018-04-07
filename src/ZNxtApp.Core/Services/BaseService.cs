@@ -30,6 +30,7 @@ namespace ZNxtApp.Core.Services
             PingService = paramContainer.GetKey(CommonConst.CommonValue.PARAM_PING_SERVICE);
             ResponseBuilder = paramContainer.GetKey(CommonConst.CommonValue.PARAM_RESPONBUILDER);
             ViewEngine = paramContainer.GetKey(CommonConst.CommonValue.PARAM_VIEW_ENGINE);
+            AppSettingService = paramContainer.GetKey(CommonConst.CommonValue.PARAM_APP_SETTING);
         }
     }
 }

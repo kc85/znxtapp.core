@@ -28,7 +28,7 @@ namespace ZNxtApp.Core.Web.Services.Api.ModuleInstaller
            {
                try
                {
-                   if (ApplicationConfig.GetApplicationMode == ApplicationMode.Maintance)
+                   if (ApplicationConfig.GetApplicationMode == ApplicationMode.Maintenance)
                    {
                        var moduleName = HttpProxy.GetQueryString("module_name");
 

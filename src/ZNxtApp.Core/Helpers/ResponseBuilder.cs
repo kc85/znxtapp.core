@@ -69,7 +69,7 @@ namespace ZNxtApp.Core.Helpers
             response[CommonConst.CommonField.HTTP_RESPONE_MESSAGE] = CommonConst.Messages[code];
             response[CommonConst.CommonField.HTTP_RESPONE_TRANSACTION_ID] = _initData.TransactionId;
 
-            if (ApplicationMode.Maintance == ApplicationConfig.GetApplicationMode)
+            if (ApplicationMode.Maintenance == ApplicationConfig.GetApplicationMode)
             {
                 JObject objDebugData = new JObject();
                 objDebugData[CommonConst.CommonValue.TIME_SPAN] = (DateTime.Now - _initData.InitDateTime).TotalMilliseconds;

@@ -1,1 +1,13 @@
-﻿<h1> Hello World </h1>
+﻿@{
+  InclueTemplate("../template/template.zt");
+}
+<div id="main-content">
+  <div class="page-wrapper">
+
+    <div class="container">
+
+      <h1> Hello World </h1>
+    </div>
+
+  </div>
+</div>

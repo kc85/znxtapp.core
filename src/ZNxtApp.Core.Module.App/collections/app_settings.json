@@ -1,0 +1,15 @@
+﻿[
+  {
+    "auth_users": [ "sys_admin" ],
+    "key": "google_invasible_recaptcha_key",
+    "comment": "Google recaptcha site key",
+    "data": "6LdYpzYUAAAAALsVQq_R7CC678AEOjvU0OkENKFj"
+  },
+ {
+        "auth_users": [ "sys_admin" ],
+        "key": "google_recaptcha_validate_url",
+        "comment": "Google recaptcha validate url ",
+        "data": "https://www.google.com/recaptcha/api/siteverify"
+    }
+
+]

@@ -12,8 +12,8 @@ namespace ZNxtApp.Core.Web.Services
     public class EncryptionService : IEncryption
     {
 
-        private string _encryptionKey = "f3856ad364e35";
-        private string _hashKey = "2932lkn23asdad";
+        private string _encryptionKey = "sscYyr+k1EjnpNoZnil2S6o67zaRWAaEdGVzdF8wYzhlY";
+        private string _hashKey = "F8wYzhlYzdhZi1hOTIwLTQ5MWItODcyOC0yYzJhMzk2Z";
 
         public EncryptionService()
         {

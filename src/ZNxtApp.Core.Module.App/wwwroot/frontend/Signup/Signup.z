@@ -1,0 +1,12 @@
+﻿@{
+  InclueTemplate("../template/template.zt");
+  var modelData = IncludeModel("/api/model/signup",null);
+}
+<div id="main-content">
+  <div class="page-wrapper">
+    <div class="container">
+      <h1> Sign up @modelData["google_invasible_recaptcha_key"] </h1>
+      <h1> Sign up @modelData["google_recaptcha_validate_url"] </h1>
+    </div>
+  </div>
+</div>
