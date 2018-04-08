@@ -1,15 +1,84 @@
 ﻿[
-  {
-    "auth_users": [ "sys_admin" ],
-    "key": "google_invasible_recaptcha_key",
-    "comment": "Google recaptcha site key",
-    "data": "6LdYpzYUAAAAALsVQq_R7CC678AEOjvU0OkENKFj"
-  },
- {
-        "auth_users": [ "sys_admin" ],
-        "key": "google_recaptcha_validate_url",
-        "comment": "Google recaptcha validate url ",
-        "data": "https://www.google.com/recaptcha/api/siteverify"
-    }
-
+   {
+      "auth_users":[
+         "sys_admin"
+      ],
+      "key":"google_invasible_recaptcha_key",
+      "comment":"Google recaptcha site key",
+      "data":"6LdYpzYUAAAAALsVQq_R7CC678AEOjvU0OkENKFj"
+   },
+   {
+      "auth_users":[
+         "sys_admin"
+      ],
+      "key":"google_recaptcha_validate_url",
+      "comment":"Google recaptcha validate url ",
+      "data":"https://www.google.com/recaptcha/api/siteverify"
+   },
+   {
+      "auth_users":[
+         "sys_admin"
+      ],
+      "key":"google_invisible_recaptcha_secrect",
+      "comment":"Google recaptcha secrect",
+      "data":"6LdYpzYUAAAAAFAFGhQWVqAFjrRr8yIQpTwOITnX"
+   },
+   {
+      "auth_users":[
+         "sys_admin"
+      ],
+      "key":"google_recaptcha_secrect",
+      "comment":"Google recaptcha secrect",
+      "data":"6LfqzzIUAAAAAKM4f3kJrqlqe-EaCA0wIPUPDv95"
+   },
+   {
+      "auth_users":[
+         "sys_admin"
+      ],
+      "key":"google_recaptcha_site_key",
+      "comment":"Google recaptcha site key",
+      "data":"6LfqzzIUAAAAALsT3YEe2H2hDPelvby5TgZiyC1b"
+   },
+   {
+      "auth_users":[
+         "sys_admin"
+      ],
+      "key":"facebook_api_key",
+      "data":"120068438665059"
+   },
+   {
+      "auth_users":[
+         "sys_admin"
+      ],
+      "key":"facebook_api_secret",
+      "data":"5eba86b290083f90cb09d56cf484ea69"
+   },
+   {
+      "auth_users":[
+         "sys_admin"
+      ],
+      "key":"facebook_oauth_url",
+      "data":"https://graph.facebook.com/v2.8/oauth/authorize"
+   },
+   {
+      "auth_users":[
+         "sys_admin"
+      ],
+      "key":"facebook_graph_api_url",
+      "data":"https://graph.facebook.com"
+   },
+   {
+      "auth_users":[
+         "sys_admin"
+      ],
+      "key":"facebook_request_object_access",
+      "data":"email"
+   },
+   {
+      "auth_users":[
+         "sys_admin"
+      ],
+      "key":"facebook_oauth_callback_url",
+      "data":"http://localhost/ZApp/facebookauthsuccess"
+   }
 ]

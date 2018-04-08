@@ -1,24 +1,36 @@
 [
+   {
+      "key":"ACTION:/api/get_backend_menu",
+      "ContentType":"application/json",
+      "Method":"ACTION",
+      "Route":"/api/get_backend_menu",
+      "ExecultAssembly":"ZNxtApp.Core.Module.App.dll",
+      "ExecuteType":"ZNxtApp.Core.Module.App.Services.Api.Menu.BackendMenuController",
+      "ExecuteMethod":"GetMenuItems",
+      "auth_users":[
+         "*"
+      ]
+   },
+   {
+      "key":"ACTION:/api/model/signup",
+      "ContentType":"application/json",
+      "Method":"ACTION",
+      "Route":"/api/model/signup",
+      "ExecultAssembly":"ZNxtApp.Core.Module.App.dll",
+      "ExecuteType":"ZNxtApp.Core.Module.App.Services.Api.Signup.SignUpCommonController",
+      "ExecuteMethod":"SignupModel",
+      "auth_users":[
+         "*"
+      ]
+   },
   {
-    "key": "ACTION:/api/get_backend_menu",
+    "key":"POST:/api/user/facebook/auth",
     "ContentType": "application/json",
-    "Method": "ACTION",
-    "Route": "/api/get_backend_menu",
+    "Method": "POST",
+    "Route": "/api/user/facebook/auth",
     "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
-    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Menu.BackendMenuController",
-    "ExecuteMethod": "GetMenuItems",
-    "auth_users": [
-      "*"
-    ]
-  },
-  {
-    "key": "ACTION:/api/model/signup",
-    "ContentType": "application/json",
-    "Method": "ACTION",
-    "Route": "/api/model/signup",
-    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
-    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Signup.SignUpCommonController",
-    "ExecuteMethod": "SignupModel",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Signup.FacebookAuthUserController",
+    "ExecuteMethod": "GetOAuthRequestData",
     "auth_users": [
       "*"
     ]

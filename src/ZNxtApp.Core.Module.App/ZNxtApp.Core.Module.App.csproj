@@ -11,6 +11,7 @@
     <AssemblyName>ZNxtApp.Core.Module.App</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -51,6 +56,7 @@
     <Compile Include="Consts\ModuleAppConsts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Api\Menu\BackendMenuController.cs" />
+    <Compile Include="Services\Api\Signup\Facebook\FacebookAuthUserController.cs" />
     <Compile Include="Services\Api\Signup\SignUpCommonController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,21 +67,29 @@
     <None Include="module.json" />
     <None Include="packages.config" />
     <None Include="readme.md" />
-    <None Include="wwwroot\frontend\Signup\Signup.z" />
+    <None Include="wwwroot\frontend\signup\signup.z" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="wwwroot\frontend\template\signup_template.zt">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="ZNxtApp.Core.Module.App.nuspec">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\Api\Signup\EmailId\" />
-    <Folder Include="Services\Api\Signup\Facebook\" />
     <Folder Include="Services\Api\Signup\Google\" />
     <Folder Include="Services\Api\Signup\MobileNumber\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="collections\app_settings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="wwwroot\frontend\css\signup_login\signup_login.css" />
+    <Content Include="wwwroot\frontend\img\signup_login\signup_bg.jpg" />
+    <Content Include="wwwroot\frontend\js\signup_login\signup_login.js" />
+    <Content Include="wwwroot\frontend\js\signup_login\signup.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="PostBuildMacros">
