@@ -140,7 +140,7 @@ namespace ZNxtApp.Core.Web.Proxies
 
         public string GetRequestBody()
         {
-            if (_context.Request.InputStream != null)
+            if (_context.Request.InputStream != null && string.IsNullOrEmpty(_requestBody))
             {
                 _requestBody = new StreamReader(_context.Request.InputStream).ReadToEnd();
                 return _requestBody;

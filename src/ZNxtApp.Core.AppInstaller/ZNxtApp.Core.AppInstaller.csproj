@@ -48,22 +48,6 @@
   <ItemGroup>
     <Compile Include="Installer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="wwwroot\index.html" />
-    <Content Include="wwwroot\installer.js" />
-    <Content Include="wwwroot\jquery.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="InstallScripts\Collections\app_info.json">

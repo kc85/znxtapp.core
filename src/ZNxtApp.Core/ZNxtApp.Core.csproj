@@ -61,6 +61,7 @@
     <Compile Include="Exceptions\ErrorCodes\ErrorCode.cs" />
     <Compile Include="Exceptions\ExceptionBase.cs" />
     <Compile Include="Exceptions\InvalidFilterException.cs" />
+    <Compile Include="Helpers\GoogleCaptchaHelper.cs" />
     <Compile Include="Helpers\CommonUtility.cs" />
     <Compile Include="Helpers\DataBuilderHelper.cs" />
     <Compile Include="Helpers\JObjectHelper.cs" />

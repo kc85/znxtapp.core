@@ -19,7 +19,7 @@ ZNxtApp.Web nuget package
 </appSettings>	
 	----------------------
 <system.webServer>
-    
+     <validation validateIntegratedModeConfiguration="false" />
     <httpProtocol>
       <customHeaders>
         <clear />

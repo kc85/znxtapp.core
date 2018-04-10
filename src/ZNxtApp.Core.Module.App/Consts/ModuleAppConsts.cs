@@ -19,7 +19,8 @@ namespace ZNxtApp.Core.Module.App.Consts
             public const string GOOGLE_INVISIBLE_RECAPTCHA_SECRECT_SETTING_KEY = "google_invisible_recaptcha_secrect";
             public const string GOOGLE_RECAPTCHA_SECRECT_SETTING_KEY = "google_recaptcha_secrect";
             public const string GOOGLE_RECAPTCHA_SITE_KEY_SETTING_KEY = "google_recaptcha_site_key";
-            
+            public const string GOOGLE_RECAPTCHA_RESPONSE_KEY = "g-recaptcha-response";
+
 
             public const string FACEBOOK_API_SECRET_SETTING_KEY = "facebook_api_secret";
             public const string FACEBOOK_OAUTH_URL_SETTING_KEY = "facebook_oauth_url";
@@ -27,6 +28,8 @@ namespace ZNxtApp.Core.Module.App.Consts
             public const string FACEBOOK_REQUEST_OBJECT_ACCESS_SETTING_KEY = "facebook_request_object_access";
             public const string FACEBOOK_OAUTH_CALLBACK_URL_SETTING_KEY = "facebook_oauth_callback_url";
             public const string GUID = "GUID";
+
+            public const string PHONE_FIELD = "phone";
 
         }
     }

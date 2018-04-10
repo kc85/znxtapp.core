@@ -76,19 +76,10 @@ namespace ZNxtApp.Core.AppInstaller
             _logger.Debug(string.Format("Installer.RequestHandler path:{0}", requestResource));
             if (!HandleAPI(httpProxy, requestResource))
             {
-                string resourceName = GetResourceName(ref requestResource);
-
-                string resourceData = Resource.ResourceManager.GetString(resourceName);
-
-                httpProxy.ContentType = httpProxy.GetMimeType(requestResource);
-                if (resourceData != null)
-                {
-                    httpProxy.SetResponse(CommonConst._200_OK, resourceData);
-                }
-                else
-                {
-                    httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND);
-                }
+                 HandleResource( requestResource, httpProxy);
+              
+              
+                
             }
         }
 
@@ -329,14 +320,24 @@ namespace ZNxtApp.Core.AppInstaller
             }
         }
 
-        private string GetResourceName(ref string requestResource)
+        private void HandleResource(string requestResource, IHttpContextProxy httpProxy)
         {
-            requestResource = requestResource.Replace("/", "");
-            if (string.IsNullOrEmpty(requestResource))
+            if (string.IsNullOrEmpty(requestResource) || requestResource == "/")
             {
                 requestResource = defaultResourceName;
             }
-            return requestResource.Replace(".", "_").ToLower();
+            string filePath = string.Format("{0}/../wwwroot/appinstall/{1}", ApplicationConfig.AppBinPath, requestResource);
+            if (File.Exists(filePath))
+            {
+                var fileData = File.ReadAllBytes(filePath);
+                httpProxy.SetResponse(CommonConst._200_OK, fileData);
+            }
+            else
+            {
+                httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND);
+            }
+
+            httpProxy.ContentType = httpProxy.GetMimeType(requestResource);
         }
 
         private JObject CheckAccess()

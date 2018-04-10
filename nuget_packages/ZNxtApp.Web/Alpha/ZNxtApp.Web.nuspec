@@ -2,7 +2,7 @@
 <package>
    <metadata>
       <id>ZNxtApp.Web</id>
-      <version>1.0.2-Alpha</version>
+      <version>1.0.4-Alpha</version>
       <title>ZNxtApp.Web</title>
       <authors>Khanin Choudhury</authors>
       <owners>Khanin Choudhury</owners>
@@ -15,7 +15,7 @@
       <copyright>Copyright 2018</copyright>
       <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.Web</tags>
       <dependencies>
-         <dependency id="ZNxtApp.Core" version="1.0.4-Alpha" />
+         <dependency id="ZNxtApp.Core" version="1.0.5-Alpha" />
          <dependency id="Microsoft.AspNet.Razor" version="3.0.0" />
          <dependency id="RazorEngine" version="3.10.0" />
 		 <dependency id="MongoDB.Driver" version="2.5.0" />
@@ -25,5 +25,6 @@
       <file src="readme.md" target="Content" />
       <file src="lib\net452\*.dll" target="lib/net452" />
 	  <file src="InstallScripts/**/*.*" target="Content" />
+	  <file src="wwwroot/**/*.*" target="Content" />
    </files>
 </package>

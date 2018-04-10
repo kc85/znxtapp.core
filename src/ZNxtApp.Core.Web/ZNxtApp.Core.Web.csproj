@@ -125,6 +125,8 @@
     <PostBuildEvent>copy /Y "$(TargetDir)ZNxtApp.*.dll" "$(SolutionDir)..\nuget_packages\ZNxtApp.Web\Alpha\lib\net452\"
 del "$(SolutionDir)..\nuget_packages\ZNxtApp.Web\Alpha\lib\net452\ZNxtApp.Core.dll"
 xcopy  "$(TargetDir)InstallScripts\*.*" "$(SolutionDir)..\nuget_packages\ZNxtApp.Web\Alpha\InstallScripts\" /Y /I /E
+
+xcopy "$(SolutionDir)ZNxtApp.Core.WebTest\wwwroot\*.*" "$(SolutionDir)..\nuget_packages\ZNxtApp.Web\Alpha\wwwroot\" /Y /I /E
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

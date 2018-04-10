@@ -1,1 +1,1 @@
-Working on Sign up page.
+Update on Web Nuget Module. Added new installation page

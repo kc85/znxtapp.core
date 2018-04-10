@@ -1,7 +1,13 @@
 # ZNxtApp
 
-<<<<<<< HEAD
-ZNxtApp is next generation application development framework for web application. ZNxtApp is lightweight high performance customizable suitable for all your modern web development requirement. Its provide plug and play injectable module without impacting application ongoing sessions. Its usages Nosql database for high performance and easy deployment for modern day dynamic, arbitrary data structure.
+ZNxtApp is next generation application development framework for web application in .NET. It is lightweight, high performance and customizable framework suitable for all your modern day web development requirement.
+
+- Developed in .Net 4.5.2
+- High performance and scalable
+- Plug and play
+- Highly customizable
+
+Let's join us on the next generation web development journey, it's free and open source
 
 Let's join us on the next generation web development journey it's free and open source.
 # Quick Start:
@@ -96,6 +102,7 @@ ZNxtApp is an next generation application development framework for web devlopme
 ```
  ```sh
  <system.webServer>
+     <validation validateIntegratedModeConfiguration="false" />
      <httpProtocol>
       <customHeaders>
         <clear />
@@ -132,7 +139,6 @@ using ZNxtApp.Core.Web.AppStart;
  License
 ----
 
->>>>>>> 9cad77b3bc50422fdfd27401060db794fd5b567a
 GNU
 
 

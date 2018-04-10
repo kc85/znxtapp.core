@@ -24,13 +24,25 @@
       ]
    },
   {
-    "key":"POST:/api/user/facebook/auth",
+    "key": "POST:/api/user/facebook/auth",
     "ContentType": "application/json",
     "Method": "POST",
     "Route": "/api/user/facebook/auth",
     "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
     "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Signup.FacebookAuthUserController",
     "ExecuteMethod": "GetOAuthRequestData",
+    "auth_users": [
+      "*"
+    ]
+  },
+  {
+     "key": "POST:/api/user/registration/SendOTP",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/user/registration/SendOTP",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Signup.SignUpCommonController",
+    "ExecuteMethod": "SendMobileOTP",
     "auth_users": [
       "*"
     ]

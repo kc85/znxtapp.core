@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Consts\ModuleAppConsts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Api\AppResponseCode.cs" />
     <Compile Include="Services\Api\Menu\BackendMenuController.cs" />
     <Compile Include="Services\Api\Signup\Facebook\FacebookAuthUserController.cs" />
     <Compile Include="Services\Api\Signup\SignUpCommonController.cs" />
