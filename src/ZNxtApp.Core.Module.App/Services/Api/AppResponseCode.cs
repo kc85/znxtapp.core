@@ -11,6 +11,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api
     {
         public const int _CAPTCHA_VALIDATION_FAIL = 8001;
         public const int _USER_EXISTS = 8002;
+        public const int _OTP_SEND_ERROR = 8003;
         private Dictionary<int, string> text = new Dictionary<int, string>();
 
         public string Get(int code)
@@ -28,6 +29,8 @@ namespace ZNxtApp.Core.Module.App.Services.Api
         {
             text[_CAPTCHA_VALIDATION_FAIL] = "CAPTCHA_VALIDATION_FAIL";
             text[_USER_EXISTS] = "USER_EXISTS";
+            text[_OTP_SEND_ERROR] = "OTP_SEND_ERROR";
+
         }
     }
 }

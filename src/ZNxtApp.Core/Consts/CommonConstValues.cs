@@ -37,6 +37,9 @@ namespace ZNxtApp.Core.Consts
             public static string APP_FRONTEND_FOLDERPATH = "frontend";
 
             public static string APP_BACKEND_FOLDERPATH = "backend";
+            public const string PARAM_OTP_SERVICE = "_param_otp_service";
+            public const string PARAM_SMS_SERVICE = "_param_sms_service";
+            public const string PARAM_EMAIL_SERVICE = "_param_email_service";
         }
     }
 }

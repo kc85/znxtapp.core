@@ -56,6 +56,10 @@
     <Compile Include="Consts\CommonConstHTMLPages.cs" />
     <Compile Include="Consts\CommonConstValues.cs" />
     <Compile Include="Enums\AppInstallStatus.cs" />
+    <Compile Include="Enums\EmailStatus.cs" />
+    <Compile Include="Enums\OTPStatus.cs" />
+    <Compile Include="Enums\OTPType.cs" />
+    <Compile Include="Enums\SMSStatus.cs" />
     <Compile Include="Exceptions\ClientValidationError.cs" />
     <Compile Include="Exceptions\DuplicateDBIDException.cs" />
     <Compile Include="Exceptions\ErrorCodes\ErrorCode.cs" />
@@ -69,6 +73,10 @@
     <Compile Include="Interfaces\IActionExecuter.cs" />
     <Compile Include="Interfaces\IAppInstaller.cs" />
     <Compile Include="Interfaces\IAppSettingService.cs" />
+    <Compile Include="Interfaces\IEmailService.cs" />
+    <Compile Include="Interfaces\IOTPService.cs" />
+    <Compile Include="Interfaces\ISMSService.cs" />
+    <Compile Include="Interfaces\IFlushService.cs" />
     <Compile Include="Interfaces\IwwwrootContentHandler.cs" />
     <Compile Include="Interfaces\IDBService.cs" />
     <Compile Include="Interfaces\IEncryption.cs" />
@@ -83,9 +91,10 @@
     <Compile Include="Interfaces\IRoutings.cs" />
     <Compile Include="Interfaces\ISessionProvider.cs" />
     <Compile Include="Interfaces\IViewEngine.cs" />
-    <Compile Include="Module\ModuleServiceBase.cs" />
-    <Compile Include="Module\ParamContainer.cs" />
-    <Compile Include="Module\RoutingModel.cs" />
+    <Compile Include="Model\OTPData.cs" />
+    <Compile Include="Model\ParamContainer.cs" />
+    <Compile Include="Model\RoutingModel.cs" />
+    <Compile Include="Enums\UserIDType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EventSubscriberCompletedBaseService.cs" />
     <Compile Include="Services\EventSubscriberInitBaseService.cs" />

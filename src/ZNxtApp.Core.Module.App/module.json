@@ -15,6 +15,14 @@
     {
       "name": "server_routes",
       "access_type": "read_only"
+    },
+    {
+      "name": "sms_template",
+      "access_type": "owner"
+    },
+    {
+      "name": "email_template",
+      "access_type": "owner"
     }
   ]
 }

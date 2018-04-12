@@ -1,1 +1,1 @@
-Update on Web Nuget Module. Added new installation page
+Added ISMSService, IEmailService and IOTPService

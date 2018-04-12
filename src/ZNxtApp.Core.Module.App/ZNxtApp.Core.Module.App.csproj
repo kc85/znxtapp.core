@@ -64,7 +64,9 @@
     <None Include="build-events-scripts\post-build\readme.md" />
     <None Include="build-events-scripts\post-build\upload_module.bat" />
     <None Include="build-events-scripts\post-build\winhttpjs.bat" />
+    <None Include="collections\email_template.json" />
     <None Include="collections\server_routes.json" />
+    <None Include="collections\sms_template.json" />
     <None Include="module.json" />
     <None Include="packages.config" />
     <None Include="readme.md" />

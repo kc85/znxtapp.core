@@ -9,7 +9,7 @@ using ZNxtApp.Core.Model;
 
 namespace ZNxtApp.Core.Services
 {
-    public class EventSubscriberCompletedBaseService : BaseService
+    public class EventSubscriberCompletedBaseService : ApiBaseService
     {
         protected object APIRsponse { get; set; }
         public EventSubscriberCompletedBaseService(ParamContainer paramContainer)

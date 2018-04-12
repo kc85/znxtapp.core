@@ -65,16 +65,10 @@
     <Content Include="InstallScripts\Collections\cron_job.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="InstallScripts\Collections\email_templete.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="InstallScripts\Collections\resource_string.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="InstallScripts\Collections\server_routes.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="InstallScripts\Collections\sms_templete.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="InstallScripts\Collections\users.json">

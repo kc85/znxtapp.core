@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZNxtApp.Core.Consts;
+using ZNxtApp.Core.Enums;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Module.App.Consts;
@@ -41,42 +42,50 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
 
             if (GoogleCaptchaHelper.ValidateResponse(Logger, recaptchaResponse, AppSettingService.GetAppSettingData(ModuleAppConsts.Field.GOOGLE_RECAPTCHA_SECRECT_SETTING_KEY), AppSettingService.GetAppSettingData(ModuleAppConsts.Field.GOOGLE_RECAPTCHA_VALIDATE_URL_SETTING_KEY)))
             {
-
                 Logger.Debug("Captcha validate success");
-                return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS);
-
+                if (!IsUserExists(phonenumber))
+                {
+                    if (OTPService.Send(phonenumber, ModuleAppConsts.Field.SIGN_UP_OTP_TEMPLATE, OTPType.Signup))
+                    {
+                        return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS);
+                    }
+                    else
+                    {
+                        return ResponseBuilder.CreateReponse(AppResponseCode._OTP_SEND_ERROR);
+                    }
+                }
+                else
+                {
+                    Logger.Info(string.Format("User Exits with this phone number {0}", phonenumber));
+                    return ResponseBuilder.CreateReponse(AppResponseCode._USER_EXISTS);
+                }
             }
             else
             {
                 Logger.Info("Captcha validate fail");
                 return ResponseBuilder.CreateReponse(AppResponseCode._CAPTCHA_VALIDATION_FAIL);
             }
-
-            //{
-            //    if (!IsUserExists(phonenumber))
-            //    {
-            //        if (OTPHelper.SendOTP(_dbProxy, _logger, _httpRequestProxy, _routeExecuter, RequestHelper, phonenumber, OTPType.Signup.ToString(), CommonConsts.OTP_SIGN_UP_SMS_TEMPLETE))
-            //        {
-            //            JObject response = new JObject();
-            //            response[CommonConsts.CLIENT_DATA_PHONE_FIELD_NAME] = phonenumber;
-            //            return OK(response);
-            //        }
-            //        else
-            //        {
-            //            return ServerError((int)OTPError.OTP_SEND_ERROE, OTPError.OTP_SEND_ERROE.ToString());
-            //        }
-            //    }
-            //    else
-            //    {
-            //        return UserExistsErrorResponse();
-            //    }
-            //}
-            //else
-            //{
-            //    return BadRequet((int)CaptchaErrors.CAPTCHA_VALIDATION_FAIL, CaptchaErrors.CAPTCHA_VALIDATION_FAIL.ToString());
-            //}
         }
 
+        protected bool IsUserExists(string userId, UserIDType userIdType = UserIDType.PhoneNumber)
+        {
+            return GetUser(userId, userIdType) != null;
+        }
+
+        private JObject GetUser(string userId, UserIDType userIdType)
+        {
+            DBProxy.Collection = CommonConst.Collection.USERS;
+            string filter = "{}";
+            var response = DBProxy.Get(filter);
+            if (response.Count != 0)
+            {
+                return response[0] as JObject;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         protected void SetBaseViewModelData(Dictionary<string, dynamic> viewModel)
         {

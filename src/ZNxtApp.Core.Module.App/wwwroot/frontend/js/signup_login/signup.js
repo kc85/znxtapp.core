@@ -1,5 +1,5 @@
 var grecaptcharesponse = undefined;
-
+var success_code = 1;
 var imNotARobot = function (val) {
     grecaptcharesponse = val;
     $("#txtMobileNumber").focus();
@@ -77,12 +77,21 @@ $(document).ready(function () {
             contentType: "application/json",
             dataType: 'json',
             success: function (data) {
+                console.log(data);
                 animating = false;
                 $(that).removeClass("success processing");
-                $("#txtMobileNumber").attr("disabled", "true");
-                $("#btnSendSignUpOTP").hide();
-                $(".g_captche").hide();
-                $("#divOtp").show();
+
+                if (data.code === success_code) {
+                    
+                    $("#txtMobileNumber").attr("disabled", "true");
+                    $("#btnSendSignUpOTP").hide();
+                    $(".g_captche").hide();
+                    $("#divOtp").show();
+                }
+                else {
+                    $("#errorMessage").show();
+                    $("#errorMessage").html(data.message);
+                }
             },
             error: function (err) {
                 console.log(err);

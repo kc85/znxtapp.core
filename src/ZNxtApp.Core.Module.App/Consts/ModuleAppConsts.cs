@@ -31,6 +31,8 @@ namespace ZNxtApp.Core.Module.App.Consts
 
             public const string PHONE_FIELD = "phone";
 
+            public const string SIGN_UP_OTP_TEMPLATE = "OTP_SIGN_UP_SMS";
+
         }
     }
 }
