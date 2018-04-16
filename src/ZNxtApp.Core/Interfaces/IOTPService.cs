@@ -11,7 +11,7 @@ namespace ZNxtApp.Core.Interfaces
 {
     public interface IOTPService
     {
-        bool Send(string phoneNumber, string smsTemplate, OTPType otpType);
-        OTPData Read(string phoneNumber, OTPType otpType);
+        bool Send(string phoneNumber, string smsTemplate, OTPType otpType,string securityToken);
+        bool Validate(string phoneNumber,string otp, OTPType otpType,string securityToken);
     }
 }

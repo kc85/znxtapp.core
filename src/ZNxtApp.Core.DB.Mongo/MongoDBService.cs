@@ -7,6 +7,7 @@ using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Exceptions;
 using ZNxtApp.Core.Exceptions.ErrorCodes;
+using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 
 namespace ZNxtApp.Core.DB.Mongo
@@ -50,6 +51,7 @@ namespace ZNxtApp.Core.DB.Mongo
         {
             try
             {
+                data[CommonConst.CommonField.CREATED_DATA_DATE_TIME] = CommonUtility.GetUnixTimestamp(DateTime.Now);
                 UpdateID(data);                
                 var dbcollection = _mongoDataBase.GetCollection<BsonDocument>(Collection);
                 MongoDB.Bson.BsonDocument document = MongoDB.Bson.Serialization.BsonSerializer.Deserialize<BsonDocument>(data.ToString());
@@ -165,6 +167,8 @@ namespace ZNxtApp.Core.DB.Mongo
 
         public long Update(string bsonQuery, Newtonsoft.Json.Linq.JObject data, bool overrideData = false, MergeArrayHandling mergeType = MergeArrayHandling.Union)
         {
+            data[CommonConst.CommonField.UPDATED_DATE_TIME] = CommonUtility.GetUnixTimestamp(DateTime.Now);
+
             var dataResut = Get(bsonQuery, null, null);
             var dbcollection = _mongoDataBase.GetCollection<BsonDocument>(Collection);
             if (overrideData)

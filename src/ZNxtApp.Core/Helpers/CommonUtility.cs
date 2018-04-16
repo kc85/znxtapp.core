@@ -6,11 +6,15 @@ namespace ZNxtApp.Core.Helpers
 {
     public static class CommonUtility
     {
-        public static double GetUnixTimestamp(DateTime dt)
+        public static string GetNewID()
         {
-            TimeSpan epochTicks = new TimeSpan(new DateTime(1970, 1, 1).Ticks);
+            return GetUnixTimestamp(DateTime.Now) + RandomNumber(4);
+        }
+        public static Int32 GetUnixTimestamp(DateTime dt)
+        {
+            TimeSpan epochTicks = new TimeSpan(new DateTime(1970, 1, 1, 0, 0, 0).Ticks);
             TimeSpan unixTicks = new TimeSpan(dt.Ticks) - epochTicks;
-            return unixTicks.TotalSeconds;
+            return (Int32)unixTicks.TotalSeconds;
         }
 
         public static string GetBase64(byte[] data)
@@ -49,10 +53,7 @@ namespace ZNxtApp.Core.Helpers
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        public static string GenerateOTP()
-        {
-            return RandomNumber(6);
-        }
+        
 
         public static string GetAppConfigValue(string key)
         {

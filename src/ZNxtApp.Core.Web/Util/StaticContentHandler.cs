@@ -61,7 +61,7 @@ namespace ZNxtApp.Core.Web.Util
                 var data = document[CommonConst.CommonField.DATA];
                 if (data != null)
                 {
-                   return data.ToString();
+                    return data.ToString();
                 }
             }
             else
@@ -94,17 +94,17 @@ namespace ZNxtApp.Core.Web.Util
         {
             if (path.IndexOf(string.Format("/{0}", CommonConst.CommonValue.APP_BACKEND_FOLDERPATH)) == 0)
             {
-                path = path.Remove(0, CommonConst.CommonValue.APP_BACKEND_FOLDERPATH.Length+1);
+                path = path.Remove(0, CommonConst.CommonValue.APP_BACKEND_FOLDERPATH.Length + 1);
                 path = string.Format("{0}{1}", ApplicationConfig.AppBackendPath, path);
                 return path;
             }
             else
             {
-                 path = path.Remove(0, CommonConst.CommonValue.APP_FRONTEND_FOLDERPATH.Length + 1); 
+                path = path.Remove(0, CommonConst.CommonValue.APP_FRONTEND_FOLDERPATH.Length + 1);
                 return path;
             }
         }
-       public static bool IsAdminPage(string url)
+        public static bool IsAdminPage(string url)
         {
             return url.IndexOf(string.Format("/{0}", CommonConst.CommonValue.APP_BACKEND_FOLDERPATH)) == 0;
         }

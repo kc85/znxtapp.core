@@ -1,0 +1,76 @@
+Status:
+      200      OK
+      
+Response:
+{
+  "code": 1,
+  "message": "SUCCESS",
+  "txn_id": "20180416224948719237",
+  "debug": {
+    "time_span": 298.2115,
+    "logs": [
+      {
+        "created_datetime": 1523918988,
+        "id": "691dff89-4773-46b4-ad37-9b740a92c964",
+        "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+        "type": "Info",
+        "transaction_id": "20180416224948719237",
+        "message": "RouteExecuter.Exec:: Route: [POST: /api/module/reinstall, Type: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller, Assembly: ZNxtApp.Core.Web.dll, Method: Reinstall, Module:ZApp]",
+        "data": {}
+      },
+      {
+        "created_datetime": 1523918988,
+        "id": "0945071b-c226-480b-a060-3815ceb371d0",
+        "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+        "type": "Transaction",
+        "transaction_id": "20180416224948719237",
+        "message": "Transaction State:Start",
+        "data": {
+          "Url": "/api/module/reinstall",
+          "Route": {
+            "ContentType": "application/json",
+            "Method": "POST",
+            "Route": "/api/module/reinstall",
+            "ExecultAssembly": "ZNxtApp.Core.Web.dll",
+            "ExecuteType": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+            "ExecuteMethod": "Reinstall",
+            "module": "ZApp",
+            "auth_users": [
+              "*"
+            ],
+            "TemplateURL": null
+          },
+          "Payload": "",
+          "User": ""
+        },
+        "TransactionState": "Start"
+      },
+      {
+        "created_datetime": 1523918988,
+        "id": "b3ff7598-6e49-4a18-9bf4-27f35c2c00ea",
+        "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+        "type": "Info",
+        "transaction_id": "20180416224948719237",
+        "message": "GetType: ZNxtApp.Core.Web.dll, executeType: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+        "data": {}
+      }
+    ]
+  }
+}
+      
+Headers:
+Cache-Control: private
+Date: Mon, 16 Apr 2018 17:19:49 GMT
+Content-Length: 2051
+Content-Type: application/json
+Set-Cookie: za_s_k=572f1dc1-2082-40e8-8ab2-8a6f52b41da6; expires=Mon, 16-Apr-2018 17:49:48 GMT; path=/; HttpOnly
+
+
+URL:
+http://localhost/ZNxtApp.Core.WebTest/api/module/reinstall?module_name=ZNxtApp.Core.Module.SMS.TextLocal/1.0.1.41092-Alpha
+URL Code Page:
+65001
+User Agent:
+Mozilla/4.0 (compatible; Win32; WinHttp.WinHttpRequest.5)
+Escapped URL:
+false

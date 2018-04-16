@@ -25,7 +25,7 @@ namespace ZNxtApp.Core.AppInstaller
         private const string INSTALL_START_API = "/install/start";
         private static IAppInstaller _appInstaller;
         private static bool IsPrerequisiteCheck = false;
-        private const string defaultResourceName = "index.html";
+        private const string defaultResourceName = "/index.html";
         private const string _installStatusFile = "install_status." + CommonConst.CONFIG_FILE_EXTENSION;
         private readonly ILogger _logger;
         private readonly IEncryption _encryptionService;
@@ -77,9 +77,6 @@ namespace ZNxtApp.Core.AppInstaller
             if (!HandleAPI(httpProxy, requestResource))
             {
                  HandleResource( requestResource, httpProxy);
-              
-              
-                
             }
         }
 
@@ -215,7 +212,7 @@ namespace ZNxtApp.Core.AppInstaller
             _logger.Debug("START RunInstallScripts");
 
             //_dbProxy.DropDB();
-            var serverpath = string.Format("{0}\\InstallScripts\\Collections", ApplicationConfig.AppBinPath);
+            var serverpath = string.Format("{0}\\..\\InstallScripts\\Collections", ApplicationConfig.AppBinPath);
             var environment = CommonUtility.GetAppConfigValue(CommonConst.ENVIRONMENT_SETTING_KEY);
             environment = environment == null ? string.Empty : environment;
             string envExtension = string.Format(".{0}{1}", environment, CommonConst.CONFIG_FILE_EXTENSION);

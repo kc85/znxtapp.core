@@ -13,6 +13,12 @@
             public const string SERVER_SIDE_PROCESS_HTML_CSS_EXTENSION = ".zc";
             public const string DATA_KEY = "key";
             public const string VALUE = "value";
+            public const string OTP = "otp";
+            public const string OTP_TYPE = "otp_type";
+            public const string DURATION = "duration";
+            public const string GUID = "GUID";
+            public const string PHONE_FIELD = "phone";
+            public const string SECURITY_TOKEN = "security_token";
             public const string CREATED_DATA_DATE_TIME = "created_datetime";
             public const string STATUS = "status";
             public const string TRANSATTION_ID = "transaction_id";
@@ -60,10 +66,14 @@
             public const string CURRENT_PAGE_KEY = "CurrentPage";
             public const string BASE_URI = "base_uri";
             public const string URI = "uri";
+            public const string USER_GROUPS = "groups";
+
             public const string PAGE_NAME = "page_name";
             public const string APP_NAME = "app_name";
             public const string METHOD = "Method";
             public const string VERSION = "version";
+            public const string REDIRECT_URL_KEY = "rurl";
+            public const string BODY = "body";
         }
     }
 }

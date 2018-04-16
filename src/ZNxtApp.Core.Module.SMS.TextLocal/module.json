@@ -1,0 +1,17 @@
+{
+  "dependent_mudules": [ "ZNxtApp.Code.Module.App" ],
+  "collections": [
+    {
+      "name": "app_settings",
+      "access_type": "read_only"
+    },
+    {
+      "name": "sms_queue",
+      "access_type": "read_write"
+    },
+    {
+      "name": "server_routes",
+      "access_type": "read_only"
+    }
+  ]
+}

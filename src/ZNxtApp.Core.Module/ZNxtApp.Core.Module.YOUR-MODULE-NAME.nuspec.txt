@@ -15,7 +15,7 @@
     <copyright>Copyright 2018</copyright>
     <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.Core ZNxtApp.Core.Module</tags>
 	<dependencies>
-      <dependency id="ZNxtApp.Core" version="1.0.1-Alpha"  />
+      <dependency id="ZNxtApp.Core" version="1.0.6-Alpha"  />
     </dependencies>
   </metadata>
   <files>
@@ -23,5 +23,6 @@
 	<file src="wwwroot/**/*.*" target="Content" />
 	<file src="collections/**/*.*" target="Content" />
 	<file src="module.json" target="Content" />
+	<file src="bin\Release\ZNxtApp.Core.Module.YOUR-MODULE-NAME.dll" target="lib/net452" />
   </files>
 </package>

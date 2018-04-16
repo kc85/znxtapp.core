@@ -1,0 +1,148 @@
+﻿[
+    {
+        "key": "moduleconfig",
+        "label": "App Module Config",
+        "href": "/mconfig",
+        "icon": "fa-upload",
+        "url": "/mconfig",
+        "view_location": "app_setting_tab",
+        "config": {
+            "templateUrl": "app/moduleconfig/moduleconfigbody.html"
+        },
+        "auth_users": [
+            "sys_admin"
+        ],
+        "index": 90
+    },
+    {
+        "key": "wwwroot",
+        "label": "Static Contant",
+        "href": "/wwwroot",
+        "icon": "fa-upload",
+        "url": "/wwwroot",
+        "view_location": "app_setting_tab",
+        "config": {
+            "templateUrl": "app/appsettings/wwwroot.html"
+        },
+        "auth_users": [
+            "sys_admin"
+        ],
+        "index": 80
+    },
+    {
+        "key": "appconfigs",
+        "label": "App Configs",
+        "href": "/appconfigs",
+        "icon": "fa-upload",
+        "url": "/appconfigs",
+        "view_location": "app_setting_tab",
+        "config": {
+            "templateUrl": "app/appsettings/appconfig/appconfig.html"
+        },
+        "auth_users": [
+            "sys_admin"
+        ],
+        "index": 80
+    },
+    {
+        "key": "editwwwroot",
+        "label": "Edit Static Contant",
+        "href": "/editwwwroot",
+        "icon": "fa-upload",
+        "url": "/editwwwroot/:id",
+        "view_location": "none",
+        "config": {
+            "templateUrl": "app/appsettings/editwwwroot.html"
+        },
+        "auth_users": [
+            "sys_admin"
+        ],
+        "index": 100
+    },
+    {
+        "key": "appsettings",
+        "label": "App Settings",
+        "href": "/appsettings/moduleconfig",
+        "icon": "fa-gear",
+        "url": "/appsettings/:tab?/:currentPage?/:pageSize?/:filter?",
+        "view_location": "left_menu",
+        "config": {
+            "templateUrl": "app/appsettings/appsettings.html"
+        },
+        "auth_users": [
+            "sys_admin"
+        ],
+        "index": 9000
+    },
+    {
+        "key": "serverlogs",
+        "label": "Server Logs",
+        "href": "/logs",
+        "icon": "fa-paw",
+        "url": "/logs/:currentPage?/:pageSize?/:filter?",
+        "view_location": "left_menu",
+        "config": {
+            "templateUrl": "app/log/log.html"
+        },
+        "auth_users": [
+            "sys_admin"
+        ],
+        "index": 9010
+    },
+    {
+        "key": "users",
+        "label": "Users",
+        "href": "/users",
+        "icon": "fa-users",
+        "url": "/users/:currentPage?/:pageSize?/:filter?/:sort?",
+        "view_location": "left_menu",
+        "config": {
+            "templateUrl": "app/users/users.html"
+        },
+        "auth_users": [
+            "sys_admin"
+        ],
+        "index": 8090
+    },
+    {
+        "key": "userinfo",
+        "label": "User Info",
+        "href": "/user",
+        "icon": "fa-user",
+        "url": "/user/:id/:tab?",
+        "view_location": "none",
+        "config": {
+            "templateUrl": "app/users/userinfo.html"
+        },
+        "auth_users": [
+            "sys_admin"
+        ],
+        "index": 9010
+    },
+    {
+        "key": "useraddressinfo",
+        "label": "Address",
+        "icon": "fa-map-marker",
+        "view_location": "user_info_tab",
+        "config": {
+            "templateUrl": "app/users/userAddress.html"
+        },
+        "auth_users": [
+            "sys_admin"
+        ],
+        "index": 10
+    },
+    {
+        "key": "usersettings",
+        "label": "Settings",
+        "icon": "fa-gear",
+        "view_location": "user_info_tab",
+        "config": {
+            "templateUrl": "app/users/userSettings.html"
+        },
+        "auth_users": [
+            "sys_admin"
+        ],
+        "index": 100
+    }
+]

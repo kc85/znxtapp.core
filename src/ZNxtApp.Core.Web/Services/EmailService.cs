@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZNxtApp.Core.Interfaces;
+using ZNxtApp.Core.Model;
 
 namespace ZNxtApp.Core.Web.Services
 {
@@ -14,16 +15,19 @@ namespace ZNxtApp.Core.Web.Services
         private readonly IDBService _dbService;
         private readonly IActionExecuter _actionExecuter;
         private readonly IViewEngine _viewEngine;
+        private readonly ParamContainer _paramContainer;
 
         public EmailService(ILogger logger,
                          IDBService dbService,
                          IActionExecuter actionExecuter,
-                         IViewEngine viewEngine)
+                         IViewEngine viewEngine,
+            ParamContainer paramContainer)
         {
             _logger = logger;
             _actionExecuter = actionExecuter;
             _dbService = dbService;
             _viewEngine = viewEngine;
+            _paramContainer = paramContainer;
         }
         public bool Send(string toEmail, string fromEmail, string emailBody)
         {

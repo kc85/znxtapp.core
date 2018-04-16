@@ -1,0 +1,18 @@
+[
+   {
+        "auth_users": [ "sys_admin" ],
+        "key": "text_local_sms_gateway_key",
+        "data": "oc2ZHEx262Y-7y1YGbOqxJ1xyTUXCZkuyoL2hCQvCC"
+    },
+
+    {
+        "auth_users": [ "sys_admin" ],
+        "key": "text_local_sms_gateway_endpoint",
+        "data": "https://api.textlocal.in/send/"
+    },
+    {
+        "auth_users": [ "sys_admin" ],
+        "key": "sms_from",
+        "data": "TXTLCL"
+    }
+]

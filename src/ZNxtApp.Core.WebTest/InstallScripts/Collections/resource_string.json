@@ -1,0 +1,98 @@
+﻿[
+    {
+        "name": "Common.Error.BadRequest",
+        "key": "Common.Error.BadRequest",
+        "code": 400,
+        "Message": "Bad Request"
+    },
+    {
+        "name": "Common.Error.Unauthorized",
+        "key": "Common.Error.Unauthorized",
+        "code": 401,
+        "Message": "Unauthorized User"
+    },
+    {
+        "name": "Common.Error.OTP_SEND_ERROE",
+        "key": "Common.Error.OTP_SEND_ERROE",
+        "code": 11000,
+        "Message": "Unable to send OTP"
+    },
+    {
+        "name": "Common.Error.INVALID_OTP",
+        "key": "Common.Error.INVALID_OTP",
+        "code": 11010,
+        "Message": "Invalid OTP"
+    },
+    {
+        "name": "Common.Error.CAPTCHA_VALIDATION_FAIL",
+        "key": "Common.Error.CAPTCHA_VALIDATION_FAIL",
+        "code": 13000,
+        "Message": "Capcha validation fail"
+    },
+    {
+        "name": "Common.Error.USER_EXISTS",
+        "key": "Common.Error.USER_EXISTS",
+        "code": 14000,
+        "Message": "User Already Exists"
+    },
+    {
+        "name": "Common.Error.REQUEST_FORMAT_ERROR",
+        "key": "Common.Error.REQUEST_FORMAT_ERROR",
+        "code": 10000,
+        "Message": "Bad request format"
+    },
+    {
+        "name": "Common.Error.DB_ERROR",
+        "key": "Common.Error.DB_ERROR",
+        "code": 12000,
+        "Message": "Server Error"
+    },
+    {
+        "name": "Login.Label.PAGE_HEADER",
+        "key": "Login.Label.PAGE_HEADER",
+        "code": -1,
+        "Message": "Login Page"
+    },
+    {
+        "name": "Login.Error.Unauthorized",
+        "key": "Login.Error.401",
+        "code": -1,
+        "Message": "User name or password incorrect"
+    },
+    {
+        "name": "Login.Label.LoginHeader",
+        "key": "Login.Label.LoginHeader",
+        "code": -1,
+        "Message": "Login"
+    },
+    {
+        "name": "Login.Label.UserName",
+        "key": "Login.Label.UserName",
+        "code": -1,
+        "Message": "Enter Mobile Number or Email Id"
+    },
+     {
+        "name": "Login.Label.PlaceHolderUserName",
+        "key": "Login.Label.PlaceHolderUserName",
+        "code": -1,
+        "Message": "User Name"
+    },
+    {
+        "name": "Login.Label.Password",
+        "key": "Login.Label.Password",
+        "code": -1,
+        "Message": "Enter Password"
+    },
+    {
+        "name": "Login.Label.PlaceHolderPassword",
+        "key": "Login.Label.PlaceHolderPassword",
+        "code": -1,
+        "Message": "Password"
+    },
+    {
+        "name": "Login.Label.LinkFoegetPassword",
+        "key": "Login.Label.LinkFoegetPassword",
+        "code": -1,
+        "Message": "Forget password"
+    }
+]

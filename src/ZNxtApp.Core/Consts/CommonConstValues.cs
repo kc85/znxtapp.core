@@ -40,6 +40,10 @@ namespace ZNxtApp.Core.Consts
             public const string PARAM_OTP_SERVICE = "_param_otp_service";
             public const string PARAM_SMS_SERVICE = "_param_sms_service";
             public const string PARAM_EMAIL_SERVICE = "_param_email_service";
+
+            public const string SESSION_USER_KEY = "_session_user";
+
+
         }
     }
 }

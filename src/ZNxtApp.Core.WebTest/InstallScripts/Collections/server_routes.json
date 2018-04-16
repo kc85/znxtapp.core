@@ -1,0 +1,74 @@
+﻿[
+  {
+    "key": "GET:/api/ping",
+    "ContentType": "application/json",
+    "Method": "GET",
+    "Route": "/api/ping",
+    "ExecultAssembly": "ZNxtApp.Core.Web.dll",
+    "ExecuteType": "ZNxtApp.Core.Web.Services.Api.PingController",
+    "ExecuteMethod": "Ping",
+    "auth_users": [
+      "*"
+    ]
+  },
+  {
+    "key": "ACTION:/api/ping",
+    "ContentType": "application/json",
+    "Method": "ACTION",
+    "Route": "/api/ping",
+    "ExecultAssembly": "ZNxtApp.Core.Web.dll",
+    "ExecuteType": "ZNxtApp.Core.Web.Services.Api.PingController",
+    "ExecuteMethod": "ActionTest",
+    "auth_users": [
+      "*"
+    ]
+  },
+  {
+    "key": "GET:/api/install/module",
+    "ContentType": "application/json",
+    "Method": "GET",
+    "Route": "/api/install/module",
+    "ExecultAssembly": "ZNxtApp.Core.Web.dll",
+    "ExecuteType": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+    "ExecuteMethod": "GetModuleDetails",
+    "auth_users": [
+      "*"
+    ]
+  },
+  {
+    "key": "POST:/api/module/install",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/module/install",
+    "ExecultAssembly": "ZNxtApp.Core.Web.dll",
+    "ExecuteType": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+    "ExecuteMethod": "Install",
+    "auth_users": [
+      "*"
+    ]
+  },
+  {
+    "key": "POST:/api/module/uninstall",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/module/uninstall",
+    "ExecultAssembly": "ZNxtApp.Core.Web.dll",
+    "ExecuteType": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+    "ExecuteMethod": "Uninstall",
+    "auth_users": [
+      "*"
+    ]
+  },
+  {
+    "key": "POST:/api/module/reinstall",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/module/reinstall",
+    "ExecultAssembly": "ZNxtApp.Core.Web.dll",
+    "ExecuteType": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+    "ExecuteMethod": "Reinstall",
+    "auth_users": [
+      "*"
+    ]
+  }
+]

@@ -37,8 +37,8 @@ namespace ZNxtApp.Core.Web.Util
         public Type GetType(string assemblyName, string executeType,ILogger logger)
         {
             logger.Info(string.Format("GetType: {0}, executeType: {1}", assemblyName, executeType));
-            var assembly = Load(assemblyName,logger);
-            return assembly.GetType(executeType);
+            var assembly = Load(assemblyName.Trim(),logger);
+            return assembly.GetType(executeType.Trim());
         }
 
         public Assembly Load(string assemblyName,ILogger logger)

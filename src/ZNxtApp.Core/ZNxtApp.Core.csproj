@@ -65,6 +65,7 @@
     <Compile Include="Exceptions\ErrorCodes\ErrorCode.cs" />
     <Compile Include="Exceptions\ExceptionBase.cs" />
     <Compile Include="Exceptions\InvalidFilterException.cs" />
+    <Compile Include="Helpers\IDBServiceExtensions.cs" />
     <Compile Include="Helpers\GoogleCaptchaHelper.cs" />
     <Compile Include="Helpers\CommonUtility.cs" />
     <Compile Include="Helpers\DataBuilderHelper.cs" />
@@ -91,10 +92,10 @@
     <Compile Include="Interfaces\IRoutings.cs" />
     <Compile Include="Interfaces\ISessionProvider.cs" />
     <Compile Include="Interfaces\IViewEngine.cs" />
-    <Compile Include="Model\OTPData.cs" />
     <Compile Include="Model\ParamContainer.cs" />
     <Compile Include="Model\RoutingModel.cs" />
     <Compile Include="Enums\UserIDType.cs" />
+    <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EventSubscriberCompletedBaseService.cs" />
     <Compile Include="Services\EventSubscriberInitBaseService.cs" />

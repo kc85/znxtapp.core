@@ -95,6 +95,17 @@
     <Content Include="wwwroot\appinstall\jquery.js" />
     <Content Include="wwwroot\appinstall\Style.css" />
     <Content Include="wwwroot\appinstall\index.html" />
+    <Content Include="InstallScripts\Collections\app_info.json" />
+    <Content Include="InstallScripts\Collections\app_settings.json" />
+    <Content Include="InstallScripts\Collections\app_settings.prod.json" />
+    <Content Include="InstallScripts\Collections\client_admin_routes.json" />
+    <Content Include="InstallScripts\Collections\cron_job.json" />
+    <Content Include="InstallScripts\Collections\event_subscription.json" />
+    <Content Include="InstallScripts\Collections\resource_string.json" />
+    <Content Include="InstallScripts\Collections\server_routes.json" />
+    <Content Include="InstallScripts\Collections\users.json" />
+    <Content Include="InstallScripts\Collections\user_groups.json" />
+    <Content Include="InstallScripts\Collections\wwwroot.json" />
     <None Include="Properties\PublishProfiles\ZNxtApp.Local.pubxml" />
     <None Include="Properties\PublishProfiles\ZNxtApp.Web.pubxml" />
     <Content Include="wwwroot\appinstall\debug.log" />

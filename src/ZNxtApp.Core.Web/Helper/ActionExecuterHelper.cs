@@ -24,8 +24,8 @@ namespace ZNxtApp.Core.Web.Helper
             IAppSettingService appSettingService = AppSettingService.Instance;
             IViewEngine viewEngine = ViewEngine.GetEngine();
 
-            ISMSService smsService = new SMSService(loggerController, dbService, actionExecuter, viewEngine);
-            IEmailService emailService = new EmailService(loggerController, dbService, actionExecuter, viewEngine);
+            ISMSService smsService = new SMSService(loggerController, dbService, actionExecuter, viewEngine, paramContainer);
+            IEmailService emailService = new EmailService(loggerController, dbService, actionExecuter, viewEngine, paramContainer);
             IOTPService otpService = new OTPService(loggerController, dbService, smsService, emailService);
 
            

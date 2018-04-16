@@ -1,0 +1,12 @@
+[{
+    "key": "ACTION:/api/sms/send",
+    "ContentType": "application/json",
+    "Method": "ACTION",
+    "Route": "/api/sms/send",
+    "ExecultAssembly": "ZNxtApp.Core.Module.SMS.TextLocal.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.SMS.TextLocal.Services.Api.TextLocalSMSController",
+    "ExecuteMethod": "Send",
+    "auth_users": [
+      "*"
+    ]
+  }]

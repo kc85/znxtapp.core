@@ -8,7 +8,8 @@ namespace ZNxtApp.Core.Enums
 {
     public enum OTPStatus
     {
-        Unussed,
-        Used
+        New,
+        Used,
+        Expired
     }
 }

@@ -58,7 +58,7 @@ namespace ZNxtApp.Core.Web.Helper
             }
             pageModel[CommonConst.CommonField.PAGE_NAME] = pageName;
             pageModel[CommonConst.CommonField.URI] = uri;
-            pageModel[CommonConst.CommonField.APP_NAME] = ApplicationConfig.AppName;
+            AddBaseData(pageModel);
 
         }
         private static Dictionary<string, dynamic> SetDefaultModel(IDBService dbProxy, IHttpContextProxy httpProxy, ILogger logger, IViewEngine viewEngine, IActionExecuter actionExecuter, Dictionary<string, dynamic> model, string folderPath = null)
@@ -185,5 +185,10 @@ namespace ZNxtApp.Core.Web.Helper
             return model;
         }
 
+        public static void AddBaseData(Dictionary<string,dynamic> baseData)
+        {
+
+            baseData[CommonConst.CommonField.APP_NAME] = ApplicationConfig.AppName;
+        }
     }
 }

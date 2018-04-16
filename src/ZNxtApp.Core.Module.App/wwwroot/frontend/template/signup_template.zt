@@ -25,4 +25,7 @@
     <script  src="@Model["base_uri"]/js/signup_login/signup_login.js"></script>
     <script  src="@Model["base_uri"]/js/signup_login/signup.js"></script>
 </body>
+<script>
+var appRootPath = '@Model["base_uri"]';
+</script>
 </html>

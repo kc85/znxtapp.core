@@ -1,5 +1,6 @@
 var grecaptcharesponse = undefined;
 var success_code = 1;
+var otp_security_token = "";
 var imNotARobot = function (val) {
     grecaptcharesponse = val;
     $("#txtMobileNumber").focus();
@@ -39,7 +40,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: './api/user/facebook/auth',
+            url: appRootPath +'/api/user/facebook/auth',
             success: function (data) {
                 console.log(data);
                 window.location = data.data.facebook_graph_api_url;
@@ -71,7 +72,7 @@ $(document).ready(function () {
         animating = true;
         $(that).addClass("processing");
         $.ajax({
-            url: "./api/user/registration/SendOTP",
+            url: appRootPath+ "/api/user/registration/SendOTP",
             type: 'post',
             data: '{"phone": "' + mobileNo + '", "g-recaptcha-response" : "' + grecaptcharesponse + '"}',
             contentType: "application/json",
@@ -83,6 +84,7 @@ $(document).ready(function () {
 
                 if (data.code === success_code) {
                     
+                    otp_security_token = data.security_token;
                     $("#txtMobileNumber").attr("disabled", "true");
                     $("#btnSendSignUpOTP").hide();
                     $(".g_captche").hide();
@@ -123,13 +125,21 @@ $(document).ready(function () {
         var otp = $("#txtOTP").val();
 
         $.ajax({
-            url: "./api/user/registration/OTP",
+            url: appRootPath+ "/api/user/registration/OTP",
             type: 'post',
-            data: '{"otp": "' + otp + '", "phone" :"' + mobileNo + '"}',
+            data: '{"otp": "' + otp + '", "phone" :"' + mobileNo + '", "security_token" :"' + otp_security_token + '"}',
             contentType: "application/json",
             dataType: 'json',
             success: function (data) {
-                window.location = "./setpassword.html";
+                animating = false;
+                $(that).removeClass("success processing");
+                if (data.code === success_code) {
+                    window.location = appRootPath+ data.rurl;
+                }
+                else {
+                    $("#errorMessage").show();
+                    $("#errorMessage").html(data.message);
+                }
             },
             error: function (err) {
                 console.log(err);
@@ -171,7 +181,7 @@ $(document).ready(function () {
         }
       
         $.ajax({
-            url: "./api/user/registration/username",
+            url: appRootPath+ "/api/user/registration/username",
             type: 'post',
             data: '{"email": "' + email + '", "password" :"' + password + '", "g-recaptcha-response" : "' + grecaptcharesponse + '"}',
             contentType: "application/json",
