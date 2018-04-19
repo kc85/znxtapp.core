@@ -18,6 +18,7 @@ namespace ZNxtApp.Core.Web.CronJobs
         }
         public int Update()
         {
+            Logger.Debug("Update Setting Cache from UpdateAppSettingCronJob.Update");
             (AppSettingService as AppSettingService).ReloadSettings(true);
             EventSubscription.GetInstance(DBProxy, Logger).LoadSubscriptions(true);
             return 1;

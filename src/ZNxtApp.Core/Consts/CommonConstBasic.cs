@@ -17,7 +17,7 @@
             public const string OTP_TYPE = "otp_type";
             public const string DURATION = "duration";
             public const string GUID = "GUID";
-            public const string PHONE_FIELD = "phone";
+            public const string PHONE = "phone";
             public const string SECURITY_TOKEN = "security_token";
             public const string CREATED_DATA_DATE_TIME = "created_datetime";
             public const string STATUS = "status";
@@ -29,8 +29,10 @@
             public const string EMAIL = "email";
             public const string USER_ID = "user_id";
             public const string PASSWORD = "password";
+            public const string CONFIRM_PASSWORD = "confirm_password";
             public const string USER_TYPE = "user_type";
             public const string IS_EMAIL_VALIDATE = "is_email_validate";
+            public const string IS_PHONE_VALIDATE = "is_phone_validate";
             public const string FILE_PATH = "file_path";
             public const string IS_OVERRIDE = "is_override";
             public const string DATA = "data";
@@ -74,6 +76,15 @@
             public const string VERSION = "version";
             public const string REDIRECT_URL_KEY = "rurl";
             public const string BODY = "body";
+            public const string FROM = "from";
+            public const string TO = "to";
+            public const string CC = "cc";
+            public const string SUBJECT = "subject";
+            public const string SMTP_SERVER = "smtp_server";
+            public const string SMTP_SERVER_USER = "smtp_server_user";
+            public const string SMTP_SERVER_PASSWORD = "smtp_server_password";
+            public const string SMTP_SERVER_PORT = "smtp_server_port";
+            public const string FROM_EMAIL_ID = "from_email_id";
         }
     }
 }

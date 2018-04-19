@@ -1,6 +1,7 @@
 var grecaptcharesponse = undefined;
 var success_code = 1;
 var otp_security_token = "";
+var user_type = "Email";
 var imNotARobot = function (val) {
     grecaptcharesponse = val;
     $("#txtMobileNumber").focus();
@@ -64,9 +65,9 @@ $(document).ready(function () {
         ripple($(that), e);
 
         var mobileNo = $("#txtMobileNumber").val()
-        if (!validate(mobileNo)) {
+        if (!validateEmail(mobileNo) && !validate(mobileNo)) {
             $("#errorMessage").show();
-            $("#errorMessage").html("Enter 10 digit mobile number");
+            $("#errorMessage").html("Enter valid email id or phone");
             return;
         }
         animating = true;
@@ -74,7 +75,7 @@ $(document).ready(function () {
         $.ajax({
             url: appRootPath+ "/api/user/registration/SendOTP",
             type: 'post',
-            data: '{"phone": "' + mobileNo + '", "g-recaptcha-response" : "' + grecaptcharesponse + '"}',
+            data: '{"user_id": "' + mobileNo + '", "g-recaptcha-response" : "' + grecaptcharesponse + '", "user_type" : "' + user_type + '"}',
             contentType: "application/json",
             dataType: 'json',
             success: function (data) {
@@ -115,9 +116,9 @@ $(document).ready(function () {
         ripple($(that), e);
 
         var mobileNo = $("#txtMobileNumber").val();
-        if (!validate(mobileNo)) {
+        if (!validateEmail(mobileNo) && !validate(mobileNo)) {
             $("#errorMessage").show();
-            $("#errorMessage").html("Enter 10 digit mobile number");
+            $("#errorMessage").html("Enter valid email id or phone");
             return;
         }
         animating = true;
@@ -127,14 +128,16 @@ $(document).ready(function () {
         $.ajax({
             url: appRootPath+ "/api/user/registration/OTP",
             type: 'post',
-            data: '{"otp": "' + otp + '", "phone" :"' + mobileNo + '", "security_token" :"' + otp_security_token + '"}',
+            data: '{"otp": "' + otp + '", "user_id" :"' + mobileNo + '", "security_token" :"' + otp_security_token + '","user_type" : "' + user_type + '"}',
             contentType: "application/json",
             dataType: 'json',
             success: function (data) {
                 animating = false;
                 $(that).removeClass("success processing");
                 if (data.code === success_code) {
-                    window.location = appRootPath+ data.rurl;
+                    $("#divOtp").fadeOut();
+                    $("#divPassword").fadeIn();
+                   // window.location = appRootPath+ data.rurl;
                 }
                 else {
                     $("#errorMessage").show();
@@ -161,9 +164,9 @@ $(document).ready(function () {
         ripple($(that), e);
 
         var email = $("#txtMobileNumber").val();
-        if (!validateEmail(email)) {
+        if (!validateEmail(email) && !validate(email)) {
             $("#errorMessage").show();
-            $("#errorMessage").html("Enter valid email id ");
+            $("#errorMessage").html("Enter valid email id or phone");
             return;
         }
         var password = $("#txtPassword").val();
@@ -181,14 +184,24 @@ $(document).ready(function () {
         }
       
         $.ajax({
-            url: appRootPath+ "/api/user/registration/username",
+            url: appRootPath+ "/api/user/registration/signup",
             type: 'post',
-            data: '{"email": "' + email + '", "password" :"' + password + '", "g-recaptcha-response" : "' + grecaptcharesponse + '"}',
+            data: '{"user_id": "' + email + '", "password" :"' + password + '", "confirm_password":"' + passwordC + '", "g-recaptcha-response" : "' + grecaptcharesponse + '","user_type" : "' + user_type + '"}',
             contentType: "application/json",
             dataType: 'json',
             success: function (data) {
                 animating = false;
-                window.location = "./index.html";
+                $(that).removeClass("success processing");
+
+                if (data.code === success_code) {
+                    $("#divOtp").fadeOut();
+                    $("#divPassword").fadeIn();
+                     window.location = appRootPath+ data.rurl;
+                }
+                else {
+                    $("#errorMessage").show();
+                    $("#errorMessage").html(data.message);
+                }
             },
             error: function (err) {
                 console.log(err);
@@ -237,15 +250,22 @@ function onBlurSignUpText(txt) {
     
     if ($(".login__form").is(":visible")) {
         if (validateEmail($(txt).val())) {
-            $("#divPassword").fadeIn();
+            //$("#divPassword").fadeIn();
+            //$("#divFbSignUp").fadeOut();
+            //$("#errorMessage").fadeOut();
+            $("#divSendOtp").fadeIn();
             $("#divFbSignUp").fadeOut();
             $("#errorMessage").fadeOut();
+            user_type = "Email";
+            $("#btnSendSignUpOTP").html("Send OTP on My Email");
 
         }
         else if (validatePhone($(txt).val())) {
             $("#divSendOtp").fadeIn();
             $("#divFbSignUp").fadeOut();
             $("#errorMessage").fadeOut();
+            user_type = "PhoneNumber";
+            $("#btnSendSignUpOTP").html("Send OTP on My Mobile");
 
         }
         else {

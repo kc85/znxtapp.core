@@ -10,7 +10,7 @@ namespace ZNxtApp.Core.Enums
     {
         Queue,
         Sent,
-        SendFail,
+        SendError,
         Processing
     }
 }

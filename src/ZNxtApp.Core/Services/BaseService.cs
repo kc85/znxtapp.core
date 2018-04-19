@@ -22,6 +22,7 @@ namespace ZNxtApp.Core.Services
         protected IOTPService OTPService { get; private set; }
         protected ISMSService SMSService { get; private set; }
         protected IEmailService EmailService { get; private set; }
+        protected IEncryption EncryptionService { get; private set; }
 
         public BaseService(ParamContainer paramContainer)
         {
@@ -35,6 +36,7 @@ namespace ZNxtApp.Core.Services
             OTPService = paramContainer.GetKey(CommonConst.CommonValue.PARAM_OTP_SERVICE);
             SMSService = paramContainer.GetKey(CommonConst.CommonValue.PARAM_SMS_SERVICE);
             EmailService = paramContainer.GetKey(CommonConst.CommonValue.PARAM_EMAIL_SERVICE);
+            EncryptionService = paramContainer.GetKey(CommonConst.CommonValue.PARAM_ENCRYPTION_SERVICE);
 
         }
     }

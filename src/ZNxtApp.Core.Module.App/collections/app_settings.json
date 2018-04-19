@@ -85,8 +85,8 @@
     "auth_users": [
       "sys_admin"
     ],
-    "key": "phone_signup_redirect_page",
-    "data": "/set_phone_password"
+    "key": "signup_redirect_page",
+    "data": "/index.z"
   },
   {
     "auth_users": [
@@ -100,5 +100,13 @@
         "sys_admin"
       ]
     }
+  },
+  {
+    "auth_users": [
+      "sys_admin"
+    ],
+    "key": "OTP_SIGN_UP_EMAIL_SUBJECT",
+    "comment": "SIGN_UP_OTP_EMAIL_SUBJECT",
+    "data": "Signup OTP"
   }
 ]

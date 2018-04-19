@@ -25,57 +25,7 @@
         "key": "company_address",
         "data": "Baner Pune, 400101"
     },
-    {
-        "auth_users": [ "sys_admin" ],
-        "key": "TestAdminKey",
-        "data": "TestValue"
-    },
-    {
-        "auth_users": [ "sys_admin" ],
-        "key": "SMSGatewayKey",
-        "data": "oc2ZHEx262Y-bcMKGMS2flW6q4e1nF9yBkxUnSs8Bq"
-    },
-    {
-        "key": "Logger_ASP.global_asax",
-        "data": {
-            "log_levels": [
-                "Error"
-            ]
-        }
-    },
-    {
-        "key": "Logger_ZApp.SessionProvider.CloudSessionProvider",
-        "data": {
-            "log_levels": [
-                "Error"
-            ]
-        }
-    },
-    {
-        "key": "Logger_ZApp.ExecuteController",
-        "data": {
-            "log_levels": [
-                "Error"
-            ]
-        }
-    },
-    {
-        "key": "Logger_ZApp.AssemblyLoader",
-        "data": {
-            "log_levels": [
-                "Error"
-            ]
-        }
-    },
-
-    {
-        "key": "Logger_ZApp.GenericHandler",
-        "data": {
-            "log_levels": [
-                "Error"
-            ]
-        }
-    },
+    
     {
         "auth_users": [ "sys_admin" ],
         "key": "otp_validaty_duration",
@@ -89,11 +39,42 @@
         "comment": "Google recaptcha validate url ",
         "data": { "keys": [ "password", "facebook_access_key" ] }
     },
-    {
-        "auth_users": [ "sys_admin" ],
-        "key": "from_email_id",
-        "data": "admin@za.com"
-    },
+  {
+    "auth_users": [ "sys_admin" ],
+    "key": "from_email_id",
+    "data": "ZNxtApp@gmail.com",
+    "is_override": false,
+    "override_by": "none"
+
+  },
+  {
+    "auth_users": [ "sys_admin" ],
+    "key": "smtp_server",
+    "data": "smtp.gmail.com",
+    "is_override": false,
+    "override_by": "none"
+  },
+  {
+    "auth_users": [ "sys_admin" ],
+    "key": "smtp_server_user",
+    "data": "ZNxtApp@gmail.com",
+    "is_override": false,
+    "override_by": "none"
+  },
+  {
+    "auth_users": [ "sys_admin" ],
+    "key": "smtp_server_password",
+    "data": "****",
+    "is_override": false,
+    "override_by": "none"
+  },
+  {
+    "auth_users": [ "sys_admin" ],
+    "key": "smtp_server_port",
+    "data": "587",
+    "is_override": false,
+    "override_by": "none"
+  },
      {
         "auth_users": [ "sys_admin" ],
         "key": "app_theme_color",

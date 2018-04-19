@@ -1,5 +1,11 @@
 ﻿[
-    {
+
+  {
+    "key": "OTP_SIGN_UP_EMAIL",
+    "body": "@Model[\"app_name\"] sign up OTP is @Model[\"otp\"]. DO NOT SHARE WITH ANYONE"
+  },
+  
+  {
         "key": "user_email_registration",
         "body": "user_email_registration {#email#}",
         "subject": "User Registration",

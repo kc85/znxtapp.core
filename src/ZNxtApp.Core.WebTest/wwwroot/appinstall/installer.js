@@ -1,6 +1,6 @@
 $(document).ready(function () {
     getStatus();
-    var defaultModules = ["ZNxtApp.Core.Module.App/1.0.1-Alpha", "ZNxtApp.Core.Module.Theme/1.0.7-Alpha"];
+    var defaultModules = ["ZNxtApp.Core.Module.App/1.0.6.666-Alpha", "ZNxtApp.Core.Module.Theme/1.0.7-Alpha", "ZNxtApp.Core.Module.SMS.TextLocal/1.0.1.41092-Alpha"];
     $("#btnInstall").click(function () {
         prerequisiteCheck(function () {
             $("#wizardProfile").hide();

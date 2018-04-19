@@ -26,7 +26,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             return model;
 
         }
-        public JObject SendMobileOTP()
+        public JObject SendSignUpOTP()
         {
             Logger.Debug("Calling SendMobileOTP");
             JObject request = HttpProxy.GetRequestBody<JObject>();
@@ -36,21 +36,28 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             }
 
             Logger.Debug("Request body SendMobileOTP", request);
-            var phonenumber = request[CommonConst.CommonField.PHONE_FIELD].ToString();
+           UserModel requestUser =   GetUserDataFromRequest(request);
 
+          
             var recaptchaResponse = request[ModuleAppConsts.Field.GOOGLE_RECAPTCHA_RESPONSE_KEY].ToString();
 
             if (GoogleCaptchaHelper.ValidateResponse(Logger, recaptchaResponse, AppSettingService.GetAppSettingData(ModuleAppConsts.Field.GOOGLE_RECAPTCHA_SECRECT_SETTING_KEY), AppSettingService.GetAppSettingData(ModuleAppConsts.Field.GOOGLE_RECAPTCHA_VALIDATE_URL_SETTING_KEY)))
             {
                 Logger.Debug("Captcha validate success");
-                if (!IsUserExists(phonenumber))
+                if (!IsUserExists(requestUser.user_id))
                 {
                     string securityToken = CommonUtility.RandomString(10);
-                    if (OTPService.Send(phonenumber, ModuleAppConsts.Field.SIGN_UP_OTP_TEMPLATE, OTPType.Signup, securityToken))
+                    if (requestUser.user_type == UserIDType.PhoneNumber.ToString() &&  OTPService.Send(requestUser.user_id, ModuleAppConsts.Field.SIGN_UP_OTP_SMS_TEMPLATE, OTPType.Signup, securityToken))
                     {
                         JObject dataResponse = new JObject();
                         dataResponse[CommonConst.CommonField.SECURITY_TOKEN] = securityToken;
                         return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS,null, dataResponse);
+                    }
+                    else if (requestUser.user_type == UserIDType.Email.ToString() && OTPService.SendEmail(requestUser.user_id, ModuleAppConsts.Field.SIGN_UP_OTP_EMAIL_TEMPLATE,AppSettingService.GetAppSettingData(ModuleAppConsts.Field.SIGN_UP_OTP_EMAIL_SUBJECT), OTPType.Signup, securityToken))
+                    {
+                        JObject dataResponse = new JObject();
+                        dataResponse[CommonConst.CommonField.SECURITY_TOKEN] = securityToken;
+                        return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, null, dataResponse);
                     }
                     else
                     {
@@ -59,7 +66,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
                 }
                 else
                 {
-                    Logger.Info(string.Format("User Exits with this phone number {0}", phonenumber));
+                    Logger.Info(string.Format("User Exits with this phone number {0}", requestUser.user_id));
                     return ResponseBuilder.CreateReponse(AppResponseCode._USER_EXISTS);
                 }
             }
@@ -70,53 +77,44 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             }
         }
 
-        public JObject ValidateOTPCreateUser()
+        private UserModel GetUserDataFromRequest(JObject request)
         {
-            
-            Logger.Debug("Calling ValidateOTPCreateUser");
+            UserModel user = new UserModel();
+            user.user_id = request[CommonConst.CommonField.USER_ID].ToString();
+            var userIdTypeStr = request[CommonConst.CommonField.USER_TYPE].ToString();
+
+            UserIDType userIdType = UserIDType.PhoneNumber;
+            Enum.TryParse<UserIDType>(userIdTypeStr, out userIdType);
+            user.user_type = userIdType.ToString();
+            return user;
+
+        }
+        public JObject ValidateOTP()
+        {
+
+            Logger.Debug("Calling ValidateOTP");
             JObject request = HttpProxy.GetRequestBody<JObject>();
-            var redirect_url = HttpProxy.GetQueryString(CommonConst.CommonField.REDIRECT_URL_KEY);
             if (request == null)
             {
                 return ResponseBuilder.CreateReponse(CommonConst._400_BAD_REQUEST);
             }
 
             var otp = request[CommonConst.CommonField.OTP].ToString();
-            var phonenumber = request[CommonConst.CommonField.PHONE_FIELD].ToString();
+            UserModel requestUser = GetUserDataFromRequest(request);
             var securityToken = request[CommonConst.CommonField.SECURITY_TOKEN].ToString();
-            if (!IsUserExists(phonenumber))
+            if (!IsUserExists(requestUser.user_id))
             {
-                if (OTPService.Validate(phonenumber, otp, OTPType.Signup, securityToken))
+                if (requestUser.user_type == UserIDType.PhoneNumber.ToString() && OTPService.Validate(requestUser.user_id, otp, OTPType.Signup, securityToken))
                 {
-                    if (CreateUser(phonenumber))
-                    {
-                        var user = DBProxy.FirstOrDefault<UserModel>(CommonConst.Collection.USERS, CommonConst.CommonField.USER_ID, phonenumber);
-                        if (user == null)
-                        {
-                            Logger.Error(string.Format("User not found for phone : {0} ", phonenumber));
-                            return ResponseBuilder.CreateReponse(AppResponseCode._USER_NOT_FOUND);
-                        }
-                        else
-                        {
-                            SessionProvider.SetValue(CommonConst.CommonValue.SESSION_USER_KEY, user);
-                            var rurl = AppSettingService.GetAppSettingData(ModuleAppConsts.Field.PHONE_SIGNUP_DEFAULT_REDIRECT_PAGE_SETTING_KEY);
-                            JObject resonseData = new JObject();
-                            if (string.IsNullOrEmpty(redirect_url))
-                            {
-                                resonseData[CommonConst.CommonField.REDIRECT_URL_KEY] = rurl;
-                            }
-                            else
-                            {
-                                resonseData[CommonConst.CommonField.REDIRECT_URL_KEY] = string.Format("{0}?{1}={2}", rurl, CommonConst.CommonField.REDIRECT_URL_KEY, redirect_url);
-                            }
-                            return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, null, resonseData);
-                        }
-                    }
-                    else
-                    {
-                        Logger.Error("Error while addd new user");
-                        return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
-                    }
+                    UserModel tempUser = new UserModel() { user_id = requestUser.user_id, user_type = UserIDType.PhoneNumber.ToString() };
+                    SessionProvider.SetValue(CommonConst.CommonValue.SIGN_UP_SESSION_USER_KEY, tempUser);
+                    return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS);
+                }
+               else if (requestUser.user_type == UserIDType.Email.ToString() && OTPService.ValidateEmail(requestUser.user_id, otp, OTPType.Signup, securityToken))
+                {
+                    UserModel tempUser = new UserModel() { user_id = requestUser.user_id, user_type = UserIDType.Email.ToString() };
+                    SessionProvider.SetValue(CommonConst.CommonValue.SIGN_UP_SESSION_USER_KEY, tempUser);
+                    return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS);
                 }
                 else
                 {
@@ -126,8 +124,63 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             }
             else
             {
-                Logger.Info(string.Format("User Exits with this phone number {0}", phonenumber));
+                Logger.Info(string.Format("User Exits with this phone number {0}", requestUser.user_id));
                 return ResponseBuilder.CreateReponse(AppResponseCode._USER_EXISTS);
+            }
+        }
+
+        public JObject CreateUser()
+        {
+            Logger.Debug("Calling CreateUser");
+            JObject request = HttpProxy.GetRequestBody<JObject>();
+            var redirect_url = HttpProxy.GetQueryString(CommonConst.CommonField.REDIRECT_URL_KEY);
+            if (request == null)
+            {
+                return ResponseBuilder.CreateReponse(CommonConst._400_BAD_REQUEST);
+            }
+            var requestUser =  GetUserDataFromRequest(request);
+            var signUpUser = SessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SIGN_UP_SESSION_USER_KEY);
+            if (signUpUser == null)
+            {
+                return ResponseBuilder.CreateReponse(AppResponseCode._SIGNUP_SESSION_USER_NOT_FOUND);
+            }
+            if(signUpUser.user_id != requestUser.user_id)
+            {
+                return ResponseBuilder.CreateReponse(AppResponseCode._SIGNUP_SESSION_USER_DATA_MISMATCH);
+            }
+            if (request[CommonConst.CommonField.PASSWORD].ToString() != request[CommonConst.CommonField.CONFIRM_PASSWORD].ToString())
+            {
+                return ResponseBuilder.CreateReponse(AppResponseCode._SIGNUP_SESSION_USER_DATA_MISMATCH);
+            }
+
+            if (CreateUser(signUpUser,request[CommonConst.CommonField.PASSWORD].ToString()))
+            {
+                var user = DBProxy.FirstOrDefault<UserModel>(CommonConst.Collection.USERS, CommonConst.CommonField.USER_ID, signUpUser.user_id);
+                if (user == null)
+                {
+                    Logger.Error(string.Format("User not found user_id : {0} ", signUpUser.user_id));
+                    return ResponseBuilder.CreateReponse(AppResponseCode._USER_NOT_FOUND);
+                }
+                else
+                {
+                    SessionProvider.SetValue(CommonConst.CommonValue.SESSION_USER_KEY, user);
+                    var rurl = AppSettingService.GetAppSettingData(ModuleAppConsts.Field.SIGNUP_LENDING_PAGE_SETTING_KEY);
+                    JObject resonseData = new JObject();
+                    if (string.IsNullOrEmpty(redirect_url))
+                    {
+                        resonseData[CommonConst.CommonField.REDIRECT_URL_KEY] = rurl;
+                    }
+                    else
+                    {
+                        resonseData[CommonConst.CommonField.REDIRECT_URL_KEY] = string.Format("{0}?{1}={2}", rurl, CommonConst.CommonField.REDIRECT_URL_KEY, redirect_url);
+                    }
+                    return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, null, resonseData);
+                }
+            }
+            else
+            {
+                Logger.Error("Error while addd new user");
+                return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
             }
         }
 
@@ -157,13 +210,27 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             
         }
 
-        private bool CreateUser(string phoneNumber)
+        private bool CreateUser(UserModel user, string password)
         {
             JObject userData = new JObject();
             userData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
-            userData[CommonConst.CommonField.USER_ID] = userData[CommonConst.CommonField.DATA_KEY] = phoneNumber;
-            userData[CommonConst.CommonField.USER_TYPE] = UserIDType.PhoneNumber.ToString();
-            userData[CommonConst.CommonField.USER_TYPE] = UserIDType.PhoneNumber.ToString();
+            userData[CommonConst.CommonField.USER_ID] = userData[CommonConst.CommonField.DATA_KEY] = user.user_id;
+            userData[CommonConst.CommonField.USER_TYPE] = user.user_type;
+            userData[CommonConst.CommonField.PASSWORD] = EncryptionService.Encrypt(password);
+            if (user.user_type == UserIDType.PhoneNumber.ToString())
+            {
+                userData[CommonConst.CommonField.PHONE] = user.user_id;
+                userData[CommonConst.CommonField.NAME] = user.user_id;
+                userData[CommonConst.CommonField.IS_PHONE_VALIDATE] = true.ToString();
+
+            }
+            else if (user.user_type == UserIDType.Email.ToString())
+            {
+                userData[CommonConst.CommonField.EMAIL] = user.user_id;
+                userData[CommonConst.CommonField.NAME] = user.user_id;
+                userData[CommonConst.CommonField.IS_EMAIL_VALIDATE] = true.ToString();
+            }
+
             var userGroup = AppSettingService.GetAppSetting(ModuleAppConsts.Field.DEFAULT_USER_GROUPS_APP_SETTING_KEY);
             Logger.Debug("userGroup setting data", userGroup);
             if (userGroup == null)
@@ -176,7 +243,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             }
             userData[CommonConst.CommonField.USER_GROUPS] = (userGroup[CommonConst.CommonField.DATA][CommonConst.CommonField.USER_GROUPS] as JArray);
             return DBProxy.Write(CommonConst.Collection.USERS, userData);
-
         }
     }
 }

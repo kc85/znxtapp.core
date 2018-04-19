@@ -1,1 +1,1 @@
-Added SMS and  OTP service.
+email registration completed

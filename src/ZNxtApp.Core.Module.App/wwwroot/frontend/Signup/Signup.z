@@ -20,7 +20,6 @@
               </div>
               <div class="login__form" style="display:none">
                   <p>
-                     
                       <h1 style="color:#fff;font-size:2.5em;margin-top:20px;" >Enter Mobile Number or Email Id</h1>
                       <br />
                   </p>
@@ -33,7 +32,7 @@
                   </div>
                  
                   <div id="divSendOtp" style="display:none">
-                      <button type="button" class="login__submit" id="btnSendSignUpOTP">Send OTP to the mobile</button>
+                      <button type="button" class="login__submit" id="btnSendSignUpOTP">Send OTP to my Mobile</button>
                   </div>
                   <div id="divPassword" style="display:none">
                       <div class="login__row">
@@ -60,7 +59,7 @@
                           <input type="password" class="login__input pass" id="txtOTP" placeholder="OTP" />
                       </div>
 
-                      <button type="button" class="login__submit" id="btnSignupOTPSubmit">Sign Up</button>
+                      <button type="button" class="login__submit" id="btnSignupOTPSubmit">Validate OTP</button>
                   </div>
                   <div class="login__error" id="errorMessage" style="display:none;font-size:2.5em">
                       User name or password incorrect.
@@ -83,3 +82,5 @@
               </div>
           </div>
       </div>
+
+<script  src="@Model["base_uri"]/js/signup_login/signup.js"></script>

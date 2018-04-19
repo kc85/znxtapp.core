@@ -2,20 +2,20 @@
 <package >
   <metadata>
     <id>ZNxtApp.Core.Module.SMS.TextLocal</id>
-    <version>1.0.1.41092-Alpha</version>
+    <version>1.0.1.864-Alpha</version>
     <title>ZNxtApp.Core.Module.SMS.TextLocal</title>
     <authors>Khanin Choudhury</authors>
     <owners>Khanin Choudhury</owners>
-    <licenseUrl>https://YOUR-MODULE-LIC-URL</licenseUrl>
-    <projectUrl>https://PROJECT-URL</projectUrl>
-    <iconUrl>https://ICON-URL</iconUrl>
+    <licenseUrl>https://github.com/kc85/znxtapp.core/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/kc85/znxtapp.core</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/kc85/znxtapp.core/master/logo/ZNxtAppLogo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>ZNxtApp.Core.Module.SMS.TextLocal nuget package</description>
     <releaseNotes>Release Note</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.SMS ZNxtApp.Core.Module.SMS.TextLocal</tags>
 	<dependencies>
-      <dependency id="ZNxtApp.Core" version="1.0.6-Alpha"  />
+      <dependency id="ZNxtApp.Core" version="1.0.7-Alpha"  />
     </dependencies>
   </metadata>
   <files>

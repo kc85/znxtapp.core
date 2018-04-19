@@ -11,6 +11,6 @@ namespace ZNxtApp.Core.Enums
         Queue,
         Processing,
         Sent,
-        SendFail
+        SendError
     }
 }

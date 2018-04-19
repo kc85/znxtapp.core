@@ -3,8 +3,8 @@ cd C:\Users\Khanin\Google Drive\Code\znxtapp.core\nuget_packages\all_nugets
 
 nuget pack "C:\Users\Khanin\Google Drive\Code\znxtapp.core\nuget_packages\ZNxtApp.Web\Alpha\ZNxtApp.Web.nuspec"
 
- nuget setApiKey  oy2n5qf7jzhihb4tihpqlf2rr6mv3sfe7dxbt5uvginwja
+nuget setApiKey  oy2n5qf7jzhihb4tihpqlf2rr6mv3sfe7dxbt5uvginwja
 
- nuget  push ZNxtApp.Web.1.0.4-Alpha.nupkg -Source https://api.nuget.org/v3/index.json
+nuget  push ZNxtApp.Web.1.0.5-Alpha.nupkg -Source https://api.nuget.org/v3/index.json
  
-del ZNxtApp.Web.1.0.4-Alpha.nupkg
+del ZNxtApp.Web.1.0.5-Alpha.nupkg

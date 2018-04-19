@@ -14,7 +14,9 @@ namespace ZNxtApp.Core.Module.App.Services.Api
         public const int _OTP_SEND_ERROR = 8003;
         public const int _OTP_VALIDATION_FAIL = 8004;
         public const int _USER_NOT_FOUND = 8005;
-
+        public const int _SIGNUP_SESSION_USER_NOT_FOUND = 8006;
+        public const int _SIGNUP_SESSION_USER_DATA_MISMATCH = 8007;
+        public const int _PASSWORD_MISMATCH = 8008;
         private Dictionary<int, string> text = new Dictionary<int, string>();
 
         public string Get(int code)
@@ -35,6 +37,9 @@ namespace ZNxtApp.Core.Module.App.Services.Api
             text[_OTP_SEND_ERROR] = "OTP_SEND_ERROR";
             text[_USER_NOT_FOUND] = "USER_NOT_FOUND";
             text[_OTP_VALIDATION_FAIL] = "OTP_VALIDATION_FAIL";
+            text[_SIGNUP_SESSION_USER_DATA_MISMATCH] = "SIGNUP_SESSION_USER_DATA_MISMATCH";
+            text[_SIGNUP_SESSION_USER_NOT_FOUND] = "SIGNUP_SESSION_USER_NOT_FOUND";
+            text[_PASSWORD_MISMATCH] = "PASSWORD_MISMATCH";
         }
     }
 }

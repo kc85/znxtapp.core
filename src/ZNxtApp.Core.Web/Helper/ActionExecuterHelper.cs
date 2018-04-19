@@ -23,10 +23,10 @@ namespace ZNxtApp.Core.Web.Helper
             ParamContainer paramContainer = new ParamContainer();
             IAppSettingService appSettingService = AppSettingService.Instance;
             IViewEngine viewEngine = ViewEngine.GetEngine();
-
+            IEncryption encryption = new EncryptionService();
             ISMSService smsService = new SMSService(loggerController, dbService, actionExecuter, viewEngine, paramContainer);
             IEmailService emailService = new EmailService(loggerController, dbService, actionExecuter, viewEngine, paramContainer);
-            IOTPService otpService = new OTPService(loggerController, dbService, smsService, emailService);
+            IOTPService otpService = new OTPService(loggerController, dbService, smsService, emailService,appSettingService);
 
            
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_DBPROXY, () => { return dbService; });
@@ -40,6 +40,7 @@ namespace ZNxtApp.Core.Web.Helper
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_OTP_SERVICE, () => { return otpService; });
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_SMS_SERVICE, () => { return smsService; });
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_EMAIL_SERVICE, () => { return emailService; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_ENCRYPTION_SERVICE, () => { return encryption; });
 
             return paramContainer;
 

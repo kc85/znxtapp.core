@@ -59,6 +59,7 @@
     <Compile Include="AppStart\GlobalAsaxBase.cs" />
     <Compile Include="AppStart\InitApp.cs" />
     <Compile Include="CronJobs\CheckAppHealthCronJob.cs" />
+    <Compile Include="CronJobs\OTPCleanUpCronJob.cs" />
     <Compile Include="CronJobs\UpdateAppSettingCronJob.cs" />
     <Compile Include="Handler\RequestHandler.cs" />
     <Compile Include="Handler\RequestHandlerBase.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Proxies\HttpContextProxy.cs" />
     <Compile Include="Routings\Routings.cs" />
     <Compile Include="Services\ActionExecuter.cs" />
+    <Compile Include="Services\Api\Email\EmailController.cs" />
     <Compile Include="Services\Api\ModuleInstaller\ModuleInstaller.cs" />
     <Compile Include="Services\Api\ModuleInstaller\ModuleInstallerResponseCode.cs" />
     <Compile Include="Services\Api\Ping\PingController.cs" />

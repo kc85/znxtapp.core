@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ZNxtApp.Core.Module.App</id>
-    <version>1.0.1.40180-Alpha</version>
+    <version>1.0.6.1029-Alpha</version>
     <title>ZNxtApp.Core.Module.App</title>
     <authors>Khanin Choudhury</authors>
     <owners>Khanin Choudhury</owners>
@@ -15,7 +15,7 @@
     <copyright>Copyright 2018</copyright>
     <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.Core ZNxtApp.Core.Module,ZNxtApp.Core.Module.App</tags>
 	<dependencies>
-      <dependency id="ZNxtApp.Core" version="1.0.5-Alpha"  />
+      <dependency id="ZNxtApp.Core" version="1.0.7-Alpha"  />
     <dependency id="Facebook"  version="7.0.6"  />
 
   </dependencies>

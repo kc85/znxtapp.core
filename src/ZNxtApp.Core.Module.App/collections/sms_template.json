@@ -2,14 +2,14 @@
 
     {
         "key": "OTP_SIGN_UP_SMS",
-        "body": "@Model[\"app_name\"] sign up OTP is @Model[\"otp\"], Validation for OTP: @Model[\"duration\"] minutes"
+        "body": "@Model[\"app_name\"] sign up OTP is @Model[\"otp\"]. DO NOT SHARE WITH ANYONE"
     },
     {
         "key": "OTP_login_sms",
-        "body": "@Model[\"app_name\"] login OTP is @Model[\"otp\"], Validation for OTP: @Model[\"duration\"] minutes"
+        "body": "@Model[\"app_name\"] login OTP is @Model[\"otp\"]. DO NOT SHARE WITH ANYONE"
     },
     {
         "key": "OTP_forget_password_sms",
-        "body": "@Model[\"app_name\"] forget password OTP is @Model[\"otp\"], Validation for OTP: @Model[\"duration\"] minutes"
+        "body": "@Model[\"app_name\"] forget password OTP is @Model[\"otp\"]. DO NOT SHARE WITH ANYONE"
     }
 ]

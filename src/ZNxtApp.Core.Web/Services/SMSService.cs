@@ -33,34 +33,34 @@ namespace ZNxtApp.Core.Web.Services
 
         public bool Send(string toNumber, string text, bool putInQueue = true)
         {
-            _logger.Error("TODO SMSService.Send");
-            return true;
-        }
+            JObject smsData = new JObject();
+            smsData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
+            smsData[CommonConst.CommonField.PHONE] = toNumber;
+            smsData[CommonConst.CommonField.BODY] = text;
+            smsData[CommonConst.CommonField.STATUS] = SMSStatus.Queue.ToString();
 
-        public bool Send(string toNumber, string textTemplate, Dictionary<string, dynamic> modelData, bool putInQueue = true)
-        {
-            var smsTemplateData = _dbService.FirstOrDefault(CommonConst.Collection.SMS_TEMPLATE, CommonConst.CommonField.DATA_KEY, textTemplate);
-            if (smsTemplateData != null && smsTemplateData[CommonConst.CommonField.BODY] != null)
+            if (_dbService.Write(CommonConst.Collection.SMS_QUEUE, smsData))
             {
-                ServerPageModelHelper.AddBaseData(modelData);
-                modelData[CommonConst.CommonField.PHONE_FIELD] = toNumber;
-                var textSMSData = _viewEngine.Compile(smsTemplateData[CommonConst.CommonField.BODY].ToString(), textTemplate, modelData);
-                JObject smsData = new JObject();
-                smsData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
-                smsData[CommonConst.CommonField.PHONE_FIELD] = toNumber;
-                smsData[CommonConst.CommonField.BODY] = textSMSData;
-                smsData[CommonConst.CommonField.STATUS] = SMSStatus.Queue.ToString();
-
-                if (_dbService.Write(CommonConst.Collection.SMS_QUEUE, smsData))
+                if (!putInQueue)
                 {
+                    Dictionary<string, string> filter = new Dictionary<string, string>();
+                    filter[CommonConst.CommonField.DISPLAY_ID] = smsData[CommonConst.CommonField.DISPLAY_ID].ToString();
 
                     var route = Routings.Routings.GetRoutings().GetRoute(CommonConst.ActionMethods.ACTION, "/api/sms/send");
                     if (route != null)
                     {
                         _paramContainer.AddKey(SMS_QUEUE_ID, () => { return smsData[CommonConst.CommonField.DISPLAY_ID].ToString(); });
-                        var obj = _actionExecuter.Exec(route, _paramContainer);
-                        return (bool)obj;
-
+                        var smsResult = (bool)_actionExecuter.Exec(route, _paramContainer);
+                        if (smsResult)
+                        {
+                            smsData[CommonConst.CommonField.STATUS] = SMSStatus.Sent.ToString();
+                        }
+                        else
+                        {
+                            smsData[CommonConst.CommonField.STATUS] = SMSStatus.SendError.ToString();
+                        }
+                        _dbService.Write(CommonConst.Collection.SMS_QUEUE, smsData, filter);
+                        return smsResult;
                     }
                     else
                     {
@@ -71,9 +71,26 @@ namespace ZNxtApp.Core.Web.Services
                 }
                 else
                 {
-                    _logger.Error(string.Format("Error  data write fail on SMS_QUEUE"));
-                    return false;
+                    return true;
                 }
+            }
+            else
+            {
+                _logger.Error(string.Format("Error  data write fail on SMS_QUEUE"));
+                return false;
+            }
+        }
+
+        public bool Send(string toNumber, string textTemplate, Dictionary<string, dynamic> modelData, bool putInQueue = true)
+        {
+            
+            var smsTemplateData = _dbService.FirstOrDefault(CommonConst.Collection.SMS_TEMPLATE, CommonConst.CommonField.DATA_KEY, textTemplate);
+            if (smsTemplateData != null && smsTemplateData[CommonConst.CommonField.BODY] != null)
+            {
+                ServerPageModelHelper.AddBaseData(modelData);
+                modelData[CommonConst.CommonField.PHONE] = toNumber;
+                var textSMSData = _viewEngine.Compile(smsTemplateData[CommonConst.CommonField.BODY].ToString(), textTemplate, modelData);
+                return Send(toNumber, textSMSData, putInQueue);
             }
             else
             {

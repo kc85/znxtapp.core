@@ -70,6 +70,7 @@
     <None Include="module.json" />
     <None Include="packages.config" />
     <None Include="readme.md" />
+    <None Include="wwwroot\frontend\signup\setpassword.z" />
     <None Include="wwwroot\frontend\signup\signup.z" />
   </ItemGroup>
   <ItemGroup>

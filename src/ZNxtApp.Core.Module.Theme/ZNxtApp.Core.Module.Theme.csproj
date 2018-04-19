@@ -53,11 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="collections\backend_ui_routes.json" />
-    <None Include="collections\my_collection.json" />
     <None Include="collections\server_routes.json" />
     <None Include="module.json" />
     <None Include="packages.config" />
-    <None Include="readme.md" />
     <None Include="wwwroot\backend\index.z" />
     <None Include="wwwroot\backend\template\footer.zb" />
     <None Include="wwwroot\backend\template\header.zb" />
@@ -906,15 +904,12 @@
     <None Include="wwwroot\frontend\installcomplete.z">
       <SubType>Designer</SubType>
     </None>
-    <None Include="wwwroot\frontend\your_module_forntend_page_foler\your_module_page_page.z" />
     <None Include="ZNxtApp.Core.Module.Theme.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\frontend\assets\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="wwwroot\backend\app\your_module_backend\your_module.html" />
-    <Content Include="wwwroot\backend\app\your_module_backend\your_module.js" />
     <Content Include="wwwroot\backend\build\css\custom.css" />
     <Content Include="wwwroot\backend\build\css\custom.min.css" />
     <Content Include="wwwroot\backend\build\images\back_disabled.png" />
@@ -4398,7 +4393,6 @@
     <Content Include="wwwroot\backend\vendors\validator\index.html" />
     <Content Include="wwwroot\backend\vendors\validator\multifield.js" />
     <Content Include="wwwroot\backend\vendors\validator\validator.js" />
-    <Content Include="ZNxtApp.Core.Module.YOUR-MODULE-NAME.nuspec.txt" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="wwwroot\backend\vendors\devbridge-autocomplete\src\jquery.autocomplete.d.ts" />

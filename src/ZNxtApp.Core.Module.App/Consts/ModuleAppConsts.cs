@@ -28,10 +28,12 @@ namespace ZNxtApp.Core.Module.App.Consts
             public const string FACEBOOK_REQUEST_OBJECT_ACCESS_SETTING_KEY = "facebook_request_object_access";
             public const string FACEBOOK_OAUTH_CALLBACK_URL_SETTING_KEY = "facebook_oauth_callback_url";
             
-            public const string SIGN_UP_OTP_TEMPLATE = "OTP_SIGN_UP_SMS";
+            public const string SIGN_UP_OTP_SMS_TEMPLATE = "OTP_SIGN_UP_SMS";
+            public const string SIGN_UP_OTP_EMAIL_TEMPLATE = "OTP_SIGN_UP_EMAIL";
+            public const string SIGN_UP_OTP_EMAIL_SUBJECT = "OTP_SIGN_UP_EMAIL_SUBJECT";
 
             public const string DEFAULT_USER_GROUPS_APP_SETTING_KEY = "default_user_groups";
-            public const string PHONE_SIGNUP_DEFAULT_REDIRECT_PAGE_SETTING_KEY = "phone_signup_redirect_page";
+            public const string SIGNUP_LENDING_PAGE_SETTING_KEY = "signup_redirect_page";
 
         }
     }
