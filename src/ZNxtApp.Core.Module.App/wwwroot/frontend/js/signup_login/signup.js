@@ -1,5 +1,4 @@
 var grecaptcharesponse = undefined;
-var success_code = 1;
 var otp_security_token = "";
 var user_type = "Email";
 var imNotARobot = function (val) {
@@ -44,7 +43,8 @@ $(document).ready(function () {
             url: appRootPath +'/api/user/facebook/auth',
             success: function (data) {
                 console.log(data);
-                window.location = data.data.facebook_graph_api_url;
+                alert("This is not yet implemented");
+                //window.location = data.data.facebook_graph_api_url;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 console.log(errorThrown);
@@ -253,17 +253,30 @@ function onBlurSignUpText(txt) {
             //$("#divPassword").fadeIn();
             //$("#divFbSignUp").fadeOut();
             //$("#errorMessage").fadeOut();
-            $("#divSendOtp").fadeIn();
-            $("#divFbSignUp").fadeOut();
-            $("#errorMessage").fadeOut();
+            if (signup_otp_check_enabled) {
+                $("#divSendOtp").fadeIn();
+                $("#divFbSignUp").fadeOut();
+                $("#errorMessage").fadeOut();
+
+            }
+            else {
+                $("#btnSendSignUpOTP").hide();
+                $("#divPassword").show();
+            }
             user_type = "Email";
             $("#btnSendSignUpOTP").html("Send OTP on My Email");
 
         }
         else if (validatePhone($(txt).val())) {
-            $("#divSendOtp").fadeIn();
-            $("#divFbSignUp").fadeOut();
-            $("#errorMessage").fadeOut();
+            if (signup_otp_check_enabled) {
+                $("#divSendOtp").fadeIn();
+                $("#divFbSignUp").fadeOut();
+                $("#errorMessage").fadeOut();
+            }
+            else {
+                $("#btnSendSignUpOTP").hide();
+                $("#divPassword").show();
+            }
             user_type = "PhoneNumber";
             $("#btnSendSignUpOTP").html("Send OTP on My Mobile");
 

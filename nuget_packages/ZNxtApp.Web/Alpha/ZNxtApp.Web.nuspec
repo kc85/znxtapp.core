@@ -2,7 +2,7 @@
 <package>
    <metadata>
       <id>ZNxtApp.Web</id>
-      <version>1.0.5-Alpha</version>
+      <version>1.0.8-Beta</version>
       <title>ZNxtApp.Web</title>
       <authors>Khanin Choudhury</authors>
       <owners>Khanin Choudhury</owners>
@@ -11,11 +11,11 @@
       <iconUrl>https://raw.githubusercontent.com/kc85/znxtapp.core/master/logo/ZNxtAppLogo.png</iconUrl>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
       <description>ZNxtApp.Web is the core nuget package for create ZNxtApp Web Application</description>
-      <releaseNotes>Initial nuget check</releaseNotes>
+      <releaseNotes>Initial check in for beta version</releaseNotes>
       <copyright>Copyright 2018</copyright>
       <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.Web</tags>
       <dependencies>
-         <dependency id="ZNxtApp.Core" version="1.0.7-Alpha" />
+         <dependency id="ZNxtApp.Core" version="1.0.8-Beta" />
          <dependency id="Microsoft.AspNet.Razor" version="3.0.0" />
          <dependency id="RazorEngine" version="3.10.0" />
 		 <dependency id="MongoDB.Driver" version="2.5.0" />

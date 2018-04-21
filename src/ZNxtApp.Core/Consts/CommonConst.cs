@@ -21,6 +21,7 @@ namespace ZNxtApp.Core.Consts
         public const int _200_OK = 200;
         public const int _1_SUCCESS = 1;
         public const int _400_BAD_REQUEST = 400;
+        public const int _401_UNAUTHORIZED = 401;
         public const int _500_SERVER_ERROR= 500;
         private const string UNKNOWN_MESSAGE = "UNKNOWN_STATUS_CODE";
 
@@ -87,6 +88,7 @@ namespace ZNxtApp.Core.Consts
                 text[CommonConst._400_BAD_REQUEST] = "BAD_REQUEST";
                 text[CommonConst._500_SERVER_ERROR] = "SERVER_ERROR";
                 text[CommonConst._1_SUCCESS] = "SUCCESS";
+                text[_401_UNAUTHORIZED] = "UNAUTHORIZED";
             }
             
             public static MessageText GetMessage()

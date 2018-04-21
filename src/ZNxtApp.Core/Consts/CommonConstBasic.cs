@@ -4,6 +4,7 @@
     {
         public static class CommonField
         {
+            public const string IS_ENABLED = "is_enabled";
             public const string DISPLAY_ID = "id";
             public const string ID = "_id";
             public const string SERVER_SIDE_PROCESS_HTML_EXTENSION = ".z";

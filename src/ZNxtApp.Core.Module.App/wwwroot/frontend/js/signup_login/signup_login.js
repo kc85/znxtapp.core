@@ -1,3 +1,5 @@
+var success_code = 1;
+
 function validateEmail($email) {
     if ($email.length == 0) {
         return false;

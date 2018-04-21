@@ -9,7 +9,7 @@ set bin_path=%3
 set nuget_spec_path=%4
 set project_name=%5
 set project_path=%6
-set nuget_version=%version%-Alpha
+set nuget_version=%version%-Beta
 set nuget_path="%nuget_path%"
 
 set command="(gc \"%nuget_spec_path%\") -replace 'version>([^\s]+)<\/version', 'version>%nuget_version%</version' | Out-File \"%nuget_spec_path%\" -Encoding UTF8"

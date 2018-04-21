@@ -1,8 +1,13 @@
 ﻿@{
-	@InclueTemplate("../template/signup_template.zt")
+   @InclueTemplate("../template/signup_template.zt")
 
   var modelData = IncludeModel("/api/model/signup",null);
 }
+<script>
+
+    var  signup_otp_check_enabled =  @AppSetting("signup_otp_check");
+
+</script>
   <div class="signup_body">
           
           <div class="login">
@@ -15,7 +20,7 @@
                   <div class="login__signup" id="gmessage" style="color:#fff; font-weight:bold;padding-top:10px;">
                       Click on I'm not a robot for next step.
                     <br />
-                      <p class="login__signup">Go back to  <a href="./login.z"> Login</a> &nbsp; <a href="./index.z"> Home </a></p>
+                      <p class="login__signup">Go back to  <a href="@Model["base_uri"]/signup/login.z"> Login</a> &nbsp; <a href="@Model["base_uri"]/index.z"> Home </a></p>
                   </div>
               </div>
               <div class="login__form" style="display:none">
@@ -74,11 +79,11 @@
                          <h1 style="color:#fff">OR</h1>
                           <br /> 
                       </p>
-                      <button type="button" class="login__facebook" id="btnFBLogin">Sign up with facebook</button>
+                      <button type="button" class="login__facebook" id="btnFBLogin">Signup with facebook</button>
 
                   </div>
 
-                  <p class="login__signup"><a href="./login"> Login</a> &nbsp;<a href="./index"> Home </a></p>
+                  <p class="login__signup"><a href="@Model["base_uri"]/signup/login.z"> Login</a> &nbsp;<a href="@Model["base_uri"]"> Home </a></p>
               </div>
           </div>
       </div>

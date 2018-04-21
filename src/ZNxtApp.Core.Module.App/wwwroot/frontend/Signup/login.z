@@ -1,0 +1,49 @@
+﻿@{
+	@InclueTemplate("../template/signup_template.zt")
+
+  var modelData = IncludeModel("/api/model/signup",null);
+}
+<div class="signup_body">
+
+    <div class="login">
+        <div style="background-color:#5575ae">
+            <h1 style="color:#fff;text-align:center;padding:10px;font-size:3em;">Login</h1>
+        </div>
+        <div class="login__form">
+            <h1 style="color:#fff;font-size:2.5em;text-align:left">Enter Mobile Number or Email Id</h1>
+            <div class="login__row">
+                <svg class="login__icon name svg-icon" viewBox="0 0 20 20">
+                    <path d="M0,20 a10,8 0 0,1 20,0z M10,0 a4,4 0 0,1 0,8 a4,4 0 0,1 0,-8" />
+                </svg>
+                <input type="text" class="login__input name" id="txtUserName" placeholder="Username" onblur="onBlur()" />
+            </div>
+            <h1 style="color:#fff;font-size:2.5em;text-align:left;margin-top:10px">Enter Password</h1>
+            <div class="login__row">
+                <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
+                    <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
+                </svg>
+                <input type="password" onblur="onBlur()" class="login__input pass" id="txtPassword" placeholder="Password" />
+            </div>
+            <div style="text-align:right;margin-top:5px"><a style="color:#fff;font-size:2em;" href="./forgetpassword">Forget password</a></div>
+
+            <div class="login__error" id="errorMessage" style="display:none;font-size:2.5em">
+                User name or password incorrect.
+                <br />
+                <br />
+            </div>
+
+            <button class="g-recaptcha login__submit"
+                    data-sitekey='@modelData["google_invasible_recaptcha_key"]'
+                    data-expired-callback="capchaExpiredCallback"
+                    data-callback="imNotARobotCallback" id="btnSingin">
+                Sign in
+            </button>
+
+            <button type="button" class="login__facebook" id="btnFBLogin">Sign in with facebook</button>
+
+            <p class="login__signup">Don't have an account? <br />&nbsp;<a href="@Model["base_uri"]/signup/signup.z">Sign up</a></p>
+        </div>
+    </div>
+         
+</div>
+<script src="@Model["base_uri"]/js/signup_login/login.js"></script>

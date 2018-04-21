@@ -160,13 +160,15 @@ namespace ZNxtApp.Core.AppInstaller
                     ]
                 }");
 
-            customConfig[CommonConst.CommonField.USER_TYPE] = "Email";
+            customConfig[CommonConst.CommonField.USER_TYPE] = UserIDType.Email.ToString();
             customConfig[CommonConst.CommonField.IS_EMAIL_VALIDATE] = true;
+            customConfig[CommonConst.CommonField.IS_ENABLED] = true;
+
             customConfig[CommonConst.CommonField.DATA_KEY] =
                 customConfig[CommonConst.CommonField.NAME] =
                 customConfig[CommonConst.CommonField.EMAIL] =
                 customConfig[CommonConst.CommonField.USER_ID] = requestData.AdminAccount;
-            customConfig[CommonConst.CommonField.PASSWORD] = _encryptionService.Encrypt(requestData.AdminPassword);
+            customConfig[CommonConst.CommonField.PASSWORD] = _encryptionService.GetHash(requestData.AdminPassword);
 
             JArray configData = new JArray();
             configData.Add(customConfig);

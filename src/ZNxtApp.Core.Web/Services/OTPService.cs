@@ -114,8 +114,37 @@ namespace ZNxtApp.Core.Web.Services
 
         public bool ValidateEmail(string email, string otp, OTPType otpType, string securityToken)
         {
-            _logger.Error("TODO ValidateEmail");
-            return true;
+            Dictionary<string, string> filter = new Dictionary<string, string>();
+            filter[CommonConst.CommonField.OTP] = otp;
+            filter[CommonConst.CommonField.EMAIL] = email;
+            filter[CommonConst.CommonField.STATUS] = OTPStatus.New.ToString();
+            filter[CommonConst.CommonField.OTP_TYPE] = otpType.ToString();
+
+            var otpData = _dbService.FirstOrDefault(CommonConst.Collection.OTPs, filter);
+            if (otpData != null)
+            {
+                otpData[CommonConst.CommonField.STATUS] = OTPStatus.Used.ToString();
+                if (_dbService.Write(CommonConst.Collection.OTPs, otpData, filter))
+                {
+                    if (!string.IsNullOrEmpty(securityToken))
+                    {
+                        return otpData[CommonConst.CommonField.SECURITY_TOKEN].ToString() == securityToken;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    _logger.Error("Error updating OTP status on DB");
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

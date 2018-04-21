@@ -108,5 +108,12 @@
     "key": "OTP_SIGN_UP_EMAIL_SUBJECT",
     "comment": "SIGN_UP_OTP_EMAIL_SUBJECT",
     "data": "Signup OTP"
+  },{
+    "auth_users": [
+      "sys_admin"
+    ],
+    "key": "signup_otp_check",
+    "comment": "signup_otp_check",
+    "data": "false"
   }
 ]

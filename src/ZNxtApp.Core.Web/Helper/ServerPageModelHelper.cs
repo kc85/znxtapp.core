@@ -9,6 +9,7 @@ using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
+using ZNxtApp.Core.Web.Services;
 using ZNxtApp.Core.Web.Util;
 
 namespace ZNxtApp.Core.Web.Helper
@@ -63,11 +64,13 @@ namespace ZNxtApp.Core.Web.Helper
         }
         private static Dictionary<string, dynamic> SetDefaultModel(IDBService dbProxy, IHttpContextProxy httpProxy, ILogger logger, IViewEngine viewEngine, IActionExecuter actionExecuter, Dictionary<string, dynamic> model, string folderPath = null)
         {
+            ISessionProvider sessionProvider = new SessionProvider(httpProxy, dbProxy, logger);
+
             if (model == null)
             {
                 model = new Dictionary<string, dynamic>();
             }
-            model["Methods"] = new Dictionary<string, dynamic>();
+            model[CommonConst.CommonValue.METHODS] = new Dictionary<string, dynamic>();
 
             Func<string, string, JArray> getData =
                 (string collection, string filter) =>
@@ -76,6 +79,18 @@ namespace ZNxtApp.Core.Web.Helper
                 return dbProxy.Get(filter);
 
             };
+            Func<string, string> getAppSetting =
+               (string key) =>
+               {
+                 return  AppSettingService.Instance.GetAppSettingData(key);
+
+               };
+            Func<string, JObject> getSessionValue =
+               (string key) =>
+               {
+                   return sessionProvider.GetValue<JObject>(key);
+
+               };
             Func<string, string> includeTemplete = (string templatePath) =>
             {
 
@@ -141,6 +156,10 @@ namespace ZNxtApp.Core.Web.Helper
             Func<string, string> queryString = (string key) => httpProxy.GetQueryString(key);
             model[CommonConst.CommonValue.METHODS]["QueryString"] = queryString;
 
+            model[CommonConst.CommonValue.METHODS]["AppSetting"] = getAppSetting;
+
+            model[CommonConst.CommonValue.METHODS]["GetSessionData"] = getSessionValue;
+            
             Func<string, JObject, string> includeBlock =
                 (string blockPath, JObject blockModel) =>
                 {

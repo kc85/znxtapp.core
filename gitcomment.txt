@@ -1,1 +1,1 @@
-email registration completed
+Completed Login page. Push Beta version packages.
