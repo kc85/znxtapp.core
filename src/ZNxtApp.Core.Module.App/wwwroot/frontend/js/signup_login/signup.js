@@ -10,9 +10,8 @@ var imNotARobot = function (val) {
 $(document).ready(function () {
     var redirectUrl = GetParameterValues("rurl");
     if (redirectUrl == undefined) {
-        redirectUrl = "./index.html";
+        redirectUrl = appRootPath + "/index.z";
     }
-
     var animating = false,
         submitPhase1 = 1100,
         submitPhase2 = 400,
@@ -190,15 +189,15 @@ $(document).ready(function () {
             contentType: "application/json",
             dataType: 'json',
             success: function (data) {
-                animating = false;
-                $(that).removeClass("success processing");
-
+               
                 if (data.code === success_code) {
                     $("#divOtp").fadeOut();
                     $("#divPassword").fadeIn();
                      window.location = appRootPath+ data.rurl;
                 }
                 else {
+                    animating = false;
+                    $(that).removeClass("success processing");
                     $("#errorMessage").show();
                     $("#errorMessage").html(data.message);
                 }

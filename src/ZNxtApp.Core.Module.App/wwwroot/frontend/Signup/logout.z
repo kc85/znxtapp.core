@@ -1,0 +1,30 @@
+﻿<script>
+ function GetParameterValues(param) {
+        var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < url.length; i++) {
+            var urlparam = url[i].split('=');
+            if (urlparam[0] == param) {
+                return urlparam[1];
+            }
+        }
+    }
+
+var appRootPath = '@Model["base_uri"]';
+ var redirectUrl = GetParameterValues("rurl");
+    if (redirectUrl == undefined) {
+        redirectUrl = appRootPath+ "/index.z";
+    }
+ var logout  = @ExecuteAction("/api/auth/logout",null);
+console.log(logout);
+
+if(logout.code == 1){
+   window.location = redirectUrl;
+}
+
+else{
+
+alert("Error in logout");
+
+}
+ 
+</script>

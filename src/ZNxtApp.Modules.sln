@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZNxtApp.Core.Module.Theme",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZNxtApp.Core.Module.SMS.TextLocal", "ZNxtApp.Core.Module.SMS.TextLocal\ZNxtApp.Core.Module.SMS.TextLocal.csproj", "{D06347B0-D077-4C14-91B4-82C1AFEB90F2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZNxtApp.Core.Module.Theme.Frontend", "ZNxtApp.Core.Module.Theme.Frontend\ZNxtApp.Core.Module.Theme.Frontend.csproj", "{CC172FFC-01D0-4BD0-BDFB-194D637730A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{D06347B0-D077-4C14-91B4-82C1AFEB90F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D06347B0-D077-4C14-91B4-82C1AFEB90F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D06347B0-D077-4C14-91B4-82C1AFEB90F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC172FFC-01D0-4BD0-BDFB-194D637730A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC172FFC-01D0-4BD0-BDFB-194D637730A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC172FFC-01D0-4BD0-BDFB-194D637730A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC172FFC-01D0-4BD0-BDFB-194D637730A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

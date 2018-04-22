@@ -30,12 +30,13 @@ var imNotARobotCallback = function (val) {
         contentType: "application/json",
         dataType: 'json',
         success: function (data) {
-            animating = false;
-            $(that).removeClass("success processing");
+         
             if (data.code === success_code) {
                 window.location = redirectUrl;
             }
             else {
+                animating = false;
+                $(that).removeClass("success processing");
                 $("#errorMessage").show();
                 $("#errorMessage").html(data.message);
             }

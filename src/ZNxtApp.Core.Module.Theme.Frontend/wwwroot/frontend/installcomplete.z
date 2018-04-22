@@ -1,0 +1,22 @@
+﻿@InclueTemplate("./template/template.zt")
+
+  <div class="page-wrapper">
+    <div class="container">
+      <!-- services section -->
+	   <div class="row mb-large"></div>
+      <div class="row mb-xlarge">
+        <div class="col-md-12">
+          <h2 >
+            ZNxtApp installation complete
+          </h2>
+          <p class="thin-text">
+            ZNxtApp installation complete
+            <br/>
+              <a href="./admin001/index.z"> Go To Admin Page </a>
+            <br/>
+            <a href="./index.z"> Go To Home Page </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>

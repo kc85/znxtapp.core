@@ -1,0 +1,444 @@
+/*********************************
+******* #7cfd73 ***************************/
+
+::selection {
+	background: #7cfd73; /* Safari */
+	}
+::-moz-selection {
+	background: #7cfd73; /* Firefox */
+}
+.followingBallsG{
+	background-color:#7cfd73;
+}
+
+.followingBallsG{
+	background-color:#7cfd73;
+	position:absolute;
+	top:0;
+	left:0;
+	width:6px;
+	height:6px;
+	-moz-border-radius:3px;
+	-moz-animation-name:bounce_followingBallsG;
+	-moz-animation-duration:2.3s;
+	-moz-animation-iteration-count:infinite;
+	-moz-animation-direction:linear;
+	-webkit-border-radius:3px;
+	-webkit-animation-name:bounce_followingBallsG;
+	-webkit-animation-duration:2.3s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-direction:linear;
+	-ms-border-radius:3px;
+	-ms-animation-name:bounce_followingBallsG;
+	-ms-animation-duration:2.3s;
+	-ms-animation-iteration-count:infinite;
+	-ms-animation-direction:linear;
+	-o-border-radius:3px;
+	-o-animation-name:bounce_followingBallsG;
+	-o-animation-duration:2.3s;
+	-o-animation-iteration-count:infinite;
+	-o-animation-direction:linear;
+	border-radius:3px;
+	animation-name:bounce_followingBallsG;
+	animation-duration:2.3s;
+	animation-iteration-count:infinite;
+	animation-direction:linear;
+}
+
+#followingBallsG_1{
+	-moz-animation-delay:0s;
+}
+
+#followingBallsG_1{
+	-webkit-animation-delay:0s;
+}
+
+#followingBallsG_1{
+	-ms-animation-delay:0s;
+}
+
+#followingBallsG_1{
+	-o-animation-delay:0s;
+}
+
+#followingBallsG_1{
+	animation-delay:0s;
+}
+
+#followingBallsG_2{
+	-moz-animation-delay:0.23s;
+	-webkit-animation-delay:0.23s;
+	-ms-animation-delay:0.23s;
+	-o-animation-delay:0.23s;
+	animation-delay:0.23s;
+}
+
+#followingBallsG_3{
+	-moz-animation-delay:0.46s;
+	-webkit-animation-delay:0.46s;
+	-ms-animation-delay:0.46s;
+	-o-animation-delay:0.46s;
+	animation-delay:0.46s;
+}
+
+#followingBallsG_4{
+	-moz-animation-delay:0.69s;
+	-webkit-animation-delay:0.69s;
+	-ms-animation-delay:0.69s;
+	-o-animation-delay:0.69s;
+	animation-delay:0.69s;
+}
+
+@-moz-keyframes bounce_followingBallsG{
+	0%{
+	left:0px;
+	background-color:#7cfd73;
+	}
+
+	50%{
+	left:74px;
+	background-color:#B5B5B5;
+	}
+
+	100%{
+	left:0px;
+	background-color:#7cfd73;
+	}
+
+}
+
+@-webkit-keyframes bounce_followingBallsG{
+	0%{
+	left:0px;
+	background-color:#7cfd73;
+	}
+
+	50%{
+	left:74px;
+	background-color:#B5B5B5;
+	}
+
+	100%{
+	left:0px;
+	background-color:#7cfd73;
+	}
+
+}
+
+@-ms-keyframes bounce_followingBallsG{
+	0%{
+	left:0px;
+	background-color:#7cfd73;
+	}
+
+	50%{
+	left:74px;
+	background-color:#B5B5B5;
+	}
+
+	100%{
+	left:0px;
+	background-color:#7cfd73;
+	}
+
+	}
+
+@-o-keyframes bounce_followingBallsG{
+	0%{
+	left:0px;
+	background-color:#7cfd73;
+	}
+
+	50%{
+	left:74px;
+	background-color:#B5B5B5;
+	}
+
+	100%{
+	left:0px;
+	background-color:#7cfd73;
+	}
+
+	}
+
+@keyframes bounce_followingBallsG{
+	0%{
+	left:0px;
+	background-color:#7cfd73;
+	}
+
+	50%{
+	left:74px;
+	background-color:#B5B5B5;
+	}
+
+	100%{
+	left:0px;
+	background-color:#7cfd73;
+	}
+
+}
+
+blockquote{
+	border-left: 3px solid #7cfd73;
+}
+a{
+	color: #7cfd73;
+}
+.btn-toranj {
+	background-color: #7cfd73;
+	border-color: #76FC6D;
+}
+.btn-toranj.alt {
+	color: #7cfd73;
+	border-color: #7cfd73;
+}
+.btn-toranj:hover, .btn-toranj:focus, .btn-toranj:active, .btn-toranj.active{
+	background-color: #72F469;
+	border-color: #77F56F;
+	color: #fff;
+}
+.back-to-top,
+#back-to-top{
+	border:1px solid #7cfd73;
+}
+.back-to-top:hover,
+.back-to-top:focus,
+#back-to-top:hover,
+#back-to-top:focus{	
+	background-color: #7cfd73;
+}
+.lined:after{
+	background:#7cfd73;
+}
+.bordered:after{
+	background:#7cfd73;
+}
+ul.list-iconed-circle i,
+ul.list-iconed-square i{
+	color:#7cfd73;
+	border:1px solid #7cfd73;
+}
+#menu-icon{
+	color: #7cfd73;
+}
+#navigation > li > a:hover,
+#navigation > li > a:focus,
+#navigation > li.current-menu-item > a,
+#navigation > li.current-menu-parent > a{
+	/* border-left: 4px solid #7cfd73; */
+}
+#navigation li.current-menu-item a:before, 
+#navigation li.current-menu-parent >a:before, 
+#navigation .nav-prev>a:before {
+	background: #7cfd73;
+}
+#navigation li ul li a:hover,
+#navigation li ul li a:focus,
+#navigation li ul li.current-menu-item a{
+	/* border-left: 1px solid #7cfd73; */
+}
+.page-title .title span{
+	color: #7cfd73;
+}
+#map-marker i{
+    /* color:#7cfd73; */
+}
+.tj-form label{
+	color: #7cfd73;
+}
+#portfolio-nav li a{
+	color: #7cfd73;
+}
+#portfolio-nav li a i{
+	border:1px solid #7cfd73;
+}
+#portfolio-nav li a:hover i,
+#portfolio-nav li a:focus i{
+	background: #7cfd73;
+}
+.grid-filters:after{
+	background: #7cfd73;
+}
+.fixed-filter .select-filter i{
+	color: #7cfd73;
+}
+.tj-hover-3 .tj-overlay .title:after{
+	background-color: #7cfd73;
+}
+#ascrail2000-hr> div{
+	background: #7cfd73 !important;
+}
+ul.list-items .list-label{
+	color: #7cfd73;
+}
+.vertical-carousel .vcarousel-next a,.vertical-carousel .vcarousel-prev a{
+  	color:#7cfd73;
+}
+.vertical-carousel .vcarousel-counter{
+	color:#7cfd73;
+}
+.blog-minimal-s #blog-list .post-meta,
+.blog-minimal #blog-list .post-meta{
+	color: #7cfd73;
+}
+#blog-more {
+	border: 1px solid #7cfd73;
+	color: #7cfd73; 
+}
+#blog-more:hover,
+#blog-more:focus {
+	background: #7cfd73;
+}
+#post-body #post-side a:hover,
+#post-body #post-side a:focus {
+	color:#7cfd73;
+}
+#comment-list .comment-meta ul li a:hover,
+#comment-list .comment-meta ul li a:focus {
+	color:#7cfd73;
+}
+.widget-recent-posts .w-post-content a:hover,
+.widget-recent-posts .w-post-content a:focus{
+	color: #7cfd73;
+}
+.colored{
+	color: #7cfd73;
+}
+.section-title:after{
+	background: #7cfd73; 
+}
+.team-item .team-content .subtitle:after{
+	background: #7cfd73;  
+}
+.team-socials li a{
+	color: #7cfd73;
+}
+.team-socials li a i{
+	border:1px solid #7cfd73;
+}
+.team-socials li a:hover i,.team-socials li a:focus i{
+	background: #7cfd73;
+}
+.vertical-services li{
+    border-left: 1px solid #7cfd73;
+}
+.vertical-services li i{
+    color: #7cfd73;
+    border: 1px solid #7cfd73;
+}
+.skill-item .bar{
+	background-color: #7cfd73;
+}
+.accordion .item.active .head a,	
+.accordion .item .head a:hover,
+.accordion .item .head a:focus{
+	color:#7cfd73;
+}
+.tabs .tabs-head li.active a,
+.tabs .tabs-head li:hover a,
+.tabs .tabs-head li:focus a{
+	color: #7cfd73;
+}
+.icon-box .ib-icon{
+	border: 1px solid #7cfd73;
+	color: #7cfd73;
+}
+.ib-center .ib-icon{
+	background-color: #7cfd73;
+	color:#fff;
+}
+
+.cap-compact{
+	border-left: 8px solid #7cfd73;
+}
+.cap-compact.cap-reverse{
+	border-right: 8px solid #7cfd73;
+}
+.cap-lg .cap-des:after{
+	background-color: #7cfd73;
+}
+.cap-toranj .cap-title:after{
+	background: #7cfd73; 
+}
+.owl-caption a:hover i,
+.owl-caption a:focus i{
+	color:#7cfd73;
+}
+.ms-staff-carousel .ms-staff-info h4:after{
+	background: #7cfd73;
+}
+.ms-skin-toranj .ms-nav-next,
+.ms-skin-toranj .ms-nav-prev,
+.tj-playbtn{
+	color: #7cfd73;
+}	
+.ms-skin-toranj .tj-ms-counter{
+  color: #7cfd73;
+}
+.tj-ms-gallery .ms-thumb-list{
+	color: #7cfd73;
+}
+.ms-skin-toranj  .ms-slide .ms-slide-vpbtn, 
+.ms-skin-toranj  .ms-video-btn {
+	color: #7cfd73;
+	border:1px solid #7cfd73;
+}
+.ms-skin-toranj  .ms-slide .ms-slide-vpbtn:after, 
+.ms-skin-toranj  .ms-video-btn:after{
+	color: #7cfd73;
+}
+.ms-skin-toranj  .ms-slide .ms-slide-vpbtn:hover, 
+.ms-skin-toranj  .ms-video-btn:hover{
+	background:#7cfd73;
+}
+.ms-skin-toranj .tj-controlls-vmode .tj-ms-counter{
+  color: #7cfd73;
+}
+.grid-filters-wrapper .select-filter i{
+		color: #7cfd73;
+}
+.page-side .title .second-part{
+	color: #FF7843;
+}
+.tj-mp-action i{
+	border:1px solid #7cfd73;
+}
+.tj-mp-action:hover i, .tj-mp-action:focus i, .tj-mp-close:hover i, .tj-mp-close:focus i{
+	background-color:#7cfd73;
+}
+
+
+
+.blog-list .post-header a:hover, .blog-list .post-header a:focus, .blog-list .post-meta span a:hover, .blog-list .post-meta span a:focus{
+	color:#72F469;
+}
+.widget-recent-posts .date{
+	color:#72F469;
+}
+
+#menu-toggle,#menu-toggle:after, #menu-toggle:before{
+	background:#72F469;
+}
+
+.portfolio-nav li a i{
+	border: 1px solid #72F469;
+}
+.portfolio-nav li a{
+	color: #72F469;
+}
+.portfolio-nav li a:hover i, 
+.portfolio-nav li a:focus i {
+	background: #72F469;
+	color: #1c1c1c;
+}
+.contact-detail h5{
+	color: #72F469;
+}
+.bordered:after, .bordered-fine:after{
+	background: #72F469;
+}
+.team-members .left-side .item .info:before{
+	background: #72F469;
+}
+

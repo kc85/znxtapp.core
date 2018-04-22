@@ -57,6 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Api\AppResponseCode.cs" />
     <Compile Include="Services\Api\Login\LoginController.cs" />
+    <Compile Include="Services\Api\Logout\LogoutController.cs" />
     <Compile Include="Services\Api\Menu\BackendMenuController.cs" />
     <Compile Include="Services\Api\Signup\Facebook\FacebookAuthUserController.cs" />
     <Compile Include="Services\Api\Signup\SignUpCommonController.cs" />
@@ -71,6 +72,7 @@
     <None Include="module.json" />
     <None Include="packages.config" />
     <None Include="readme.md" />
+    <None Include="wwwroot\frontend\signup\logout.z" />
     <None Include="wwwroot\frontend\signup\login.z" />
     <None Include="wwwroot\frontend\signup\setpassword.z" />
     <None Include="wwwroot\frontend\signup\signup.z" />

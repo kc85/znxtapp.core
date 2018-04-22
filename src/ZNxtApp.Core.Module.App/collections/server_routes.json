@@ -72,13 +72,25 @@
     ]
   },
   {
-     "key": "POST:/api/auth/login",
+    "key": "POST:/api/auth/login",
     "ContentType": "application/json",
     "Method": "POST",
     "Route": "/api/auth/login",
     "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
     "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Login.LoginController",
     "ExecuteMethod": "Login",
+    "auth_users": [
+      "*"
+    ]
+  },
+   {
+     "key": "ACTION:/api/auth/logout",
+    "ContentType": "application/json",
+    "Method": "ACTION",
+    "Route": "/api/auth/logout",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Logout.LogoutController",
+    "ExecuteMethod": "LogoutAction",
     "auth_users": [
       "*"
     ]

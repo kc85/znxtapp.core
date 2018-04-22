@@ -1,0 +1,583 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CC172FFC-01D0-4BD0-BDFB-194D637730A8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZNxtApp.Core.Module.Theme.Frontend</RootNamespace>
+    <AssemblyName>ZNxtApp.Core.Module.Theme.Frontend</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DnsClient, Version=1.0.7.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.0.7\lib\net45\DnsClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.5.0\lib\net45\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.5.0\lib\net45\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.5.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.10.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.10.0\lib\net45\RazorEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.3.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ZNxtApp.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZNxtApp.Core.1.0.8-Beta\lib\net452\ZNxtApp.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="build-events-scripts\post-build\readme.md" />
+    <None Include="build-events-scripts\post-build\upload_module.bat" />
+    <None Include="build-events-scripts\post-build\winhttpjs.bat" />
+    <None Include="collections\backend_ui_routes.json" />
+    <None Include="collections\my_collection.json" />
+    <None Include="collections\server_routes.json" />
+    <None Include="Consts\readme.md" />
+    <None Include="module.json" />
+    <None Include="packages.config" />
+    <None Include="readme.md" />
+    <None Include="Services\Api\readme.md" />
+    <None Include="wwwroot\frontend\about\about.z" />
+    <None Include="wwwroot\frontend\assets\css\fonts\Far_Egypt.eot" />
+    <None Include="wwwroot\frontend\assets\css\fonts\Far_Egypt.ttf" />
+    <None Include="wwwroot\frontend\assets\css\fonts\fontawesome-webfont.eot" />
+    <None Include="wwwroot\frontend\assets\css\fonts\fontawesome-webfont.ttf" />
+    <None Include="wwwroot\frontend\assets\css\fonts\fontawesome-webfont.woff" />
+    <None Include="wwwroot\frontend\assets\css\fonts\FontAwesome.otf" />
+    <None Include="wwwroot\frontend\assets\css\fonts\IranianSans.eot" />
+    <None Include="wwwroot\frontend\assets\css\fonts\IranianSans.ttf" />
+    <None Include="wwwroot\frontend\assets\css\fonts\IranianSans.woff" />
+    <None Include="wwwroot\frontend\assets\css\fonts\IranianSerifWeb.woff" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-bold-webfont.eot" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-bold-webfont.ttf" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-bold-webfont.woff" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-extrabold-webfont.eot" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-extrabold-webfont.ttf" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-extrabold-webfont.woff" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-extralight-webfont.eot" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-extralight-webfont.ttf" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-extralight-webfont.woff" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-heavy-webfont.eot" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-heavy-webfont.ttf" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-heavy-webfont.woff" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-light-webfont.eot" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-light-webfont.ttf" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-light-webfont.woff" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-medium-webfont.eot" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-medium-webfont.ttf" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-medium-webfont.woff" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-regular-webfont.eot" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-regular-webfont.ttf" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-regular-webfont.woff" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-semibold-webfont.eot" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-semibold-webfont.ttf" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-semibold-webfont.woff" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-thin-webfont.eot" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-thin-webfont.ttf" />
+    <None Include="wwwroot\frontend\assets\css\fonts\raleway-thin-webfont.woff" />
+    <None Include="wwwroot\frontend\assets\css\fonts\TitrTGE-Web.woff" />
+    <None Include="wwwroot\frontend\assets\css\fonts\TitrWeb.woff" />
+    <None Include="wwwroot\frontend\assets\img\blog\g02jpg" />
+    <None Include="wwwroot\frontend\assets\img\home\Thumbs.db" />
+    <None Include="wwwroot\frontend\assets\masterslider\images\Thumbs.db" />
+    <None Include="wwwroot\frontend\assets\masterslider\masterslider.map" />
+    <None Include="wwwroot\frontend\assets\video\01\Thumbs.db" />
+    <None Include="wwwroot\frontend\assets\video\02\Thumbs.db" />
+    <None Include="wwwroot\frontend\assets\video\home\Thumbs.db" />
+    <None Include="wwwroot\frontend\index.z" />
+    <None Include="wwwroot\frontend\installcomplete.z" />
+    <None Include="wwwroot\frontend\template\footer.zb" />
+    <None Include="wwwroot\frontend\template\header.zb" />
+    <None Include="wwwroot\frontend\template\left_slider_menu.zb" />
+    <None Include="wwwroot\frontend\template\template.zt" />
+    <None Include="ZNxtApp.Core.Module.Theme.Frontend.nuspec" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="wwwroot\frontend\assets\css\base-rtl.css" />
+    <Content Include="wwwroot\frontend\assets\css\base.css" />
+    <Content Include="wwwroot\frontend\assets\css\fonts\font-faces.css" />
+    <Content Include="wwwroot\frontend\assets\css\fonts\fontawesome-webfont.svg" />
+    <Content Include="wwwroot\frontend\assets\css\fonts\generator_config.txt" />
+    <Content Include="wwwroot\frontend\assets\css\fonts\raleway-bold-webfont.svg" />
+    <Content Include="wwwroot\frontend\assets\css\fonts\raleway-extrabold-webfont.svg" />
+    <Content Include="wwwroot\frontend\assets\css\fonts\raleway-extralight-webfont.svg" />
+    <Content Include="wwwroot\frontend\assets\css\fonts\raleway-heavy-webfont.svg" />
+    <Content Include="wwwroot\frontend\assets\css\fonts\raleway-light-webfont.svg" />
+    <Content Include="wwwroot\frontend\assets\css\fonts\raleway-medium-webfont.svg" />
+    <Content Include="wwwroot\frontend\assets\css\fonts\raleway-regular-webfont.svg" />
+    <Content Include="wwwroot\frontend\assets\css\fonts\raleway-semibold-webfont.svg" />
+    <Content Include="wwwroot\frontend\assets\css\fonts\raleway-thin-webfont.svg" />
+    <Content Include="wwwroot\frontend\assets\css\rtl\base-rtl.css" />
+    <Content Include="wwwroot\frontend\assets\css\rtl\bootstrap-rtl.css" />
+    <Content Include="wwwroot\frontend\assets\css\rtl\rtl.css" />
+    <Content Include="wwwroot\frontend\assets\css\style.css" />
+    <Content Include="wwwroot\frontend\assets\css\styles\dark-sidebar.css" />
+    <Content Include="wwwroot\frontend\assets\css\styles\skin1.css" />
+    <Content Include="wwwroot\frontend\assets\css\styles\skin2.css" />
+    <Content Include="wwwroot\frontend\assets\css\vendors\bootstrap.css" />
+    <Content Include="wwwroot\frontend\assets\css\vendors\font-awesome.css" />
+    <Content Include="wwwroot\frontend\assets\css\vendors\magnific-popup.css" />
+    <Content Include="wwwroot\frontend\assets\css\vendors\mediaelementplayer.css" />
+    <Content Include="wwwroot\frontend\assets\img\arrows.png" />
+    <Content Include="wwwroot\frontend\assets\img\blog\01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\author1.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\b00-t.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\b00.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\b01-t.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\b01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\b02-t.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\b02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\b03-t.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\b03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\g01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\g03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\g04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\g05.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\g06.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\g07.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\g08.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\g09.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\g10.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blog\header-1.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\blur.svg" />
+    <Content Include="wwwroot\frontend\assets\img\captions\00.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\captions\01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\captions\02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\captions\03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\captions\04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\captions\05.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\captions\06.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\captions\07.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\captions\08.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\captions\09.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\captions\10.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\captions\11.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\captions\12.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\captions\13.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-2\10.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-2\11.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-2\12.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-2\13.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-2\14.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-2\portfolio\01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-2\portfolio\02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-2\portfolio\03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-2\portfolio\04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-2\portfolio\05.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-2\portfolio\06.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-2\portfolio\07.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-2\portfolio\08.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-2\portfolio\09.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-2\portfolio\cover.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\05.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\06.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\08.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\09.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\10.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\12.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\13.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\14.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\15.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\16.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\19.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\23.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\26.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\3.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\31.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\32.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\33.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\34.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\cover.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\logo-dark.png" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\thumbs\01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\thumbs\02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\thumbs\03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\thumbs\04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\thumbs\05.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\thumbs\06.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\thumbs\08.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\thumbs\13.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\demo-3\thumbs\15.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\a1.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\a2.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\a3.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\a4.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\a5.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\a6.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\a7.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\a8.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\a9.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\b1.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\b10.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\b2.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\b3.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\b4.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\b5.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\b6.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\b7.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\b8.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\b9.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\classic\21.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\classic\22.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\classic\23.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\classic\24.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\classic\25.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\classic\26.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\classic\27.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\classic\28.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\classic\29.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\classic\30.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\a1.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\a2.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\a3.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\a4.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\a5.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\a6.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\a7.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\a8.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\a9.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\ab1.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\b1.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\b10.JPG" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\b2.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\b3.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\b4.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\b5.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\b6.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\b7.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\b8.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\b9.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sa1.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sa10.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sa2.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sa3.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sa4.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sa5.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sa6.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sa7.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sa8.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sa9.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sb1.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sb10.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sb2.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sb3.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sb4.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sb5.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sb6.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sb7.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sb8.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\gallery\thumbs\sb9.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\home\01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\home\02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\home\03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\home\04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\home\05.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\home\06.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\home\07.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\home\08.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\home\09.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\home\10.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\logo-mini.png" />
+    <Content Include="wwwroot\frontend\assets\img\logo.png" />
+    <Content Include="wwwroot\frontend\assets\img\overlay-pattern.png" />
+    <Content Include="wwwroot\frontend\assets\img\overlay-pattern2.png" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\05.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\06.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\07.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\08.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\09.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\10.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\11.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\12.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\13.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\14.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\15.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\16.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\17.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\18.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\19.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\20.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\21.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\22.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\v01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\v02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\v03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\v04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\v05.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\v06.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\v07.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\v08.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\v09.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\v11.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\grid\v12.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\horizontal\01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\horizontal\02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\horizontal\03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\horizontal\04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\horizontal\05.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\horizontal\06.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\horizontal\07.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\horizontal\08.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\horizontal\09.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single1\01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single1\02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single1\03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single1\04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single1\05.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single1\06.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single1\07.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single1\08.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single1\09.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single1\10.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single1\cover.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single2\01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single2\02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single2\03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single2\04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single2\05.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single2\06.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single2\07.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single2\08.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single2\09.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single2\10.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single2\cover.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single3\01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single3\02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single3\03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single3\04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single3\05.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single3\06.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single3\07.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single3\08.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single3\09.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single3\10.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single3\cover.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single4\01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single4\02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single4\03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single4\04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single4\05.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single4\06.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single4\07.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single4\08.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single4\09.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single4\10.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single4\11.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\single4\cover.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\vertical\01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\vertical\02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\vertical\03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\vertical\04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\vertical\05.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\vertical\06.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\vertical\07.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\vertical\08.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\portfolio\vertical\09.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\team\01-b.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\team\01.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\team\02-b.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\team\02.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\team\03.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\team\04.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\team\05.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\team\06.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\team\07.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\team\08.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\team\09.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\team\team1.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\team\team2.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\team\team3.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\team\team4.jpg" />
+    <Content Include="wwwroot\frontend\assets\img\video-player\background.png" />
+    <Content Include="wwwroot\frontend\assets\img\video-player\bigplay.png" />
+    <Content Include="wwwroot\frontend\assets\img\video-player\bigplay.svg" />
+    <Content Include="wwwroot\frontend\assets\img\video-player\controls-ted.png" />
+    <Content Include="wwwroot\frontend\assets\img\video-player\controls-wmp-bg.png" />
+    <Content Include="wwwroot\frontend\assets\img\video-player\controls-wmp.png" />
+    <Content Include="wwwroot\frontend\assets\img\video-player\controls.png" />
+    <Content Include="wwwroot\frontend\assets\img\video-player\controls.svg" />
+    <Content Include="wwwroot\frontend\assets\img\video-player\loading.gif" />
+    <Content Include="wwwroot\frontend\assets\img\video-player\mejs-skins.css" />
+    <Content Include="wwwroot\frontend\assets\js\custom-rtl.js" />
+    <Content Include="wwwroot\frontend\assets\js\custom.js" />
+    <Content Include="wwwroot\frontend\assets\js\jquery.owwwlab-DoubleCarousel.js" />
+    <Content Include="wwwroot\frontend\assets\js\jquery.owwwlab-kenburns.js" />
+    <Content Include="wwwroot\frontend\assets\js\jquery.owwwlab-video.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\gmap3.min.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\imagesloaded.pkgd.min.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\isotope.pkgd.min.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\jquery-1.11.0.min.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\jquery.accel-hover-scroll.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\jquery.history.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\jquery.inview.min.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\jquery.isotope.min.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\jquery.magnific-popup.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\jquery.mousewheel.min.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\jquery.nicescroll-rtl.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\jquery.nicescroll.min.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\jquery.touchSwipe.min.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\mediaelement-and-player.min.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\smoothscroll.js" />
+    <Content Include="wwwroot\frontend\assets\js\vendors\TweenMax.min.js" />
+    <Content Include="wwwroot\frontend\assets\masterslider\blank.gif" />
+    <Content Include="wwwroot\frontend\assets\masterslider\images\1.jpg" />
+    <Content Include="wwwroot\frontend\assets\masterslider\images\2.jpg" />
+    <Content Include="wwwroot\frontend\assets\masterslider\images\3.jpg" />
+    <Content Include="wwwroot\frontend\assets\masterslider\images\4.jpg" />
+    <Content Include="wwwroot\frontend\assets\masterslider\jquery-1.10.2.min.js" />
+    <Content Include="wwwroot\frontend\assets\masterslider\jquery.easing.min.js" />
+    <Content Include="wwwroot\frontend\assets\masterslider\masterslider.js" />
+    <Content Include="wwwroot\frontend\assets\masterslider\masterslider.min.js" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\black-1\black-skin-1-retina.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\black-1\black-skin-1.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\black-1\style.css" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\black-2\black-skin-2-retina.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\black-2\black-skin-2.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\black-2\style.css" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\contrast\contrast-skin-retina.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\contrast\contrast-skin.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\contrast\style.css" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\default\light-skin-1-retina.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\default\light-skin-1.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\default\style.css" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\light-2\light-skin-2-retina.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\light-2\light-skin-2.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\light-2\style.css" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\light-3\light-skin-3-retina.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\light-3\light-skin-3.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\light-3\style.css" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\light-4\light-skin-4-retina.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\light-4\light-skin-4.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\light-4\style.css" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\light-5\light-skin-5-retina.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\light-5\light-skin-5.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\light-5\style.css" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\light-6\light-skin-6-retina.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\light-6\light-skin-6.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\light-6\style.css" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\metro\metro-skin-retina.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\metro\metro-skin.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\skins\metro\style.css" />
+    <Content Include="wwwroot\frontend\assets\masterslider\style\grab.cur" />
+    <Content Include="wwwroot\frontend\assets\masterslider\style\grab.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\style\grabbing.cur" />
+    <Content Include="wwwroot\frontend\assets\masterslider\style\grabbing.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\style\loading-1-dark.gif" />
+    <Content Include="wwwroot\frontend\assets\masterslider\style\loading-1-light.gif" />
+    <Content Include="wwwroot\frontend\assets\masterslider\style\loading-1.gif" />
+    <Content Include="wwwroot\frontend\assets\masterslider\style\loading-2-dark.gif" />
+    <Content Include="wwwroot\frontend\assets\masterslider\style\loading-2-light.gif" />
+    <Content Include="wwwroot\frontend\assets\masterslider\style\loading-2.gif" />
+    <Content Include="wwwroot\frontend\assets\masterslider\style\masterslider.css" />
+    <Content Include="wwwroot\frontend\assets\masterslider\style\video-close-btn.png" />
+    <Content Include="wwwroot\frontend\assets\masterslider\transition-gallery\images\logo.gif" />
+    <Content Include="wwwroot\frontend\assets\masterslider\transition-gallery\index.html" />
+    <Content Include="wwwroot\frontend\assets\masterslider\transition-gallery\js\jquery-1.8.0.min.js" />
+    <Content Include="wwwroot\frontend\assets\masterslider\transition-gallery\js\main.js" />
+    <Content Include="wwwroot\frontend\assets\masterslider\transition-gallery\js\transition-dic.js" />
+    <Content Include="wwwroot\frontend\assets\masterslider\transition-gallery\style\style.css" />
+    <Content Include="wwwroot\frontend\assets\video\01\01.png" />
+    <Content Include="wwwroot\frontend\assets\video\02\02.png" />
+    <Content Include="wwwroot\frontend\assets\video\03\03.png" />
+    <Content Include="wwwroot\frontend\assets\video\04\04.png" />
+    <Content Include="wwwroot\frontend\assets\video\05\05.png" />
+    <Content Include="wwwroot\frontend\assets\video\06\06.png" />
+    <Content Include="wwwroot\frontend\assets\video\07\07.png" />
+    <Content Include="wwwroot\frontend\assets\video\08\08.png" />
+    <Content Include="wwwroot\frontend\assets\video\echo-hereweare.jpg" />
+    <Content Include="wwwroot\frontend\assets\video\home\home.mp4" />
+    <Content Include="wwwroot\frontend\assets\video\home\home.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="PostBuildMacros">
+    <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
+      <Output TaskParameter="Assemblies" ItemName="Targets" />
+    </GetAssemblyIdentity>
+    <ItemGroup>
+      <VersionNumber Include="$([System.Text.RegularExpressions.Regex]::Replace(&quot;%(Targets.Version)&quot;, &quot;^(.+?)(\.0+)$&quot;, &quot;$1&quot;))" />
+    </ItemGroup>
+  </Target>
+  <PropertyGroup>
+    <PostBuildEventDependsOn>
+      $(PostBuildEventDependsOn);
+      PostBuildMacros;
+    </PostBuildEventDependsOn>
+    <PostBuildEvent>call "$(ProjectDir)build-events-scripts\post-build\upload_module.bat" @(VersionNumber) "$(SolutionDir).nuget" "$(TargetDir)" "$(ProjectDir)$(ProjectName).nuspec" $(ProjectName) "$(ProjectDir)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

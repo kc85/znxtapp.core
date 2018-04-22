@@ -7,12 +7,12 @@
     <div class="tj-ms-slider ms-skin-toranj fillmode" data-layout="fullscreen" id="homeslider">
 
       <div class="ms-slide">
-        <img src="@Model["base_uri"]/assets/masterslider/blank.gif" data-src="@Model["base_uri"]/assets/video/home//home.png" alt="lorem ipsum dolor sit"/>
+        <img src="@Model["base_uri"]/assets/masterslider/blank.gif" data-src="@Model["base_uri"]/assets/video/home/home.png" alt="lorem ipsum dolor sit"/>
 
         <!-- slide background video -->
         <video data-autopause="false" data-mute="true" data-loop="true" data-fill-mode="fill">
           <source id="mp4" src="@Model["base_uri"]/assets/video/home//home.mp4" type="video/mp4"/>
-          <source id="webm" src="@Model["base_uri"]/assets/video/home//home.webm" type="video/webm"/>
+          <!--<source id="webm" src="@Model["base_uri"]/assets/video/home//home.webm" type="video/webm"/>-->
         </video>
         <div class="ms-layer caption cap-full" data-effect="front(500)"
                 data-duration="1000"
@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="ms-slide">
-        <img src="@Model["base_uri"]/assets/masterslider/blank.gif" data-src="@Model["base_uri"]/assets/img/home/03.jpg" alt="lorem ipsum dolor sit"/>
+        <img src="@Model["base_uri"]/assets/masterslider/blank.gif" data-src="@Model["base_uri"]/assets/img/home/02.jpg" alt="lorem ipsum dolor sit"/>
         <div class="ms-layer caption cap-toranj" data-effect="left(100)"
                 data-duration="700"
                 data-ease="easeOutExpo"
@@ -68,7 +68,7 @@
         </div>
       </div>
       <div class="ms-slide">
-        <img src="@Model["base_uri"]/assets/masterslider/blank.gif" data-src="@Model["base_uri"]/assets/img/captions/08.jpg" alt="lorem ipsum dolor sit"/>
+        <img src="@Model["base_uri"]/assets/masterslider/blank.gif" data-src="@Model["base_uri"]/assets/img/home/03.jpg" alt="lorem ipsum dolor sit"/>
         <div class="ms-layer caption cap-elegant" data-effect="front(300)"
               data-duration="700"
               data-ease="easeOutExpo"
@@ -83,7 +83,7 @@
 
       </div>
       <div class="ms-slide">
-        <img src="@Model["base_uri"]/assets/masterslider/blank.gif" data-src="@Model["base_uri"]/assets/img/captions/07.jpg" alt="lorem ipsum dolor sit"/>
+        <img src="@Model["base_uri"]/assets/masterslider/blank.gif" data-src="@Model["base_uri"]/assets/img/home/04.jpg" alt="lorem ipsum dolor sit"/>
         <div class="ms-layer caption cap-bordered cap-bottom cap-right cap-reverse" data-effect="right(200)"
               data-duration="700"
               data-ease="easeOutExpo"

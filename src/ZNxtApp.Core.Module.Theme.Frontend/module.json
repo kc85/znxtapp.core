@@ -1,0 +1,21 @@
+{
+  "dependent_mudules": [ "ZNxtApp.Code.Module.App" ],
+  "collections": [
+    {
+      "name": "app_settings",
+      "access_type": "read_only"
+    },
+    {
+      "name": "backend_ui_routes",
+      "access_type": "read_only"
+    },
+    {
+      "name": "server_routes",
+      "access_type": "read_only"
+    },
+    {
+      "name": "my_collection",
+      "access_type": "onwer"
+    }
+  ]
+}

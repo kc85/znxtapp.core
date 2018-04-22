@@ -1,0 +1,76 @@
+Status:
+      200      OK
+      
+Response:
+{
+  "code": 1,
+  "message": "SUCCESS",
+  "txn_id": "20180422213116369291",
+  "debug": {
+    "time_span": 20439.555500000002,
+    "logs": [
+      {
+        "created_datetime": 1524432676,
+        "id": "ad75e898-4aaf-4f27-ae37-778cbdb18c69",
+        "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+        "type": "Info",
+        "transaction_id": "20180422213116369291",
+        "message": "RouteExecuter.Exec:: Route: [POST: /api/module/reinstall, Type: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller, Assembly: ZNxtApp.Core.Web.dll, Method: Reinstall, Module:ZApp]",
+        "data": {}
+      },
+      {
+        "created_datetime": 1524432676,
+        "id": "01b27c02-b27d-413e-a2e0-4f3d50cf881d",
+        "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+        "type": "Transaction",
+        "transaction_id": "20180422213116369291",
+        "message": "Transaction State:Start",
+        "data": {
+          "Url": "/api/module/reinstall",
+          "Route": {
+            "ContentType": "application/json",
+            "Method": "POST",
+            "Route": "/api/module/reinstall",
+            "ExecultAssembly": "ZNxtApp.Core.Web.dll",
+            "ExecuteType": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+            "ExecuteMethod": "Reinstall",
+            "module": "ZApp",
+            "auth_users": [
+              "*"
+            ],
+            "TemplateURL": null
+          },
+          "Payload": "",
+          "User": ""
+        },
+        "TransactionState": "Start"
+      },
+      {
+        "created_datetime": 1524432676,
+        "id": "af5ac301-3223-4924-9b7c-c56cfb454972",
+        "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+        "type": "Info",
+        "transaction_id": "20180422213116369291",
+        "message": "GetType: ZNxtApp.Core.Web.dll, executeType: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+        "data": {}
+      }
+    ]
+  }
+}
+      
+Headers:
+Cache-Control: private
+Date: Sun, 22 Apr 2018 16:01:36 GMT
+Content-Length: 2061
+Content-Type: application/json
+Set-Cookie: za_s_k=f675bcde-452e-4e31-b4fe-28714ee35c78; expires=Sun, 22-Apr-2018 16:31:16 GMT; path=/; HttpOnly
+
+
+URL:
+http://localhost/ZNxtApp.Core.WebTest/api/module/reinstall?module_name=ZNxtApp.Core.Module.Theme.Frontend/1.0.8.38736-Beta
+URL Code Page:
+65001
+User Agent:
+Mozilla/4.0 (compatible; Win32; WinHttp.WinHttpRequest.5)
+Escapped URL:
+false
