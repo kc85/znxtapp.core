@@ -45,8 +45,8 @@ namespace ZNxtApp.Core.Consts
             public const string SESSION_USER_KEY = "_session_user";
             public const string SIGN_UP_SESSION_USER_KEY = "_signup_session_user";
             public const string EMAIL_QUEUE_ID = "email_queue_id";
-
-
+            public const string COLLECTION = "collection";
+            public const string BASE_PATH = "base_path";
         }
     }
 }

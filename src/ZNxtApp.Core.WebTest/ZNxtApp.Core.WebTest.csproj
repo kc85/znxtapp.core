@@ -143,6 +143,8 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="wwwroot\frontend\upload\upload_module.z" />
+    <None Include="wwwroot\frontend\upload\upload_file.z" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config">

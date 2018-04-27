@@ -15,7 +15,7 @@ using System.Collections.Generic;
 
 namespace ZNxtApp.Core.Web.Proxies
 {
-    public class HttpContextProxy : IHttpContextProxy
+    public partial class HttpContextProxy : IHttpContextProxy
     {
         private HttpContext _context;
         public DateTime InitDateTime { get; private set; }

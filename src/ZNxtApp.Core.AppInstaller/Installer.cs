@@ -199,8 +199,7 @@ namespace ZNxtApp.Core.AppInstaller
 
         private string GetCustomConfigDirectoryPath()
         {
-            var tempFolder = string.Format("{0}\\{1}", ApplicationConfig.AppInstallFolder, ApplicationConfig.AppID);
-            string path = string.Format("{0}\\Collections", tempFolder);
+            string path = string.Format("{0}\\Collections", ApplicationConfig.AppTempFolderPath);
             var di = new DirectoryInfo(path);
             if (!di.Exists)
             {

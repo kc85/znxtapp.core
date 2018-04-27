@@ -60,7 +60,7 @@ namespace ZNxtApp.Core.Config
                 return (ConfigurationManager.AppSettings["DefaultPage"] ==null ? "/index.z" : ConfigurationManager.AppSettings["DefaultPage"]);
             }
         }
-        public static string TempFolder
+        public static string SystemTempFolder
         {
             get
             {
@@ -73,6 +73,15 @@ namespace ZNxtApp.Core.Config
             }
         }
 
+        public static string AppTempFolderPath
+        {
+            get
+            {
+                var tempFolder = string.Format("{0}\\{1}", ApplicationConfig.AppInstallFolder, ApplicationConfig.AppID);
+
+                return tempFolder;
+            }
+        }
         public static ApplicationMode GetApplicationMode
         {
             get

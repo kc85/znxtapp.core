@@ -183,7 +183,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                 {
                     FileInfo fi = new FileInfo(item.FullName);
                     var contentType = _httpProxy.GetContentType(fi.FullName);
-                    var joData = GetJObjectData(fi, contentType, string.Format("{0}", di.FullName), moduleName);
+                    var joData = JObjectHelper.GetJObjectDbDataFromFile(fi, contentType, string.Format("{0}", di.FullName), moduleName);
                     WriteToDB(joData, moduleName, CommonConst.Collection.DLLS, CommonConst.CommonField.FILE_PATH);
                 }
             }
@@ -203,7 +203,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                 {
                     FileInfo fi = new FileInfo(item.FullName);
                     var contentType = _httpProxy.GetContentType(fi);
-                    var joData = GetJObjectData(fi, contentType, di.FullName, moduleName);
+                    var joData = JObjectHelper.GetJObjectDbDataFromFile(fi, contentType, di.FullName, moduleName);
                     WriteToDB(joData, moduleName, CommonConst.Collection.STATIC_CONTECT, CommonConst.CommonField.FILE_PATH);
                 }
             }
@@ -235,45 +235,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
             _dbProxy.Update(updateOverrideFilter, updateObject);
         }
 
-        private JObject GetJObjectData(FileInfo fi, string contentType, string basepath, string moduleName)
-        {
-            string fileData = GetData(fi.FullName, contentType);
-            string wwwwpath = fi.FullName.Replace(basepath, "").Replace("\\", "/");
-            JObject data = new JObject();
-            data[CommonConst.CommonField.DISPLAY_ID] = Guid.NewGuid().ToString();
-            data[CommonConst.CommonField.FILE_PATH] = wwwwpath;
-            data[CommonConst.CommonField.DATA] = fileData;
-            data[CommonConst.CommonField.CREATED_DATA_DATE_TIME] = DateTime.Now;
-            data[CommonConst.CommonField.FILE_SIZE] = fi.Length;
-            data[CommonConst.CommonField.MODULE_NAME] = moduleName;
-            data[CommonConst.CommonField.CONTENT_TYPE] = contentType;
-            data[CommonConst.CommonField.ÌS_OVERRIDE] = false;
-            data[CommonConst.CommonField.OVERRIDE_BY] = CommonConst.CommonValue.NONE;
-            return data;
-        }
-
-        private string GetData(string path, string contentType)
-        {
-            if (CommonUtility.IsTextConent(contentType))
-            {
-                return GetTextData(path);
-            }
-            else
-            {
-                return GetBinaryData(path);
-            }
-        }
-
-        private string GetBinaryData(string path)
-        {
-            byte[] fileData = File.ReadAllBytes(path);
-            return CommonUtility.GetBase64(fileData);
-        }
-
-        private string GetTextData(string path)
-        {
-            return File.ReadAllText(path);
-        }
+       
 
 
         public JObject GetDetails(string moduleName)

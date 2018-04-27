@@ -75,6 +75,7 @@
     <Compile Include="Interfaces\IAppInstaller.cs" />
     <Compile Include="Interfaces\IAppSettingService.cs" />
     <Compile Include="Interfaces\IEmailService.cs" />
+    <Compile Include="Interfaces\IHttpFIleUploader.cs" />
     <Compile Include="Interfaces\IOTPService.cs" />
     <Compile Include="Interfaces\ISMSService.cs" />
     <Compile Include="Interfaces\IFlushService.cs" />

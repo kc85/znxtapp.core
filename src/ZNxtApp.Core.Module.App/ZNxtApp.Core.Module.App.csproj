@@ -94,6 +94,8 @@
     <None Include="collections\app_settings.json" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="build-events-scripts\post-build\NuGet.exe" />
+    <Content Include="build-events-scripts\post-build\ZNxtApp.CLI.exe" />
     <Content Include="wwwroot\frontend\css\signup_login\signup_login.css" />
     <Content Include="wwwroot\frontend\img\signup_login\signup_bg.jpg" />
     <Content Include="wwwroot\frontend\js\signup_login\login.js" />

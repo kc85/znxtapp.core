@@ -94,7 +94,18 @@ namespace ZNxtApp.Core.Helpers
                 return false;
             }
         }
-
+        public static bool Write(this IDBService dbProxy, string collection, JObject data, string filter, bool overrideData = false, MergeArrayHandling mergeType = MergeArrayHandling.Union)
+        {
+            dbProxy.Collection = collection;
+            if (dbProxy.Update(filter, data, overrideData, mergeType) != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         private static string QueryBuilder(Dictionary<string,string> filterInput)
         {
             JObject filter = new JObject();

@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
+using ZNxtApp.Core.Consts;
 
 namespace ZNxtApp.Core.Helpers
 {
@@ -56,5 +58,46 @@ namespace ZNxtApp.Core.Helpers
                 return false;
             }
         }
+
+        public static JObject GetJObjectDbDataFromFile(FileInfo fi, string contentType, string basepath, string moduleName,string pathPrefix = "")
+        {
+            string fileData = GetData(fi.FullName, contentType);
+            string wwwwpath = fi.FullName.Replace(basepath, "").Replace("\\", "/");
+            JObject data = new JObject();
+            data[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
+            data[CommonConst.CommonField.FILE_PATH] = string.Format("{0}{1}", pathPrefix,wwwwpath);
+            data[CommonConst.CommonField.DATA] = fileData;
+            data[CommonConst.CommonField.CREATED_DATA_DATE_TIME] = DateTime.Now;
+            data[CommonConst.CommonField.FILE_SIZE] = fi.Length;
+            data[CommonConst.CommonField.MODULE_NAME] = moduleName;
+            data[CommonConst.CommonField.CONTENT_TYPE] = contentType;
+            data[CommonConst.CommonField.ÌS_OVERRIDE] = false;
+            data[CommonConst.CommonField.OVERRIDE_BY] = CommonConst.CommonValue.NONE;
+            return data;
+        }
+
+        private static string GetData(string path, string contentType)
+        {
+            if (CommonUtility.IsTextConent(contentType))
+            {
+                return GetTextData(path);
+            }
+            else
+            {
+                return GetBinaryData(path);
+            }
+        }
+
+        private static string GetBinaryData(string path)
+        {
+            byte[] fileData = File.ReadAllBytes(path);
+            return CommonUtility.GetBase64(fileData);
+        }
+
+        private static string GetTextData(string path)
+        {
+            return File.ReadAllText(path);
+        }
+
     }
 }

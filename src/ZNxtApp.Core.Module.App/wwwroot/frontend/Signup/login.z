@@ -41,7 +41,7 @@
 
             <button type="button" class="login__facebook" id="btnFBLogin">Sign in with facebook</button>
 
-            <p class="login__signup">Don't have an account? <br />&nbsp;<a href="@Model["base_uri"]/signup/signup.z">Sign up</a></p>
+            <p class="login__signup">Don't have an account? <br />&nbsp;<a href="@Model["base_uri"]/index.z">Home</a> <a href="@Model["base_uri"]/signup/signup.z">Sign up</a></p>
         </div>
     </div>
          

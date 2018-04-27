@@ -16,15 +16,15 @@ set command="(gc \"%nuget_spec_path%\") -replace 'version>([^\s]+)<\/version', '
 
 powershell -Command %command%
 
-cd %nuget_path%
-
-nuget pack %nuget_spec_path%
-
-move %project_name%.%nuget_version%.nupkg %mudule_root_path%\%project_name%_%nuget_version%.zip
-
-icacls %mudule_root_path%\%project_name%_%nuget_version%.zip /grant Users:F
-
 cd %project_path%
 
+.\build-events-scripts\post-build\nuget pack %nuget_spec_path%
+
+ move %project_name%.%nuget_version%.nupkg %project_name%_%nuget_version%.zip
+
+
+.\build-events-scripts\post-build\ZNxtApp.CLI -u  %http_base_url%/upload/upload_module.z  "%project_name%_%nuget_version%.zip
+
+ del %project_name%_%nuget_version%.zip
 
  call .\build-events-scripts\post-build\winhttpjs.bat "%http_base_url%/api/module/reinstall?module_name=%project_name%/%nuget_version%"  -method POST   -reportfile reportfile_app.txt

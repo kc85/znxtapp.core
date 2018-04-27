@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -82,7 +83,12 @@ namespace ZNxtApp.Core.Web.Helper
             Func<string, string> getAppSetting =
                (string key) =>
                {
-                 return  AppSettingService.Instance.GetAppSettingData(key);
+                   var response = AppSettingService.Instance.GetAppSettingData(key);
+                   if (string.IsNullOrEmpty(response))
+                   {
+                       response = ConfigurationManager.AppSettings[key];
+                   }
+                 return response;
 
                };
             Func<string, JObject> getSessionValue =

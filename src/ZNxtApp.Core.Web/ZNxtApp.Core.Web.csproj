@@ -69,9 +69,11 @@
     <Compile Include="Models\ExecutionEventType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proxies\HttpContextProxy.cs" />
+    <Compile Include="Proxies\HttpFileUploaderProxy.cs" />
     <Compile Include="Routings\Routings.cs" />
     <Compile Include="Services\ActionExecuter.cs" />
     <Compile Include="Services\Api\Email\EmailController.cs" />
+    <Compile Include="Services\Api\FileUpload\FileUploadController.cs" />
     <Compile Include="Services\Api\ModuleInstaller\ModuleInstaller.cs" />
     <Compile Include="Services\Api\ModuleInstaller\ModuleInstallerResponseCode.cs" />
     <Compile Include="Services\Api\Ping\PingController.cs" />

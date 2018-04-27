@@ -1,0 +1,25 @@
+﻿@{
+   Newtonsoft.Json.Linq.JObject uploadData = new  Newtonsoft.Json.Linq.JObject();
+   uploadData["storege_type"] = "file";
+   uploadData["base_path"] = AppSetting("ModuleCachePath");
+   var fileUploadResponse  = ExecuteAction("/api/upload/file",uploadData);
+}
+
+<script>
+
+var appRootPath = '@Model["base_uri"]';
+var redirectUrl = '@QueryString("rurl")';
+    if (redirectUrl == undefined) {
+        redirectUrl = appRootPath+ "/index.z";
+    }
+   
+ var fileUpload = @fileUploadResponse;
+ console.log(fileUpload);
+
+ if(fileUpload.code == 1){
+     window.location = redirectUrl;
+ }
+ else{
+     alert("file upload error");
+ }
+</script>
