@@ -83,14 +83,38 @@
       "*"
     ]
   },
-   {
-     "key": "ACTION:/api/auth/logout",
+  {
+    "key": "ACTION:/api/auth/logout",
     "ContentType": "application/json",
     "Method": "ACTION",
     "Route": "/api/auth/logout",
     "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
     "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Logout.LogoutController",
     "ExecuteMethod": "LogoutAction",
+    "auth_users": [
+      "*"
+    ]
+  },
+  {
+    "key": "GET:/api/getjs",
+    "ContentType": "text/javascript",
+    "Method": "GET",
+    "Route": "/api/getjs",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.GetJs.GetJsController",
+    "ExecuteMethod": "Get",
+    "auth_users": [
+      "*"
+    ]
+  },
+  {
+     "key": "GET:/api/admin/module",
+    "ContentType": "application/json",
+    "Method": "GET",
+    "Route": "/api/admin/module",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Module.GetModuleController",
+    "ExecuteMethod": "GetModules",
     "auth_users": [
       "*"
     ]

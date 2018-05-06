@@ -24,17 +24,21 @@
 <!-- /menu footer buttons -->
 
 <script>
+    
+    var __userData ={};
+   
+
 
     var menu_response  =  @ExecuteAction("/api/get_backend_menu",null)
-    var menu = menu_response.data;
+    var __menus = menu_response.data;
 
   function buildMenu(parentElement, parent_link) {
 
-      var menuData = menu.filter(function (d) { return (d.parent_links != undefined && d.parent_links.indexOf(parent_link) != -1) || (parent_link == d.parent_links) });
+      var menuData = __menus.filter(function (d) { return (d.parent_links != undefined && d.parent_links.indexOf(parent_link) != -1) || (parent_link == d.parent_links) });
       for (var menu_index in menuData) {
           var menu_item = menuData[menu_index];
           // check if there is child menu
-          var hasChild = (menu.filter(function (d) { return (d.parent_links != undefined && d.parent_links.indexOf(menu_item.key) != -1) }).length != 0);
+          var hasChild = (__menus.filter(function (d) { return (d.parent_links != undefined && d.parent_links.indexOf(menu_item.key) != -1) }).length != 0);
           var li_ele = document.createElement("li");
 
           if (hasChild) {
@@ -46,7 +50,7 @@
               buildMenu(ul_ele, menu_item.key);
           }
           else {
-              li_ele.innerHTML = "<a href='" + menu_item.href + "'><i class='fa " + menu_item.icon + "'></i> " + menu_item.label + "</a>";
+              li_ele.innerHTML = "<a href='#!" + menu_item.href + "'><i class='fa " + menu_item.icon + "'></i> " + menu_item.label + "</a>";
           }
           parentElement.appendChild(li_ele);
       }
@@ -54,5 +58,18 @@
 
   var ele = document.getElementById("root_menu")
   buildMenu(ele,undefined);
+
+
+  function locationHashChanged() {
+      var path = location.hash.replace("#!","");
+      var menu_item =  __menus.filter(function(d){ return d.href == path})[0];
+      if(menu_item !== undefined){
+          $("#mainBodyPages > div").hide();
+          $("#mainBodyPages").find("#"+ menu_item.key).show();
+          return $("#mainBodyPages").find("#"+ menu_item.key).length != 0 ;
+      }
+      return false;
+  }
+  window.onhashchange = locationHashChanged;
 
 </script>

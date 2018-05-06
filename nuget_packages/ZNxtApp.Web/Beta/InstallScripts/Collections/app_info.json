@@ -1,0 +1,12 @@
+﻿[
+    {
+        "auth_users": [ "*" ],
+        "key": "name",
+        "value": "ZApplication"
+    },
+  {
+    "auth_users": [ "*" ],
+    "key": "version",
+    "value": "0.0.1"
+  }
+]

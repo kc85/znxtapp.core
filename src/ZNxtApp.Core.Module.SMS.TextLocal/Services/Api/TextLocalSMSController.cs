@@ -37,7 +37,7 @@ namespace ZNxtApp.Core.Module.SMS.TextLocal.Services.Api
             }
 
 
-            var phone = smsData[CommonConst.CommonField.PHONE_FIELD].ToString();
+            var phone = smsData[CommonConst.CommonField.PHONE].ToString();
             var textSMSData = smsData[CommonConst.CommonField.BODY].ToString();
 
             string apiKey = AppSettingService.GetAppSettingData(TextLocalConsts.TEXT_LOCAL_SMS_GATEWAY_KEY);

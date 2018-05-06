@@ -86,6 +86,7 @@
             public const string SMTP_SERVER_PASSWORD = "smtp_server_password";
             public const string SMTP_SERVER_PORT = "smtp_server_port";
             public const string FROM_EMAIL_ID = "from_email_id";
+            public const string PACKAGE_CONFIG = "package_config";
         }
     }
 }

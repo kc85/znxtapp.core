@@ -2,6 +2,7 @@
   "name": "ZNxtApp.Core.Module.App",
   "description": "This is ZNxtApp core app module. This module contains base APIs for the ZNxtApp",
   "version": "1.0",
+  "is_system_module" :  true,
   "dependent_mudules": [ ],
   "collections": [
     {

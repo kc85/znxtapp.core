@@ -67,7 +67,15 @@ namespace ZNxtApp.Core.AppInstaller
 
         public void Install(IHttpContextProxy httpProxy)
         {
-            RequestHandler(httpProxy);
+            try
+            {
+                RequestHandler(httpProxy);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(string.Format("App Install {0}", ex.Message), ex);
+            }
         }
 
         private void RequestHandler(IHttpContextProxy httpProxy)
@@ -139,6 +147,7 @@ namespace ZNxtApp.Core.AppInstaller
 
                 httpProxy.SetResponse(CommonConst._500_SERVER_ERROR, ex.Message);
                 httpProxy.ContentType = CommonConst.CONTENT_TYPE_APPLICATION_JSON;
+                _logger.Error( string.Format("Error in App install {0}",ex.Message), ex);
             }
 
         }

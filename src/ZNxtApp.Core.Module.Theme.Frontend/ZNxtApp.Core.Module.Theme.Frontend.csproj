@@ -30,44 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DnsClient, Version=1.0.7.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
-      <HintPath>..\packages\DnsClient.1.0.7\lib\net45\DnsClient.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MongoDB.Bson, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Bson.2.5.0\lib\net45\MongoDB.Bson.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MongoDB.Driver, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Driver.2.5.0\lib\net45\MongoDB.Driver.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MongoDB.Driver.Core, Version=2.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Driver.Core.2.5.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RazorEngine, Version=3.10.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
-      <HintPath>..\packages\RazorEngine.3.10.0\lib\net45\RazorEngine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.3.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -75,7 +43,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="ZNxtApp.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZNxtApp.Core.1.0.8-Beta\lib\net452\ZNxtApp.Core.dll</HintPath>
+      <HintPath>..\packages\ZNxtApp.Core.1.0.10-Beta\lib\net452\ZNxtApp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -89,11 +57,9 @@
     <None Include="collections\backend_ui_routes.json" />
     <None Include="collections\my_collection.json" />
     <None Include="collections\server_routes.json" />
-    <None Include="Consts\readme.md" />
     <None Include="module.json" />
     <None Include="packages.config" />
     <None Include="readme.md" />
-    <None Include="Services\Api\readme.md" />
     <None Include="wwwroot\frontend\about\about.z" />
     <None Include="wwwroot\frontend\assets\css\fonts\Far_Egypt.eot" />
     <None Include="wwwroot\frontend\assets\css\fonts\Far_Egypt.ttf" />
@@ -147,10 +113,13 @@
     <None Include="wwwroot\frontend\template\header.zb" />
     <None Include="wwwroot\frontend\template\left_slider_menu.zb" />
     <None Include="wwwroot\frontend\template\template.zt" />
+    <None Include="wwwroot\frontend\your_module_forntend_page_foler\your_module_page_page.z" />
     <None Include="ZNxtApp.Core.Module.Theme.Frontend.nuspec" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="wwwroot\backend\app\your_module_backend\your_module.html" />
+    <Content Include="wwwroot\backend\app\your_module_backend\your_module.js" />
     <Content Include="wwwroot\frontend\assets\css\base-rtl.css" />
     <Content Include="wwwroot\frontend\assets\css\base.css" />
     <Content Include="wwwroot\frontend\assets\css\fonts\font-faces.css" />
@@ -556,6 +525,7 @@
     <Content Include="wwwroot\frontend\assets\video\echo-hereweare.jpg" />
     <Content Include="wwwroot\frontend\assets\video\home\home.mp4" />
     <Content Include="wwwroot\frontend\assets\video\home\home.png" />
+    <Content Include="ZNxtApp.Core.Module.YOUR-MODULE-NAME.nuspec.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

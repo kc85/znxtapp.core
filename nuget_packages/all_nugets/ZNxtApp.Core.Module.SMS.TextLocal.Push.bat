@@ -5,6 +5,6 @@ nuget pack "C:\Users\Khanin\Google Drive\Code\znxtapp.core\src\ZNxtApp.Core.Modu
 
 nuget setApiKey  oy2dopv3ej5hu2wx53qa6ns4yuwoqo6e7ic4wvw45ixibi
 
-nuget  push ZNxtApp.Core.Module.SMS.TextLocal.1.0.8.40490-Beta.nupkg -Source https://api.nuget.org/v3/index.json
+nuget  push ZNxtApp.Core.Module.SMS.TextLocal.1.0.9-Beta.nupkg -Source https://api.nuget.org/v3/index.json
 
-del ZNxtApp.Core.Module.SMS.TextLocal.1.0.8.40490-Beta.nupkg
+del ZNxtApp.Core.Module.SMS.TextLocal.1.0.9-Beta.nupkg

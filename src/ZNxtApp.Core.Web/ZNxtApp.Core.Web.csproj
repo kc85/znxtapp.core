@@ -104,13 +104,13 @@
       <Project>{80b58e76-bf74-404c-a359-1946a3f1df37}</Project>
       <Name>ZNxtApp.Core.DB.Mongo</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ZNxtApp.Core.ModuleInstaller\ZNxtApp.Core.ModuleInstaller.csproj">
-      <Project>{659f8af0-4c67-4495-a89e-60a41a4840e4}</Project>
-      <Name>ZNxtApp.Core.ModuleInstaller</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ZNxtApp.Core.AppInstaller\ZNxtApp.Core.AppInstaller.csproj">
       <Project>{79192a0a-4e4b-4204-b0e1-3ff2e17ff935}</Project>
       <Name>ZNxtApp.Core.AppInstaller</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZNxtApp.Core.ModuleInstaller\ZNxtApp.Core.ModuleInstaller.csproj">
+      <Project>{659f8af0-4c67-4495-a89e-60a41a4840e4}</Project>
+      <Name>ZNxtApp.Core.ModuleInstaller</Name>
     </ProjectReference>
     <ProjectReference Include="..\ZNxtApp.Core\ZNxtApp.Core.csproj">
       <Project>{82ca2f2e-4aac-48f5-ba04-96bea1d0d667}</Project>
@@ -129,11 +129,11 @@
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetDir)ZNxtApp.*.dll" "$(SolutionDir)..\nuget_packages\ZNxtApp.Web\Alpha\lib\net452\"
-del "$(SolutionDir)..\nuget_packages\ZNxtApp.Web\Alpha\lib\net452\ZNxtApp.Core.dll"
-xcopy  "$(TargetDir)InstallScripts\*.*" "$(SolutionDir)..\nuget_packages\ZNxtApp.Web\Alpha\InstallScripts\" /Y /I /E
+    <PostBuildEvent>copy /Y "$(TargetDir)ZNxtApp.*.dll" "$(SolutionDir)..\nuget_packages\ZNxtApp.Web\Beta\lib\net452\"
+del "$(SolutionDir)..\nuget_packages\ZNxtApp.Web\Beta\lib\net452\ZNxtApp.Core.dll"
+xcopy  "$(SolutionDir)ZNxtApp.Core.WebTest\InstallScripts\*.*" "$(SolutionDir)..\nuget_packages\ZNxtApp.Web\Beta\InstallScripts\" /Y /I /E
 
-xcopy "$(SolutionDir)ZNxtApp.Core.WebTest\wwwroot\*.*" "$(SolutionDir)..\nuget_packages\ZNxtApp.Web\Alpha\wwwroot\" /Y /I /E
+xcopy "$(SolutionDir)ZNxtApp.Core.WebTest\wwwroot\*.*" "$(SolutionDir)..\nuget_packages\ZNxtApp.Web\Beta\wwwroot\" /Y /I /E
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

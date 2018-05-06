@@ -2,6 +2,7 @@
    @InclueTemplate("../template/signup_template.zt")
 
   var modelData = IncludeModel("/api/model/signup",null);
+  Model["page_name"] ="Sign up";
 }
 <script>
 

@@ -1,5 +1,6 @@
 {
   "dependent_mudules": [ "ZNxtApp.Code.Module.App" ],
+  "is_system_module" :  true,
   "collections": [
     {
       "name": "app_settings",

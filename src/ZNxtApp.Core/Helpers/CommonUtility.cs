@@ -8,7 +8,7 @@ namespace ZNxtApp.Core.Helpers
     {
         public static string GetNewID()
         {
-            return GetUnixTimestamp(DateTime.Now) + RandomNumber(4);
+            return GetUnixTimestamp(DateTime.Now) + RandomString(3) + RandomNumber(5);
         }
         public static Int32 GetUnixTimestamp(DateTime dt)
         {
@@ -38,19 +38,25 @@ namespace ZNxtApp.Core.Helpers
         }
 
         private static Random random = new Random();
-
+        private static object syncObj = new object();
         public static string RandomString(int length)
         {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+            lock (syncObj)
+            {
+                const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                return new string(Enumerable.Repeat(chars, length)
+                  .Select(s => s[random.Next(s.Length)]).ToArray());
+            }
         }
 
         public static string RandomNumber(int length)
         {
-            const string chars = "0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
+            lock (syncObj)
+            {
+                const string chars = "0123456789";
+                return new string(Enumerable.Repeat(chars, length)
+                  .Select(s => s[random.Next(s.Length)]).ToArray());
+            }
         }
 
         

@@ -3,6 +3,6 @@ cd  "C:\Users\Khanin\Documents\GitHub\znxtapp.core"
 
 
 echo "GIT RESET STARTED---"
-git reset --hard
+rem git reset --hard
 echo "GIT COMMAND END---"
 

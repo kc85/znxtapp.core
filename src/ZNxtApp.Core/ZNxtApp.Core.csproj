@@ -119,7 +119,7 @@
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetDir)ZNxtApp.Core.dll" "$(SolutionDir)..\nuget_packages\ZNxtApp.Core\Alpha\lib\net452\"
+    <PostBuildEvent>copy /Y "$(TargetDir)ZNxtApp.Core.dll" "$(SolutionDir)..\nuget_packages\ZNxtApp.Core\Beta\lib\net452\"
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

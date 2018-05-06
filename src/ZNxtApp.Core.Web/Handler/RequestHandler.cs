@@ -76,7 +76,7 @@ namespace ZNxtApp.Core.Web.Handler
 
         private void CreateInstallInstance()
         {
-            var appInstallerLogger = Logger.GetLogger(typeof(Installer).Name, _httpProxy.TransactionId);
+            var appInstallerLogger = Logger.GetLogger(typeof(ModuleInstaller.Installer.ModuleInstaller).Name, _httpProxy.TransactionId);
             var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
             var pingService = new PingService(new MongoDBService(ApplicationConfig.DataBaseName, CommonConst.Collection.PING));
             var routings = ZNxtApp.Core.Web.Routings.Routings.GetRoutings();
@@ -86,7 +86,7 @@ namespace ZNxtApp.Core.Web.Handler
                appInstallerLogger,
                dbProxy,
                new EncryptionService(),
-               new ModuleInstaller.Installer.Installer(appInstallerLogger, dbProxy),
+               new ModuleInstaller.Installer.ModuleInstaller(appInstallerLogger, dbProxy),
               routings);
 
         }

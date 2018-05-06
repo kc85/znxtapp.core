@@ -2,7 +2,7 @@
             <div class="navbar nav_title" style="border: 0;">
               <a href="index.z" class="site_title">
                 <i class="fa fa-paw"></i>
-                <span>Gentelella Alela!</span>
+                <span>@Model["app_name"]</span>
               </a>
             </div>
 

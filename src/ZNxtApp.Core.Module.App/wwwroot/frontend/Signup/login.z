@@ -2,6 +2,7 @@
 	@InclueTemplate("../template/signup_template.zt")
 
   var modelData = IncludeModel("/api/model/signup",null);
+ Model["page_name"] ="Login";
 }
 <div class="signup_body">
 
@@ -24,7 +25,7 @@
                 </svg>
                 <input type="password" onblur="onBlur()" class="login__input pass" id="txtPassword" placeholder="Password" />
             </div>
-            <div style="text-align:right;margin-top:5px"><a style="color:#fff;font-size:2em;" href="./forgetpassword">Forget password</a></div>
+            <div style="text-align:right;margin-top:5px"><a style="color:#fff;font-size:2em;" href="@Model["base_uri"]/signup/forgetpassword.z">Forget password</a></div>
 
             <div class="login__error" id="errorMessage" style="display:none;font-size:2.5em">
                 User name or password incorrect.

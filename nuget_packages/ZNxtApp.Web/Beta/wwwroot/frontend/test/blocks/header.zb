@@ -1,0 +1,4 @@
+﻿
+<head>
+    <title>Title :Uri:@Model["uri"]:Base:@Model["base_uri"]:</title>
+</head>

@@ -21,7 +21,7 @@ namespace ZNxtApp.Core.Web.Services.Api.ModuleInstaller
         public ModuleInstaller(ParamContainer requestParam) : base(requestParam)
         {
 
-            _moduleInstaller = new ZNxtApp.Core.ModuleInstaller.Installer.Installer(Logger, DBProxy);
+            _moduleInstaller = new ZNxtApp.Core.ModuleInstaller.Installer.ModuleInstaller(Logger, DBProxy);
             _moduleUninstaller = new ZNxtApp.Core.ModuleInstaller.Installer.Uninstaller(Logger, DBProxy);
 
             _moduleMethodCaller = (Func<string,JObject> methodCall) =>

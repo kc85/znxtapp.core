@@ -1,1 +1,1 @@
-ZNxtApp.Core Module nuget package
+ZNxtApp.Core Module base  backend theme

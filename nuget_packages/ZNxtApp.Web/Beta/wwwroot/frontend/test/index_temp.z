@@ -1,0 +1,17 @@
+﻿@InclueTemplate("./template.zt")
+<h2> Users : @QueryString("name") </h2>
+<h1>Uri:@Model["uri"]:</h1>
+<h1>Base:@Model["base_uri"]:</h1>
+<script>
+
+ var data = @ExecuteAction("/api/ping",null)
+ </script>
+<ul>
+	@foreach (var user in GetData("users","{}") )
+    {
+		<li>	
+			@Include("./blocks/user_block.zb",user)
+		</li>
+	}
+</ul>
+

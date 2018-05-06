@@ -16,7 +16,12 @@ namespace ZNxtApp.Core.Helpers
         {
            return JsonConvert.DeserializeObject<T>(data);
         }
-        
+        public static JObject Serialize<T>(T data)
+        {
+            string varData = JsonConvert.SerializeObject(data);
+            return JObject.Parse(varData);
+        }
+
         public static JArray GetJArrayFromFile(string filePath)
         {
             JArray arrData = new JArray();

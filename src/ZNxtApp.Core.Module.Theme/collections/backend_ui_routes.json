@@ -14,13 +14,14 @@
       "index":90
    },
   {
-    "key": "developer",
+    "key": "adv_developer",
     "label": "Developer",
-    "href": "/developer",
+    "href": "/adv_developer",
     "icon": "fa-paw",
+    "display_area": "main_body",
     "url": "#",
     "config": {
-      "templateUrl": "app/moduleconfig/moduleconfigbody.html"
+      "templateUrl": "app/developer/developer.html"
     },
     "parent_links": [
       "advance"
@@ -31,37 +32,22 @@
     "index": 90
   },
   {
-    "key": "developer_modules",
-    "label": "Modules",
-    "href": "/modules",
-    "icon": "fa-upload",
+    "key": "adv_settings",
+    "label": "Settings",
+    "href": "/adv_settings",
+    "icon": "fa-paw",
+    "display_area": "main_body",
     "url": "#",
     "config": {
-      "templateUrl": "app/moduleconfig/moduleconfigbody.html"
+      "templateUrl": "app/settings/settings.html"
     },
     "parent_links": [
-      "developer"
+      "advance"
     ],
     "auth_users": [
       "*"
     ],
-    "index": 10
-  },
-  {
-      "key":"developer_settings",
-      "label":"Settings",
-      "href":"/setings",
-      "icon":"fa-gear",
-      "url":"#",
-      "config":{
-         "templateUrl":"app/moduleconfig/moduleconfigbody.html"
-      },
-      "parent_links":[
-         "developer"
-      ],
-      "auth_users":[
-         "*"
-      ],
-      "index":20
-   }
+    "index": 80
+  }
+  
 ]
