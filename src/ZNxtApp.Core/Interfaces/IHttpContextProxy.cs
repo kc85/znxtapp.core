@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
+using System.Collections.Generic;
 
 namespace ZNxtApp.Core.Interfaces
 {
@@ -28,6 +29,7 @@ namespace ZNxtApp.Core.Interfaces
         string ContentType { get; set; }
 
         string GetMimeType(string fileName);
+
         string GetContentType(FileInfo pathInfo);
 
         string GetRequestBody();
@@ -39,7 +41,13 @@ namespace ZNxtApp.Core.Interfaces
         string GetFormData(string key);
 
         string SessionID{get;}
+
         void UploadAppDomain();
+
+        string GetHeader(string key);
+
+        Dictionary<string,string> GetHeaders();
+
 
         //dynamic GetFiles();
 

@@ -15,5 +15,9 @@ namespace ZNxtApp.Core.Model
         public string email_validation_required { get; set; }
         public string phone_validation_required { get; set; }
         public List<string> groups { get; set; }
+        public UserModel()
+        {
+            groups = new List<string>();
+        }
     }
 }

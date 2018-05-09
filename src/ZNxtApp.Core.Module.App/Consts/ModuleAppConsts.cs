@@ -34,6 +34,13 @@ namespace ZNxtApp.Core.Module.App.Consts
 
             public const string DEFAULT_USER_GROUPS_APP_SETTING_KEY = "default_user_groups";
             public const string SIGNUP_LENDING_PAGE_SETTING_KEY = "signup_redirect_page";
+            public const string FORGET_PASS_LENDING_PAGE_SETTING_KEY = "forget_password_redirect_page";
+
+
+            public const string FORGET_PASS_OTP_SMS_TEMPLATE = "OTP_FORGET_PASS_SMS";
+            public const string FORGET_PASS_OTP_EMAIL_TEMPLATE = "OTP_FORGET_PASS_EMAIL";
+            public const string FORGET_PASS_OTP_EMAIL_SUBJECT = "OTP_FORGET_PASS_SUBJECT";
+
 
         }
     }

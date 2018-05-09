@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using ZNxtApp.Core.Interfaces;
 
@@ -105,6 +106,16 @@ namespace ZNxtApp.Core
         }
 
         public void UploadAppDomain()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetHeader(string key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Dictionary<string, string> GetHeaders()
         {
             throw new NotImplementedException();
         }

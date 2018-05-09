@@ -62,7 +62,9 @@
     <Compile Include="Services\Api\Menu\BackendMenuController.cs" />
     <Compile Include="Services\Api\Module\GetModuleController.cs" />
     <Compile Include="Services\Api\Signup\Facebook\FacebookAuthUserController.cs" />
+    <Compile Include="Services\Api\Forgetpassword\Forgetpassword.cs" />
     <Compile Include="Services\Api\Signup\SignUpCommonController.cs" />
+    <Compile Include="Services\Api\Signup\UserRegistrationBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="build-events-scripts\post-build\readme.md" />

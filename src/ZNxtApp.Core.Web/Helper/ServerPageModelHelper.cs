@@ -10,6 +10,7 @@ using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
+using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Web.Services;
 using ZNxtApp.Core.Web.Util;
 
@@ -105,6 +106,23 @@ namespace ZNxtApp.Core.Web.Helper
                 model[CommonConst.CommonValue.PAGE_TEMPLATE_PATH] = path;
                 return string.Empty;
             };
+            Func<string, bool> authorized = (string authGroups) =>
+            {
+                var sessionUser = sessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
+                if (sessionUser == null)
+                {
+                    return false;
+                }
+
+                if (!authGroups.Split(',').Where(i => sessionUser.groups.Contains(i)).Any())
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            };
             Func<string, JObject, JObject> ActionExecute =
                (string actionPath, JObject data) =>
                {
@@ -125,27 +143,37 @@ namespace ZNxtApp.Core.Web.Helper
             Func<string, JObject, Dictionary<string, dynamic>> IncludeModel =
                (string includeModelPath, JObject data) =>
                {
-                   var param = ActionExecuterHelper.CreateParamContainer(null, httpProxy, logger, actionExecuter);
-
-                   Dictionary<string, dynamic> modelData = new Dictionary<string, dynamic>();
-
-                   if (data != null)
+                   try
                    {
-                       foreach (var item in data)
+                       
+                       var param = ActionExecuterHelper.CreateParamContainer(null, httpProxy, logger, actionExecuter);
+
+                       Dictionary<string, dynamic> modelData = new Dictionary<string, dynamic>();
+
+                       if (data != null)
                        {
-                           Func<dynamic> funcValue = () => { return item.Value; };
-                           param.AddKey(item.Key, funcValue);
+                           foreach (var item in data)
+                           {
+                               Func<dynamic> funcValue = () => { return item.Value; };
+                               param.AddKey(item.Key, funcValue);
+                           }
+                       }
+
+                       object response = actionExecuter.Exec(includeModelPath, dbProxy, param);
+                       if (response is Dictionary<string, dynamic>)
+                       {
+
+                           return response as Dictionary<string, dynamic>;
+                       }
+                       else
+                       {
+                           throw new InvalidCastException(string.Format("Invalid respone from {0}", includeModelPath));
                        }
                    }
-
-                   object response = actionExecuter.Exec(includeModelPath, dbProxy, param);
-                   if (response is Dictionary<string, dynamic>)
+                   catch (UnauthorizedAccessException ex)
                    {
-                       return response as Dictionary<string, dynamic>;
-                   }
-                   else
-                   {
-                       throw new InvalidCastException(string.Format("Invalid respone from {0}", includeModelPath));
+                       logger.Error(string.Format("Error While executing Route : {0}, Error : {1}", includeModelPath, ex.Message), ex);
+                       throw;
                    }
                };
             model[CommonConst.CommonValue.METHODS]["IncludeModel"] = IncludeModel;
@@ -165,7 +193,10 @@ namespace ZNxtApp.Core.Web.Helper
             model[CommonConst.CommonValue.METHODS]["AppSetting"] = getAppSetting;
 
             model[CommonConst.CommonValue.METHODS]["GetSessionData"] = getSessionValue;
-            
+
+            model[CommonConst.CommonValue.METHODS]["Authorized"] = authorized;
+
+
             Func<string, JObject, string> includeBlock =
                 (string blockPath, JObject blockModel) =>
                 {

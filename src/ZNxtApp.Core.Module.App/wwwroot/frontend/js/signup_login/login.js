@@ -32,10 +32,13 @@ var imNotARobotCallback = function (val) {
         success: function (data) {
          
             if (data.code === success_code) {
+                $("#btnSingin").html("Redirecting....");
                 window.location = redirectUrl;
             }
             else {
+                capchaExpiredCallback();
                 animating = false;
+                $("#btnSingin").html("Sign in");
                 $(that).removeClass("success processing");
                 $("#errorMessage").show();
                 $("#errorMessage").html(data.message);

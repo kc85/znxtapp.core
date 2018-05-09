@@ -30,33 +30,8 @@ $(document).ready(function () {
         elem.append($ripple);
     };
 
-    $("#btnFBLogin").click(function (e) {
-        if (animating) return;
-        animating = true;
-        var that = this;
-        ripple($(that), e);
-        $(that).addClass("processing");
-
-        $.ajax({
-            type: 'POST',
-            url: appRootPath +'/api/user/facebook/auth',
-            success: function (data) {
-                console.log(data);
-                alert("This is not yet implemented");
-                //window.location = data.data.facebook_graph_api_url;
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                console.log(errorThrown);
-                animating = false;
-                $(that).removeClass("success processing");
-                alert("Ërror")
-            },
-            contentType: "application/json",
-            dataType: 'json'
-        });
-    });
-
-   $("#btnSendSignUpOTP").click(function (e) {
+   
+    $("#btnSendForgetOTP").click(function (e) {
         $("#errorMessage").hide();
         if (animating) return;
 
@@ -72,7 +47,7 @@ $(document).ready(function () {
         animating = true;
         $(that).addClass("processing");
         $.ajax({
-            url: appRootPath+ "/api/user/registration/SendOTP",
+            url: appRootPath+ "/api/user/forgetpassword/SendOTP",
             type: 'post',
             data: '{"user_id": "' + mobileNo + '", "g-recaptcha-response" : "' + grecaptcharesponse + '", "user_type" : "' + user_type + '"}',
             contentType: "application/json",
@@ -86,11 +61,13 @@ $(document).ready(function () {
                     
                     otp_security_token = data.security_token;
                     $("#txtMobileNumber").attr("disabled", "true");
-                    $("#btnSendSignUpOTP").hide();
+                    $("#btnSendForgetOTP").hide();
                     $(".g_captche").hide();
                     $("#divOtp").show();
+                    $("#divPassword").show();
                 }
                 else {
+                    grecaptcha.reset();
                     $("#errorMessage").show();
                     $("#errorMessage").html(data.message);
                 }
@@ -98,7 +75,7 @@ $(document).ready(function () {
             error: function (err) {
                 console.log(err);
                 animating = false;
-                $("#btnSendSignUpOTP").hide();
+                $("#btnSendForgetOTP").hide();
                 $(that).removeClass("success processing");
                 $("#errorMessage").show();
                 $("#errorMessage").html("Server Error, Please report error to site admin");
@@ -107,54 +84,54 @@ $(document).ready(function () {
         });
     });
 
-    $("#btnSignupOTPSubmit").click(function (e) {
-        $("#errorMessage").hide();
-        if (animating) return;
+    //$("#btnSignupOTPSubmit").click(function (e) {
+    //    $("#errorMessage").hide();
+    //    if (animating) return;
 
-        var that = this;
-        ripple($(that), e);
+    //    var that = this;
+    //    ripple($(that), e);
 
-        var mobileNo = $("#txtMobileNumber").val();
-        if (!validateEmail(mobileNo) && !validate(mobileNo)) {
-            $("#errorMessage").show();
-            $("#errorMessage").html("Enter valid email id or phone");
-            return;
-        }
-        animating = true;
-        $(that).addClass("processing");
-        var otp = $("#txtOTP").val();
+    //    var mobileNo = $("#txtMobileNumber").val();
+    //    if (!validateEmail(mobileNo) && !validate(mobileNo)) {
+    //        $("#errorMessage").show();
+    //        $("#errorMessage").html("Enter valid email id or phone");
+    //        return;
+    //    }
+    //    animating = true;
+    //    $(that).addClass("processing");
+    //    var otp = $("#txtOTP").val();
 
-        $.ajax({
-            url: appRootPath+ "/api/user/registration/OTP",
-            type: 'post',
-            data: '{"otp": "' + otp + '", "user_id" :"' + mobileNo + '", "security_token" :"' + otp_security_token + '","user_type" : "' + user_type + '"}',
-            contentType: "application/json",
-            dataType: 'json',
-            success: function (data) {
-                animating = false;
-                $(that).removeClass("success processing");
-                if (data.code === success_code) {
-                    $("#divOtp").fadeOut();
-                    $("#divPassword").fadeIn();
-                   // window.location = appRootPath+ data.rurl;
-                }
-                else {
-                    $("#errorMessage").show();
-                    $("#errorMessage").html(data.message);
-                }
-            },
-            error: function (err) {
-                console.log(err);
-                animating = false;
-                $(that).removeClass("success processing");
-                $("#errorMessage").show();
-                $("#errorMessage").html("Unauthorized :( <br/>");
-            }
-        });
-    });
+    //    $.ajax({
+    //        url: appRootPath+ "/api/user/registration/OTP",
+    //        type: 'post',
+    //        data: '{"otp": "' + otp + '", "user_id" :"' + mobileNo + '", "security_token" :"' + otp_security_token + '","user_type" : "' + user_type + '"}',
+    //        contentType: "application/json",
+    //        dataType: 'json',
+    //        success: function (data) {
+    //            animating = false;
+    //            $(that).removeClass("success processing");
+    //            if (data.code === success_code) {
+    //                $("#divOtp").fadeOut();
+    //                $("#divPassword").fadeIn();
+    //               // window.location = appRootPath+ data.rurl;
+    //            }
+    //            else {
+    //                $("#errorMessage").show();
+    //                $("#errorMessage").html(data.message);
+    //            }
+    //        },
+    //        error: function (err) {
+    //            console.log(err);
+    //            animating = false;
+    //            $(that).removeClass("success processing");
+    //            $("#errorMessage").show();
+    //            $("#errorMessage").html("Unauthorized :( <br/>");
+    //        }
+    //    });
+    //});
 
 
-    $("#btnSignupWithPassSubmit").click(function (e) {
+    $("#btnResetPassword").click(function (e) {
 
         $("#errorMessage").hide();
         if (animating) return;
@@ -170,7 +147,7 @@ $(document).ready(function () {
         }
         var password = $("#txtPassword").val();
         var passwordC = $("#txtConfirmPassword").val();
-
+        var otp = $("#txtOTP").val();
         if (password.length < 5) {
             $("#errorMessage").show();
             $("#errorMessage").html("Password length should be min of 5 chars");
@@ -183,9 +160,9 @@ $(document).ready(function () {
         }
       
         $.ajax({
-            url: appRootPath+ "/api/user/registration/signup",
+            url: appRootPath + "/api/user/forgetpassword/resetpassword",
             type: 'post',
-            data: '{"user_id": "' + email + '", "password" :"' + password + '", "confirm_password":"' + passwordC + '", "g-recaptcha-response" : "' + grecaptcharesponse + '","user_type" : "' + user_type + '"}',
+            data: '{"user_id": "' + email + '", "password" :"' + password + '", "confirm_password":"' + passwordC + '", "g-recaptcha-response" : "' + grecaptcharesponse + '","user_type" : "' + user_type + '","otp" : "' + otp + '"}',
             contentType: "application/json",
             dataType: 'json',
             success: function (data) {
@@ -249,35 +226,23 @@ function onBlurSignUpText(txt) {
     
     if ($(".login__form").is(":visible")) {
         if (validateEmail($(txt).val())) {
-            //$("#divPassword").fadeIn();
-            //$("#divFbSignUp").fadeOut();
-            //$("#errorMessage").fadeOut();
-            if (signup_otp_check_enabled) {
                 $("#divSendOtp").fadeIn();
                 $("#divFbSignUp").fadeOut();
                 $("#errorMessage").fadeOut();
 
-            }
-            else {
-                $("#btnSendSignUpOTP").hide();
-                $("#divPassword").show();
-            }
+            
             user_type = "Email";
-            $("#btnSendSignUpOTP").html("Send OTP on My Email");
+            $("#btnSendForgetOTP").html("Send OTP on My Email");
 
         }
         else if (validatePhone($(txt).val())) {
-            if (signup_otp_check_enabled) {
+          
                 $("#divSendOtp").fadeIn();
                 $("#divFbSignUp").fadeOut();
                 $("#errorMessage").fadeOut();
-            }
-            else {
-                $("#btnSendSignUpOTP").hide();
-                $("#divPassword").show();
-            }
+          
             user_type = "PhoneNumber";
-            $("#btnSendSignUpOTP").html("Send OTP on My Mobile");
+            $("#btnSendForgetOTP").html("Send OTP on My Mobile");
 
         }
         else {

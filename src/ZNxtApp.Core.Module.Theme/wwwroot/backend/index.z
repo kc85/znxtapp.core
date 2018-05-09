@@ -1,4 +1,17 @@
-﻿@{ 
+﻿<script>
+var authorized = @Authorized("sys_admin").ToString().ToLower();
+if(!authorized)
+{
+    window.location = "../signup/login.z?rurl="+window.location
+}
+else{
+    $("body").show();
+}
+
+</script>
+
+
+@{ 
 	InclueTemplate("./template/template.zt");
 	Model["page_title"] = " : Home111";
 }

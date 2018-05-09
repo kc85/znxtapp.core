@@ -14,7 +14,7 @@
       "advance"
     ],
     "auth_users": [
-      "*"
+      "sys_admin"
     ],
     "index": 80
   }

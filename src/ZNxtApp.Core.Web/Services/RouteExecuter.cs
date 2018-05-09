@@ -88,6 +88,11 @@ namespace ZNxtApp.Core.Web.Services
                 //    }
 
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                loggerController.Error(string.Format("Error While executing Route : {0}, Error : {1}", route.ToString(), ex.Message), ex);
+                httpProxy.SetResponse(CommonConst._401_UNAUTHORIZED);
+            }
             catch (Exception ex)
             {
                 httpProxy.SetResponse(CommonConst._500_SERVER_ERROR);

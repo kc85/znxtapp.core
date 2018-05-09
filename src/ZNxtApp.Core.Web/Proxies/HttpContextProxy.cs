@@ -225,5 +225,20 @@ namespace ZNxtApp.Core.Web.Proxies
         {
             System.Web.HttpRuntime.UnloadAppDomain();
         }
+
+        public string GetHeader(string key)
+        {
+           return _context.Request.Headers[key];
+        }
+
+        public Dictionary<string, string> GetHeaders()
+        {
+            Dictionary<string, string> headers = new Dictionary<string, string>();
+            foreach (var key in _context.Request.Headers.AllKeys)
+            {
+                headers[key] = _context.Request.Headers[key];
+            }
+            return headers;
+        }
     }
 }

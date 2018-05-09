@@ -82,5 +82,17 @@
     "auth_users": [
       "*"
     ]
+  },
+  {
+    "key": "ACTION:/api/email/send",
+    "ContentType": "application/json",
+    "Method": "ACTION",
+    "Route": "/api/email/send",
+    "ExecultAssembly": "ZNxtApp.Core.Web.dll",
+    "ExecuteType": " ZNxtApp.Core.Web.Services.Api.Email.EmailController",
+    "ExecuteMethod": "Send",
+    "auth_users": [
+      "*"
+    ]
   }
 ]

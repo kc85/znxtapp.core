@@ -91,6 +91,7 @@ $(document).ready(function () {
                     $("#divOtp").show();
                 }
                 else {
+                    grecaptcha.reset();
                     $("#errorMessage").show();
                     $("#errorMessage").html(data.message);
                 }

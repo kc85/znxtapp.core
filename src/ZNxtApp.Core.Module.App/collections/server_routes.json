@@ -108,13 +108,37 @@
     ]
   },
   {
-     "key": "GET:/api/admin/module",
+    "key": "GET:/api/admin/module",
     "ContentType": "application/json",
     "Method": "GET",
     "Route": "/api/admin/module",
     "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
     "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Module.GetModuleController",
     "ExecuteMethod": "GetModules",
+    "auth_users": [
+      "sys_admin"
+    ]
+  },
+  {
+    "key": "POST://api/user/forgetpassword/SendOTP",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/user/forgetpassword/SendOTP",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Forgetpassword.Forgetpassword",
+    "ExecuteMethod": "SendForgetpassOTP",
+    "auth_users": [
+      "*"
+    ]
+  },
+  {
+    "key": "POST:/api/user/forgetpassword/resetpassword",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/user/forgetpassword/resetpassword",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Forgetpassword.Forgetpassword",
+    "ExecuteMethod": "ResetPassword",
     "auth_users": [
       "*"
     ]

@@ -9,7 +9,7 @@
          "templateUrl":"#"
       },
       "auth_users":[
-         "*"
+        "sys_admin"
       ],
       "index":90
    },
@@ -27,7 +27,7 @@
       "advance"
     ],
     "auth_users": [
-      "*"
+      "sys_admin"
     ],
     "index": 90
   },
@@ -45,7 +45,7 @@
       "advance"
     ],
     "auth_users": [
-      "*"
+      "sys_admin"
     ],
     "index": 80
   }

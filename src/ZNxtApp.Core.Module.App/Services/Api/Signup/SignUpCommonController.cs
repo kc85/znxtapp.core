@@ -2,21 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Enums;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Module.App.Consts;
-using ZNxtApp.Core.Services;
 
 namespace ZNxtApp.Core.Module.App.Services.Api.Signup
 {
-    public class SignUpCommonController : ViewBaseService
+    public class SignUpCommonController : UserRegistrationBase
     {
-        private const string SIGNUP_OTP_CHECK_SETTING_KEY = "signup_otp_check";
-        private const string SIGNUP_CAPCHA_VALIDATION_SESSION_KEY = "signup_capcha_check";
+        protected const string SIGNUP_OTP_CHECK_SETTING_KEY = "signup_otp_check";
+
 
         public SignUpCommonController(ParamContainer paramContainer) : base(paramContainer)
         {
@@ -29,6 +26,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             return model;
 
         }
+
         public JObject SendSignUpOTP()
         {
             Logger.Debug("Calling SendMobileOTP");
@@ -43,7 +41,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
 
 
             var recaptchaResponse = request[ModuleAppConsts.Field.GOOGLE_RECAPTCHA_RESPONSE_KEY].ToString();
-            var capchaChecked = SessionProvider.GetValue<bool>(SIGNUP_CAPCHA_VALIDATION_SESSION_KEY);
+            var capchaChecked = SessionProvider.GetValue<bool>(USER_REGISTRATION_CAPCHA_VALIDATION_SESSION_KEY);
 
             if (capchaChecked && !GoogleCaptchaHelper.ValidateResponse(Logger, recaptchaResponse, AppSettingService.GetAppSettingData(ModuleAppConsts.Field.GOOGLE_RECAPTCHA_SECRECT_SETTING_KEY), AppSettingService.GetAppSettingData(ModuleAppConsts.Field.GOOGLE_RECAPTCHA_VALIDATE_URL_SETTING_KEY)))
             {
@@ -52,7 +50,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             }
             else
             {
-                SessionProvider.SetValue<bool>(SIGNUP_CAPCHA_VALIDATION_SESSION_KEY, true);
+                SessionProvider.SetValue<bool>(USER_REGISTRATION_CAPCHA_VALIDATION_SESSION_KEY, true);
             }
             if (!IsUserExists(requestUser.user_id))
             {
@@ -82,18 +80,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
 
         }
 
-        private UserModel GetUserDataFromRequest(JObject request)
-        {
-            UserModel user = new UserModel();
-            user.user_id = request[CommonConst.CommonField.USER_ID].ToString();
-            var userIdTypeStr = request[CommonConst.CommonField.USER_TYPE].ToString();
-
-            UserIDType userIdType = UserIDType.PhoneNumber;
-            Enum.TryParse<UserIDType>(userIdTypeStr, out userIdType);
-            user.user_type = userIdType.ToString();
-            return user;
-
-        }
         public JObject ValidateOTP()
         {
 
@@ -150,21 +136,21 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
                 var signUpUser = SessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SIGN_UP_SESSION_USER_KEY);
                 if (signUpUser == null)
                 {
-                    return ResponseBuilder.CreateReponse(AppResponseCode._SIGNUP_SESSION_USER_NOT_FOUND);
+                    return ResponseBuilder.CreateReponse(AppResponseCode._SESSION_USER_NOT_FOUND);
                 }
                 if (signUpUser.user_id != requestUser.user_id)
                 {
-                    return ResponseBuilder.CreateReponse(AppResponseCode._SIGNUP_SESSION_USER_DATA_MISMATCH);
+                    return ResponseBuilder.CreateReponse(AppResponseCode._SESSION_USER_DATA_MISMATCH);
                 }
             }
 
             if (request[CommonConst.CommonField.PASSWORD].ToString() != request[CommonConst.CommonField.CONFIRM_PASSWORD].ToString())
             {
-                return ResponseBuilder.CreateReponse(AppResponseCode._SIGNUP_SESSION_USER_DATA_MISMATCH);
+                return ResponseBuilder.CreateReponse(AppResponseCode._SESSION_USER_DATA_MISMATCH);
             }
 
             var recaptchaResponse = request[ModuleAppConsts.Field.GOOGLE_RECAPTCHA_RESPONSE_KEY].ToString();
-            var capchaChecked = SessionProvider.GetValue<bool>(SIGNUP_CAPCHA_VALIDATION_SESSION_KEY);
+            var capchaChecked = SessionProvider.GetValue<bool>(USER_REGISTRATION_CAPCHA_VALIDATION_SESSION_KEY);
 
             if (capchaChecked && !GoogleCaptchaHelper.ValidateResponse(Logger, recaptchaResponse, AppSettingService.GetAppSettingData(ModuleAppConsts.Field.GOOGLE_RECAPTCHA_SECRECT_SETTING_KEY), AppSettingService.GetAppSettingData(ModuleAppConsts.Field.GOOGLE_RECAPTCHA_VALIDATE_URL_SETTING_KEY)))
             {
@@ -173,7 +159,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             }
             else
             {
-                SessionProvider.SetValue<bool>(SIGNUP_CAPCHA_VALIDATION_SESSION_KEY, true);
+                SessionProvider.SetValue<bool>(USER_REGISTRATION_CAPCHA_VALIDATION_SESSION_KEY, true);
             }
             if (!IsUserExists(requestUser.user_id))
             {
@@ -222,15 +208,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             return otpSignupAuthCheck;
         }
 
-        protected bool IsUserExists(string userId, UserIDType userIdType = UserIDType.PhoneNumber)
-        {
-            return GetUser(userId, userIdType) != null;
-        }
-
-        private JObject GetUser(string userId, UserIDType userIdType)
-        {
-            return DBProxy.FirstOrDefault<JObject>(CommonConst.Collection.USERS, CommonConst.CommonField.USER_ID, userId);
-        }
 
         protected void SetBaseViewModelData(Dictionary<string, dynamic> viewModel)
         {

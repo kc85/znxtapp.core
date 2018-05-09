@@ -23,11 +23,25 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Menu
                 Logger.Debug("Enter to GetMenuItems");
                 DBProxy.Collection = ModuleAppConsts.Collection.BACKEND_UI_ROUTES;
 
+
                 // TODO need to do the session user filter;
                 var data = DBProxy.Get(CommonConst.Filters.IS_OVERRIDE_FILTER);
-
+                List<string> userAccess = new List<string>() { "*" };
+                var sessionUser = SessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
+                if (sessionUser != null)
+                {
+                    userAccess.AddRange(sessionUser.groups);
+                }
+                JArray menuData = new JArray();
+                foreach (var item in data)
+                {
+                    if (item["auth_users"].Where(f => userAccess.Contains(f.ToString())).Any())
+                    {
+                        menuData.Add(item);
+                    }
+                }
                 Logger.Debug("Got GetMenuItems");
-                return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, data);
+                return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, menuData);
             }
             catch (Exception ex)
             {

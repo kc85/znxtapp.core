@@ -88,6 +88,14 @@
     "key": "signup_redirect_page",
     "data": "/index.z"
   },
+ {
+    "auth_users": [
+      "sys_admin"
+    ],
+    "key": "forget_password_redirect_page",
+    "data": "/signup/login.z"
+  },
+
   {
     "auth_users": [
       "sys_admin"
@@ -108,7 +116,16 @@
     "key": "OTP_SIGN_UP_EMAIL_SUBJECT",
     "comment": "SIGN_UP_OTP_EMAIL_SUBJECT",
     "data": "Signup OTP"
-  },{
+  },
+   {
+    "auth_users": [
+      "sys_admin"
+    ],
+    "key": "OTP_FORGET_PASS_SUBJECT",
+    "comment": "FORGET_PASSWORD",
+    "data": "Forget password OTP"
+  },
+  {
     "auth_users": [
       "sys_admin"
     ],

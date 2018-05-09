@@ -49,7 +49,38 @@ namespace ZNxtApp.Core.Web.Services
 
         public object Exec(RoutingModel route, ParamContainer helper)
         {
-            return Exec(route.ExecultAssembly, route.ExecuteType, route.ExecuteMethod, helper);
+
+
+            if (route.auth_users.FirstOrDefault(f => f.Trim() == "*") == null)
+            {
+                ISessionProvider sessionProvider = helper.GetKey(CommonConst.CommonValue.PARAM_SESSION_PROVIDER);
+                IHttpContextProxy httpProxy = helper.GetKey(CommonConst.CommonValue.PARAM_HTTPREQUESTPROXY);
+                if (sessionProvider == null || httpProxy == null)
+                {
+                    string error = "ActionExecuter.Exec sessionProvider is null or HttpContextProxy is null on ParamContainer";
+                    _logger.Error(error);
+                    throw new UnauthorizedAccessException(error);
+                }
+
+                var authToken = httpProxy.GetHeaders().FirstOrDefault(f => f.Key.ToLower() == "");
+                var sessionUser = sessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
+                // add auth here. 
+                if (sessionUser == null)
+                {
+                    throw new UnauthorizedAccessException("No session user found");
+                }
+
+                if (!route.auth_users.Where(i => sessionUser.groups.Contains(i)).Any())
+                {
+                    throw new UnauthorizedAccessException("Unauthorized");
+                }
+
+                return Exec(route.ExecultAssembly, route.ExecuteType, route.ExecuteMethod, helper);
+            }
+            else
+            {
+                return Exec(route.ExecultAssembly, route.ExecuteType, route.ExecuteMethod, helper);
+            }
         }
 
         public object Exec(string execultAssembly, string executeType, string executeMethod, ParamContainer helper)
