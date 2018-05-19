@@ -5,19 +5,18 @@ namespace ZNxtApp.Core.Interfaces
 {
     public interface IDBService
     {
-        string Collection { get; set; }
+        
+        bool WriteData(string collection, JObject data);
 
-        bool WriteData(JObject data);
+        long GetCount(string collection,string bsonQuery);
 
-        long GetCount(string bsonQuery);
+        JArray Get(string collection, string bsonQuery, List<string> properties = null, Dictionary<string, int> sortColumns = null, int? top = null, int? skip = null);
 
-        JArray Get(string bsonQuery, List<string> properties = null, Dictionary<string, int> sortColumns = null, int? top = null, int? skip = null);
+        long Delete(string collection, string bsonQuery);
 
-        long Delete(string bsonQuery);
+        long Update(string collection, string bsonQuery, JObject data, bool overrideData = false, MergeArrayHandling mergeType = MergeArrayHandling.Union);
 
-        long Update(string bsonQuery, JObject data, bool overrideData = false, MergeArrayHandling mergeType = MergeArrayHandling.Union);
-
-        JObject GetPageData(string query, List<string> fields = null, Dictionary<string, int> sortColumns = null, int pageSize = 10, int currentPage = 1);
+        JObject GetPageData(string collection, string query, List<string> fields = null, Dictionary<string, int> sortColumns = null, int pageSize = 10, int currentPage = 1);
 
         bool DropDB();
         

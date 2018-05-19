@@ -74,9 +74,16 @@
 		<script type="text/javascript" src="@Model["base_uri"]/assets/js/custom.js"></script>
 
 		<!-- /JavaScript files-->
+      @if(@GetSessionData("_session_user") != null)
+      {
       <script>
-        var user =  @GetSessionData("_session_user");
+        
+       
+            var user =  @GetSessionData("_session_user");
+        
+        
       </script>
+      }
 
     </body>
 </html>

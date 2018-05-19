@@ -21,6 +21,8 @@
             public const string PHONE = "phone";
             public const string SECURITY_TOKEN = "security_token";
             public const string CREATED_DATA_DATE_TIME = "created_datetime";
+            public const string CREATED_BY = "created_by";
+            public const string UPDATED_BY = "updated_by";
             public const string STATUS = "status";
             public const string TRANSATTION_ID = "transaction_id";
             public static string DATA_MODULE_NAME = "module";

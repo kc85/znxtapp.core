@@ -5,15 +5,15 @@
   <title>@Model["app_name"] :: @Model["page_name"]</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
 
-  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans'>
-
-<link rel="stylesheet" href="@Model["base_uri"]/css/signup_login/signup_login.css">
-<script src='https://www.google.com/recaptcha/api.js'></script>
-<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script  src="@Model["base_uri"]/js/signup_login/signup_login.js"></script>
-<script>
+  <link rel='stylesheet prefetch' href='//fonts.googleapis.com/css?family=Open+Sans'>
+  <script>
 var appRootPath = '@Model["base_uri"]';
 </script>
+<link rel="stylesheet" href="@Model["base_uri"]/css/signup_login/signup_login.css">
+<script src='//www.google.com/recaptcha/api.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script  src="@Model["base_uri"]/js/signup_login/signup_login.js"></script>
+
 </head>
 
 <body>

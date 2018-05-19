@@ -40,8 +40,8 @@ namespace ZNxtApp.Core.Helpers
         {
             JObject filter = JObject.Parse(string.Format("{{ \"{0}\":\"{1}\" }}", filterKey, filterValue));
 
-            dbProxy.Collection = collection;
-            var response = dbProxy.Get(filter.ToString());
+            
+            var response = dbProxy.Get(collection, filter.ToString());
             if (response.Count != 0)
             {
                 return response[0] as JObject;
@@ -56,9 +56,8 @@ namespace ZNxtApp.Core.Helpers
             return FirstOrDefault(dbProxy, collection, QueryBuilder(filters), isOverrideCheck);
         }
         public static JObject FirstOrDefault(this IDBService dbProxy, string collection, string filterQuery, bool isOverrideCheck = false)
-        {
-            dbProxy.Collection = collection;
-            var response = dbProxy.Get(filterQuery);
+        {   
+            var response = dbProxy.Get(collection,filterQuery);
             if (response.Count != 0)
             {
                 return response[0] as JObject;
@@ -79,13 +78,13 @@ namespace ZNxtApp.Core.Helpers
         }
         public static bool Write(this IDBService dbProxy, string collection, JObject data)
         {
-            dbProxy.Collection = collection;
-            return dbProxy.WriteData(data);
+            
+            return dbProxy.WriteData(collection,data);
         }
         public static bool Write(this IDBService dbProxy, string collection, JObject data, Dictionary<string, string> filters, bool overrideData = false, MergeArrayHandling mergeType = MergeArrayHandling.Union)
         {
-            dbProxy.Collection = collection;
-            if (dbProxy.Update(QueryBuilder(filters), data, overrideData, mergeType) != 0)
+            
+            if (dbProxy.Update(collection, QueryBuilder(filters), data, overrideData, mergeType) != 0)
             {
                 return true;
             }
@@ -96,8 +95,8 @@ namespace ZNxtApp.Core.Helpers
         }
         public static bool Write(this IDBService dbProxy, string collection, JObject data, string filter, bool overrideData = false, MergeArrayHandling mergeType = MergeArrayHandling.Union)
         {
-            dbProxy.Collection = collection;
-            if (dbProxy.Update(filter, data, overrideData, mergeType) != 0)
+            
+            if (dbProxy.Update(collection,filter, data, overrideData, mergeType) != 0)
             {
                 return true;
             }

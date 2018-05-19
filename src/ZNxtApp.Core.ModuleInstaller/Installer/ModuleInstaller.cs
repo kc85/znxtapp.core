@@ -58,8 +58,8 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                     InstallWWWRoot(moduleDir, moduleName);
                     InstallDlls(moduleDir, moduleName);
                     InstallCollections(moduleDir, moduleName, moduleCollections);
-                    _dbProxy.Collection = CommonConst.Collection.MODULES;
-                    _dbProxy.Update("{" + CommonConst.CommonField.DATA_KEY + " :'" + moduleName + "'}", moduleObject, true);
+                    
+                    _dbProxy.Update(CommonConst.Collection.MODULES,"{" + CommonConst.CommonField.DATA_KEY + " :'" + moduleName + "'}", moduleObject, true);
                     return true;
                 }
                 else
@@ -228,14 +228,14 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
 
         private void WriteToDB(JObject joData, string moduleName, string collection, string compareKey)
         {
-            OverrideData(joData, moduleName, compareKey);
-            if (!_dbProxy.WriteData(joData))
+            OverrideData(joData, moduleName, compareKey, collection);
+            if (!_dbProxy.Write(collection,joData))
             {
                 _logger.Error(string.Format("Error while uploading file data {0}", joData.ToString()), null);
             }
         }
 
-        private void OverrideData(JObject joData, string moduleName, string compareKey)
+        private void OverrideData(JObject joData, string moduleName, string compareKey,string collection)
         {
             string updateOverrideFilter = "{ $and: [ { " + CommonConst.CommonField.IS_OVERRIDE + ":false }, {" + compareKey + ":'" + joData[compareKey].ToString() + "'}] } ";
             var updateObject = new JObject();
@@ -249,7 +249,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
             //updateObject[CommonConst.CommonField.LAST_OVERRIDES] = lastOverrides;
 
             updateObject[CommonConst.CommonField.OVERRIDE_BY] = moduleName;
-            _dbProxy.Update(updateOverrideFilter, updateObject);
+            _dbProxy.Write(collection,updateObject, updateOverrideFilter);
         }
 
        

@@ -29,12 +29,12 @@ namespace ZNxtApp.Core.Web.Services
         }
         public object Exec(string action, IDBService dbProxy, ParamContainer helper)
         {
-            dbProxy.Collection = CommonConst.Collection.SERVER_ROUTES;
+            
             JObject filter = JObject.Parse(CommonConst.Filters.IS_OVERRIDE_FILTER);
             filter[CommonConst.CommonField.METHOD] = CommonConst.ActionMethods.ACTION;
             filter[CommonConst.CommonField.ROUTE] = action;
 
-            var data = dbProxy.Get(filter.ToString());
+            var data = dbProxy.Get(CommonConst.Collection.SERVER_ROUTES,filter.ToString());
             if (data.Count == 0)
             {
                 throw new KeyNotFoundException(string.Format("Not Found: {0}", filter.ToString()));

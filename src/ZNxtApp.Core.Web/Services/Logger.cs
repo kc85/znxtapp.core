@@ -14,7 +14,8 @@ namespace ZNxtApp.Core.Web.Services
         private static object lockObjet = new object();
         private string _loggerName;
         private string _transactionId;
-        private IDBService _dbProxy; 
+        private IDBService _dbProxy;
+        public IDBService DBProxy { get { return _dbProxy; } set { _dbProxy = value; } } 
         List<string> _logLevels;
         
         public string TransactionId
@@ -22,16 +23,22 @@ namespace ZNxtApp.Core.Web.Services
             get { return _transactionId; }
         }
 
-        public Logger()
+        public Logger(IDBService dbService = null)
         {
-            _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName, CommonConst.Collection.SERVER_LOGS);
+            if (dbService == null)
+            {
+                _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
+            }
+           else {
+                _dbProxy = dbService;
+            }
             _logLevels = GetLogLevels();
         }
-        public static ILogger GetLogger(string loggerName, string transactionId)
+        public static ILogger GetLogger(string loggerName, string transactionId, IDBService dbService = null)
         {
             lock (lockObjet)
             {
-                Logger _logger = new Logger();
+                Logger _logger = new Logger(dbService);
                 _logger._loggerName = loggerName;
                 _logger._transactionId = transactionId;
                 return _logger;
@@ -107,7 +114,10 @@ namespace ZNxtApp.Core.Web.Services
 
         private void WriteLog(JObject logData)
         {
-            _dbProxy.WriteData(logData);
+            lock (lockObjet)
+            {                
+                _dbProxy.WriteData(CommonConst.Collection.SERVER_LOGS,logData);
+            }
         }
         private JObject LoggerCommon(string message, JObject loginputData, string level)
         {
@@ -155,7 +165,7 @@ namespace ZNxtApp.Core.Web.Services
 
         public JArray GetLogs(string transactionId)
         {
-            return _dbProxy.Get("{'" + CommonConst.CommonField.TRANSATTION_ID + "' : '" + transactionId + "'}");
+            return _dbProxy.Get(CommonConst.Collection.SERVER_LOGS,"{'" + CommonConst.CommonField.TRANSATTION_ID + "' : '" + transactionId + "'}");
         }
     }
     public enum Loglevels

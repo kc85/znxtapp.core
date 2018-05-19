@@ -1,11 +1,11 @@
 ﻿[
 
-    {
+  {
     "key": "adv_modules",
     "label": "Modules",
     "href": "/adv_modules",
     "icon": "fa-paw",
-    "display_area" :  "main_body",
+    "display_area": "main_body",
     "url": "#",
     "config": {
       "templateUrl": "app/developer/modules/module.html"
@@ -17,5 +17,59 @@
       "sys_admin"
     ],
     "index": 80
+  },
+  {
+    "key": "adv_logs",
+    "label": "Logs",
+    "href": "/adv_logs",
+    "icon": "fa-paw",
+    "display_area": "main_body",
+    "url": "#",
+    "config": {
+      "templateUrl": "app/developer/log/log.html"
+    },
+    "parent_links": [
+      "advance"
+    ],
+    "auth_users": [
+      "sys_admin"
+    ],
+    "index": 100
+  },
+  {
+    "key": "user_profile",
+    "label": "User Profile",
+    "href": "/user_profile",
+    "icon": "fa-paw",
+    "display_area": "main_body",
+    "url": "#",
+    "config": {
+      "templateUrl": "app/users/userprofile/userprofile.html"
+    },
+    "parent_links": [
+      "user_profile"
+    ],
+    "auth_users": [
+      "sys_admin"
+    ],
+    "index": 100
+  },
+  {
+    "key": "users",
+    "label": "Users",
+    "href": "/users",
+    "icon": "fa-paw",
+    "display_area" :  "main_body",
+    "url": "#",
+    "config": {
+      "templateUrl": "app/users/users.html"
+    },
+    "parent_links": [
+      "user_profile"
+    ],
+    "auth_users": [
+      "sys_admin"
+    ],
+    "index": 100
   }
 ]

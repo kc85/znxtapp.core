@@ -54,13 +54,14 @@ namespace ZNxtApp.Core.Web.Handler
         public virtual void ProcessRequest(HttpContext context)
         {
             HandleSession(context);
+            var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
+
             _httpProxy = new HttpContextProxy(context);
             _initData = _httpProxy;
-            _logger = Logger.GetLogger(this.GetType().Name, _httpProxy.TransactionId);
+            _logger = Logger.GetLogger(this.GetType().Name, _httpProxy.TransactionId, dbProxy);
             _actionExecuter = new ActionExecuter(_logger);
             CreateRoute();
             _httpContext = context;
-            var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
             _contentHandler = new WwwrootContentHandler(_httpProxy, dbProxy, _viewEngine,_actionExecuter, _logger);
         }
 

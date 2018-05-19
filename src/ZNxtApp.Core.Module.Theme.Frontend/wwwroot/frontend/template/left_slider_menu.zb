@@ -17,9 +17,14 @@
 
 					<!-- Logo -->	
 					<div id="logo-wrapper">
-						<a href="index.html"><img src="@Model["base_uri"]/assets/img/logo.png" alt="logo">
-                          <h1>@Model["app_name"]</h1>  
+						<a href="index.z"><img src="@Model["base_uri"]/assets/img/logo.png" alt="logo">
+                          <h1>@Model["app_name"]</h1>
 						</a>
+                        <br />
+                          @if (@GetSessionData("_session_user") != null)
+                            {
+                           <div> @GetSessionData("_session_user")["name"] </div>
+							} 
 					</div>
 					<!-- /Logo -->	
 

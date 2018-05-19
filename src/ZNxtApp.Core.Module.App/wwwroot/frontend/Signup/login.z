@@ -39,9 +39,11 @@
                     data-callback="imNotARobotCallback" id="btnSingin">
                 Sign in
             </button>
+            <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" onlogin="checkLoginState();"></div>
 
-            <button type="button" class="login__facebook" id="btnFBLogin">Sign in with facebook</button>
-
+            <!--<fb:login-button scope="public_profile,email" class="login__facebook" onlogin="checkLoginState();">
+            </fb:login-button>-->
+           
             <p class="login__signup">Don't have an account? <br />&nbsp; <a href="@Model["base_uri"]/signup/signup.z">Sign up</a></p>
             <p class="login__signup"><a href="@Model["base_uri"]/index.z">Go  back to Home</a></p>
 

@@ -1,0 +1,148 @@
+﻿<div ng-controller="ZNxtAppAdmin.usersCtrl">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>{{name}}</h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-7 col-sm-7 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for..." ng-model="filter" ng-keydown="$event.keyCode === 13 && filterChanged()">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="filterChanged()">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row blockquote-reverse" style="margin-bottom:5px" ng-hide="filterCoumns.length==0">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                Filter<span ng-hide="filterCoumns.length==1">s</span> : <span ng-repeat="f in filterCoumns">
+                    <span class="label label-info">{{f.column}}: {{f.value}}  &nbsp;&nbsp;<i class="fa fa-remove" style="cursor:pointer" ng-click="removeFilter(f)"></i></span>
+                    <span class="label label-default" ng-hide="$index == filterCoumns.length-1">OR</span>
+                </span>
+                <span class="label label-danger" ng-hide="filterCoumns.length == 1" style="cursor:pointer" ng-click="clearFilter()">Clear Filter</span>
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div ng-hide="showDetails == true">
+            <div class="row">
+                <div class="col-md-7 col-sm-7 col-xs-12" ng-hide="logData.TotalPages <= 1">
+                    <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                        <ul class="pagination" style="margin:0px">
+                            <li class="paginate_button previous" ng-class="{'disabled' : currentPage ==1 }" id="example1_previous">
+                                <a ng-click="previous()" href="javascript:()" aria-controls="example1" data-dt-idx="0" tabindex="0">Previous</a>
+                            </li>
+                            <li class="paginate_button hidden-xs" ng-class="{'active' : n == currentPage}" ng-hide="n==0" ng-repeat="n in range(currentPage - (currentPage%10),getMaxPageCount((currentPage+10) -(currentPage%10)))">
+                                <a href="javascript:();" ng-click="gotoPage(n)" aria-controls="example1" data-dt-idx="{{n}}" tabindex="0">{{n}}</a>
+                            </li>
+                            <li class="paginate_button next" ng-class="{'disabled' : currentPage == logData.TotalPages }" id="example1_next">
+                                <a href="javascript:()" ng-click="next()" aria-controls="example1" data-dt-idx="7" tabindex="0">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-12" ng-hide="logData.TotalPages <= 1">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-8 col-xs-7" style="padding-top:5px">
+                            Page: <input type="text" ng-model="currentPageShow" ng-blur="pageNumberChanged()" style="width:20px" />/{{logData.TotalPages}}, {{currentPage * pageSize }} to {{(currentPage * pageSize)+ pageSize }} of {{logData.TotalRecords}}
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-3" style="padding-top:5px;text-align:right;">
+                            Page Size:
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-2">
+                            <select name="example1_length" aria-controls="example1" class="form-control input-sm" ng-model="pageSize" ng-change="pageSizeChanged();">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row" style="margin-bottom:5px;text-align:center" ng-show="loadingData">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    Loading data ....
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:5px;text-align:center" ng-show="isError">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        {{errorMessage}}
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="clearfix"></div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <div role="tabpanel" class="tab-pane fade active in" id="tab_content11" aria-labelledby="home-tab">
+                                <div class="col-md-6 col-sm-6 col-xs-12 profile_details">
+                                    <div class="well profile_view">
+                                        <div class="col-sm-12">
+                                            <h4 class="brief"><i>{{module.name}}</i></h4>
+                                            <div class="left col-xs-7">
+                                                <p><strong>Version: </strong> {{module.version}}</p>
+                                                <p><i>{{module.package_config.description}} </i></p>
+                                                <p><strong>Authors: </strong> {{module.package_config.authors}}</p>
+                                                <p><strong>Owners: </strong> {{module.package_config.owners}}</p>
+                                                <p><strong>Release Note: </strong> {{module.package_config.releaseNotes}}</p>
+                                                <p><strong>Tags: </strong> {{module.package_config.tags}}</p>
+
+                                                <ul class="list-unstyled">
+                                                    <li>
+                                                        <i class="fa"></i>
+                                                        <a href="{{module.package_config.licenseUrl}}">License</a>,
+                                                        <a href="{{module.package_config.projectUrl}}">Project Url</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                            <div class="right col-xs-5 text-center">
+                                                <img src="{{module.package_config.iconUrl}}" alt="" class="img-circle img-responsive">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 bottom text-center">
+                                            <div class="col-xs-12 col-sm-6 emphasis">
+                                                <p class="ratings">
+                                                    <a>4.0</a>
+                                                    <a href="#"><span class="fa fa-star"></span></a>
+                                                    <a href="#"><span class="fa fa-star"></span></a>
+                                                    <a href="#"><span class="fa fa-star"></span></a>
+                                                    <a href="#"><span class="fa fa-star"></span></a>
+                                                    <a href="#"><span class="fa fa-star-o"></span></a>
+                                                </p>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 emphasis" ng-hide="module.is_system_module === true">
+                                                <button type="button" ng-click="uninstall(module.name)" class="btn btn-primary btn-xs">
+                                                    <i class="fa fa-remove"> </i> Uninstall
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 profile_details" ng-show="logData.data.length == 0" style="padding:100px;text-align:center">
+                                    <i>No result found </i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-include="'./app/developer/log/logDetails.html'" ng-show="showDetails == true">
+
+        </div>
+    </div>
+</div>

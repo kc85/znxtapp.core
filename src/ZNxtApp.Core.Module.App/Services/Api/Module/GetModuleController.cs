@@ -14,8 +14,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Module
 
         public JObject GetModules()
         {
-            DBProxy.Collection = CommonConst.Collection.MODULES;
-            var data = DBProxy.Get("{}");
+            var data = DBProxy.Get(CommonConst.Collection.MODULES,"{}");
             return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, data);
         }
     }

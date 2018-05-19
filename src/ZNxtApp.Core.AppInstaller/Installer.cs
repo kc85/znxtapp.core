@@ -241,8 +241,7 @@ namespace ZNxtApp.Core.AppInstaller
                 {
                     var fi = new FileInfo(filePath);
                     var collectionName = fi.Name.Replace(fi.Extension, "").Replace(string.Format(".{0}", environment), "");
-                    JArray arrData = JObjectHelper.GetJArrayFromFile(fi.FullName);
-                    _dbProxy.Collection = collectionName;
+                    JArray arrData = JObjectHelper.GetJArrayFromFile(fi.FullName);                    
                     WriteInstallData(arrData, collectionName);
                 }
             }
@@ -276,10 +275,11 @@ namespace ZNxtApp.Core.AppInstaller
                             continue;
                         }
                         JArray arrData = JObjectHelper.GetJArrayFromFile(fi.FullName);
-                        _dbProxy.Collection = collectionName;
+                        
                         if (cleanExistingData)
                         {
-                            _dbProxy.Delete(CommonConst.EMPTY_JSON_OBJECT);
+                            
+                            _dbProxy.Delete(collectionName, CommonConst.EMPTY_JSON_OBJECT);
                         }
                         WriteInstallData(arrData, collectionName);
                     }
@@ -298,8 +298,6 @@ namespace ZNxtApp.Core.AppInstaller
 
         private void WriteInstallData(JArray arrData, string collection, string moduleName = "ZApp")
         {
-            
-            _dbProxy.Collection = collection;
             foreach (JObject item in arrData)
             {
                 _logger.Debug(string.Format("Installer.WriteInstallData collection: {0}", collection), item);
@@ -307,7 +305,7 @@ namespace ZNxtApp.Core.AppInstaller
                 var key = item[CommonConst.CommonField.DATA_KEY];
                 if (item[CommonConst.CommonField.DISPLAY_ID] == null)
                 {
-                    item[CommonConst.CommonField.DISPLAY_ID] = Guid.NewGuid().ToString();
+                    item[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
                 }
 
                 item[CommonConst.CommonField.CREATED_DATA_DATE_TIME] = DateTime.Now;
@@ -318,11 +316,11 @@ namespace ZNxtApp.Core.AppInstaller
                 if (key != null)
                 {
                     string updateFilter = "{" + CommonConst.CommonField.DATA_KEY + ":'" + key.ToString() + "'}";
-                    _dbProxy.Update(updateFilter, item, true);
+                    _dbProxy.Write(collection,item, updateFilter, true);
                 }
                 else
                 {
-                    _dbProxy.WriteData(item);
+                    _dbProxy.Write(collection,item);
                 }
             }
         }
@@ -405,8 +403,8 @@ namespace ZNxtApp.Core.AppInstaller
             installStatusObj[CommonConst.CommonField.UPDATED_DATE_TIME] = DateTime.Now;
             installStatusObj[CommonConst.CommonField.STATUS] = (int)installStatus;
             installStatusObj[CommonConst.CommonField.TRANSATTION_ID] = _logger.TransactionId;
-            _dbProxy.Collection = CommonConst.Collection.APP_INSTALL_STATUS;
-            _dbProxy.Update("{id:'" + idKey + "'}", installStatusObj, true);
+            
+            _dbProxy.Update(CommonConst.Collection.APP_INSTALL_STATUS,"{id:'" + idKey + "'}", installStatusObj, true);
             
             //var tempFolder = ApplicationConfig.AppInstallFolder;
             //JObjectHelper.WriteJSONData(string.Format("{0}\\{1}", tempFolder, _installStatusFile), installStatusObj);
@@ -418,8 +416,8 @@ namespace ZNxtApp.Core.AppInstaller
 
             try
             {
-                _dbProxy.Collection = CommonConst.Collection.APP_INSTALL_STATUS;
-                JArray data = _dbProxy.Get("{id:'" + idKey + "'}");
+                
+                JArray data = _dbProxy.Get(CommonConst.Collection.APP_INSTALL_STATUS,"{id:'" + idKey + "'}");
                 if (data.Count != 0)
                 {
                     JObject installStatusObj = data[0] as JObject;

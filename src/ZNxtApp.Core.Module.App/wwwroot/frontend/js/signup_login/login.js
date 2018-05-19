@@ -5,10 +5,7 @@ var animating = false;
 var capchaExpiredCallback = function () {
     grecaptcha.reset();
 };
-var redirectUrl = GetParameterValues("rurl");
-if (redirectUrl == undefined) {
-    redirectUrl = appRootPath + "/index.z";
-}
+
 
 var imNotARobotCallback = function (val) {
     grecaptcharesponse = val;
@@ -71,15 +68,7 @@ function onBlur() {
    
         $("#errorMessage").fadeOut();
 };
-function GetParameterValues(param) {
-    var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for (var i = 0; i < url.length; i++) {
-        var urlparam = url[i].split('=');
-        if (urlparam[0] == param) {
-            return urlparam[1];
-        }
-    }
-}
+
 
 $(document).ready(function () {
     var redirectUrl = GetParameterValues("rurl");

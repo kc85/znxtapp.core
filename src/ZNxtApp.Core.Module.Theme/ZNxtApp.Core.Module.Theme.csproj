@@ -96,6 +96,7 @@
   <ItemGroup>
     <Content Include="build-events-scripts\post-build\NuGet.exe" />
     <Content Include="build-events-scripts\post-build\ZNxtApp.CLI.exe" />
+    <Content Include="wwwroot\backend\app\base\GirdBaseCtrl.js" />
     <Content Include="wwwroot\backend\app\default_home\home.html" />
     <Content Include="wwwroot\backend\app\default_home\homeCtrl.js" />
     <Content Include="wwwroot\backend\app\developer\developerCtrl.js" />
@@ -131,7 +132,6 @@
     <Content Include="wwwroot\backend\images\prod-5.jpg" />
     <Content Include="wwwroot\backend\images\user.png" />
     <Content Include="wwwroot\backend\images\visa.png" />
-    <Content Include="wwwroot\backend\index.html" />
     <Content Include="wwwroot\backend\vendors\angularjs\angular-animate.js" />
     <Content Include="wwwroot\backend\vendors\angularjs\angular-route.js" />
     <Content Include="wwwroot\backend\vendors\angularjs\angular.min.js" />

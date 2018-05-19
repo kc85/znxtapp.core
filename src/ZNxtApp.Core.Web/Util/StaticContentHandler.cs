@@ -14,9 +14,8 @@ namespace ZNxtApp.Core.Web.Util
         public static byte[] GetContent(IDBService dbProxy, ILogger logger, string path)
         {
             string wwwrootpath = ApplicationConfig.AppWWWRootPath;
-
-            dbProxy.Collection = CommonConst.Collection.STATIC_CONTECT;
-            JObject document = (JObject)dbProxy.Get(GetFilter(path)).First;
+                        
+            JObject document = (JObject)dbProxy.Get(CommonConst.Collection.STATIC_CONTECT,GetFilter(path)).First;
             if (document != null)
             {
                 var data = document[CommonConst.CommonField.DATA];
@@ -53,9 +52,8 @@ namespace ZNxtApp.Core.Web.Util
         public static string GetStringContent(IDBService dbProxy, ILogger _logger, string path)
         {
             string wwwrootpath = ApplicationConfig.AppWWWRootPath;
-
-            dbProxy.Collection = CommonConst.Collection.STATIC_CONTECT;
-            JObject document = (JObject)dbProxy.Get(GetFilter(path)).First;
+                       
+            JObject document = (JObject)dbProxy.Get(CommonConst.Collection.STATIC_CONTECT,GetFilter(path)).First;
             if (document != null)
             {
                 var data = document[CommonConst.CommonField.DATA];

@@ -23,8 +23,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.GetJs
             {
                 var path = HttpProxy.GetQueryString("path");
                 var filterQuery = "{" + CommonConst.CommonField.FILE_PATH + ":/.js$/i}";
-                DBProxy.Collection = CommonConst.Collection.STATIC_CONTECT;
-                var data = DBProxy.Get(filterQuery,new List<string> { CommonConst.CommonField.FILE_PATH });
+                var data = DBProxy.Get(CommonConst.Collection.STATIC_CONTECT,filterQuery, new List<string> { CommonConst.CommonField.FILE_PATH });
                 var listOfArrays = new List<byte[]>();
                 var queryRecords = data.Select(l => new
                 {

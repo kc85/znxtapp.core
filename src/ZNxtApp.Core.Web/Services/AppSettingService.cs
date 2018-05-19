@@ -20,7 +20,7 @@ namespace ZNxtApp.Core.Web.Services
         private IDBService _dbService;
         private AppSettingService()
         {
-            _dbService = new MongoDBService(ApplicationConfig.DataBaseName, CommonConst.Collection.APP_SETTING);
+            _dbService = new MongoDBService(ApplicationConfig.DataBaseName);
                   
         }
         public static AppSettingService Instance
@@ -45,7 +45,7 @@ namespace ZNxtApp.Core.Web.Services
             {
                 lock (_lockObj)
                 {
-                    _settings = _dbService.Get(CommonConst.Filters.IS_OVERRIDE_FILTER);
+                    _settings = _dbService.Get(CommonConst.Collection.APP_SETTING,CommonConst.Filters.IS_OVERRIDE_FILTER);
                 }
             }
         }
@@ -67,7 +67,7 @@ namespace ZNxtApp.Core.Web.Services
                 setting[CommonConst.CommonField.ÌS_OVERRIDE] = false;
                 setting[CommonConst.CommonField.OVERRIDE_BY] = CommonConst.CommonValue.NONE;
                  setting[CommonConst.CommonField.MODULE_NAME] = module ;
-                var dbresponse = _dbService.Update(filter,setting, true);
+                var dbresponse = _dbService.Update(CommonConst.Collection.APP_SETTING,filter, setting, true);
                 _settings = null;
                 ReloadSettings();
             }

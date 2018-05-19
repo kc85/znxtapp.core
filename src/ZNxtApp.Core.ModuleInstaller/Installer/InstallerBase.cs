@@ -19,14 +19,13 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
         protected void CleanDBCollection(string moduleName, string collection)
         {
             string cleanupFilter = "{ " + CommonConst.CommonField.MODULE_NAME + ":'" + moduleName + "'}";
-            _dbProxy.Collection = collection;
-            _dbProxy.Delete(cleanupFilter);
+            
+            _dbProxy.Delete(collection,cleanupFilter);
         }
 
         protected JObject GetModule(JObject moduleObject)
-        {
-            _dbProxy.Collection = CommonConst.Collection.MODULES;
-            var data = _dbProxy.Get(moduleObject.ToString());
+        {            
+            var data = _dbProxy.Get(CommonConst.Collection.MODULES,moduleObject.ToString());
             if (data.Count == 0)
             {
                 return null;

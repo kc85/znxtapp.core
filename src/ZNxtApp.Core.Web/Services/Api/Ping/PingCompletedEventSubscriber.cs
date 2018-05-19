@@ -19,9 +19,8 @@ namespace ZNxtApp.Core.Web.Services.Api
         public int PingCompleted()
         {
             if (IsSuccessResponse())
-            {
-                DBProxy.Collection = CommonConst.Collection.PING;
-                DBProxy.Delete(CommonConst.EMPTY_JSON_OBJECT);
+            {                
+                DBProxy.Delete(CommonConst.Collection.PING,CommonConst.EMPTY_JSON_OBJECT);
             }            
             return 1;
         }

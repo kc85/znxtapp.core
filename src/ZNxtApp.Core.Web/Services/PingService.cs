@@ -12,8 +12,7 @@ namespace ZNxtApp.Core.Web.Services
 
         public PingService(IDBService dbService)
         {
-            _dbService = dbService;
-            _dbService.Collection = CommonConst.Collection.PING;
+            _dbService = dbService;            
         }
 
         public bool PingDb()
@@ -22,7 +21,7 @@ namespace ZNxtApp.Core.Web.Services
             {
                 Task t = new Task(() =>
                 {
-                    _dbService.WriteData(JObject.Parse("{'ping' : 1}"));
+                    _dbService.WriteData(CommonConst.Collection.PING,JObject.Parse("{'ping' : 1}"));
                 });
 
                 t.Start();

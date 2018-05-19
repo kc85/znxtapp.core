@@ -23,9 +23,19 @@
 </div>
 <!-- /menu footer buttons -->
 
+ @if(@GetSessionData("_session_user") != null)
+      {
+<script>
+
+
+    var __userData =  @GetSessionData("_session_user");
+
+
+</script>
+      }
+
 <script>
     
-    var __userData ={};
    
 
 
@@ -50,7 +60,7 @@
               buildMenu(ul_ele, menu_item.key);
           }
           else {
-              li_ele.innerHTML = "<a href='#!" + menu_item.href + "'><i class='fa " + menu_item.icon + "'></i> " + menu_item.label + "</a>";
+              li_ele.innerHTML = "<a href='#!" + menu_item.href + "'> " + menu_item.label + "</a>";
           }
           parentElement.appendChild(li_ele);
       }

@@ -30,7 +30,7 @@
     "Route": "/api/user/facebook/auth",
     "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
     "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Signup.FacebookAuthUserController",
-    "ExecuteMethod": "GetOAuthRequestData",
+    "ExecuteMethod": "Auth",
     "auth_users": [
       "*"
     ]
@@ -139,6 +139,18 @@
     "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
     "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Forgetpassword.Forgetpassword",
     "ExecuteMethod": "ResetPassword",
+    "auth_users": [
+      "*"
+    ]
+  },
+  {
+    "key": "GET:/api/admin/log",
+    "ContentType": "application/json",
+    "Method": "GET",
+    "Route": "/api/admin/log",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": " ZNxtApp.Core.Module.App.Services.Api.Log.LogController",
+    "ExecuteMethod": "Get",
     "auth_users": [
       "*"
     ]

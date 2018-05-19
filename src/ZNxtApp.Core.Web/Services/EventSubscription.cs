@@ -43,8 +43,8 @@ namespace ZNxtApp.Core.Web.Services
                 lock (_lockobj)
                 {
                     _events = new List<EventSubscriptionModel>();
-                    _dbProxy.Collection = CommonConst.Collection.EVENT_SUBSCRIPTION;
-                    var data = _dbProxy.Get(CommonConst.Filters.IS_OVERRIDE_FILTER);
+                    
+                    var data = _dbProxy.Get(CommonConst.Collection.EVENT_SUBSCRIPTION,CommonConst.Filters.IS_OVERRIDE_FILTER);
                     foreach (var item in data)
                     {
                         EventSubscriptionModel eventModel = Newtonsoft.Json.JsonConvert.DeserializeObject<EventSubscriptionModel>(item.ToString());

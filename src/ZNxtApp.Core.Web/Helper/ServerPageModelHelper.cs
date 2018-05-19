@@ -77,8 +77,8 @@ namespace ZNxtApp.Core.Web.Helper
             Func<string, string, JArray> getData =
                 (string collection, string filter) =>
             {
-                dbProxy.Collection = collection;
-                return dbProxy.Get(filter);
+                
+                return dbProxy.Get(collection,filter);
 
             };
             Func<string, string> getAppSetting =

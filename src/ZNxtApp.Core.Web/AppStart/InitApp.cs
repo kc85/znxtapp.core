@@ -62,9 +62,8 @@ namespace ZNxtApp.Core.Web.AppStart
         }
 
         private void GetCronJob()
-        {
-            _dbProxy.Collection = CommonConst.Collection.CRON_JOB;
-            _cronJobs = _dbProxy.Get(CommonConst.EMPTY_JSON_OBJECT);
+        {            
+            _cronJobs = _dbProxy.Get(CommonConst.Collection.CRON_JOB,CommonConst.EMPTY_JSON_OBJECT);
         }
 
         System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)

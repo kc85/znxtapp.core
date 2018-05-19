@@ -113,13 +113,10 @@
     <None Include="wwwroot\frontend\template\header.zb" />
     <None Include="wwwroot\frontend\template\left_slider_menu.zb" />
     <None Include="wwwroot\frontend\template\template.zt" />
-    <None Include="wwwroot\frontend\your_module_forntend_page_foler\your_module_page_page.z" />
     <None Include="ZNxtApp.Core.Module.Theme.Frontend.nuspec" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="wwwroot\backend\app\your_module_backend\your_module.html" />
-    <Content Include="wwwroot\backend\app\your_module_backend\your_module.js" />
     <Content Include="wwwroot\frontend\assets\css\base-rtl.css" />
     <Content Include="wwwroot\frontend\assets\css\base.css" />
     <Content Include="wwwroot\frontend\assets\css\fonts\font-faces.css" />

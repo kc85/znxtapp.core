@@ -7,7 +7,8 @@
    
     ZApp.controller(__ZNxtAppName + '.Main', ['$scope', '$location', '$rootScope', 'dataService', 'userData', 'routes',
         function ($scope, $location, $rootScope, dataService, userData, routes) {
-        $scope.appName = __ZNxtAppName;
+            $scope.appName = __ZNxtAppName;
+            $scope.user = userData;
         $rootScope.$on('$includeContentLoaded', function () {
             //if (isloaded !== true) {
             //    if (userData == undefined || userData.Code != 200) {
@@ -23,6 +24,7 @@
 
     ZApp.constant('routes', __menus);
     ZApp.constant('userData', __userData);
+
     //ZApp.constant('appInfo', __app_info);
     //ZApp.constant('appSettings', __app_settings);
     //ZApp.config(['$routeProvider', '$locationProvider', 'routes', routeConfigurator]);

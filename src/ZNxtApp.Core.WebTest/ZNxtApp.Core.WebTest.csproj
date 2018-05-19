@@ -98,7 +98,6 @@
     <Content Include="InstallScripts\Collections\app_info.json" />
     <Content Include="InstallScripts\Collections\app_settings.json" />
     <Content Include="InstallScripts\Collections\app_settings.prod.json" />
-    <Content Include="InstallScripts\Collections\client_admin_routes.json" />
     <Content Include="InstallScripts\Collections\cron_job.json" />
     <Content Include="InstallScripts\Collections\event_subscription.json" />
     <Content Include="InstallScripts\Collections\resource_string.json" />

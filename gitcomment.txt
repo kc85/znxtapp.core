@@ -1,1 +1,1 @@
-Impletement Forget password
+Added backend auth. Added view log age

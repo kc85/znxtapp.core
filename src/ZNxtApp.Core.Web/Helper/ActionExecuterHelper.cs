@@ -19,7 +19,7 @@ namespace ZNxtApp.Core.Web.Helper
         {
             ILogReader logReader = Logger.GetLogReader();
             IDBService dbService = new MongoDBService(ApplicationConfig.DataBaseName);
-            IPingService pingService = new PingService(new MongoDBService(ApplicationConfig.DataBaseName, CommonConst.Collection.PING));
+            IPingService pingService = new PingService(new MongoDBService(ApplicationConfig.DataBaseName));
             ParamContainer paramContainer = new ParamContainer();
             IAppSettingService appSettingService = AppSettingService.Instance;
             IViewEngine viewEngine = ViewEngine.GetEngine();
@@ -54,7 +54,17 @@ namespace ZNxtApp.Core.Web.Helper
             ResponseBuilder responseBuilder = new ResponseBuilder(loggerController, logReader, httpProxy);
             ISessionProvider sessionProvider = new SessionProvider(httpProxy, dbService, loggerController);
             IwwwrootContentHandler ContentHandler = new WwwrootContentHandler(httpProxy, dbService, viewEngine, actionExecuter, loggerController);
-
+            (dbService as MongoDBService).User = () =>
+            {
+                string result = string.Empty;
+                var user = sessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
+                if (user != null)
+                {
+                    result = string.Format("{0}::{1}", user.id, user.name);
+                }
+                return result;
+            };
+            (loggerController as Logger).DBProxy = dbService;
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_ROUTE, () => { return route; });
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_HTTPREQUESTPROXY, () => { return httpProxy; });
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_RESPONBUILDER, () => { return responseBuilder; });

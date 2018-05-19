@@ -21,11 +21,9 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Menu
             try
             {
                 Logger.Debug("Enter to GetMenuItems");
-                DBProxy.Collection = ModuleAppConsts.Collection.BACKEND_UI_ROUTES;
-
-
+                
                 // TODO need to do the session user filter;
-                var data = DBProxy.Get(CommonConst.Filters.IS_OVERRIDE_FILTER);
+                var data = DBProxy.Get(ModuleAppConsts.Collection.BACKEND_UI_ROUTES,CommonConst.Filters.IS_OVERRIDE_FILTER);
                 List<string> userAccess = new List<string>() { "*" };
                 var sessionUser = SessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
                 if (sessionUser != null)

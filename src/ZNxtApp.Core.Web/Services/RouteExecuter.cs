@@ -119,13 +119,13 @@ namespace ZNxtApp.Core.Web.Services
             loggerController.Transaction(objTxnStartData, TransactionState.Start);
         }
         private void WriteEndTransaction(ILogger loggerController, string response )
-        {
-            
+        {            
             JObject objTxnStartData = new JObject();
             JObject payload = null;
             if (JObjectHelper.TryParseJson(response, ref payload))
             {
                 payload.Remove(CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO);
+                payload.Remove(CommonConst.CommonField.DATA);
                 objTxnStartData[CommonConst.CommonField.PAYLOAD] = payload;
             }
             else

@@ -11,7 +11,7 @@
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <img src="@Model["base_uri"]/images/img.jpg" alt="">
-                      John Doe
+                      {{user.name}}
                       <span class=" fa fa-angle-down"></span>
                     </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -28,7 +28,7 @@
                       <a href="javascript:;">Help</a>
                     </li>
                     <li>
-                      <a href="login.html">
+                      <a href="@Model["base_uri"]/../signup/logout.z">
                         <i class="fa fa-sign-out pull-right"></i> Log Out
                       </a>
                     </li>
@@ -47,7 +47,7 @@
                           <img src="images/img.jpg" alt="Profile Image" />
                         </span>
                         <span>
-                          <span>John Smith</span>
+                          <span>{{user.name}}</span>
                           <span class="time">3 mins ago</span>
                         </span>
                         <span class="message">

@@ -82,8 +82,8 @@ namespace ZNxtApp.Core.Web.Util
         {
             logger.Info(string.Format("Laoding Assemmbly:{0}, from Download ", assemblyName));
 
-            _dbProxy.Collection = CommonConst.Collection.DLLS;
-            var dataResponse = _dbProxy.Get(GetFilter(assemblyName));
+            
+            var dataResponse = _dbProxy.Get(CommonConst.Collection.DLLS,GetFilter(assemblyName));
 
             if (dataResponse.Count > 0)
             {
