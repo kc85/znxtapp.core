@@ -33,13 +33,13 @@
                     <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
                         <ul class="pagination" style="margin:0px">
                             <li class="paginate_button previous" ng-class="{'disabled' : currentPage ==1 }" id="example1_previous">
-                                <a ng-click="previous()" href="javascript:()" aria-controls="example1" data-dt-idx="0" tabindex="0">Previous</a>
+                                <a ng-click="previous()" href="javascript:;" aria-controls="example1" data-dt-idx="0" tabindex="0">Previous</a>
                             </li>
                             <li class="paginate_button hidden-xs" ng-class="{'active' : n == currentPage}" ng-hide="n==0" ng-repeat="n in range(currentPage - (currentPage%10),getMaxPageCount((currentPage+10) -(currentPage%10)))">
-                                <a href="javascript:();" ng-click="gotoPage(n)" aria-controls="example1" data-dt-idx="{{n}}" tabindex="0">{{n}}</a>
+                                <a href="javascript:;" ng-click="gotoPage(n)" aria-controls="example1" data-dt-idx="{{n}}" tabindex="0">{{n}}</a>
                             </li>
                             <li class="paginate_button next" ng-class="{'disabled' : currentPage == logData.TotalPages }" id="example1_next">
-                                <a href="javascript:()" ng-click="next()" aria-controls="example1" data-dt-idx="7" tabindex="0">Next</a>
+                                <a href="javascript:;" ng-click="next()" aria-controls="example1" data-dt-idx="7" tabindex="0">Next</a>
                             </li>
                         </ul>
                     </div>

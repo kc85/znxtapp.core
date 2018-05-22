@@ -152,7 +152,19 @@
     "ExecuteType": " ZNxtApp.Core.Module.App.Services.Api.Log.LogController",
     "ExecuteMethod": "Get",
     "auth_users": [
-      "*"
+      "sys_admin"
+    ]
+  },
+  {
+    "key": "GET:/api/admin/users",
+    "ContentType": "application/json",
+    "Method": "GET",
+    "Route": "/api/admin/users",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.UserManagement.UsersController",
+    "ExecuteMethod": "Get",
+    "auth_users": [
+      "sys_admin"
     ]
   }
 ]

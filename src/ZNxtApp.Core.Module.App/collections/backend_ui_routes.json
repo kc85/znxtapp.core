@@ -58,11 +58,24 @@
     "key": "users",
     "label": "Users",
     "href": "/users",
-    "icon": "fa-paw",
-    "display_area" :  "main_body",
+    "icon": "fa-users",
+    "display_area": "main_body",
     "url": "#",
     "config": {
       "templateUrl": "app/users/users.html"
+    },
+    "auth_users": [
+      "sys_admin"
+    ],
+    "index": 90
+  },
+  {
+    "key": "user_profile_general",
+    "label": "General",
+    "icon": "fa-cogs",
+    "display_area": "user_profile_body",
+    "config": {
+      "templateUrl": "app/users/userprofile/general.html"
     },
     "parent_links": [
       "user_profile"
@@ -70,6 +83,38 @@
     "auth_users": [
       "sys_admin"
     ],
-    "index": 100
+    "index": 10
+  },
+  {
+    "key": "user_profile_address",
+    "label": "Address",
+    "icon": "fa-home",
+    "display_area": "user_profile_body",
+    "config": {
+      "templateUrl": "app/users/userprofile/address.html"
+    },
+    "parent_links": [
+      "user_profile"
+    ],
+    "auth_users": [
+      "sys_admin"
+    ],
+    "index": 20
+  },
+  {
+    "key": "user_profile_pasword",
+    "label": "Reset Password",
+    "icon": "fa-lock",
+    "display_area" :  "user_profile_body",
+    "config": {
+      "templateUrl": "app/users/userprofile/resetpassword.html"
+    },
+    "parent_links": [
+      "user_profile"
+    ],
+    "auth_users": [
+      "sys_admin"
+    ],
+    "index": 9999
   }
 ]

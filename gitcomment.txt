@@ -1,1 +1,1 @@
-Added backend auth. Added view log age
+Added Joins and users and user profile page 

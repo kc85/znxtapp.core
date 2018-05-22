@@ -5,18 +5,19 @@
     ZApp.controller(__ZNxtAppName + '.usersCtrl', ['$scope', '$controller', '$location', '$rootScope', 'dataService', 'userData',
     function ($scope,$controller, $location, $rootScope, dataService, userData) {
         angular.extend(this, $controller(__ZNxtAppName + '.gridBaseCtrl', { $scope: $scope }));
-        $scope.name = "User Profile";
-        $scope.logData = {};
+        $scope.name = "Users";
         $scope.pageData = {};
+        $scope.filterIncludeColumns = ["id", "name", "email"];
         $scope.showDetails = false;
         $scope.active = function() {
             if ($scope.loadingData == false) {
                 $scope.loadingData = true;
                 $scope.isError = false;
-                dataService.get("./api/admin/log?pagesize=" + $scope.pageSize + "&currentpage=" + $scope.currentPage + "&filter=" + $scope.getFilter()).then(function (response) {
+                dataService.get("./api/admin/users?pagesize=" + $scope.pageSize + "&currentpage=" + $scope.currentPage + "&filter=" + $scope.getFilter()).then(function (response) {
                     if (response.data.code == 1) {
                         $scope.currentPageShow = $scope.currentPage;
-                        $scope.pageData = $scope.logData = response.data;
+                        $scope.pageData = response.data;
+                        console.log($scope.pageData);
                     }
                     else {
                         console.log(response);
@@ -28,11 +29,11 @@
             }
         }
         
-        $scope.showDetailsPage = function (log) {
+        $scope.showDetailsPage = function (data) {
             $scope.showDetails = true;
-            $scope.$broadcast("onShowLogViewDetails", log);
+            $scope.$broadcast("onShowUserDetails", data);
         }
-        $scope.$on("onHideLogViewDetails", function (log) {
+        $scope.$on("onHideUserDetails", function (log) {
             $scope.showDetails = false;
         });
         $scope.pageNumberChanged = function () {

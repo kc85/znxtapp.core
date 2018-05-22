@@ -5,27 +5,27 @@ Response:
 {
   "code": 1,
   "message": "SUCCESS",
-  "txn_id": "20180518183548014506",
+  "txn_id": "20180520170204857673",
   "debug": {
-    "time_span": 834.5928,
+    "time_span": 993.6457,
     "logs": [
       {
-        "created_datetime": 1526668548,
-        "id": "9eef5d01-5f29-4507-a433-1f12567477fe",
+        "created_datetime": 1526835724,
+        "id": "faa25ec4-66d2-4282-9775-a7a7feb463bf",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Info",
-        "transaction_id": "20180518183548014506",
+        "transaction_id": "20180520170204857673",
         "message": "RouteExecuter.Exec:: Route: [POST: /api/module/reinstall, Type: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller, Assembly: ZNxtApp.Core.Web.dll, Method: Reinstall, Module:ZApp]",
         "data": {},
-        "updated_datetime": 1526668548,
+        "updated_datetime": 1526835724,
         "created_by": ""
       },
       {
-        "created_datetime": 1526668548,
-        "id": "f28f81ed-ed54-4be9-8a1d-12a69ea39428",
+        "created_datetime": 1526835724,
+        "id": "a6ffd707-3ad5-40f8-8f92-4434ee043d43",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Transaction",
-        "transaction_id": "20180518183548014506",
+        "transaction_id": "20180520170204857673",
         "message": "Transaction State:Start",
         "data": {
           "Url": "/api/module/reinstall",
@@ -46,18 +46,18 @@ Response:
           "User": ""
         },
         "TransactionState": "Start",
-        "updated_datetime": 1526668548,
+        "updated_datetime": 1526835724,
         "created_by": ""
       },
       {
-        "created_datetime": 1526668548,
-        "id": "115c9ce3-fc96-4d98-9852-a6da060b9758",
+        "created_datetime": 1526835724,
+        "id": "fbffe48b-27c8-4946-b33c-befaee230660",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Info",
-        "transaction_id": "20180518183548014506",
+        "transaction_id": "20180520170204857673",
         "message": "GetType: ZNxtApp.Core.Web.dll, executeType: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "data": {},
-        "updated_datetime": 1526668548,
+        "updated_datetime": 1526835724,
         "created_by": ""
       }
     ]
@@ -66,10 +66,10 @@ Response:
       
 Headers:
 Cache-Control: private
-Date: Fri, 18 May 2018 13:05:48 GMT
+Date: Sun, 20 May 2018 11:32:05 GMT
 Content-Length: 2255
 Content-Type: application/json
-Set-Cookie: za_s_k=fb70c2f0-ae94-42a7-befc-26de51e2ca15; expires=Fri, 18-May-2018 13:35:48 GMT; path=/; HttpOnly
+Set-Cookie: za_s_k=8d531fe4-25af-4a38-9ce9-242a9308b28c; expires=Sun, 20-May-2018 12:02:04 GMT; path=/; HttpOnly
 
 
 URL:

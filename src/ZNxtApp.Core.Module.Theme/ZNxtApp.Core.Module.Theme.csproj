@@ -139,6 +139,8 @@
     <Content Include="wwwroot\backend\vendors\bootstrap-datetimepicker\build\js\bootstrap-datetimepicker.min.js" />
     <Content Include="wwwroot\backend\vendors\Chart.js\dist\Chart.bundle.min.js" />
     <Content Include="wwwroot\backend\vendors\Chart.js\dist\Chart.min.js" />
+    <Content Include="wwwroot\backend\vendors\dropzone\dist\min\dropzone.min.css" />
+    <Content Include="wwwroot\backend\vendors\dropzone\dist\min\dropzone.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

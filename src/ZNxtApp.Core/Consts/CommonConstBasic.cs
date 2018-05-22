@@ -89,6 +89,12 @@
             public const string SMTP_SERVER_PORT = "smtp_server_port";
             public const string FROM_EMAIL_ID = "from_email_id";
             public const string PACKAGE_CONFIG = "package_config";
+
+            public const string DB_JOIN_SOURCE_FIELD = "db_join_source_key";
+            public const string DB_JOIN_DESTINATION_COLELCTION = "db_join_destination_collection";
+            public const string DB_JOIN_DESTINATION_FIELD = "db_join_destination_field";
+            public const string DB_JOIN_VALUE = "db_join_key";
+            public const string DB_JOIN_DESTINATION_FIELDS = "db_join_destination_fields";
         }
     }
 }

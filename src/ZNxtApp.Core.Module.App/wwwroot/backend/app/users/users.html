@@ -29,7 +29,7 @@
         <div class="clearfix"></div>
         <div ng-hide="showDetails == true">
             <div class="row">
-                <div class="col-md-7 col-sm-7 col-xs-12" ng-hide="logData.TotalPages <= 1">
+                <div class="col-md-7 col-sm-7 col-xs-12" ng-hide="pageData.TotalPages <= 1">
                     <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
                         <ul class="pagination" style="margin:0px">
                             <li class="paginate_button previous" ng-class="{'disabled' : currentPage ==1 }" id="example1_previous">
@@ -38,16 +38,16 @@
                             <li class="paginate_button hidden-xs" ng-class="{'active' : n == currentPage}" ng-hide="n==0" ng-repeat="n in range(currentPage - (currentPage%10),getMaxPageCount((currentPage+10) -(currentPage%10)))">
                                 <a href="javascript:();" ng-click="gotoPage(n)" aria-controls="example1" data-dt-idx="{{n}}" tabindex="0">{{n}}</a>
                             </li>
-                            <li class="paginate_button next" ng-class="{'disabled' : currentPage == logData.TotalPages }" id="example1_next">
+                            <li class="paginate_button next" ng-class="{'disabled' : currentPage == pageData.TotalPages }" id="example1_next">
                                 <a href="javascript:()" ng-click="next()" aria-controls="example1" data-dt-idx="7" tabindex="0">Next</a>
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-5 col-sm-5 col-xs-12" ng-hide="logData.TotalPages <= 1">
+                <div class="col-md-5 col-sm-5 col-xs-12" ng-hide="pageData.TotalPages <= 1">
                     <div class="row">
                         <div class="col-md-8 col-sm-8 col-xs-7" style="padding-top:5px">
-                            Page: <input type="text" ng-model="currentPageShow" ng-blur="pageNumberChanged()" style="width:20px" />/{{logData.TotalPages}}, {{currentPage * pageSize }} to {{(currentPage * pageSize)+ pageSize }} of {{logData.TotalRecords}}
+                            Page: <input type="text" ng-model="currentPageShow" ng-blur="pageNumberChanged()" style="width:20px" />/{{pageData.TotalPages}}, {{currentPage * pageSize }} to {{(currentPage * pageSize)+ pageSize }} of {{pageData.TotalRecords}}
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-3" style="padding-top:5px;text-align:right;">
                             Page Size:
@@ -86,29 +86,21 @@
                     <div class="x_panel">
                         <div class="x_content">
                             <div role="tabpanel" class="tab-pane fade active in" id="tab_content11" aria-labelledby="home-tab">
-                                <div class="col-md-6 col-sm-6 col-xs-12 profile_details">
+                                <div class="col-md-4 col-sm-4 col-xs-12 profile_details" ng-repeat="data in pageData.data">
                                     <div class="well profile_view">
                                         <div class="col-sm-12">
-                                            <h4 class="brief"><i>{{module.name}}</i></h4>
+                                            <h4 class="brief"><i>{{data.user_type}} :: {{data.id}}</i></h4>
                                             <div class="left col-xs-7">
-                                                <p><strong>Version: </strong> {{module.version}}</p>
-                                                <p><i>{{module.package_config.description}} </i></p>
-                                                <p><strong>Authors: </strong> {{module.package_config.authors}}</p>
-                                                <p><strong>Owners: </strong> {{module.package_config.owners}}</p>
-                                                <p><strong>Release Note: </strong> {{module.package_config.releaseNotes}}</p>
-                                                <p><strong>Tags: </strong> {{module.package_config.tags}}</p>
-
+                                                <h2>{{data.name}}</h2>
+                                                <p><strong>Groups: </strong> <span ng-repeat="g in data.groups">{{g}} </span></p>
                                                 <ul class="list-unstyled">
-                                                    <li>
-                                                        <i class="fa"></i>
-                                                        <a href="{{module.package_config.licenseUrl}}">License</a>,
-                                                        <a href="{{module.package_config.projectUrl}}">Project Url</a>
-                                                    </li>
-
+                                                    <li><i class="fa fa-phone"></i> Phone #:{{data.phone}} </li>
+                                                    <li><i class="fa fa-envelope"></i> email:{{data.email}} </li>
+                                                    <li><i class="fa fa-building"></i> Address: </li>
                                                 </ul>
                                             </div>
                                             <div class="right col-xs-5 text-center">
-                                                <img src="{{module.package_config.iconUrl}}" alt="" class="img-circle img-responsive">
+                                                <img src="images/user.png" alt="" class="img-circle img-responsive">
                                             </div>
                                         </div>
                                         <div class="col-xs-12 bottom text-center">
@@ -122,15 +114,20 @@
                                                     <a href="#"><span class="fa fa-star-o"></span></a>
                                                 </p>
                                             </div>
-                                            <div class="col-xs-12 col-sm-6 emphasis" ng-hide="module.is_system_module === true">
-                                                <button type="button" ng-click="uninstall(module.name)" class="btn btn-primary btn-xs">
-                                                    <i class="fa fa-remove"> </i> Uninstall
+                                            <div class="col-xs-12 col-sm-6 emphasis">
+                                                <button type="button" class="btn btn-primary btn-xs">
+                                                     <i class="fa fa-circle" style="color:lawngreen"></i>
+                                                    <i class="fa fa-user">
+                                                    </i>
+                                                </button>
+                                                <button type="button" class="btn btn-primary btn-xs" ng-click="showDetailsPage(data)">
+                                                    <i class="fa fa-user" > </i> View Profile
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12 profile_details" ng-show="logData.data.length == 0" style="padding:100px;text-align:center">
+                                <div class="col-md-12 col-sm-12 col-xs-12 profile_details" ng-show="pageData.data.length == 0" style="padding:100px;text-align:center">
                                     <i>No result found </i>
                                 </div>
                             </div>
@@ -141,7 +138,7 @@
             </div>
         </div>
 
-        <div ng-include="'./app/developer/log/logDetails.html'" ng-show="showDetails == true">
+        <div ng-include="'./app/users/userprofile/userprofile.html'" ng-show="showDetails == true">
 
         </div>
     </div>

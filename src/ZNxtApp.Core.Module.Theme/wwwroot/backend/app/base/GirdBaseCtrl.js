@@ -9,6 +9,7 @@
         $scope.isError = false;
         $scope.errorMessage = "";
         $scope.filterCoumns = [];
+        $scope.filterIncludeColumns = ["type", "message", "transaction_id"];
         $scope.loadingData = false;
         var removeFiltyerColumn = [];
 
@@ -21,9 +22,9 @@
             var filterText = "{}";
             $scope.filterCoumns = [];
             if ($scope.filter.length != 0) {
-                var columns = ["type", "message", "transaction_id"];
+               
                 var filters = [];
-                columns.forEach(function (d) {
+                $scope.filterIncludeColumns.forEach(function (d) {
                     if (removeFiltyerColumn.filter(function (f) { return f.column == d }).length == 0) {
                         filters.push("{" + d + ":{$regex : '.*" + $scope.filter + "*.','$options' : 'i'}}");
                         $scope.filterCoumns.push({ "column": d, "value": $scope.filter });

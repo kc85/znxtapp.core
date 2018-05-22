@@ -60,7 +60,12 @@
               buildMenu(ul_ele, menu_item.key);
           }
           else {
-              li_ele.innerHTML = "<a href='#!" + menu_item.href + "'> " + menu_item.label + "</a>";
+              if(menu_item.parent_links==undefined){
+                  li_ele.innerHTML = "<a href='#!" + menu_item.href + "'> <i class='fa " + menu_item.icon + "'></i>" + menu_item.label + "</a>";
+              }
+              else{
+                  li_ele.innerHTML = "<a href='#!" + menu_item.href + "'> " + menu_item.label + "</a>";
+              }
           }
           parentElement.appendChild(li_ele);
       }

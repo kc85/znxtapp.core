@@ -5,8 +5,8 @@
     var ZApp = angular.module(__ZNxtAppName, []);
     var isloaded = false;
    
-    ZApp.controller(__ZNxtAppName + '.Main', ['$scope', '$location', '$rootScope', 'dataService', 'userData', 'routes',
-        function ($scope, $location, $rootScope, dataService, userData, routes) {
+    ZApp.controller(__ZNxtAppName + '.Main', ['$scope', '$location', '$rootScope', 'dataService', 'userData',
+        function ($scope, $location, $rootScope, dataService, userData) {
             $scope.appName = __ZNxtAppName;
             $scope.user = userData;
         $rootScope.$on('$includeContentLoaded', function () {
@@ -22,7 +22,7 @@
         });
     }]);
 
-    ZApp.constant('routes', __menus);
+    ZApp.constant('menus', __menus);
     ZApp.constant('userData', __userData);
 
     //ZApp.constant('appInfo', __app_info);

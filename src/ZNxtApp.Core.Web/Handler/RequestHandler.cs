@@ -62,12 +62,6 @@ namespace ZNxtApp.Core.Web.Handler
             {
                 _routeExecuter.Exec(route, _httpProxy);
             }
-            //else if (requestUriPath.Contains("uninstall"))
-            //{
-            //    IModuleUninstaller uninstall = new Uninstaller(_logger, new MongoDBService(ApplicationConfig.DataBaseName));
-            //    uninstall.Uninstall("ZNxtApp.Base", _httpProxy);
-            //    _httpProxy.SetResponse(200, "Uninstall");
-            //}
             else
             {
                 HandleStaticContent(requestUriPath);

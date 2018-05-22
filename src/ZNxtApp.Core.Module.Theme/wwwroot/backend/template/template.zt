@@ -25,6 +25,7 @@
                       <link href="@Model["base_uri"]/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
                       <!-- bootstrap-daterangepicker -->
                       <link href="@Model["base_uri"]/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+					  <link href="@Model["base_uri"]/vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
 
                         <!-- Custom Theme Style -->
                         <link href="@Model["base_uri"]/build/css/custom.min.css" rel="stylesheet">
@@ -113,6 +114,8 @@
     <!-- bootstrap-daterangepicker -->
     <script src="@Model["base_uri"]/vendors/moment/min/moment.min.js"></script>
     <script src="@Model["base_uri"]/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<!-- Dropzone.js -->
+    <script src="@Model["base_uri"]/vendors/dropzone/dist/min/dropzone.min.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="@Model["base_uri"]/build/js/custom.min.js"></script>
