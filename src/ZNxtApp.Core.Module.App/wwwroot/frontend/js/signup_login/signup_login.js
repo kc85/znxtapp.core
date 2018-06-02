@@ -103,6 +103,8 @@ window.fbAsyncInit = function () {
 var facebooksuccesscallback = function (fbresponse) {
 
     console.log(fbresponse);
+    $(".login").fadeOut();
+    $("#divRedirecting").show();
 
     $.ajax({
         url: appRootPath + "/api/user/facebook/auth",
@@ -113,11 +115,16 @@ var facebooksuccesscallback = function (fbresponse) {
         success: function (data) {
 
             if (data.code === success_code) {
+                $(".login").fadeOut();
+                $("#divRedirecting").show();
+
                 window.location = redirectUrl;
             }
             else {
                 capchaExpiredCallback();
                 animating = false;
+                $(".login").show();
+                $("#divRedirecting").hide();
                 $("#btnSingin").html("Sign in");
                 $("#errorMessage").show();
                 $("#errorMessage").html(data.message);

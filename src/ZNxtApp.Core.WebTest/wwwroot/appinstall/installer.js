@@ -1,10 +1,10 @@
 $(document).ready(function () {
     getStatus();
     var defaultModules = [
-        "ZNxtApp.Core.Module.App/1.0.9.23977-Beta",
-        "ZNxtApp.Core.Module.Theme/1.0.9.23977-Beta",
-        "ZNxtApp.Core.Module.Theme.Frontend/1.0.9.23977-Beta",
-        "ZNxtApp.Core.Module.SMS.TextLocal/1.0.9.24478-Beta"
+        "ZNxtApp.Core.Module.App/1.0.11.38907-Beta",
+        "ZNxtApp.Core.Module.Theme/1.0.11.38791-Beta",
+        "ZNxtApp.Core.Module.Theme.Frontend/1.0.11.38791-Beta",
+        "ZNxtApp.Core.Module.SMS.TextLocal/1.0.11.38791-Beta"
     ];
 
     $("#btnInstall").click(function () {

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZNxtApp.Core.Consts;
+using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Services;
 
@@ -15,6 +17,13 @@ namespace ZNxtApp.Core.Web.CronJobs
         }
         public int UpdateOTPStatus()
         {
+            int duration = 15;
+            int.TryParse(AppSettingService.GetAppSettingData(CommonConst.CommonField.OTP_DURATION), out duration);
+
+            var expirestime = CommonUtility.GetUnixTimestamp(DateTime.Now.AddMinutes(-duration));
+            string filter = "{" + CommonConst.CommonField.CREATED_DATA_DATE_TIME + " : { $lt : " + expirestime + "}}";
+
+            DBProxy.Delete(CommonConst.Collection.OTPs, filter);
             return 1;
         }
     }

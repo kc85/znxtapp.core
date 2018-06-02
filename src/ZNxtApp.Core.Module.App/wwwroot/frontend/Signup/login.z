@@ -49,6 +49,9 @@
 
              </div>
     </div>
+    <div id="divRedirecting" style="display:none;font-size:12px;color:#fff;padding:50px">
+        <h1> Redirecting...</h1>
+    </div>
          
 </div>
 <script src="@Model["base_uri"]/js/signup_login/login.js"></script>

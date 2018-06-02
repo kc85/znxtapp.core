@@ -30,6 +30,7 @@ namespace ZNxtApp.Core.Web.Services
                 IActionExecuter actionExecuter = new ActionExecuter(loggerController);
                 ParamContainer paramContainer = ActionExecuterHelper.CreateParamContainer(route, httpProxy, loggerController, actionExecuter);
                 WriteStartTransaction(loggerController, httpProxy, route);
+                (paramContainer.GetKey(CommonConst.CommonValue.PARAM_SESSION_PROVIDER) as ISessionProvider).SetValue(CommonConst.CommonField.UPDATED_DATE_TIME, CommonUtility.GetUnixTimestamp(DateTime.Now));
                 // Execute before Events 
                 routeEventHandler.ExecBeforeEvent(actionExecuter, route, paramContainer);
                 

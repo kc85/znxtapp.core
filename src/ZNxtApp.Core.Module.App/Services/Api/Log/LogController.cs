@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Threading;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Module.App.Services.Api.Signup;

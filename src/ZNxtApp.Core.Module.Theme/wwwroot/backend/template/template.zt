@@ -29,10 +29,10 @@
 
                         <!-- Custom Theme Style -->
                         <link href="@Model["base_uri"]/build/css/custom.min.css" rel="stylesheet">
+	                    <link href="@Model["base_uri"]/css/znxtappbackend.css" rel="stylesheet">
 						
     <!-- jQuery -->
     <script src="@Model["base_uri"]/vendors/jquery/dist/jquery.min.js"></script>
-
 						
   </head>
 
@@ -67,6 +67,7 @@
         <!-- footer content -->
         @Include("./footer.zb",null)
         <!-- /footer content -->
+	
       </div>
     </div>
 
@@ -78,6 +79,8 @@
     <script src="@Model["base_uri"]/vendors/angularjs/angular-route.js"></script>
      <!-- Angular js anamiation  -->
     <script src="@Model["base_uri"]/vendors/angularjs/angular-animate.js"></script>
+	  <script src="@Model["base_uri"]/vendors/angularjs/angular-resource.min.js"></script>
+	
 	 <!-- Get  js -->
     <script src="@Model["base_uri"]/api/getjs?path=/backend/app"></script>
 	

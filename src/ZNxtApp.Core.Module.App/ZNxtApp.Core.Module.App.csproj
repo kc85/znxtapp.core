@@ -61,6 +61,7 @@
     <Compile Include="Services\Api\Forgetpassword\Forgetpassword.cs" />
     <Compile Include="Services\Api\Signup\SignUpCommonController.cs" />
     <Compile Include="Services\Api\Signup\UserRegistrationBase.cs" />
+    <Compile Include="Services\Api\UserManagement\UpdateUserInfo.cs" />
     <Compile Include="Services\Api\UserManagement\UsersController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +105,7 @@
     <Content Include="wwwroot\backend\app\developer\log\logCtrl.js" />
     <Content Include="wwwroot\backend\app\developer\modules\module.html" />
     <Content Include="wwwroot\backend\app\developer\modules\moduleCtrl.js" />
+    <Content Include="wwwroot\backend\app\users\userprofile\addressCtrl.js" />
     <Content Include="wwwroot\backend\app\users\userprofile\resetpassword.html" />
     <Content Include="wwwroot\backend\app\users\userprofile\address.html" />
     <Content Include="wwwroot\backend\app\users\userprofile\general.html" />

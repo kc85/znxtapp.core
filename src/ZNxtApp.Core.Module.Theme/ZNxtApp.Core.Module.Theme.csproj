@@ -101,6 +101,7 @@
     <Content Include="wwwroot\backend\app\default_home\homeCtrl.js" />
     <Content Include="wwwroot\backend\app\developer\developerCtrl.js" />
     <Content Include="wwwroot\backend\app\developer\developer.html" />
+    <Content Include="wwwroot\backend\app\services\loggerService.js" />
     <Content Include="wwwroot\backend\app\services\dataService.js" />
     <Content Include="wwwroot\backend\app\settings\settings.html" />
     <Content Include="wwwroot\backend\app\settings\settingsCtrl.js" />
@@ -116,6 +117,7 @@
     <Content Include="wwwroot\backend\build\images\loading.gif" />
     <Content Include="wwwroot\backend\build\js\custom.js" />
     <Content Include="wwwroot\backend\build\js\custom.min.js" />
+    <Content Include="wwwroot\backend\css\znxtappbackend.css" />
     <Content Include="wwwroot\backend\images\american-express.png" />
     <Content Include="wwwroot\backend\images\cropper.jpg" />
     <Content Include="wwwroot\backend\images\favicon.ico" />
@@ -133,6 +135,7 @@
     <Content Include="wwwroot\backend\images\user.png" />
     <Content Include="wwwroot\backend\images\visa.png" />
     <Content Include="wwwroot\backend\vendors\angularjs\angular-animate.js" />
+    <Content Include="wwwroot\backend\vendors\angularjs\angular-resource.min.js" />
     <Content Include="wwwroot\backend\vendors\angularjs\angular-route.js" />
     <Content Include="wwwroot\backend\vendors\angularjs\angular.min.js" />
     <Content Include="wwwroot\backend\vendors\bootstrap-datetimepicker\build\css\bootstrap-datetimepicker.min.css" />

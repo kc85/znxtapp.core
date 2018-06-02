@@ -5,27 +5,27 @@ Response:
 {
   "code": 1,
   "message": "SUCCESS",
-  "txn_id": "20180520170204857673",
+  "txn_id": "20180602145513626133",
   "debug": {
-    "time_span": 993.6457,
+    "time_span": 1060.8459,
     "logs": [
       {
-        "created_datetime": 1526835724,
-        "id": "faa25ec4-66d2-4282-9775-a7a7feb463bf",
+        "created_datetime": 1527951314,
+        "id": "893be4e2-c529-4772-a652-4310a2f168e9",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Info",
-        "transaction_id": "20180520170204857673",
+        "transaction_id": "20180602145513626133",
         "message": "RouteExecuter.Exec:: Route: [POST: /api/module/reinstall, Type: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller, Assembly: ZNxtApp.Core.Web.dll, Method: Reinstall, Module:ZApp]",
         "data": {},
-        "updated_datetime": 1526835724,
+        "updated_datetime": 1527951314,
         "created_by": ""
       },
       {
-        "created_datetime": 1526835724,
-        "id": "a6ffd707-3ad5-40f8-8f92-4434ee043d43",
+        "created_datetime": 1527951314,
+        "id": "2c3a22ba-9e87-4e8b-a80c-37758374bd20",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Transaction",
-        "transaction_id": "20180520170204857673",
+        "transaction_id": "20180602145513626133",
         "message": "Transaction State:Start",
         "data": {
           "Url": "/api/module/reinstall",
@@ -46,18 +46,18 @@ Response:
           "User": ""
         },
         "TransactionState": "Start",
-        "updated_datetime": 1526835724,
+        "updated_datetime": 1527951314,
         "created_by": ""
       },
       {
-        "created_datetime": 1526835724,
-        "id": "fbffe48b-27c8-4946-b33c-befaee230660",
+        "created_datetime": 1527951314,
+        "id": "a4517ea9-24c1-4500-881a-aabe8c2a9932",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Info",
-        "transaction_id": "20180520170204857673",
+        "transaction_id": "20180602145513626133",
         "message": "GetType: ZNxtApp.Core.Web.dll, executeType: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "data": {},
-        "updated_datetime": 1526835724,
+        "updated_datetime": 1527951314,
         "created_by": ""
       }
     ]
@@ -66,14 +66,14 @@ Response:
       
 Headers:
 Cache-Control: private
-Date: Sun, 20 May 2018 11:32:05 GMT
-Content-Length: 2255
+Date: Sat, 02 Jun 2018 09:25:14 GMT
+Content-Length: 2256
 Content-Type: application/json
-Set-Cookie: za_s_k=8d531fe4-25af-4a38-9ce9-242a9308b28c; expires=Sun, 20-May-2018 12:02:04 GMT; path=/; HttpOnly
+Set-Cookie: za_s_k=8bdaa223-8822-4be3-a15a-d59bb7a8202c; expires=Sat, 02-Jun-2018 09:55:13 GMT; path=/; HttpOnly
 
 
 URL:
-http://localhost/ZNxtApp.Core.WebTest/api/module/reinstall?module_name=ZNxtApp.Core.Module.SMS.TextLocal/1.0.9.32921-Beta
+http://localhost/ZNxtApp.Core.WebTest/api/module/reinstall?module_name=ZNxtApp.Core.Module.SMS.TextLocal/1.0.11.38791-Beta
 URL Code Page:
 65001
 User Agent:

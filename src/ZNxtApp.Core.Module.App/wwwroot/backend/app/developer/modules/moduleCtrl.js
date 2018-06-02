@@ -17,7 +17,6 @@
             if (confirm("Do you want to uninstall module " + moduleName + "?")) {
                 console.log(moduleName);
                 dataService.post("./api/module/uninstall?module_name=" + moduleName).then(function () {
-
                     active();
                 })
             }

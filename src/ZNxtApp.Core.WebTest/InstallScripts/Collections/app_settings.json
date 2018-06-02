@@ -5,11 +5,11 @@
         "data": "1.0"
     },
 
-    {
+  {
         "auth_users": [ "*" ],
-        "key": "app_name",
-        "data": "ZApp"
-    },
+    "key": "app_name",
+    "data": "ZApp"
+  },
     {
         "auth_users": [ "*" ],
         "key": "company_name",
@@ -75,9 +75,19 @@
     "is_override": false,
     "override_by": "none"
   },
-     {
+  {
+    "auth_users": [ "sys_admin" ],
+    "key": "app_theme_color",
+    "data": "#dc971f"
+  },
+  {
+    "auth_users": [ "sys_admin" ],
+    "key": "OTP_Duration",
+    "data": "15"
+  },
+   {
         "auth_users": [ "sys_admin" ],
-        "key": "app_theme_color",
-        "data": "#dc971f"
+        "key": "Session_Duration",
+        "data": "15"
     }
 ]

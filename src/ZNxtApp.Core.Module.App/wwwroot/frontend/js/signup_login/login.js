@@ -90,6 +90,8 @@ $(document).ready(function () {
             type: 'POST',
             url: './api/user/facebook/auth',
             success: function (data) {
+                $(".login").hide();
+                $("#divRedirecting").show();
                 window.location = data['facebook_oauth_url'];
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {

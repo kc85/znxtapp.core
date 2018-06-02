@@ -13,11 +13,18 @@
     "ExecuteType": "ZNxtAap.Core.Web.CronJobs.UpdateAppSettingCronJob",
     "ExecuteMethod": "Update"
   },
-   {
+  {
+    "key": "SessionCleanUpCronJob",
+    "repeat_in": 10,
+    "ExecultAssembly": "ZNxtApp.Core.Web.dll",
+    "ExecuteType": "ZNxtAap.Core.Web.CronJobs.OTPCleanUpCronJob",
+    "ExecuteMethod": "UpdateOTPStatus"
+  },
+  {
         "key": "OTPCleanUpCronJob",
-        "repeat_in": 10,
+        "repeat_in": 20,
         "ExecultAssembly": "ZNxtApp.Core.Web.dll",
-        "ExecuteType": "ZNxtAap.Core.Web.CronJobs.OTPCleanUpCronJob",
-        "ExecuteMethod": "UpdateOTPStatus"
+        "ExecuteType": "ZNxtAap.Core.Web.CronJobs.SessionCleanup",
+        "ExecuteMethod": "CleanSession"
     }
 ]

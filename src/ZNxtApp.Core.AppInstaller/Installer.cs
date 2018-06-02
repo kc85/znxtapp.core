@@ -339,6 +339,7 @@ namespace ZNxtApp.Core.AppInstaller
             }
             else
             {
+                _logger.Error(string.Format("File not found : {0}", filePath));
                 httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND);
             }
 

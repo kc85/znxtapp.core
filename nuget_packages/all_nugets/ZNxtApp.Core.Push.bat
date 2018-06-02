@@ -5,6 +5,6 @@ nuget pack "C:\Users\Khanin\Google Drive\Code\znxtapp.core\nuget_packages\ZNxtAp
 
 nuget setApiKey  oy2gpagwhqqokhdxiyiquhclnthm4cguli74yuabzegnia
 
-nuget  push ZNxtApp.Core.1.0.10-Beta.nupkg -Source https://api.nuget.org/v3/index.json
+nuget  push ZNxtApp.Core.1.0.11-Beta.nupkg -Source https://api.nuget.org/v3/index.json
 
-del ZNxtApp.Core.1.0.10-Beta.nupkg
+del ZNxtApp.Core.1.0.11-Beta.nupkg

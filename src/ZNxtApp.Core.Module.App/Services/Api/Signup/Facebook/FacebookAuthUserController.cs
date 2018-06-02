@@ -47,7 +47,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
                 // Parse the response body. Blocking!
                 var dataObjects = response.Content.ReadAsStringAsync().Result;
                 JObject responseJson = JObject.Parse(dataObjects);
-                // {"name":"Khanin Choudhury","id":"2174119955936574"}
                 if (responseJson[CommonConst.CommonField.DISPLAY_ID] == null || responseJson[CommonConst.CommonField.NAME] == null)
                 {
                     
@@ -55,6 +54,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
                 }
                 else
                 {
+
                     var userId = responseJson[CommonConst.CommonField.DISPLAY_ID].ToString();
                     if (CreateUser(userId, responseJson[CommonConst.CommonField.NAME].ToString()))
                     {

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ZNxtApp.Core.Module.SMS.TextLocal</id>
-    <version>1.0.9.32921-Beta</version>
+    <version>1.0.11.38791-Beta</version>
     <title>ZNxtApp.Core.Module.SMS.TextLocal</title>
     <authors>Khanin Choudhury</authors>
     <owners>Khanin Choudhury</owners>
@@ -15,7 +15,7 @@
     <copyright>Copyright 2018</copyright>
     <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.SMS ZNxtApp.Core.Module.SMS.TextLocal</tags>
 	<dependencies>
-      <dependency id="ZNxtApp.Core" version="1.0.10-Beta"  />
+      <dependency id="ZNxtApp.Core" version="1.0.11-Beta"  />
     </dependencies>
   </metadata>
   <files>

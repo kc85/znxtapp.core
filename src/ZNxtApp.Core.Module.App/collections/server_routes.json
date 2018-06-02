@@ -166,5 +166,17 @@
     "auth_users": [
       "sys_admin"
     ]
+  },
+  {
+    "key": "POST:/api/admin/userinfo/update",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/admin/userinfo/update",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.UserManagement.UpdateUserInfo",
+    "ExecuteMethod": "AdminUpdate",
+    "auth_users": [
+      "sys_admin"
+    ]
   }
 ]

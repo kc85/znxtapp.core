@@ -60,6 +60,7 @@
     <Compile Include="AppStart\InitApp.cs" />
     <Compile Include="CronJobs\CheckAppHealthCronJob.cs" />
     <Compile Include="CronJobs\OTPCleanUpCronJob.cs" />
+    <Compile Include="CronJobs\SessionCleanup.cs" />
     <Compile Include="CronJobs\UpdateAppSettingCronJob.cs" />
     <Compile Include="Handler\RequestHandler.cs" />
     <Compile Include="Handler\RequestHandlerBase.cs" />
