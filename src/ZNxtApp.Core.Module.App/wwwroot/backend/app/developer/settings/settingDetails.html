@@ -1,0 +1,100 @@
+﻿<div class="row" ng-controller="ZNxtAppAdmin.settingDetailsCtrl">
+    <div class="clearfix"></div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Setting details :: {{setting.key}}</h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link" ng-click="closeDetails()"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="col-md-9 col-sm-9 col-xs-12" >
+                    <div ng-switch on="getDataType(setting)">
+                        <div class="form-group" ng-switch-when="string"> 
+                            <label for="inputEmail3" class="col-sm-2 control-label">Data</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Setting Data" ng-model="setting.data">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-switch-when="object">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Data</label>
+                            <div class="col-sm-10">
+                                <textarea  type="text" class="form-control" placeholder="Setting Data" rows="3">{{setting.data}}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-switch-default>
+                            <label for="inputEmail3" class="col-sm-2 control-label">Data</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="Setting Data" value="{{setting.data}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label ng-hide="setting.is_override">
+                                    <input type="checkbox"  ng-model="setting.is_enabled"> 
+                                    Is Enabled 
+                                </label>
+                                <label ng-show="setting.is_override">
+                                    <input type="checkbox" ng-model="setting.is_enabled" disabled>
+                                    Is Enabled <i>(This setting is override by module {{setting.override_by}})</i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Auth Users</label>
+                        <div class="col-sm-10">
+                            <span class="label label-default" ng-repeat="s in setting.auth_users">{{s}}  &nbsp;&nbsp;<i class="fa fa-remove" style="cursor:pointer" ng-click="removeGroup(s)"></i></span> 
+                            
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Comment</label>
+                        <div class="col-sm-10">
+                            <textarea type="text" class="form-control" placeholder="Comment" ng-model="setting.comment"></textarea></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <br />
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary" ng-click="save();">Save</button>
+                            <button type="submit" class="btn btn-default" ng-click="closeDetails();">Cancel</button>
+                        </div>
+                        <br />
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12" style="border-left:1px solid silver" >
+                    <p><strong>Module Name: </strong> {{setting.module_name}}</p>
+                    <p><strong>Is Override: </strong><span class="label label-default" ng-class="{'label-danger' : setting.is_override}">{{setting.is_override}}</span> </p>
+                    <p><strong>Override By: </strong> {{setting.override_by}}</p>
+                    <p><strong>Created On: </strong>{{setting.created_datetime * 1000 | date:'yyyy-MM-dd HH:mm:ss Z'}}: {{setting.created_datetime}}</p>
+                    <p><strong>Created By: </strong>{{setting.created_by}}</p>
+                    <p><strong>Updated On: </strong>{{setting.updated_datetime * 1000 | date:'yyyy-MM-dd HH:mm:ss Z'}}: {{setting.updated_datetime}}</p>
+                    <p><strong>Updated By: </strong>{{setting.updated_by}}</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

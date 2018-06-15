@@ -1,0 +1,112 @@
+﻿<div ng-controller="ZNxtAppAdmin.serverRoutesCtrl">
+
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>{{name}}</h3>
+            </div>
+            <div class="title_right">
+                <div class="col-md-7 col-sm-7 col-xs-12 form-group pull-right top_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for..." ng-model="filter" ng-keydown="$event.keyCode === 13 && filterChanged()">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-click="filterChanged()">Go!</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row blockquote-reverse" style="margin-bottom:5px" ng-hide="filterCoumns.length==0">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                Filter<span ng-hide="filterCoumns.length==1">s</span> : <span ng-repeat="f in filterCoumns">
+                    <span class="label label-info">{{f.column}}: {{f.value}}  &nbsp;&nbsp;<i class="fa fa-remove" style="cursor:pointer" ng-click="removeFilter(f)"></i></span>
+                    <span class="label label-default" ng-hide="$index == filterCoumns.length-1">OR</span>
+                </span>
+                <span class="label label-danger" ng-hide="filterCoumns.length == 1" style="cursor:pointer" ng-click="clearFilter()">Clear Filter</span>
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div ng-hide="showDetails == true">
+            <div class="row">
+                <div class="col-md-7 col-sm-7 col-xs-12" ng-hide="pageData.TotalPages <= 1">
+                    <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                        <ul class="pagination" style="margin:0px">
+                            <li class="paginate_button previous" ng-class="{'disabled' : currentPage ==1 }" id="example1_previous">
+                                <a ng-click="previous()" href="javascript:;" aria-controls="example1" data-dt-idx="0" tabindex="0">Previous</a>
+                            </li>
+                            <li class="paginate_button hidden-xs" ng-class="{'active' : n == currentPage}" ng-hide="n==0" ng-repeat="n in range(currentPage - (currentPage%10),getMaxPageCount((currentPage+10) -(currentPage%10)))">
+                                <a href="javascript:;" ng-click="gotoPage(n)" aria-controls="example1" data-dt-idx="{{n}}" tabindex="0">{{n}}</a>
+                            </li>
+                            <li class="paginate_button next" ng-class="{'disabled' : currentPage == pageData.TotalPages }" id="example1_next">
+                                <a href="javascript:;" ng-click="next()" aria-controls="example1" data-dt-idx="7" tabindex="0">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-12" ng-hide="pageData.TotalPages <= 1">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-8 col-xs-7" style="padding-top:5px">
+                            Page: <input type="text" ng-model="currentPageShow" ng-blur="pageNumberChanged()" style="width:20px" />/{{pageData.TotalPages}}, {{currentPage * pageSize }} to {{(currentPage * pageSize)+ pageSize }} of {{pageData.TotalRecords}}
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-3" style="padding-top:5px;text-align:right;">
+                            Page Size:
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-2">
+                            <select name="example1_length" aria-controls="example1" class="form-control input-sm" ng-model="pageSize" ng-change="pageSizeChanged();">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="clearfix"></div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <div role="tabpanel" class="tab-pane fade active in" id="tab_content11" aria-labelledby="home-tab">
+                                <div class="col-md-12 col-sm-12 col-xs-12 profile_details" ng-repeat="route in pageData.data" style="border-bottom:solid 1px silver;padding-top:5px">
+                                    <p><strong>Key: </strong> {{route.key}}</p>
+                                    <p><strong>Route: </strong> {{route.Method}} : {{route.Route}}</p>
+                                    <p><strong>Execult: </strong> {{route.ExecultAssembly}}, {{route.ExecuteType}} ({{route.ExecuteMethod}})</p>
+                                    <p><strong>Module Name: </strong> {{route.module_name}}</p>
+                                    <p><strong>Is Override: </strong><span class="label label-default" ng-class="{'label-danger' : route.is_override}">{{route.is_override}}</span> </p>
+                                    <p><strong>Override By: </strong> {{route.override_by}}</p>
+                                    <p><strong>Comment: </strong> {{route.comment}}</p>
+                                    <p><strong>Auth Users: </strong> {{route.auth_users}}</p>
+
+                                    <div class="row">
+
+                                        <div class="clearfix"></div>
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            <strong>Created On: </strong>{{route.created_datetime * 1000 | date:'yyyy-MM-dd HH:mm:ss Z'}}: {{route.created_datetime}}
+                                        </div>
+                                        <!--<div class="col-md-4 col-sm-4 col-xs-12 blockquote-reverse">
+                                            <button class="btn btn-defult btn-xs" ng-click="showDetailsPage(route);"> View Details</button>
+                                        </div>-->
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 profile_details" ng-show="pageData.data.length == 0" style="padding:100px;text-align:center">
+                                    <i>No result found </i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<div ng-include="'./app/developer/routes/routeDetails.html'" ng-show="showDetails == true">-->
+
+        </div>
+    </div>
+ </div>

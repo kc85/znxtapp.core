@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text;
+using ZNxtApp.Core.Consts;
 
 namespace ZNxtApp.Core.Helpers
 {
@@ -16,6 +18,26 @@ namespace ZNxtApp.Core.Helpers
             TimeSpan unixTicks = new TimeSpan(dt.Ticks) - epochTicks;
             return (Int32)unixTicks.TotalSeconds;
         }
+
+        public static bool IsServerSidePage(string url, bool checkBlocks = false)
+        {
+            var fi = new FileInfo(url);
+            if(!checkBlocks)
+                return fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION;
+            else
+            {
+                return 
+                    fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION ||
+                    fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_BLOCK_EXTENSION ||
+                    fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_CSS_EXTENSION ||
+                    fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_TEMPLATE_EXTENSION ||
+                    fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_JS_EXTENSION
+                    ;
+
+            }
+
+        }
+       
 
         public static string GetBase64(byte[] data)
         {

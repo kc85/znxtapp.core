@@ -7,6 +7,7 @@
         $scope.user = {};
         $scope.loadingUseData = false;
         $scope.userProfileMenus = [];
+        $scope.showOtherTabs = false;
         var scrollX = 0;
         var scrollY;
         $scope.closeDetails = function () {
@@ -19,13 +20,22 @@
             $scope.active();
             scrollY = $window.scrollY;
             scrollX = $window.scrollX;
-            $scope.clickMenu($scope.userProfileMenus[0]);
+            $scope.clickMenu();
             $window.scrollTo(0, 0);
         });
         $scope.clickMenu = function (menu) {
+            $scope.showOtherTabs = true;
             $scope.userProfileMenus.forEach(function (d) { d.isShow = false; });
-            menu.isShow = true;
-            $scope.$broadcast("onShowUserProfileItem", menu, $scope.user);
+            if (menu != undefined) {
+                // fetch menu from key in case this call from the child controller, e.g homeCtrl
+                menu = $scope.userProfileMenus.filter(function (m) { return m.key == menu.key })[0];
+                menu.isShow = true;
+                $scope.$broadcast("onShowUserProfileItem", menu, $scope.user);
+            }
+            else {
+                $scope.showOtherTabs = false;
+                $scope.$broadcast("onShowUserProfileItem", { key  : 'info'}, $scope.user);
+            }
         }
         $scope.$on("onUserInfoUpdate", function () {
             $scope.active();

@@ -143,10 +143,14 @@
             response: function (response) {
                 $rootScope.$broadcast('onHttpEnd');
                 if (response.data != undefined && response.data.code != undefined) {
-                    if (response.data.code != 1) {
+                    if (response.data.code == 401) {
+                        window.location.reload();
+                    }
+                    else if (response.data.code != 1) {
                         $rootScope.$broadcast('onError', { text: "Something wrong in the request", timeout: 2000 });
                         console.log(response);
                     }
+                    
                 }
                 return response;
             },

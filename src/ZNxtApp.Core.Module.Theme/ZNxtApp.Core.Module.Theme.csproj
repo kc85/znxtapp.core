@@ -61,6 +61,9 @@
     <None Include="packages.config" />
     <None Include="wwwroot\backend\index.z" />
     <None Include="wwwroot\backend\template\footer.zb" />
+    <None Include="wwwroot\backend\template\template - Copy.zt">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="wwwroot\backend\template\top_nevigation.zb" />
     <None Include="wwwroot\backend\template\header.zb" />
     <None Include="wwwroot\backend\template\left_slider_menu.zb" />
@@ -81,7 +84,6 @@
     <Folder Include="wwwroot\backend\vendors\flot-spline\" />
     <Folder Include="wwwroot\backend\vendors\flot.curvedlines\" />
     <Folder Include="wwwroot\backend\vendors\flot.orderbars\" />
-    <Folder Include="wwwroot\backend\vendors\Flot\" />
     <Folder Include="wwwroot\backend\vendors\font-awesome\" />
     <Folder Include="wwwroot\backend\vendors\gauge.js\" />
     <Folder Include="wwwroot\backend\vendors\google-code-prettify\" />
@@ -103,8 +105,6 @@
     <Content Include="wwwroot\backend\app\developer\developer.html" />
     <Content Include="wwwroot\backend\app\services\loggerService.js" />
     <Content Include="wwwroot\backend\app\services\dataService.js" />
-    <Content Include="wwwroot\backend\app\settings\settings.html" />
-    <Content Include="wwwroot\backend\app\settings\settingsCtrl.js" />
     <Content Include="wwwroot\backend\app\ZNxtApp.js" />
     <Content Include="wwwroot\backend\build\css\custom.css" />
     <Content Include="wwwroot\backend\build\css\custom.min.css" />

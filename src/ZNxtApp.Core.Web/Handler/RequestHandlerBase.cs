@@ -116,8 +116,8 @@ namespace ZNxtApp.Core.Web.Handler
 
             }
             _httpProxy.ContentType = _httpProxy.GetContentType(requestUriPath);
-            
-            if (ApplicationConfig.StaticContentCache)
+
+            if (ApplicationConfig.StaticContentCache && !CommonUtility.IsServerSidePage(requestUriPath))
             {
                 _httpContext.Response.Cache.SetCacheability(HttpCacheability.Public);
                 _httpContext.Response.Cache.SetExpires(DateTime.Now.AddDays(10));
@@ -137,6 +137,11 @@ namespace ZNxtApp.Core.Web.Handler
             if(context.Request.Cookies[CommonConst.CommonValue.SESSION_COOKIE]==null)
             {
                 CreateSession(context);
+            }
+            else
+            {
+                var expires = DateTime.Now.AddMinutes(ApplicationConfig.SessionDuration);
+                context.Request.Cookies[CommonConst.CommonValue.SESSION_COOKIE].Expires = expires;
             }
         }
 

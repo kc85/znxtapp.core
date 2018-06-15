@@ -1,0 +1,10 @@
+﻿<div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12" ng-controller="ZNxtAppAdmin.userprofile.home.userGroupWidgetCtrl">
+    <div class="tile-stats" style="cursor:pointer">
+        <div class="icon">
+            <i class="glyphicon glyphicon-user"></i>
+        </div>
+        <div class="count">{{userData.groups.length}}</div>
+        <h3>User Groups</h3>
+        <p><span ng-repeat="g in userData.groups" class="label label-default" style="margin:5px">{{g}} </span></p>
+    </div>
+</div>

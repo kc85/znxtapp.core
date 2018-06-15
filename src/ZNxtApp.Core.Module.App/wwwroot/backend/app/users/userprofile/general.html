@@ -2,20 +2,20 @@
     <div class="x_content">
         <h2> General </h2>
         <br>
-        <form class="form-horizontal form-label-left input_mask">
+        <form class="form-horizontal form-label-left input_mask" name="userGeneralForm">
 
             <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="First Name" ng-model="userData.name" >
-                <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                <input type="text" class="form-control has-feedback-left" placeholder="First Name" ng-model="userData.name" name="uname" required >
+                <span class="fa fa-user form-control-feedback left" ng-show="userGeneralForm.uname.$touched && userGeneralForm.uname.$invalid"> This is a required field</span>
             </div>
 
             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Email" ng-model="userData.email">
+                <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Email" ng-model="userData.email" name="name">
                 <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
             </div>
 
             <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                <input type="text" class="form-control" id="inputSuccess5" placeholder="Phone" ng-model="userData.phone">
+                <input type="text" class="form-control" id="inputSuccess5" placeholder="Phone" ng-model="userData.phone" name="phone">
                 <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
             </div>
             

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿
+
+
+<!DOCTYPE html>
 <html lang="en" ng-app="ZNxtAppAdmin">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -71,58 +74,14 @@
       </div>
     </div>
 
-    <!-- Bootstrap -->
-    <script src="@Model["base_uri"]/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- Angular js  -->
-    <script src="@Model["base_uri"]/vendors/angularjs/angular.min.js"></script>
-    <!-- Angular js route  -->
-    <script src="@Model["base_uri"]/vendors/angularjs/angular-route.js"></script>
-     <!-- Angular js anamiation  -->
-    <script src="@Model["base_uri"]/vendors/angularjs/angular-animate.js"></script>
-	  <script src="@Model["base_uri"]/vendors/angularjs/angular-resource.min.js"></script>
-	
+ 
 	 <!-- Get  js -->
-    <script src="@Model["base_uri"]/api/getjs?path=/backend/app"></script>
+     <script src="@Model["base_uri"]/api/getjs?path=/backend/vendors"></script>
+	 <script src="@Model["base_uri"]/api/getjs?path=/backend/app"></script>
 	
-    <!-- FastClick -->
-    <script src="@Model["base_uri"]/vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="@Model["base_uri"]/vendors/nprogress/nprogress.js"></script>
-    <!-- Chart.js -->
-    <script src="@Model["base_uri"]/vendors/Chart.js/dist/Chart.min.js"></script>
-    <!-- gauge.js -->
-    <script src="@Model["base_uri"]/vendors/gauge.js/dist/gauge.min.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="@Model["base_uri"]/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- iCheck -->
-    <script src="@Model["base_uri"]/vendors/iCheck/icheck.min.js"></script>
-    <!-- Skycons -->
-    <script src="@Model["base_uri"]/vendors/skycons/skycons.js"></script>
-    <!-- Flot -->
-    <script src="@Model["base_uri"]/vendors/Flot/jquery.flot.js"></script>
-    <script src="@Model["base_uri"]/vendors/Flot/jquery.flot.pie.js"></script>
-    <script src="@Model["base_uri"]/vendors/Flot/jquery.flot.time.js"></script>
-    <script src="@Model["base_uri"]/vendors/Flot/jquery.flot.stack.js"></script>
-    <script src="@Model["base_uri"]/vendors/Flot/jquery.flot.resize.js"></script>
-    <!-- Flot plugins -->
-    <script src="@Model["base_uri"]/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-    <script src="@Model["base_uri"]/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-    <script src="@Model["base_uri"]/vendors/flot.curvedlines/curvedLines.js"></script>
-    <!-- DateJS -->
-    <script src="@Model["base_uri"]/vendors/DateJS/build/date.js"></script>
-    <!-- JQVMap -->
-    <script src="@Model["base_uri"]/vendors/jqvmap/dist/jquery.vmap.js"></script>
-    <script src="@Model["base_uri"]/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-    <script src="@Model["base_uri"]/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="@Model["base_uri"]/vendors/moment/min/moment.min.js"></script>
-    <script src="@Model["base_uri"]/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-	<!-- Dropzone.js -->
-    <script src="@Model["base_uri"]/vendors/dropzone/dist/min/dropzone.min.js"></script>
-
+   
     <!-- Custom Theme Scripts -->
     <script src="@Model["base_uri"]/build/js/custom.min.js"></script>
 
   </body>
 </html>
-

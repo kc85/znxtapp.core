@@ -21,9 +21,17 @@ namespace ZNxtApp.Core.Module.App.Services.Api.GetJs
         {
             try
             {
+                Logger.Debug("Calling Get JS ");
                 var path = HttpProxy.GetQueryString("path");
+                if(string.IsNullOrEmpty(path))
+                {
+                    Logger.Error("Path is missing in the query string");
+                    return null;
+                }
                 var filterQuery = "{" + CommonConst.CommonField.FILE_PATH + ":/.js$/i}";
                 var data = DBProxy.Get(CommonConst.Collection.STATIC_CONTECT,filterQuery, new List<string> { CommonConst.CommonField.FILE_PATH });
+                Logger.Debug("Fetch value from Get JS");
+               
                 var listOfArrays = new List<byte[]>();
                 var queryRecords = data.Select(l => new
                 {
@@ -32,9 +40,10 @@ namespace ZNxtApp.Core.Module.App.Services.Api.GetJs
 
                 }).OrderBy(o => o.length).ToList();
 
+                Logger.Debug("Apply by Order by Get JS");
                 foreach (var item in queryRecords)
                 {
-                    if (item.file_path.IndexOf(path) == 0)
+                    if (!string.IsNullOrEmpty(item.file_path) && item.file_path.IndexOf(path) == 0)
                     {
                         string jspath = item.file_path;
                         if (jspath.IndexOf(CommonConst.CommonValue.APP_BACKEND_FOLDERPATH) == 1)
@@ -48,7 +57,12 @@ namespace ZNxtApp.Core.Module.App.Services.Api.GetJs
                         var content = ContentHandler.GetContent(jspath);
                         if (content != null)
                         {
+                            if (ApplicationConfig.GetApplicationMode != ApplicationMode.Live)
+                            {
+                                listOfArrays.Add(Encoding.UTF8.GetBytes(string.Format("\n/*File: {0}*/\n", item.file_path)));
+                            }
                             listOfArrays.Add(content);
+                            
                             listOfArrays.Add(Encoding.UTF8.GetBytes("\n"));
                         }
                     }

@@ -116,5 +116,77 @@
       "sys_admin"
     ],
     "index": 9999
+  },
+  {
+    "key": "adv_settings",
+    "label": "Settings",
+    "href": "/adv_settings",
+    "icon": "fa-paw",
+    "display_area": "main_body",
+    "url": "#",
+    "config": {
+      "templateUrl": "app/developer/settings/settings.html"
+    },
+    "parent_links": [
+      "advance"
+    ],
+    "auth_users": [
+      "sys_admin"
+    ],
+    "index": 80
+  },
+  {
+    "key": "adv_server_routes",
+    "label": "Routes",
+    "href": "/adv_server_routes",
+    "icon": "fa-paw",
+    "display_area": "main_body",
+    "url": "#",
+    "config": {
+      "templateUrl": "app/developer/server_routes/serverRoutes.html"
+    },
+    "parent_links": [
+      "advance"
+    ],
+    "auth_users": [
+      "sys_admin"
+    ],
+    "index": 90
+  },
+  {
+    "key": "adv_backend_ui_routes",
+    "label": "Backend UI Routes",
+    "href": "/adv_backend_ui_routes",
+    "icon": "fa-paw",
+    "display_area": "main_body",
+    "url": "#",
+    "config": {
+      "templateUrl": "app/developer/ui_routes/backendUIRoutes.html"
+    },
+    "parent_links": [
+      "advance"
+    ],
+    "auth_users": [
+      "sys_admin"
+    ],
+    "index": 100
+  },
+  {
+    "key": "adv_pages_blocks",
+    "label": "Pages",
+    "href": "/adv_pages_blocks",
+    "icon": "fa-paw",
+    "display_area": "main_body",
+    "url": "#",
+    "config": {
+      "templateUrl": "app/developer/pages/pages.html"
+    },
+    "parent_links": [
+      "advance"
+    ],
+    "auth_users": [
+      "sys_admin"
+    ],
+    "index": 110
   }
 ]

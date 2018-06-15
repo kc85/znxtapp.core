@@ -178,5 +178,77 @@
     "auth_users": [
       "sys_admin"
     ]
+  },
+  {
+    "key": "GET:/api/admin/settings",
+    "ContentType": "application/json",
+    "Method": "GET",
+    "Route": "/api/admin/settings",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Setting.SettingController",
+    "ExecuteMethod": "Get",
+    "auth_users": [
+      "sys_admin"
+    ]
+  },
+  {
+    "key": "POST:/api/admin/setting/update",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/admin/setting/update",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Setting.SettingController",
+    "ExecuteMethod": "Update",
+    "auth_users": [
+      "sys_admin"
+    ]
+  },
+  {
+    "key": "GET:/api/admin/server_routes",
+    "ContentType": "application/json",
+    "Method": "GET",
+    "Route": "/api/admin/server_routes",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.ServerRoutes.ServerRotesController",
+    "ExecuteMethod": "Get",
+    "auth_users": [
+      "sys_admin"
+    ]
+  },
+  {
+    "key": "POST:/api/admin/server_routes/update",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/admin/server_routes/update",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.ServerRoutes.ServerRotesController",
+    "ExecuteMethod": "Update",
+    "auth_users": [
+      "sys_admin"
+    ]
+  },
+  {
+    "key": "GET:/api/admin/common/get",
+    "ContentType": "application/json",
+    "Method": "GET",
+    "Route": "/api/admin/common/get",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Common.CommonGetController",
+    "ExecuteMethod": "Get",
+    "auth_users": [
+      "sys_admin"
+    ]
+  },
+  {
+    "key": "POST:/api/content/update",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/content/update",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Content.UpdateContent",
+    "ExecuteMethod": "Update",
+    "auth_users": [
+      "sys_admin"
+    ]
   }
 ]

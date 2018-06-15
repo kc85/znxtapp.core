@@ -52,6 +52,9 @@
                         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                             <div class="menu_section">
                                 <ul class="nav">
+                                    <li>
+                                        <a href="javascript:;" ng-click="clickMenu()"><i class="fa fa-home"></i> Info</a>
+                                    </li>
                                     <li ng-repeat="menu in userProfileMenus">
                                         <a href="javascript:;" ng-click="clickMenu(menu)"><i class="fa {{menu.icon}}"></i> {{menu.label}}</a>
                                     </li>
@@ -61,6 +64,8 @@
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-9 col-xs-12">
+                        <div ng-include="'app/users/userprofile/home.html'" ng-hide="showOtherTabs">
+                        </div>
                         <div ng-include="menu.config.templateUrl" ng-repeat="menu in userProfileMenus" ng-show="menu.isShow == true">
 
                         </div>

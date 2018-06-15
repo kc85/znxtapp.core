@@ -41,9 +41,19 @@ namespace ZNxtApp.Core.Web.Services
         public void ResetSession()
         {
             string filter = "{'" + CommonConst.CommonField.SESSION_ID + "' : '" + _httpProxy.SessionID + "'}";
-            
-            _dbProxy.Delete(CommonConst.Collection.SESSION_DATA,filter);
-            (_httpProxy as HttpContextProxy).ResetSession();
+            try
+            {
+                _dbProxy.Delete(CommonConst.Collection.SESSION_DATA, filter);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message, ex);
+            }
+            finally
+            {
+                (_httpProxy as HttpContextProxy).ResetSession();
+            }
         }
 
         public void SetValue<T>(string key, T value)

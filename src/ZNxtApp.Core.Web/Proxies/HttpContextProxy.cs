@@ -220,6 +220,21 @@ namespace ZNxtApp.Core.Web.Proxies
         public void ResetSession()
         {
             _context.Response.Cookies.Remove(CommonConst.CommonValue.SESSION_COOKIE);
+            
+            CreateSession(_context);
+            if (_context.Session != null)
+            {
+                _context.Session.Abandon();
+            }
+        }
+
+        private void CreateSession(HttpContext context)
+        {
+            var cookie = new HttpCookie(CommonConst.CommonValue.SESSION_COOKIE, Guid.NewGuid().ToString());
+            var expires = DateTime.Now.AddMinutes(ApplicationConfig.SessionDuration);
+            cookie.Expires = expires;
+            cookie.HttpOnly = true;
+            context.Response.Cookies.Add(cookie);
         }
         public void UploadAppDomain()
         {

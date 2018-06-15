@@ -30,24 +30,6 @@
       "sys_admin"
     ],
     "index": 90
-  },
-  {
-    "key": "adv_settings",
-    "label": "Settings",
-    "href": "/adv_settings",
-    "icon": "fa-paw",
-    "display_area": "main_body",
-    "url": "#",
-    "config": {
-      "templateUrl": "app/settings/settings.html"
-    },
-    "parent_links": [
-      "advance"
-    ],
-    "auth_users": [
-      "sys_admin"
-    ],
-    "index": 80
   }
   
 ]

@@ -49,14 +49,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Consts\ModuleAppConsts.cs" />
+    <Compile Include="Helper\UserProfileHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Api\AppResponseCode.cs" />
+    <Compile Include="Services\Api\Common\CommonGetController.cs" />
+    <Compile Include="Services\Api\Content\UpdateContent.cs" />
     <Compile Include="Services\Api\GetJs\GetJsController.cs" />
     <Compile Include="Services\Api\Login\LoginController.cs" />
     <Compile Include="Services\Api\Logout\LogoutController.cs" />
     <Compile Include="Services\Api\Log\LogController.cs" />
     <Compile Include="Services\Api\Menu\BackendMenuController.cs" />
     <Compile Include="Services\Api\Module\GetModuleController.cs" />
+    <Compile Include="Services\Api\ServerRoutes\ServerRotesController.cs" />
+    <Compile Include="Services\Api\Setting\SettingController.cs" />
     <Compile Include="Services\Api\Signup\Facebook\FacebookAuthUserController.cs" />
     <Compile Include="Services\Api\Forgetpassword\Forgetpassword.cs" />
     <Compile Include="Services\Api\Signup\SignUpCommonController.cs" />
@@ -105,7 +110,24 @@
     <Content Include="wwwroot\backend\app\developer\log\logCtrl.js" />
     <Content Include="wwwroot\backend\app\developer\modules\module.html" />
     <Content Include="wwwroot\backend\app\developer\modules\moduleCtrl.js" />
+    <Content Include="wwwroot\backend\app\developer\pages\pageDetails.html" />
+    <Content Include="wwwroot\backend\app\developer\pages\pageDetailsCtrl.js" />
+    <Content Include="wwwroot\backend\app\developer\pages\pages.html" />
+    <Content Include="wwwroot\backend\app\developer\pages\pagesCtrl.js" />
+    <Content Include="wwwroot\backend\app\developer\ui_routes\backendUIRoutes.html" />
+    <Content Include="wwwroot\backend\app\developer\ui_routes\UIRoutesCtrl.js" />
+    <Content Include="wwwroot\backend\app\developer\server_routes\serverRoutes.html" />
+    <Content Include="wwwroot\backend\app\developer\server_routes\serverRoutesCtrl.js" />
+    <Content Include="wwwroot\backend\app\developer\settings\settingDetails.html" />
+    <Content Include="wwwroot\backend\app\developer\settings\settingDetailsCtrl.js" />
+    <Content Include="wwwroot\backend\app\developer\settings\settings.html" />
+    <Content Include="wwwroot\backend\app\developer\settings\settingsCtrl.js" />
+    <Content Include="wwwroot\backend\app\users\userprofile\homeCtrl.js" />
+    <Content Include="wwwroot\backend\app\users\userprofile\home.html" />
     <Content Include="wwwroot\backend\app\users\userprofile\addressCtrl.js" />
+    <Content Include="wwwroot\backend\app\users\userprofile\home_widgets\homeWidgetCtrl.js" />
+    <Content Include="wwwroot\backend\app\users\userprofile\home_widgets\user_group_widget.html" />
+    <Content Include="wwwroot\backend\app\users\userprofile\home_widgets\address_widget.html" />
     <Content Include="wwwroot\backend\app\users\userprofile\resetpassword.html" />
     <Content Include="wwwroot\backend\app\users\userprofile\address.html" />
     <Content Include="wwwroot\backend\app\users\userprofile\general.html" />

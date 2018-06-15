@@ -1,1 +1,1 @@
-Added OnError, OnDebug, onSuccess global alerts. Added HTTP global loader.
+Added view pages,settings, Server routes and UI Routes in Admin side  

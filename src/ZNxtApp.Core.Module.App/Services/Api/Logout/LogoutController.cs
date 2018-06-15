@@ -19,6 +19,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Logout
         {
             try
             {
+                Logger.Debug("ResetSession");
                 SessionProvider.ResetSession();
                 return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS);
             }

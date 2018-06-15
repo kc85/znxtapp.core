@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
+using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Web.Helper;
 using ZNxtApp.Core.Web.Util;
@@ -32,8 +33,7 @@ namespace ZNxtApp.Core.Web.Services
         public string GetStringContent(string path)
         {
             path = StaticContentHandler.MappedUriPath(path);
-            var fi = new FileInfo(path);
-            if (fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION)
+            if (CommonUtility.IsServerSidePage(path))
             {
                 var response = ServerPageModelHelper.ServerSidePageHandler(path, _dbProxy, _httpProxy, _viewEngine, _actionExecuter, _logger);
                 return response;

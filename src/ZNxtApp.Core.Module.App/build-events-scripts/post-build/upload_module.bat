@@ -1,6 +1,8 @@
 ﻿
 
-set http_base_url=http://localhost/ZNxtApp.Core.WebTest
+rem set http_base_url=http://localhost/ZNxtApp.Core.WebTest
+set http_base_url=https://ZNxt.App
+
 set mudule_root_path=c:\temp\ZNxtApp
 
 set version=%1

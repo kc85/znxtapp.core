@@ -1,6 +1,7 @@
 ﻿
 
-set http_base_url=http://localhost/ZNxtApp.Core.WebTest
+rem set http_base_url=http://localhost/ZNxtApp.Core.WebTest
+set http_base_url=https://ZNxt.App
 
 set version=%1
 set nuget_path=%2
