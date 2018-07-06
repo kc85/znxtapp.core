@@ -75,25 +75,33 @@
     <None Include="ZNxtApp.Core.Module.Theme.nuspec" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="wwwroot\backend\vendors\autosize\" />
     <Folder Include="wwwroot\backend\vendors\bootstrap-daterangepicker\" />
     <Folder Include="wwwroot\backend\vendors\bootstrap-progressbar\" />
     <Folder Include="wwwroot\backend\vendors\bootstrap-wysiwyg\" />
     <Folder Include="wwwroot\backend\vendors\bootstrap\" />
     <Folder Include="wwwroot\backend\vendors\DateJS\" />
+    <Folder Include="wwwroot\backend\vendors\devbridge-autocomplete\" />
     <Folder Include="wwwroot\backend\vendors\fastclick\" />
     <Folder Include="wwwroot\backend\vendors\flot-spline\" />
     <Folder Include="wwwroot\backend\vendors\flot.curvedlines\" />
     <Folder Include="wwwroot\backend\vendors\flot.orderbars\" />
+    <Folder Include="wwwroot\backend\vendors\Flot\" />
     <Folder Include="wwwroot\backend\vendors\font-awesome\" />
     <Folder Include="wwwroot\backend\vendors\gauge.js\" />
     <Folder Include="wwwroot\backend\vendors\google-code-prettify\" />
     <Folder Include="wwwroot\backend\vendors\iCheck\" />
     <Folder Include="wwwroot\backend\vendors\jquery.hotkeys\" />
+    <Folder Include="wwwroot\backend\vendors\jquery.tagsinput\" />
     <Folder Include="wwwroot\backend\vendors\jquery\" />
     <Folder Include="wwwroot\backend\vendors\jqvmap\" />
     <Folder Include="wwwroot\backend\vendors\moment\" />
     <Folder Include="wwwroot\backend\vendors\nprogress\" />
+    <Folder Include="wwwroot\backend\vendors\parsleyjs\" />
+    <Folder Include="wwwroot\backend\vendors\select2\" />
     <Folder Include="wwwroot\backend\vendors\skycons\" />
+    <Folder Include="wwwroot\backend\vendors\starrr\" />
+    <Folder Include="wwwroot\backend\vendors\switchery\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="build-events-scripts\post-build\NuGet.exe" />
@@ -103,6 +111,8 @@
     <Content Include="wwwroot\backend\app\default_home\homeCtrl.js" />
     <Content Include="wwwroot\backend\app\developer\developerCtrl.js" />
     <Content Include="wwwroot\backend\app\developer\developer.html" />
+    <Content Include="wwwroot\backend\app\services\fileUploadService.js" />
+    <Content Include="wwwroot\backend\app\services\utilityService.js" />
     <Content Include="wwwroot\backend\app\services\loggerService.js" />
     <Content Include="wwwroot\backend\app\services\dataService.js" />
     <Content Include="wwwroot\backend\app\ZNxtApp.js" />
@@ -138,9 +148,13 @@
     <Content Include="wwwroot\backend\vendors\angularjs\angular-resource.min.js" />
     <Content Include="wwwroot\backend\vendors\angularjs\angular-route.js" />
     <Content Include="wwwroot\backend\vendors\angularjs\angular.min.js" />
+    <Content Include="wwwroot\backend\vendors\bootstrap-datetimepicker\build\css\bootstrap-datetimepicker-standalone.css" />
+    <Content Include="wwwroot\backend\vendors\bootstrap-datetimepicker\build\css\bootstrap-datetimepicker.css" />
     <Content Include="wwwroot\backend\vendors\bootstrap-datetimepicker\build\css\bootstrap-datetimepicker.min.css" />
     <Content Include="wwwroot\backend\vendors\bootstrap-datetimepicker\build\js\bootstrap-datetimepicker.min.js" />
+    <Content Include="wwwroot\backend\vendors\Chart.js\dist\Chart.bundle.js" />
     <Content Include="wwwroot\backend\vendors\Chart.js\dist\Chart.bundle.min.js" />
+    <Content Include="wwwroot\backend\vendors\Chart.js\dist\Chart.js" />
     <Content Include="wwwroot\backend\vendors\Chart.js\dist\Chart.min.js" />
     <Content Include="wwwroot\backend\vendors\dropzone\dist\min\dropzone.min.css" />
     <Content Include="wwwroot\backend\vendors\dropzone\dist\min\dropzone.min.js" />

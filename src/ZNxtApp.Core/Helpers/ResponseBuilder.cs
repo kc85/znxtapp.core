@@ -39,29 +39,7 @@ namespace ZNxtApp.Core.Helpers
             }
             return response;
         }
-        //public static JObject CreateResponse(int code, string messageText, JArray data = null, JObject extraData = null)
-        //{
-        //    var response = CreateResponse(code, messageText);
-        //    if (extraData != null)
-        //    {
-        //        foreach (var item in extraData)
-        //        {
-        //            response[item.Key] = item.Value;
-        //        }
-        //    }
-        //    if (data != null)
-        //    {
-        //        response[CommonConsts.GETDATA_DATA_NODE_KEY] = data;
-        //    }
-        //    return response;
-        //}
-        //public static JObject CreateReponse(int code, string messageText)
-        //{
-        //    JObject response = new JObject();
-        //    response[CommonConst.CommonField.HTTP_RESPONE_CODE] = code;
-        //    response[CommonConst.CommonField.HTTP_RESPONE_MESSAGE] = messageText;
-        //    return response;
-        //}
+      
         public  JObject CreateReponse(int code)
         {
             JObject response = new JObject();

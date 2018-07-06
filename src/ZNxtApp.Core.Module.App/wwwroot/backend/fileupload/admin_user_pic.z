@@ -1,0 +1,12 @@
+﻿@{
+    Newtonsoft.Json.Linq.JObject response = new Newtonsoft.Json.Linq.JObject();
+    if(Authorized("sys_admin")){
+       Newtonsoft.Json.Linq.JObject uploadData = new  Newtonsoft.Json.Linq.JObject();
+       uploadData["collection"] = "wwwroot";
+       uploadData["base_path"] = "/frontend/user_pic/" + QueryString("user_id");
+        uploadData["storege_type"] = "database";
+       var fileUploadResponse  = ExecuteAction("/api/upload/file",uploadData);
+       response = fileUploadResponse;
+    }
+}
+@response

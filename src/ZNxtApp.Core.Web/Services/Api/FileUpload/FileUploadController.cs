@@ -42,10 +42,9 @@ namespace ZNxtApp.Core.Web.Services.Api.FileUpload
                     var fileName = _fileUploader.GetFiles()[0];
                     string filePath = string.Format("{0}\\{1}", baseFolder, fileName);
 
-                    var resonse = _fileUploader.Save(fileName, filePath);
-                    if (!string.IsNullOrEmpty(resonse))
+                    var reponse = _fileUploader.Save(fileName, filePath);
+                    if (!string.IsNullOrEmpty(reponse))
                     {
-
                         return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS);
                     }
                     else

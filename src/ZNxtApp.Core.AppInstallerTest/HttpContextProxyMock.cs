@@ -105,7 +105,7 @@ namespace ZNxtApp.Core
             throw new NotImplementedException();
         }
 
-        public void UploadAppDomain()
+        public void UnloadAppDomain()
         {
             throw new NotImplementedException();
         }

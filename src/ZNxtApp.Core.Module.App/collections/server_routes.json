@@ -180,6 +180,19 @@
     ]
   },
   {
+    "key": "POST:/api/admin/userpic/update",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/admin/userpic/update",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.UserManagement.UpdateUserInfo",
+    "ExecuteMethod": "AdminChangeUserImage",
+    "auth_users": [
+      "sys_admin"
+    ]
+  }
+  ,
+  {
     "key": "GET:/api/admin/settings",
     "ContentType": "application/json",
     "Method": "GET",

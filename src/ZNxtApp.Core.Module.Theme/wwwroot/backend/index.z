@@ -13,7 +13,7 @@ else{
 
 @{ 
 	InclueTemplate("./template/template.zt");
-	Model["page_title"] = " : Home111";
+	Model["page_title"] = " : Home";
 }
 <div class="right_col" role="main">
     

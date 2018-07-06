@@ -236,7 +236,7 @@ namespace ZNxtApp.Core.Web.Proxies
             cookie.HttpOnly = true;
             context.Response.Cookies.Add(cookie);
         }
-        public void UploadAppDomain()
+        public void UnloadAppDomain()
         {
             System.Web.HttpRuntime.UnloadAppDomain();
         }

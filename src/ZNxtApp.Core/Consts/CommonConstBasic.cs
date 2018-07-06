@@ -97,6 +97,8 @@
             public const string DB_JOIN_DESTINATION_FIELDS = "db_join_destination_fields";
             public const string OTP_DURATION = "OTP_Duration";
             public const string SESSION_DURATION = "Session_Duration";
+            public const string USER_INFO = "user_info";
+            public const string USER_PIC = "user_pic";
         }
     }
 }

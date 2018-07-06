@@ -75,7 +75,7 @@ namespace ZNxtApp.Core.Web.Services.Api.ModuleInstaller
                 var moduleDetails = _moduleInstaller.GetDetails(moduleName);
                 if (moduleDetails != null)
                 {
-                    HttpProxy.UploadAppDomain();
+                    HttpProxy.UnloadAppDomain();
                     return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, moduleDetails);
                 }
                 else
@@ -107,7 +107,7 @@ namespace ZNxtApp.Core.Web.Services.Api.ModuleInstaller
             return _moduleMethodCaller((string moduleName) => {
                 if (_moduleInstaller.Install(moduleName, HttpProxy, true))
                 {
-                    HttpProxy.UploadAppDomain();
+                    HttpProxy.UnloadAppDomain();
                     return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS);
                 }
                 else
@@ -125,7 +125,7 @@ namespace ZNxtApp.Core.Web.Services.Api.ModuleInstaller
             return _moduleMethodCaller((string moduleName) => {
                 if (_moduleUninstaller.Uninstall(moduleName, HttpProxy))
                 {
-                    HttpProxy.UploadAppDomain();
+                    HttpProxy.UnloadAppDomain();
                     return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS);
                 }
                 else

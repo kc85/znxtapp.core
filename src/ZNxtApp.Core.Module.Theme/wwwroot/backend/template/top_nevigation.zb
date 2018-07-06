@@ -9,14 +9,13 @@
 
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="@Model["base_uri"]/images/img.jpg" alt="">
-                      {{user.name}}
+                  <a href="javascript:;" class="user-profile dropdown-toggle"  onerror="this.src = '@Model["base_uri"]/images/img.jpg'"  data-toggle="dropdown" aria-expanded="false">
+                    <img src="{{userpic_s}}"  alt="">
                       <span class=" fa fa-angle-down"></span>
                     </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li>
-                      <a href="#!user_profile"> Profile</a>
+                      <a href="#!user_profile" ng-click="showUserProfile()"> Profile</a>
                     </li>
                     <li>
                       <a href="javascript:;">

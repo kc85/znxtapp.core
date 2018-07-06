@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -69,6 +70,7 @@
     <Compile Include="Helpers\GoogleCaptchaHelper.cs" />
     <Compile Include="Helpers\CommonUtility.cs" />
     <Compile Include="Helpers\DataBuilderHelper.cs" />
+    <Compile Include="Helpers\ImageUtility.cs" />
     <Compile Include="Helpers\JObjectHelper.cs" />
     <Compile Include="Helpers\ResponseBuilder.cs" />
     <Compile Include="Interfaces\IActionExecuter.cs" />

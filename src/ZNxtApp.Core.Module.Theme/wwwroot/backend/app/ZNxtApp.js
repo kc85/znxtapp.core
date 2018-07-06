@@ -22,6 +22,33 @@
             $scope.debugTimeout = undefined;
             $scope.successTimeout = undefined;
             $scope.showProgressTimeout = undefined;
+           
+            $scope.$on("onUserInfoUpdate", function () {
+                getUserData();
+            });
+            function active() {
+                getUserData();
+            }
+            function getUserData() {
+
+                dataService.get("./api/admin/users?pagesize=1&currentpage=1&filter={'user_id':'" + $scope.user.user_id + "'}").then(function (response) {
+                    if (response.data.code == 1) {
+                        $scope.user = response.data.data[0];
+                        if ($scope.user.user_info != undefined) {
+                            $scope.userpic_s = $scope.user.user_info[0].user_pic_s.replace('/frontend/', '../');
+                        }
+                    }
+                    else {
+                        $scope.isError = true;
+                        $scope.errorMessage = "Something went wrong in the server";
+                    }
+                    $scope.loadingUseData = false;
+                });
+            }
+            $scope.showUserProfile = function () {
+                $scope.$broadcast("onShowUserDetails", $scope.user);
+            };
+            active();
 
             $scope.$on("onHttpStart", function (e, data) {
                 if ($scope.showProgressTimeout != undefined) {

@@ -42,48 +42,10 @@ namespace ZNxtApp.Core.Interfaces
 
         string SessionID{get;}
 
-        void UploadAppDomain();
-
+        void UnloadAppDomain();
         string GetHeader(string key);
-
         Dictionary<string,string> GetHeaders();
-
-
-        //dynamic GetFiles();
-
-        //string GetFormData(string key);
-
-        //string GetHttpMethod(string key);
-
-        //string GetMimeMapping(string fileName);
-
-        //string GetQueryString(string key);
-
-        //string GetRequestBody();
-
-        //Newtonsoft.Json.Linq.JObject GetSessionValue(string key);
-
-        //int HttpResponseStatusCode { get; set; }
-        //string HttpResponseStatusMessage { get; set; }
-
-
-
-        //void SetSessionValue(string key, Newtonsoft.Json.Linq.JObject value);
-
-        //void UploadAppDomain();
-
-        //RoutingModel GetRoute();
-
-        //RoutingModel GetRoute(string method, string path);
-
         string GetContentType(string path);
-
-        //List<string> GetSessionUserGroups();
-
-        //bool HasAccess(JObject data);
-
-        //JObject GetSessionUser();
-
-        //string ServeMapPath(string path);
+        
     }
 }

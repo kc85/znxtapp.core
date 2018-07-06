@@ -140,7 +140,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Content
             var file_path = data[CommonConst.CommonField.FILE_PATH].ToString();
             if(CommonUtility.IsServerSidePage(file_path))
             {
-                HttpProxy.UploadAppDomain();
+                HttpProxy.UnloadAppDomain();
             }
             return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS);
         }

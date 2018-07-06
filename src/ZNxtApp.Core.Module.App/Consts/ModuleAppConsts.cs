@@ -42,8 +42,10 @@ namespace ZNxtApp.Core.Module.App.Consts
             public const string FORGET_PASS_OTP_EMAIL_SUBJECT = "OTP_FORGET_PASS_SUBJECT";
 
             public const string USER_INFO = "user_info";
-
-
+            public const string USER_PIC = "user_pic";
+            public const string USER_PIC_M = "user_pic_m";
+            public const string USER_PIC_S = "user_pic_s";
+            public const string USER_PIC_L = "user_pic_l";
 
         }
     }

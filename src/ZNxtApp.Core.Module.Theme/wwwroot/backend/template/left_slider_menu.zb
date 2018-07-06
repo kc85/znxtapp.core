@@ -47,7 +47,6 @@
       var menuData = __menus.filter(function (d) { return (d.parent_links != undefined && d.parent_links.indexOf(parent_link) != -1) || (parent_link == d.parent_links) });
       for (var menu_index in menuData) {
           var menu_item = menuData[menu_index];
-          // check if there is child menu
           var hasChild = (__menus.filter(function (d) { return (d.parent_links != undefined && d.parent_links.indexOf(menu_item.key) != -1) }).length != 0);
           var li_ele = document.createElement("li");
 
