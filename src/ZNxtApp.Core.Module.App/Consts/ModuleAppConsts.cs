@@ -21,6 +21,7 @@ namespace ZNxtApp.Core.Module.App.Consts
             public const string GOOGLE_RECAPTCHA_SITE_KEY_SETTING_KEY = "google_recaptcha_site_key";
             public const string GOOGLE_RECAPTCHA_RESPONSE_KEY = "g-recaptcha-response";
 
+            public const string FACEBOOK_API_SETTING_KEY = "facebook_api_key";
 
             public const string FACEBOOK_API_SECRET_SETTING_KEY = "facebook_api_secret";
             public const string FACEBOOK_OAUTH_URL_SETTING_KEY = "facebook_oauth_url";

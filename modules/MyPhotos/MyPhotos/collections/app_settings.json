@@ -1,0 +1,8 @@
+﻿[ 
+     {
+        "auth_users": [ "*" ],
+        "key": "my_photo_path",
+        "data": "G:\\Photos"
+    }
+
+]

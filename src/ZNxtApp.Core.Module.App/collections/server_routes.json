@@ -168,6 +168,18 @@
     ]
   },
   {
+    "key": "GET:/api/user/userinfo",
+    "ContentType": "application/json",
+    "Method": "GET",
+    "Route": "/api/user/userinfo",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.UserManagement.UsersController",
+    "ExecuteMethod": "GetUserInfo",
+    "auth_users": [
+      "user"
+    ]
+  },
+  {
     "key": "POST:/api/admin/userinfo/update",
     "ContentType": "application/json",
     "Method": "POST",
@@ -177,6 +189,18 @@
     "ExecuteMethod": "AdminUpdate",
     "auth_users": [
       "sys_admin"
+    ]
+  }, 
+  {
+    "key": "POST:/api/userinfo/update",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/userinfo/update",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.UserManagement.UpdateUserInfo",
+    "ExecuteMethod": "MyProfileUpdate",
+    "auth_users": [
+      "user"
     ]
   },
   {

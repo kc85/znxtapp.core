@@ -4,7 +4,7 @@
             <div class="x_panel">
                 <div class="x_title">
                     <h2>{{user.name}}<small>Type : {{user.user_type}}</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
+                    <ul class="nav navbar-right panel_toolbox" ng-hide="isShowMyProfile">
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
@@ -28,9 +28,10 @@
                         <div class="profile_img">
                             <div id="crop-avatar">
                                 <!-- Current avatar -->
-                                <img class="img-responsive avatar-view" onerror="this.src = 'images/user.png'" src="{{user_profile_image}}" alt="Avatar" title="Change the avatar">
+                                <img class="img-responsive avatar-view"  src="{{user_profile_image}}" alt="Avatar" title="Change the avatar">
                                 <form name="userProfileImagefrm">
-                                    <input type="file" class="btn" data-input="false" file-model="userProfileImage" >
+                                    <!--<button type="button" class="btn btn-sm" onclick="document.getElementById('user_pic_change').click();"> Change Photo</button>-->
+                                    <input type="file"  id="user_pic_change" class="btn" data-input="false" file-model="userProfileImage" >
                                </form>
                         </div>
                         <br />
@@ -43,7 +44,8 @@
                                 <i class="fa fa-map-marker user-profile-icon"></i> Email : {{user.email}}
                             </li>
                             <li>
-                                <i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA
+                                <i class="fa fa-map-marker user-profile-icon"></i>
+                                {{defaultAddress.street}},{{defaultAddress.city}},{{defaultAddress.state}}<br />
                             </li>
                             <li>
                                 <i class="fa fa-briefcase user-profile-icon"></i> Gender: {{user.user_info[0].gender}}
@@ -66,7 +68,7 @@
                         </div>
                     </div>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <div ng-include="'app/users/userprofile/home.html'" ng-hide="showOtherTabs">
+                        <div ng-include="'app/users/userprofile/home_widgets.html'" ng-hide="showOtherTabs">
                         </div>
                         <div ng-include="menu.config.templateUrl" ng-repeat="menu in userProfileMenus" ng-show="menu.isShow == true">
 

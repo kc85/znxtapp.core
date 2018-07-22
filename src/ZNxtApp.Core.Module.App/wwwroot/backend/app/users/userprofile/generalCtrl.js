@@ -12,8 +12,12 @@
             }
         });
         $scope.save = function () {
-            dataService.post("./api/admin/userinfo/update", $scope.userData).then(function (response) {
-                if (response.data.code == 1) {                    
+            var editProfileUrl = "./api/admin/userinfo/update";
+            if ($scope.$parent.isShowMyProfile == true) {
+                editProfileUrl = "./api/userinfo/update";
+            }
+            dataService.post(editProfileUrl, $scope.userData).then(function (response) {
+                if (response.data.code == 1) {
                     $scope.$emit("onUserInfoUpdate", $scope.userData);
                 }
             });

@@ -1,0 +1,26 @@
+[
+    {
+        "key": "GET:/api/myphotos/fetch",
+        "ContentType": "application/json",
+        "Method": "GET",
+        "Route": "/api/myphotos/fetch",
+        "ExecultAssembly": "MyPhotos.dll",
+        "ExecuteType": "MyPhotos.Services.Api.ImageBrowser",
+        "ExecuteMethod": "Get",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
+        "key": "GET:/api/myphotos/image",
+        "ContentType": "image/jpeg",
+        "Method": "GET",
+        "Route": "/api/myphotos/image",
+        "ExecultAssembly": "MyPhotos.dll",
+        "ExecuteType": "MyPhotos.Services.Api.ImageBrowser",
+        "ExecuteMethod": "GetImage",
+        "auth_users": [
+            "*"
+        ]
+    }
+]

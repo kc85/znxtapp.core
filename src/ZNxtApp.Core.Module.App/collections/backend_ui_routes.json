@@ -39,7 +39,7 @@
   {
     "key": "user_profile",
     "label": "User Profile",
-    "href": "/user_profile",
+    "href": "/my_profile",
     "icon": "fa-paw",
     "display_area": "main_body",
     "url": "#",
@@ -50,7 +50,7 @@
       "user_profile"
     ],
     "auth_users": [
-      "sys_admin"
+      "user"
     ],
     "index": 100
   },
@@ -81,7 +81,7 @@
       "user_profile"
     ],
     "auth_users": [
-      "sys_admin"
+      "user"
     ],
     "index": 10
   },
@@ -97,7 +97,7 @@
       "user_profile"
     ],
     "auth_users": [
-      "sys_admin"
+      "user"
     ],
     "index": 20
   },
@@ -113,7 +113,7 @@
       "user_profile"
     ],
     "auth_users": [
-      "sys_admin"
+      "user"
     ],
     "index": 9999
   },

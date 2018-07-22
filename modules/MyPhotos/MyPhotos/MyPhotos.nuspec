@@ -1,0 +1,28 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MyPhotos</id>
+    <version>1.0.1.19762-Beta</version>
+    <title>MyPhotos</title>
+    <authors>Khanin Choudhury</authors>
+    <owners>Khanin Choudhury</owners>
+    <licenseUrl>https://YOUR-MODULE-LIC-URL</licenseUrl>
+    <projectUrl>https://PROJECT-URL</projectUrl>
+    <iconUrl>https://ICON-URL</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ZNxtApp MyPhotos nuget package</description>
+    <releaseNotes>Release Note</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.Core ZNxtApp.Core.Module</tags>
+	<dependencies>
+      <dependency id="ZNxtApp.Core" version="1.0.10-Beta"  />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="readme.md" target="" />
+	<file src="wwwroot/**/*.*" target="Content" />
+	<file src="collections/**/*.*" target="Content" />
+	<file src="module.json" target="Content" />
+	<file src="bin\Release\MyPhotos.dll" target="lib/net452" />
+  </files>
+</package>

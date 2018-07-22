@@ -25,7 +25,7 @@ namespace ZNxtApp.Core.Services
             Route = paramContainer.GetKey(CommonConst.CommonValue.PARAM_ROUTE);
             SessionProvider = paramContainer.GetKey(CommonConst.CommonValue.PARAM_SESSION_PROVIDER);
         }
-        protected JObject GetPaggedData(string collection, JArray joins = null, string overrideFilters = null)
+        protected JObject GetPaggedData(string collection, JArray joins = null, string overrideFilters = null, Dictionary<string, int> sortColumns = null, List<string> fields = null)
         {
             int pageSize = 10, pageSizeData = 0;
             int currentPage = 1, currentPageData = 0;
@@ -48,26 +48,34 @@ namespace ZNxtApp.Core.Services
             {
                 filterQuery = overrideFilters;
             }
-            var sort = new Dictionary<string, int>();
+
+            if (sortColumns == null)
+            {
+                sortColumns = new Dictionary<string, int>();
+            }
 
             var sortData = HttpProxy.GetQueryString("sort");
 
             if (sortData != null)
             {
-                sort = (Dictionary<string, int>)JsonConvert.DeserializeObject<Dictionary<string, int>>(sortData);
+                sortColumns = (Dictionary<string, int>)JsonConvert.DeserializeObject<Dictionary<string, int>>(sortData);
             }
             else
             {
-                sort[CommonConst.CommonField.CREATED_DATA_DATE_TIME] = -1;
+                sortColumns[CommonConst.CommonField.CREATED_DATA_DATE_TIME] = -1;
             }
-            List<string> fields = null;
 
+
+            if (fields == null)
+            {
+                fields = new List<string>();
+            }
             if (HttpProxy.GetQueryString("fields") != null)
             {
                 fields = new List<string>();
                 fields.AddRange(HttpProxy.GetQueryString("fields").Split(','));
             }
-            var data = GetPageData(collection, filterQuery, fields, sort, pageSize, currentPage);
+            var data = GetPagedData(collection, filterQuery, fields, sortColumns, pageSize, currentPage);
 
             DoJoins(data, collection, joins);
 
@@ -95,7 +103,7 @@ namespace ZNxtApp.Core.Services
             return collectionJoin;
         }
 
-        protected JObject GetPageData(string collection, string query, List<string> fields = null, Dictionary<string, int> sortColumns = null, int pageSize = 10, int currentPage = 1)
+        protected JObject GetPagedData(string collection, string query, List<string> fields = null, Dictionary<string, int> sortColumns = null, int pageSize = 10, int currentPage = 1)
         {
 
             int? top = null;

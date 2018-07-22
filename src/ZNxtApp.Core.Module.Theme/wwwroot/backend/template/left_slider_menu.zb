@@ -17,7 +17,7 @@
   <a data-toggle="tooltip" data-placement="top" title="Lock">
     <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
   </a>
-  <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+  <a data-toggle="tooltip" data-placement="top" title="Logout" href="../signup/logout.z">
     <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
   </a>
 </div>
@@ -44,7 +44,7 @@
 
   function buildMenu(parentElement, parent_link) {
 
-      var menuData = __menus.filter(function (d) { return (d.parent_links != undefined && d.parent_links.indexOf(parent_link) != -1) || (parent_link == d.parent_links) });
+      var menuData = __menus.filter(function (d) { return (d.parent_links != undefined && d.parent_links.indexOf(parent_link) != -1) || (parent_link == d.parent_links) }).sort(function(a,b){ return  a.index < b.index;});
       for (var menu_index in menuData) {
           var menu_item = menuData[menu_index];
           var hasChild = (__menus.filter(function (d) { return (d.parent_links != undefined && d.parent_links.indexOf(menu_item.key) != -1) }).length != 0);

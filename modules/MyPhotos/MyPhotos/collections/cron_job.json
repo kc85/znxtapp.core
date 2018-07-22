@@ -1,0 +1,9 @@
+[
+    {
+        "key": "MyPhotoFileSync",
+        "repeat_in": 300,
+        "ExecultAssembly": "MyPhotos.dll",
+        "ExecuteType": "MyPhotos.Services.Api.ImageBackgroundSync",
+        "ExecuteMethod": "Sync"
+    }
+]

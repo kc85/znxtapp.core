@@ -15,7 +15,7 @@
     <copyright>Copyright 2018</copyright>
     <tags>ZApp ZNext ZNextApp ZNxtApp ZNxtApp.Core ZNxtApp.Core.Module</tags>
 	<dependencies>
-      <dependency id="ZNxtApp.Core" version="1.0.11-Beta"  />
+      <dependency id="ZNxtApp.Core" version="1.0.14-Beta"  />
     </dependencies>
   </metadata>
   <files>

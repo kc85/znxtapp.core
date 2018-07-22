@@ -21,6 +21,20 @@ namespace ZNxtApp.Core.Web.Proxies
         public DateTime InitDateTime { get; private set; }
         private ILogger _logger;
         private DataBuilderHelper _dataBuilderHelper;
+        private Dictionary<string, string> _responseHeaders = new Dictionary<string, string>();
+        public Dictionary<string, string> ResponseHeaders
+        {
+            get
+            {
+                return _responseHeaders;
+            }
+
+            set
+            {
+                _responseHeaders = value;
+            }
+        }
+
         private byte[] _response;
 
         public byte[] Response
@@ -217,6 +231,8 @@ namespace ZNxtApp.Core.Web.Proxies
 
             }
         }
+
+        
         public void ResetSession()
         {
             _context.Response.Cookies.Remove(CommonConst.CommonValue.SESSION_COOKIE);

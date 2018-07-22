@@ -1,0 +1,12 @@
+﻿<div ng-controller="ZNxtAppAdmin.userprofile.homeWidgetsCtrl">
+    <div class="row">
+        <div ng-include="menu.config.templateUrl" ng-repeat="menu in userProfileWidget" ng-show="menu.isShow == true">
+
+        </div>
+        <!--<div ng-include="'app/users/userprofile/home_widgets/address_widget.html'">
+        </div>
+        <div ng-include="'app/users/userprofile/home_widgets/user_group_widget.html'">
+        </div>-->
+    </div>
+</div>
+

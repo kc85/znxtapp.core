@@ -70,11 +70,15 @@ namespace ZNxtApp.Core.Web.Handler
             _httpContext.Response.StatusCode = _httpProxy.ResponseStatusCode;
             _httpContext.Response.StatusDescription = _httpProxy.ResponseStatusMessage;
             _httpContext.Response.ContentType = _httpProxy.ContentType;
-
+            foreach (var item in _httpProxy.ResponseHeaders)
+            {
+                _httpContext.Response.Headers[item.Key] = item.Value;
+            }
             if (_httpProxy.Response != null)
             {
                 _httpContext.Response.OutputStream.Write(_httpProxy.Response, 0, _httpProxy.Response.Length);
             }
+
             RemoveHeaders();
         }
         private void RemoveHeaders()
@@ -128,6 +132,7 @@ namespace ZNxtApp.Core.Web.Handler
                 _httpContext.Response.Headers[string.Format("{0}.{1}", CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO, CommonConst.CommonValue.TIME_SPAN)] = (DateTime.Now - _initData.InitDateTime).TotalMilliseconds.ToString();
                 _httpContext.Response.Headers[string.Format("{0}.{1}", CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO, CommonConst.CommonField.TRANSATTION_ID)] = _initData.TransactionId;
             }
+            
             RemoveHeaders();
         }
 

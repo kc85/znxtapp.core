@@ -1,5 +1,5 @@
 ﻿<script>
-var authorized = @Authorized("sys_admin").ToString().ToLower();
+var authorized = @Authorized("sys_admin,user").ToString().ToLower();
 if(!authorized)
 {
     window.location = "../signup/login.z?rurl="+window.location

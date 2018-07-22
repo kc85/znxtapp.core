@@ -23,6 +23,7 @@
             public const string CREATED_DATA_DATE_TIME = "created_datetime";
             public const string CREATED_BY = "created_by";
             public const string UPDATED_BY = "updated_by";
+            public const string LAST_EXEC_ON = "last_exec_on";
             public const string STATUS = "status";
             public const string TRANSATTION_ID = "transaction_id";
             public static string DATA_MODULE_NAME = "module";
@@ -99,6 +100,8 @@
             public const string SESSION_DURATION = "Session_Duration";
             public const string USER_INFO = "user_info";
             public const string USER_PIC = "user_pic";
+            public const string HISTORY = "history";
+            public const string START_ON = "start_on";
         }
     }
 }

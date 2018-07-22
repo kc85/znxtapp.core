@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace ZNxtApp.Core.Consts
 {
@@ -21,6 +22,7 @@ namespace ZNxtApp.Core.Consts
             public const string PARAM_ACTIONEXECUTER = "_param_actionexecuter";
             public const string PARAM_PING_SERVICE = "_param_ping_service";
             public const string PARAM_RESPONBUILDER = "_param_response_builder";
+            public const string PARAM_CRON_JOB_OBJ = "_param_cron_job_object";
             public const string PARAM_APP_SETTING = "_param_app_setting_service";
             public const string PARAM_ROUTING_OBJECT = "_param_app_routing_obj";
             public const string PARAM_API_RESPONSE = "_param_api_response";
@@ -47,6 +49,9 @@ namespace ZNxtApp.Core.Consts
             public const string EMAIL_QUEUE_ID = "email_queue_id";
             public const string COLLECTION = "collection";
             public const string BASE_PATH = "base_path";
+            public const string FINISH = "finish";
+            public const string FINISH_WITH_ERROR = "finish_with_error";
+            public const string INPROGRESS = "inprogress";
         }
     }
 }

@@ -42,6 +42,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                     {
                         return false;
                     }
+                    
                     UpdateModuleInfo(moduleDir, moduleName, moduleVerion, ref moduleObject);
                     var moduleCollections = new JArray();
                     if (moduleObject[CommonConst.MODULE_INSTALL_COLLECTIONS_FOLDER] != null)
@@ -173,7 +174,8 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                         }
 
                         CleanDBCollection(moduleName, collectionName);
-
+                        _logger.Debug(string.Format("InstallCollections File:{0}", fi.FullName));
+                       
                         foreach (JObject joData in JObjectHelper.GetJArrayFromFile(fi.FullName))
                         {
                             joData[CommonConst.CommonField.DISPLAY_ID] = Guid.NewGuid().ToString();

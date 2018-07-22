@@ -1,4 +1,7 @@
-﻿ <!DOCTYPE html>
+﻿ @{
+  var modelData = IncludeModel("/api/model/signup",null);
+}
+ <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -8,6 +11,7 @@
   <link rel='stylesheet prefetch' href='//fonts.googleapis.com/css?family=Open+Sans'>
   <script>
 var appRootPath = '@Model["base_uri"]';
+ var _fbapp_id = '@modelData["facebook_api_key"]';
 </script>
 <link rel="stylesheet" href="@Model["base_uri"]/css/signup_login/signup_login.css">
 <script src='//www.google.com/recaptcha/api.js'></script>
@@ -21,6 +25,7 @@ var appRootPath = '@Model["base_uri"]';
 
  @RenderBody()
     
+	
 </div>
     <footer>
       <h1>Copyright (c) 2017 @Model["app_name"]</h1>

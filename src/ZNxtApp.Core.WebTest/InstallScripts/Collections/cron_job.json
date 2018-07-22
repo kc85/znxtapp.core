@@ -3,28 +3,28 @@
         "key": "CheckAppHealthCronJob",
         "repeat_in": 10,
         "ExecultAssembly": "ZNxtApp.Core.Web.dll",
-        "ExecuteType": "ZNxtAap.Core.Web.CronJobs.CheckAppHealthCronJob",
+        "ExecuteType": "ZNxtApp.Core.Web.CronJobs.CheckAppHealthCronJob",
         "ExecuteMethod": "Check"
     },
   {
     "key": "UpdateSettingCronJob",
     "repeat_in": 10,
     "ExecultAssembly": "ZNxtApp.Core.Web.dll",
-    "ExecuteType": "ZNxtAap.Core.Web.CronJobs.UpdateAppSettingCronJob",
+    "ExecuteType": "ZNxtApp.Core.Web.CronJobs.UpdateAppSettingCronJob",
     "ExecuteMethod": "Update"
   },
   {
     "key": "SessionCleanUpCronJob",
     "repeat_in": 10,
     "ExecultAssembly": "ZNxtApp.Core.Web.dll",
-    "ExecuteType": "ZNxtAap.Core.Web.CronJobs.OTPCleanUpCronJob",
+    "ExecuteType": "ZNxtApp.Core.Web.CronJobs.OTPCleanUpCronJob",
     "ExecuteMethod": "UpdateOTPStatus"
   },
   {
         "key": "OTPCleanUpCronJob",
         "repeat_in": 20,
         "ExecultAssembly": "ZNxtApp.Core.Web.dll",
-        "ExecuteType": "ZNxtAap.Core.Web.CronJobs.SessionCleanup",
+        "ExecuteType": "ZNxtApp.Core.Web.CronJobs.SessionCleanup",
         "ExecuteMethod": "CleanSession"
     }
 ]

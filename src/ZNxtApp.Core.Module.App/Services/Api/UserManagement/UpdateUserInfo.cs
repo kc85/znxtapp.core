@@ -25,7 +25,33 @@ namespace ZNxtApp.Core.Module.App.Services.Api.UserManagement
             _paramContainer = paramContainer;
         }
 
+        public JObject MyProfileUpdate()
+        {
+            JObject request = HttpProxy.GetRequestBody<JObject>();
+            if (request == null)
+            {
+                return ResponseBuilder.CreateReponse(CommonConst._400_BAD_REQUEST);
+            }
+            string userId = string.Empty;
+            if (request[CommonConst.CommonField.USER_ID] != null)
+            {
+                userId = request[CommonConst.CommonField.USER_ID].ToString();
+            }
 
+            var userData = SessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
+            if (userData == null)
+            {
+                Logger.Debug("User session data is null");
+                return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
+            }
+            if (userData.user_id != userId)
+            {
+                Logger.Debug("User id conflict with session data");
+                return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
+
+            }
+            return AdminUpdate();
+        }
         public JObject AdminUpdate()
         {
             try

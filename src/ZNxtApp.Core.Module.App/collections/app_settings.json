@@ -44,14 +44,14 @@
       "sys_admin"
     ],
     "key": "facebook_api_key",
-    "data": "120068438665059"
+    "data": "852978064885552"
   },
   {
     "auth_users": [
       "sys_admin"
     ],
     "key": "facebook_api_secret",
-    "data": "5eba86b290083f90cb09d56cf484ea69"
+    "data": "69eb16b50051a55068dfb1d3d0ba634f"
   },
   {
     "auth_users": [
@@ -104,8 +104,7 @@
     "comment": "This  is default user groups for new signup users",
     "data": {
       "groups": [
-        "user",
-        "sys_admin"
+        "user"
       ]
     }
   },

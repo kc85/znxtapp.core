@@ -31,9 +31,9 @@
             }
             function getUserData() {
 
-                dataService.get("./api/admin/users?pagesize=1&currentpage=1&filter={'user_id':'" + $scope.user.user_id + "'}").then(function (response) {
+                dataService.get("./api/user/userinfo?user_id=" + $scope.user.user_id + "").then(function (response) {
                     if (response.data.code == 1) {
-                        $scope.user = response.data.data[0];
+                        $scope.user = response.data.data;
                         if ($scope.user.user_info != undefined) {
                             $scope.userpic_s = $scope.user.user_info[0].user_pic_s.replace('/frontend/', '../');
                         }
@@ -46,7 +46,7 @@
                 });
             }
             $scope.showUserProfile = function () {
-                $scope.$broadcast("onShowUserDetails", $scope.user);
+              //  $scope.$broadcast("onShowUserDetails", $scope.user);
             };
             active();
 

@@ -31,7 +31,12 @@
             if ($scope.address.is_default) {
                 $scope.userData.user_info[0].addresses.filter(function (f) { return f.id != $scope.address.id }).forEach(function (d) { d.is_default = false;})
             }
-            dataService.post("./api/admin/userinfo/update", $scope.userData).then(function (response) {
+
+            var editProfileUrl = "./api/admin/userinfo/update";
+            if ($scope.$parent.isShowMyProfile == true) {
+                editProfileUrl = "./api/userinfo/update";
+            }
+            dataService.post(editProfileUrl, $scope.userData).then(function (response) {
                 if (response.data.code == 1) {
                     logger.success("Successfully saved the address");
                     $scope.$emit("onUserInfoUpdate", $scope.userData);
@@ -75,6 +80,15 @@
 
         $scope.deleteAddress = function () {
             $scope.address.is_deleted = true;
+            if ($scope.address.is_default == true) {
+                var firstAddress = $scope.address.filter(function (a) { return a.is_default != true })[0];
+                if (firstAddress != undefined) {
+                    firstAddress.is_default = true;
+                }
+                $scope.address.is_default = false;
+            }
+            
+
             $scope.save(function () {
                 $scope.showDeleteComment = false;
                 $scope.address = undefined;

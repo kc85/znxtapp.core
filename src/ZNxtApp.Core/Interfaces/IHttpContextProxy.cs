@@ -11,6 +11,7 @@ namespace ZNxtApp.Core.Interfaces
         string GetURIAbsolutePath();
 
         string GetHttpMethod();
+        Dictionary<string, string> ResponseHeaders { get; set; }
 
         int ResponseStatusCode { get; }
         string ResponseStatusMessage { get; }

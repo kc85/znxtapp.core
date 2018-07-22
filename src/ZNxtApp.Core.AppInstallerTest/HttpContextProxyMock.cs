@@ -135,5 +135,18 @@ namespace ZNxtApp.Core
         {
             get { throw new NotImplementedException(); }
         }
+
+        public Dictionary<string, string> ResponseHeaders
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }

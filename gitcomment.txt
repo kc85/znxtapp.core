@@ -1,1 +1,1 @@
-Added User Profile update 
+Added MyPhotos modules

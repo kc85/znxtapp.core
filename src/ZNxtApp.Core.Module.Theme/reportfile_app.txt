@@ -5,27 +5,27 @@ Response:
 {
   "code": 1,
   "message": "SUCCESS",
-  "txn_id": "20180706172432308626",
+  "txn_id": "20180721002825784079",
   "debug": {
-    "time_span": 3437.0656000000004,
+    "time_span": 11038.265300000001,
     "logs": [
       {
-        "created_datetime": 1530897872,
-        "id": "5be2d579-2f69-47e3-8d11-fb5f2c6f0828",
+        "created_datetime": 1532132905,
+        "id": "161f11d3-7eae-4646-aba0-71827e975640",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Info",
-        "transaction_id": "20180706172432308626",
+        "transaction_id": "20180721002825784079",
         "message": "RouteExecuter.Exec:: Route: [POST: /api/module/reinstall, Type: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller, Assembly: ZNxtApp.Core.Web.dll, Method: Reinstall, Module:ZApp]",
         "data": {},
-        "updated_datetime": 1530897872,
+        "updated_datetime": 1532132905,
         "created_by": ""
       },
       {
-        "created_datetime": 1530897872,
-        "id": "c8a48334-39cf-4145-9d5c-31cc662fd380",
+        "created_datetime": 1532132905,
+        "id": "c38ce27f-3f57-4dff-a459-c6e36bf383b2",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Transaction",
-        "transaction_id": "20180706172432308626",
+        "transaction_id": "20180721002825784079",
         "message": "Transaction State:Start",
         "data": {
           "Url": "/api/module/reinstall",
@@ -46,18 +46,40 @@ Response:
           "User": ""
         },
         "TransactionState": "Start",
-        "updated_datetime": 1530897872,
+        "updated_datetime": 1532132905,
         "created_by": ""
       },
       {
-        "created_datetime": 1530897872,
-        "id": "47a8f3f8-da82-4251-81d8-761a992238ac",
+        "created_datetime": 1532132906,
+        "id": "f21c61fb-8845-46a7-924c-b499507dacbb",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Info",
-        "transaction_id": "20180706172432308626",
+        "transaction_id": "20180721002825784079",
         "message": "GetType: ZNxtApp.Core.Web.dll, executeType: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "data": {},
-        "updated_datetime": 1530897872,
+        "updated_datetime": 1532132906,
+        "created_by": ""
+      },
+      {
+        "created_datetime": 1532132916,
+        "id": "6d47c5e0-368c-409c-9903-cd6718f89aff",
+        "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+        "type": "Debug",
+        "transaction_id": "20180721002825784079",
+        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.Theme_1.0.11.838-Beta\\Content\\collections\\backend_ui_routes.json",
+        "data": {},
+        "updated_datetime": 1532132916,
+        "created_by": ""
+      },
+      {
+        "created_datetime": 1532132916,
+        "id": "128ae429-63a7-4356-96f5-ab13bc7a3e52",
+        "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
+        "type": "Debug",
+        "transaction_id": "20180721002825784079",
+        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.Theme_1.0.11.838-Beta\\Content\\collections\\server_routes.json",
+        "data": {},
+        "updated_datetime": 1532132916,
         "created_by": ""
       }
     ]
@@ -66,14 +88,14 @@ Response:
       
 Headers:
 Cache-Control: private
-Date: Fri, 06 Jul 2018 11:54:34 GMT
-Content-Length: 2265
+Date: Fri, 20 Jul 2018 18:58:36 GMT
+Content-Length: 3297
 Content-Type: application/json
-Set-Cookie: za_s_k=c0031fca-29a5-4a47-8f9a-fec9fc69a814; expires=Fri, 06-Jul-2018 12:24:32 GMT; path=/; HttpOnly
+Set-Cookie: za_s_k=a7a256dd-1e79-41fd-bafa-ec0c8a5ccb62; expires=Fri, 20-Jul-2018 19:28:25 GMT; path=/; HttpOnly
 
 
 URL:
-https://znxt.app/api/module/reinstall?module_name=ZNxtApp.Core.Module.Theme/1.0.11.31333-Beta
+https://znxt.app/api/module/reinstall?module_name=ZNxtApp.Core.Module.Theme/1.0.11.838-Beta
 URL Code Page:
 65001
 User Agent:

@@ -11,12 +11,16 @@
         $scope.showDetails = false;
         $scope.loadingData = false;
         $scope.active = function() {
+            fetchUserInfo();
+        }
+
+        function fetchUserInfo() {
             if ($scope.loadingData == false) {
                 $scope.loadingData = true;
                 dataService.get("./api/admin/users?pagesize=" + $scope.pageSize + "&currentpage=" + $scope.currentPage + "&filter=" + $scope.getFilter()).then(function (response) {
                     if (response.data.code == 1) {
                         $scope.currentPageShow = $scope.currentPage;
-                        $scope.pageData = response.data;                        
+                        $scope.pageData = response.data;
                         console.log($scope.pageData);
                     }
                     $scope.loadingData = false;
