@@ -40,13 +40,13 @@ namespace ZNxtApp.Core.Web.Services
                 var startDatetime = DateTime.Now;
                 cronJob[CommonConst.CommonField.LAST_EXEC_ON] = startDatetime.ToString();
                 cronJob[CommonConst.CommonField.ERR_MESSAGE] = string.Empty;
-                if(cronJob[CommonConst.CommonField.HISTORY] == null)
+                if (cronJob[CommonConst.CommonField.HISTORY] == null)
                 {
                     cronJob[CommonConst.CommonField.HISTORY] = new JArray();
                 }
                 else
                 {
-                    if((cronJob[CommonConst.CommonField.HISTORY] as JArray).Count >= 10)
+                    while ((cronJob[CommonConst.CommonField.HISTORY] as JArray).Count >= 10)
                     {
                         (cronJob[CommonConst.CommonField.HISTORY] as JArray).Remove((cronJob[CommonConst.CommonField.HISTORY] as JArray)[0]);
                     }

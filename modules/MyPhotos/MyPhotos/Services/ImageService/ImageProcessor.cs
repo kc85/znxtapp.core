@@ -18,6 +18,7 @@ namespace MyPhotos.Services.ImageService
     {
         public const string FILE_HASH = "file_hash";
         public const string FILE_PATHS = "file_paths";
+        public const string FILE_HASHS = "file_hashs";
         public const string TAGS = "tags";
         private const string KEY = "key";
         private const string VALUE = "value";
@@ -28,11 +29,25 @@ namespace MyPhotos.Services.ImageService
         private const string IMAGE_S_URL = "image_s_url";
         private const string IMAGE_M_URL = "image_m_url";
         private const string IMAGE_L_URL = "image_l_url";
+
+        public const string IMAGE_S_SIZE = "image_s_size";
+        public const string IMAGE_M_SIZE = "image_m_size";
+        public const string IMAGE_L_SIZE = "image_l_size";
+        public const string COUNT = "count";
+        private const string WIDTH = "width";
+        private const string HEIGHT = "height";
+
         public const string MYPHOTO_COLLECTION = "my_photo";
+        public const string MYPHOTO_GALLERY_COLLECTION = "my_photo_gallery";
+        public const string MYPHOTO_DIR_SCAN_COLLECTION = "my_photo_dir_scan";
+
         public const string PHOTO_DATE_TAKEN = "date_taken";
         public const string AUTH_USERS = "auth_users";
         public const string DEFAULT_USER = "user";
         public const string PHOTO_DATE_TAKEN_TIME_STAMP = "date_taken_timestamp";
+        public const string GALLERY_THUMBNAIL = "thumbnail";
+        public const string FILES_COUNT = "files_count";
+        public const string PATH = "path";
 
         private List<FileModel> _existingFiles = new List<FileModel>();
 
@@ -49,40 +64,59 @@ namespace MyPhotos.Services.ImageService
                 previousCopy.Add((FileModel)item.Clone());
             }
             logger(string.Format("Scanning files..{0}", baseFolderPath));
-            var addedFiles = ifm.GetFiles(baseFolderPath, previousfiles, (FileModel file) => {
+             ifm.GetFiles(baseFolderPath,dbProxy, previousfiles, (FileModel file) => {
                 if (file.IsUpdated)
                 {
                     UpdateFile(file, dbProxy);
+                   
                 }
                 else
                 {
                     AddFile(file, baseFolderPath, dbProxy);
+                   
                 }
                 return true;
             },logger);
 
             logger(string.Format("Deleting file ..Count {0}", previousfiles.Count));
-            DeleteFile(previousfiles, dbProxy);
+            // DeleteFile(previousfiles, dbProxy);
 
-            //List<JObject> files = new List<JObject>();
-
-            //logger(string.Format("Find {0} file to Add", addedFiles.Count));
-
-            //foreach (var item in addedFiles)
-            //{
-            //    var file = previousCopy.FirstOrDefault(f => f.file_hash == item.file_hash);
-            //    if (file != null)
-            //    {
-            //        UpdateFile(file, dbProxy);
-            //    }
-            //    else
-            //    {
-            //        AddFile(item, baseFolderPath, dbProxy);
-            //    }
-            //}
-            logger(string.Format("Completed", addedFiles.Count));
+            logger("Completed");
 
         }
+        private void AddGallery(JObject fileData, IDBService dbProxy)
+        {
+            var fileHash = fileData[FILE_HASH].ToString();
+            foreach (var item in fileData[TAGS])
+            {
+                JObject filter = new JObject();
+                filter[CommonConst.CommonField.NAME] = item.ToString();
+                var gallery = dbProxy.FirstOrDefault(MYPHOTO_GALLERY_COLLECTION, filter.ToString());
+                if (gallery == null)
+                {
+                    gallery = new JObject();
+                    gallery[CommonConst.CommonField.NAME] = item;
+                    gallery[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
+                    AddDefaultAuthUser(gallery);
+                    gallery[GALLERY_THUMBNAIL] = fileHash;
+                    gallery[FILE_HASHS] = new JArray();
+                    (gallery[FILE_HASHS] as JArray).Add(fileHash);
+                    gallery[FILES_COUNT] = (gallery[FILE_HASHS] as JArray).Count;
+                    dbProxy.Write(MYPHOTO_GALLERY_COLLECTION, gallery);
+                }
+                else
+                {
+                    if ((gallery[FILE_HASHS] as JArray).FirstOrDefault(f => f.ToString() == fileHash) == null)
+                    {
+                        (gallery[FILE_HASHS] as JArray).Add(fileHash);
+                        gallery[FILES_COUNT] = (gallery[FILE_HASHS] as JArray).Count;
+                        dbProxy.Update(MYPHOTO_GALLERY_COLLECTION, filter.ToString(), gallery, false, MergeArrayHandling.Replace);
+
+                    }
+                }
+            }
+        }
+
 
         private void AddMetaData(Image image, JObject fileObj)
         {
@@ -109,16 +143,17 @@ namespace MyPhotos.Services.ImageService
             }
         }
 
-        private void AddTag(JObject fileObj, FileModel fileModel)
+        private void AddTags(JObject fileObj, FileModel fileModel)
         {
             fileObj[TAGS] = new JArray();
             foreach (var path in fileModel.file_paths)
             {
-                foreach (var tag in path.Split('\\'))
+                var splitData = path.Split('\\');
+                for (int count = 0; count < splitData.Length-1; count++ )
                 {
-                    if (!string.IsNullOrEmpty(tag))
+                    if (!string.IsNullOrEmpty(splitData[count]))
                     {
-                        (fileObj[TAGS] as JArray).Add(tag);
+                        (fileObj[TAGS] as JArray).Add(splitData[count]);
                     }
                 }
             }
@@ -162,12 +197,19 @@ namespace MyPhotos.Services.ImageService
                     {
                         ImageThumbnail it = new ImageThumbnail();
                         fileData[FILE_HASH] = fileModel.file_hash;
-                        fileData[IMAGE_S_BASE64] = it.CompressImage(image, 100, 75, 70);
-                        fileData[IMAGE_M_BASE64] = it.CompressImage(image, 240, 180);
-                        fileData[IMAGE_L_BASE64] = it.CompressImage(image, 1024, 768);
+                        Size imageSize = new Size();
+                        fileData[IMAGE_S_BASE64] = it.CompressImage(image, 100, 75, out imageSize,70 );
+                        AddSize(fileData, imageSize, IMAGE_S_SIZE);
+
+                        fileData[IMAGE_M_BASE64] = it.CompressImage(image, 240, 180,out imageSize);
+                        AddSize(fileData, imageSize, IMAGE_M_SIZE);
+                        
+                        fileData[IMAGE_L_BASE64] = it.CompressImage(image, 1024, 768,out imageSize);
+                        AddSize(fileData, imageSize, IMAGE_L_SIZE);
+
                         fileData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
                         AddPath(fileData, fileModel);
-                        AddTag(fileData, fileModel);
+                        AddTags(fileData, fileModel);
                         AddDefaultAuthUser(fileData);
                         AddMetaData(image, fileData);
                         GetDateTaken(fileData, path);
@@ -183,12 +225,20 @@ namespace MyPhotos.Services.ImageService
                 fileData.Remove(IMAGE_M_BASE64);
                 fileData.Remove(IMAGE_L_BASE64);
                 _existingFiles.Add(fileModel);
+                AddGallery(fileData, dbProxy);
                 return fileData;
             }
             else
             {
                 return null;
             }
+        }
+      
+        private void AddSize(JObject fileData, Size imageSize, string key)
+        {
+            fileData[key] = new JObject();
+            fileData[key][WIDTH] = imageSize.Width;
+            fileData[key][HEIGHT] = imageSize.Height;
         }
 
         private void AddDefaultAuthUser(JObject fileData)
@@ -205,11 +255,69 @@ namespace MyPhotos.Services.ImageService
                 BitmapMetadata md = (BitmapMetadata)img.Metadata;
                 string date = md.DateTaken;
                 fileObj[PHOTO_DATE_TAKEN] = date;
-                DateTime dt = DateTime.Parse(date);
-                fileObj[PHOTO_DATE_TAKEN_TIME_STAMP] = CommonUtility.GetUnixTimestamp(dt);
+                DateTime dt = new DateTime();
+                if (DateTime.TryParse(date, out dt))
+                {
+                    fileObj[PHOTO_DATE_TAKEN_TIME_STAMP] = CommonUtility.GetUnixTimestamp(dt);
+                }
+
+                JObject data = new JObject();
+                data[KEY] = "CameraManufacturer";
+                data[VALUE] = md.CameraManufacturer;
+                (fileObj[METADATA] as JArray).Add(data);
+
+                data = new JObject();
+                data[KEY] = "CameraModel";
+                data[VALUE] = md.CameraModel;
+                (fileObj[METADATA] as JArray).Add(data);
+
+                data = new JObject();
+                data[KEY] = "Comment";
+                data[VALUE] = md.Comment;
+                (fileObj[METADATA] as JArray).Add(data);
+
+                data = new JObject();
+                data[KEY] = "Copyright";
+                data[VALUE] = md.Copyright;
+                (fileObj[METADATA] as JArray).Add(data);
+
+                data = new JObject();
+                data[KEY] = "Format";
+                data[VALUE] = md.Format;
+                (fileObj[METADATA] as JArray).Add(data);
+                
+                if (md.Keywords != null)
+                {
+                    data = new JObject();
+                    data[KEY] = "Keywords";
+                    data[VALUE] = string.Join(",", md.Keywords);
+                    (fileObj[METADATA] as JArray).Add(data);                    
+                }
+
+                data = new JObject();
+                data[KEY] = "Location";
+                data[VALUE] = md.Location;
+                (fileObj[METADATA] as JArray).Add(data);
+
+                data = new JObject();
+                data[KEY] = "Rating";
+                data[VALUE] = md.Rating;
+                (fileObj[METADATA] as JArray).Add(data);
+
+                data = new JObject();
+                data[KEY] = "Subject";
+                data[VALUE] = md.Subject;
+                (fileObj[METADATA] as JArray).Add(data);
+
+                data = new JObject();
+                data[KEY] = "Title";
+                data[VALUE] = md.Title;
+                (fileObj[METADATA] as JArray).Add(data);
+
                 return date;
             }
         }
+
         private void UpdateFile(FileModel fileModel,IDBService dbProxy)
         {
             if (fileModel.IsUpdated)
@@ -224,10 +332,12 @@ namespace MyPhotos.Services.ImageService
                     (fileData[FILE_PATHS] as JArray).Add(item);
                 }
                 AddPath(fileData, fileModel);
-                AddTag(fileData, fileModel);
+                AddTags(fileData, fileModel);
 
                 dbProxy.Update(MYPHOTO_COLLECTION, filter.ToString(), fileData, false, MergeArrayHandling.Union);
+                AddGallery(fileData, dbProxy);
             }
         }
+      
     }
 }

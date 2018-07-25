@@ -14,11 +14,14 @@ namespace MyPhotos.Services.ImageService
     {
     
 
-        public string CompressImage(Bitmap image, int maxWidth, int maxHeight, int quality = 90)
+        public string CompressImage(Bitmap image, int maxWidth, int maxHeight, out Size imageSize,  int quality = 90)
         {
             //return string.Empty;
 
             // Get the image's original width and height
+
+            //rotate_image if required 
+            ExifRotate(image);
 
             int originalWidth = image.Width;
 
@@ -55,6 +58,9 @@ namespace MyPhotos.Services.ImageService
                     graphics.SmoothingMode = SmoothingMode.HighQuality;
 
                     graphics.DrawImage(image, 0, 0, newWidth, newHeight);
+                    imageSize = new Size();
+                    imageSize.Height = newHeight;
+                    imageSize.Width= newWidth;
 
                 }
 
@@ -84,6 +90,29 @@ namespace MyPhotos.Services.ImageService
                     return imageBase64;
                 }
             }
+        }
+        public void ExifRotate(Image img)
+        {
+            int exifOrientationID = 0x112;//274
+            if (!img.PropertyIdList.Contains(exifOrientationID))
+                return;
+
+            var prop = img.GetPropertyItem(exifOrientationID);
+            int val = BitConverter.ToUInt16(prop.Value, 0);
+            var rot = RotateFlipType.RotateNoneFlipNone;
+
+            if (val == 3 || val == 4)
+                rot = RotateFlipType.Rotate180FlipNone;
+            else if (val == 5 || val == 6)
+                rot = RotateFlipType.Rotate90FlipNone;
+            else if (val == 7 || val == 8)
+                rot = RotateFlipType.Rotate270FlipNone;
+
+            if (val == 2 || val == 4 || val == 5 || val == 7)
+                rot |= RotateFlipType.RotateNoneFlipX;
+
+            if (rot != RotateFlipType.RotateNoneFlipNone)
+                img.RotateFlip(rot);
         }
         public string RandomString(int size, bool lowerCase=true)
         {

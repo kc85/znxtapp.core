@@ -1,70 +1,131 @@
 ﻿using MyPhotos.Model;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZNxtApp.Core.Interfaces;
+using ZNxtApp.Core.Helpers;
+using ZNxtApp.Core.Consts;
 
 namespace MyPhotos.Services.ImageService
 {
     public class ImageFinder
     {
-        public  List<FileModel> GetFiles(string path, List<FileModel> previousfiles, Func<FileModel,bool> onFileAddUpdate,Func<string,bool> logger)
+        public static string []  ImageTypes=  null;
+        public ImageFinder()
+        {
+            ImageTypes = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp" };
+        }
+
+        private JObject GetFileData(string fileHash, IDBService dbProxy)
+        {
+            JObject filter = new JObject();
+            filter[ImageProcessor.FILE_HASH] = fileHash;
+            return dbProxy.FirstOrDefault(ImageProcessor.MYPHOTO_COLLECTION, filter.ToString());
+        }
+        public  void GetFiles(string path, IDBService dbProxy, List<FileModel> previousfiles, Func<FileModel,bool> onFileAddUpdate,Func<string,bool> logger)
         {
            
             path = path.ToLower();
-            List<FileModel> addedFiles = new List<FileModel>();
             string [] dirs =  System.IO.Directory.GetDirectories(path, "*", SearchOption.AllDirectories);
             logger(string.Format("Scan directories  : {0}. Total Dirs Found : {1}", path, dirs.Length));
-                
+
             foreach (var item in dirs)
             {
-                
-                List<string> files = new List<string>();
-                var filters = new String[] { "jpg", "jpeg", "png", "gif", "tiff", "bmp" };
-                foreach (var filter in filters)
+                try
                 {
-                    files.AddRange(Directory.GetFiles(item, String.Format("*.{0}", filter), SearchOption.TopDirectoryOnly));
-                }
-                logger(string.Format("Scanning files for directory : {0}. Total Files Found : {1}", item, files.Count));
-                long count = 0;
-                foreach (var filePath in files)
-                {
-                    var fileHash = Hashing.GetFileHash(filePath);
-                    var absPath = filePath.ToLower().Replace(path, "");
-                    var file = previousfiles.FirstOrDefault(f => f.file_hash == fileHash);
-                    if (file != null)
+                    DirectoryInfo di = new DirectoryInfo(item);
+
+                    JObject dir = new JObject();
+                    dir[ImageProcessor.PATH] = di.FullName;
+
+                    
+
+                    List<string> files = new List<string>();
+
+                    foreach (var filter in ImageTypes)
                     {
-                        if (file.file_paths.IndexOf(absPath) != -1)
+                        files.AddRange(Directory.GetFiles(item, String.Format("*.{0}", filter), SearchOption.TopDirectoryOnly));
+                    }
+                    logger(string.Format("Scanning files for directory : {0}. Total Files Found : {1}", item, files.Count));
+
+                    var dirDBObject = dbProxy.FirstOrDefault(ImageProcessor.MYPHOTO_DIR_SCAN_COLLECTION, dir.ToString());
+                    if (dirDBObject != null)
+                    {
+                        if (int.Parse(dir[ImageProcessor.COUNT].ToString()) == files.Count)
                         {
-                            file.file_paths.Add(absPath);
-                            file.IsUpdated = true;
-                            addedFiles.Add(file);
-                            onFileAddUpdate(file);
-                            previousfiles.Remove(file);
+                            logger(string.Format("Scan Skipped... Count of files same for directory : {0}. Total Files Found : {1}", item, files.Count));
+                            continue;
                         }
                     }
-                    else if (addedFiles.FirstOrDefault(f => f.file_hash == fileHash) != null)
+                  
+                    long count = 0;
+                    foreach (var filePath in files)
                     {
-                        var fileUpdate = addedFiles.FirstOrDefault(f => f.file_hash == fileHash);
-                        fileUpdate.file_paths.Add(absPath);
-                        onFileAddUpdate(fileUpdate);
+                        try
+                        {
+                            var fileHash = Hashing.GetFileHash(filePath);
+                            var absPath = filePath.ToLower().Replace(path, "");
+                            var file = previousfiles.FirstOrDefault(f => f.file_hash == fileHash);
+                            var dbFileData = GetFileData(fileHash, dbProxy);
+                            if (file != null)
+                            {
+                                if (file.file_paths.IndexOf(absPath) != -1)
+                                {
+                                    file.file_paths.Add(absPath);
+                                    file.IsUpdated = true;
+                                    onFileAddUpdate(file);
+                                    previousfiles.Remove(file);
+                                }
+                            }
+                            else if (dbFileData != null)
+                            {
+                                file = new FileModel();
+                                file.file_hash = fileHash;
+                                file.IsUpdated = true;
+                                file.file_paths.Add(absPath);
+                                onFileAddUpdate(file);
+                            }
+                            else
+                            {
+                                var newfile = new FileModel() { file_hash = fileHash, IsAdded = true };
+                                newfile.file_paths.Add(absPath);
+                                onFileAddUpdate(newfile);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            logger(string.Format("Error in file {0}, Error {1}", filePath, ex.Message));
+                        }
+
+                        count++;
+                    }
+
+                    if (dirDBObject == null)
+                    {
+                        dir[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
+                        dir[ImageProcessor.COUNT] = files.Count;
+                        dbProxy.Write(ImageProcessor.MYPHOTO_DIR_SCAN_COLLECTION, dir);
                     }
                     else
                     {
-                        var newfile = new FileModel() { file_hash = fileHash, IsAdded = true };
-                        newfile.file_paths.Add(absPath);
-                        addedFiles.Add(newfile);
-                        onFileAddUpdate(newfile);
+                        dir[CommonConst.CommonField.DISPLAY_ID] = dirDBObject[CommonConst.CommonField.DISPLAY_ID];
+                        dir[ImageProcessor.COUNT] = files.Count;
+                        JObject filter = new JObject();
+                        filter[CommonConst.CommonField.DISPLAY_ID] = dirDBObject[CommonConst.CommonField.DISPLAY_ID];
+                        dbProxy.Update(ImageProcessor.MYPHOTO_DIR_SCAN_COLLECTION, filter.ToString(), dir, false, MergeArrayHandling.Replace);
                     }
-                    count++;
-                   // logger(string.Format("File Scan Path: {0} {1} of {2}", item, count, files.Count));
 
                 }
-                
+                catch (Exception ex)
+                {
+                    logger(string.Format("Error in Folder {0}, Error {1}", item, ex.Message));
+                }
+
             }
-            return addedFiles;
         }
     }
 }

@@ -1,0 +1,191 @@
+﻿<!doctype html>
+<html ng-app="MyPhotoApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="ZNxtApp :: My Photos">
+    <meta property="og:title" content="Image details" />
+    <meta property="og:url" content="https://znxt.app/gallery/index.html" />
+    <meta property="og:description" content="ZNxtApp :: My Photos">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ZNxtApp :: My Photos</title>
+    <!-- CSS styles -->
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/styles/dark-sidebar.css">
+    <link rel="stylesheet" href="./assets/css/styles/skin1.css">
+    <!-- /CSS styles -->
+
+</head>
+<body class="show-sidebar dark-sidebar" ng-controller="MyPhotoApp.Main">
+
+    <a href="#" id="menu-toggle-wrapper">
+        <div id="menu-toggle"></div>
+    </a>
+
+    <!-- inner bar wrapper -->
+    <a href="#" id="inner-bar">
+
+    </a>
+    <!-- /inner bar wrapper -->
+
+    <div id="side-bar">
+        <div class="inner-wrapper">
+            <div id="side-inner">
+
+                <div id="logo-wrapper">
+                    <a href="index.html"><img src="./assets/img/demo-3/logo-dark.png" alt="logo"> </a>
+                </div>
+
+                <div id="side-contents">
+
+                    <ul id="navigation">
+                        <li class="current-menu-item"><a href="index.html">Photos</a></li>
+                        <li><a href="#">Gallery</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+
+                </div>
+
+                <!-- Sidebar footer -->
+                <div id="side-footer">
+                    <!-- Social icons -->
+                    <ul class="social-icons">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fa fa-flickr"></i></a></li>
+                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    </ul>
+                    <!-- /Social icons -->
+                    <div id="copyright">
+                        2018 @ZNxtApp
+                    </div>
+                </div>
+                <!-- /Sidebar footer -->
+
+            </div>
+        </div>
+    </div>
+
+
+    <div id="main-content" class="dark-template">
+        <div class="page-wrapper">
+
+            <div class="page-main no-side ajax-element">
+                <!-- portfolio wrapper -->
+                <div class="grid-portfolio" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+
+                    
+                    <!-- portfolio Item -->
+                    <div class="gp-item tj-hover-1 web-design" ng-repeat="image in images">
+                        <a href="details.z?file_hash={{image}}&galleryid={{galleryid}}" class="ajax-portfolio normal" target="_blank">
+                            <img src="../api/myphotos/image?file_hash={{image}}&t=m" alt="alt" class="img-responsive">
+                            <!-- Item Overlay -->
+                            <div class="tj-overlay">
+                                <div class="overlay-texts">
+                                    <h3 class="title">{{image.file_hash}}</h3>
+                                    <h4 class="subtitle">Photography, print</h4>
+                                </div>
+                            </div>
+                            <!-- /Item Overlay -->
+                        </a>
+                    </div>
+                    <!-- /portfolio Item -->
+
+
+                </div>
+                <!-- /portfolio wrapper -->
+                <!-- Grid filter -->
+                <div class="fixed-filter">
+                    <a href="#" class="select-filter"><i class="fa fa-filter"></i> Filter</a>
+                    <ul class="grid-filters">
+                        <li class="active"><a href="#" data-filter="*">all</a></li>
+                        <li><a href="#" data-filter=".web-design">living room</a></li>
+                        <li><a href="#" data-filter=".photography">bath room</a></li>
+                        <li><a href="#" data-filter=".video">bed room</a></li>
+                        <li><a href="#" data-filter=".print">dining room</a></li>
+                    </ul>
+                </div>
+                <!-- /Grid filter -->
+
+            </div>
+
+            <!--Ajax folio-->
+            <div id="ajax-folio-loader">
+                <!-- loading css3 -->
+                <div id="followingBallsG">
+                    <div id="followingBallsG_1" class="followingBallsG">
+                    </div>
+                    <div id="followingBallsG_2" class="followingBallsG">
+                    </div>
+                    <div id="followingBallsG_3" class="followingBallsG">
+                    </div>
+                    <div id="followingBallsG_4" class="followingBallsG">
+                    </div>
+                </div>
+            </div>
+            <div id="ajax-folio-item"></div>
+            <!--Ajax folio-->
+        </div>
+    </div>
+
+
+    <!-- jquery core -->
+    <script type="text/javascript" src="./assets/js/vendors/jquery-1.11.0.min.js"></script>
+
+    <script type="text/javascript" src="./assets/js/angular.min.js"></script>
+    <script type="text/javascript" src="./assets/js/ng-infinite-scroll.min.js"></script>
+
+    <!-- imagesLoaded jquery plugin -->
+    <script type="text/javascript" src="./assets/js/vendors/imagesloaded.pkgd.min.js"></script>
+
+    <!-- jquery isotop plugin -->
+    <script type="text/javascript" src="./assets/js/vendors/isotope.pkgd.min.js"></script>
+
+    <!-- jquery history neede for ajax pages -->
+    <script type="text/javascript" src="./assets/js/vendors/jquery.history.js"></script>
+
+    <!-- owwwlab jquery kenburn slider plugin -->
+    <script type="text/javascript" src="./assets/js/jquery.owwwlab-kenburns.js"></script>
+
+    <!-- owwwlab jquery double carousel plugin -->
+    <script type="text/javascript" src="./assets/js/jquery.owwwlab-DoubleCarousel.js"></script>
+
+    <!-- owwwwlab jquery video background plugin -->
+    <script type="text/javascript" src="./assets/js/jquery.owwwlab-video.js"></script>
+
+    <!-- tweenmax animation framework -->
+    <script type="text/javascript" src="./assets/js/vendors/TweenMax.min.js"></script>
+
+    <!-- jquery nice scroll plugin needed for vertical portfolio page -->
+    <script type="text/javascript" src="./assets/js/vendors/jquery.nicescroll.min.js"></script>
+
+    <!-- jquery magnific popup needed for ligh-boxes -->
+    <script type="text/javascript" src="./assets/js/vendors/jquery.magnific-popup.js"></script>
+
+    <!-- html5 media player -->
+    <script type="text/javascript" src="./assets/js/vendors/mediaelement-and-player.min.js"></script>
+
+    <!-- jquery inview plugin -->
+    <script type="text/javascript" src="./assets/js/vendors/jquery.inview.min.js"></script>
+
+    <!-- smooth scroll -->
+    <script type="text/javascript" src="./assets/js/vendors/smoothscroll.js"></script>
+
+
+
+    <!-- Master Slider -->
+    <script src="./assets/masterslider/jquery.easing.min.js"></script>
+    <script src="./assets/masterslider/masterslider.min.js"></script>
+
+    <!-- theme custom scripts -->
+    <script type="text/javascript" src="./assets/js/custom.js"></script>
+
+    <script type="text/javascript" src="./app/MyPhotoApp.js"></script>
+
+
+
+</body>
+
+</html>

@@ -49,10 +49,7 @@ namespace ZNxtApp.Core.Services
                 filterQuery = overrideFilters;
             }
 
-            if (sortColumns == null)
-            {
-                sortColumns = new Dictionary<string, int>();
-            }
+            
 
             var sortData = HttpProxy.GetQueryString("sort");
 
@@ -60,11 +57,12 @@ namespace ZNxtApp.Core.Services
             {
                 sortColumns = (Dictionary<string, int>)JsonConvert.DeserializeObject<Dictionary<string, int>>(sortData);
             }
-            else
+            else if(sortColumns == null)
             {
+                sortColumns = new Dictionary<string, int>();
                 sortColumns[CommonConst.CommonField.CREATED_DATA_DATE_TIME] = -1;
             }
-
+           
 
             if (fields == null)
             {

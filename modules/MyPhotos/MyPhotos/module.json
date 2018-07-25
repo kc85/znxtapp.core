@@ -14,8 +14,8 @@
       "access_type": "read_only"
     },
     {
-      "name": "my_collection",
-      "access_type": "onwer"
+      "name": "cron_job",
+      "access_type": "read_write"
     }
   ]
 }

@@ -12,6 +12,18 @@
         ]
     },
     {
+        "key": "GET:/api/myphotos/gallery",
+        "ContentType": "application/json",
+        "Method": "GET",
+        "Route": "/api/myphotos/gallery",
+        "ExecultAssembly": "MyPhotos.dll",
+        "ExecuteType": "MyPhotos.Services.Api.ImageBrowser",
+        "ExecuteMethod": "GetGallery",
+        "auth_users": [
+            "*"
+        ]
+    },
+    {
         "key": "GET:/api/myphotos/image",
         "ContentType": "image/jpeg",
         "Method": "GET",

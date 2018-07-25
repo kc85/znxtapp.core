@@ -1,0 +1,206 @@
+﻿<!doctype html>
+<html ng-app="MyPhotoGalleryApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="ZNxtApp :: My Photos">
+    <meta property="og:title" content="Image details" />
+    <meta property="og:url" content="https://znxt.app/gallery/index.html" />
+    <meta property="og:description" content="ZNxtApp :: My Photos">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ZNxtApp :: My Photos</title>
+    <!-- CSS styles -->
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/styles/dark-sidebar.css">
+    <link rel="stylesheet" href="./assets/css/styles/skin1.css">
+    <!-- /CSS styles -->
+
+</head>
+<body class="show-sidebar dark-sidebar" ng-controller="MyPhotoGalleryApp.Main">
+
+    <a href="#" id="menu-toggle-wrapper">
+        <div id="menu-toggle"></div>
+    </a>
+
+    <!-- inner bar wrapper -->
+    <a href="#" id="inner-bar">
+
+    </a>
+    <!-- /inner bar wrapper -->
+
+    <div id="side-bar">
+        <div class="inner-wrapper">
+            <div id="side-inner">
+
+                <div id="logo-wrapper">
+                    <a href="index.html"><img src="./assets/img/demo-3/logo-dark.png" alt="logo"></a>
+                </div>
+
+                <div id="side-contents">
+
+
+                    <ul id="navigation">
+                        <li class="current-menu-item"><a href="index.html">Photos</a></li>
+                        <li><a href="#">Gallery</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Sidebar footer -->
+                <div id="side-footer">
+                    <!-- Social icons -->
+                    <ul class="social-icons">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fa fa-flickr"></i></a></li>
+                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    </ul>
+                    <!-- /Social icons -->
+                    <div id="copyright">
+                        owwwlab
+                    </div>
+                </div>
+                <!-- /Sidebar footer -->
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Page main wrapper -->
+    <div id="main-content" class="blog-list">
+        <!-- attention to the classname -->
+        <div class="page-wrapper regular-page">
+            <div class="container">
+
+                <!-- page title -->
+                <h2 class="section-title double-title">
+                    Gallery
+                </h2>
+                <!--/ page title -->
+
+                <div class="row mb-large">
+
+                    <!-- main blog list content -->
+                    <div class="col-md-8">
+
+                        <!-- single post [with image] -->
+                        <div class="post" ng-repeat="g in gallery">
+
+                            <div class="post-thumb">
+                                <a href="index.html?galleryid={{g.id}}">
+                                    <img src="../api/myphotos/image?file_hash={{g.thumbnail}}&t=l" alt="img" class="img-responsive">
+                                </a>
+                            </div>
+
+                            <div class="post-content">
+                                <div class="post-content-wrapper">
+
+                                    <h2 class="post-header lined">
+                                        <a href="blog-single.html">{{g.name}}</a>
+                                    </h2>
+
+                                    <div class="post-meta">
+                                        <span class="date-span">
+                                            <i class="fa fa-lg fa-clock-o"></i>
+                                            <a href="#">08 02 , 2018</a>
+                                        </span>
+                                        <span class="comments-cat">
+                                            <i class="fa fa-lg fa-folder"></i>
+                                            <a href="#">Design</a>
+                                        </span>
+                                        <span class="comments-span">
+                                            <i class="fa fa-lg fa-comments"></i>
+                                            <a href="#">{{g.files_count}} Photos</a>
+                                        </span>
+                                        <span class="share-post-span">
+
+                                        </span>
+                                    </div>
+
+                                    <div class="post-main-content">
+                                        <p></p>
+                                        <div class="post-read-more">
+                                            <a href="index.html?galleryid={{g.id}}" class="btn btn-toranj">Show All Photos</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--/ single post [with image] -->
+                 
+                    </div>
+                    <!-- /main blog list content -->
+                    <!-- sidebar -->
+                    <div class="col-md-4 regular-sidebar">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /Page main wrapper -->
+    <!-- jquery core -->
+    <script type="text/javascript" src="./assets/js/vendors/jquery-1.11.0.min.js"></script>
+
+    <script type="text/javascript" src="./assets/js/angular.min.js"></script>
+    <script type="text/javascript" src="./assets/js/ng-infinite-scroll.min.js"></script>
+
+    <!-- imagesLoaded jquery plugin -->
+    <script type="text/javascript" src="./assets/js/vendors/imagesloaded.pkgd.min.js"></script>
+
+    <!-- jquery isotop plugin -->
+    <script type="text/javascript" src="./assets/js/vendors/isotope.pkgd.min.js"></script>
+
+    <!-- jquery history neede for ajax pages -->
+    <script type="text/javascript" src="./assets/js/vendors/jquery.history.js"></script>
+
+    <!-- owwwlab jquery kenburn slider plugin -->
+    <script type="text/javascript" src="./assets/js/jquery.owwwlab-kenburns.js"></script>
+
+    <!-- owwwlab jquery double carousel plugin -->
+    <script type="text/javascript" src="./assets/js/jquery.owwwlab-DoubleCarousel.js"></script>
+
+    <!-- owwwwlab jquery video background plugin -->
+    <script type="text/javascript" src="./assets/js/jquery.owwwlab-video.js"></script>
+
+    <!-- tweenmax animation framework -->
+    <script type="text/javascript" src="./assets/js/vendors/TweenMax.min.js"></script>
+
+    <!-- jquery nice scroll plugin needed for vertical portfolio page -->
+    <script type="text/javascript" src="./assets/js/vendors/jquery.nicescroll.min.js"></script>
+
+    <!-- jquery magnific popup needed for ligh-boxes -->
+    <script type="text/javascript" src="./assets/js/vendors/jquery.magnific-popup.js"></script>
+
+    <!-- html5 media player -->
+    <script type="text/javascript" src="./assets/js/vendors/mediaelement-and-player.min.js"></script>
+
+    <!-- jquery inview plugin -->
+    <script type="text/javascript" src="./assets/js/vendors/jquery.inview.min.js"></script>
+
+    <!-- smooth scroll -->
+    <script type="text/javascript" src="./assets/js/vendors/smoothscroll.js"></script>
+
+
+
+    <!-- Master Slider -->
+    <script src="./assets/masterslider/jquery.easing.min.js"></script>
+    <script src="./assets/masterslider/masterslider.min.js"></script>
+
+    <!-- theme custom scripts -->
+    <script type="text/javascript" src="./assets/js/custom.js"></script>
+
+    <script type="text/javascript" src="./app/MyPhotoGalleryApp.js"></script>
+
+
+
+
+</body>
+
+</html>
