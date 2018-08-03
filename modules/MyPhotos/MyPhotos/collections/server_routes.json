@@ -23,6 +23,18 @@
             "*"
         ]
     },
+     {
+        "key": "ACTION:/api/myphotos/gallery",
+        "ContentType": "application/json",
+        "Method": "ACTION",
+        "Route": "/api/myphotos/gallery",
+        "ExecultAssembly": "MyPhotos.dll",
+        "ExecuteType": "MyPhotos.Services.Api.ImageBrowser",
+        "ExecuteMethod": "GetGallery",
+        "auth_users": [
+            "*"
+        ]
+    },
     {
         "key": "GET:/api/myphotos/image",
         "ContentType": "image/jpeg",
@@ -33,6 +45,42 @@
         "ExecuteMethod": "GetImage",
         "auth_users": [
             "*"
+        ]
+    },
+    {
+        "key": "GET:/api/myphotos/userinfo",
+        "ContentType": "application/json",
+        "Method": "GET",
+        "Route": "/api/myphotos/userinfo",
+        "ExecultAssembly": "MyPhotos.dll",
+        "ExecuteType": "MyPhotos.Services.Api.ImageBrowser",
+        "ExecuteMethod": "GetUser",
+        "auth_users": [
+            "user"
+        ]
+    },
+    {
+        "key": "POST:/api/myphotos/image/rotate",
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/myphotos/image/rotate",
+        "ExecultAssembly": "MyPhotos.dll",
+        "ExecuteType": "MyPhotos.Services.Api.ImageEditor",
+        "ExecuteMethod": "Rotate",
+        "auth_users": [
+            "user"
+        ]
+    },
+    {
+        "key": "POST:/api/myphotos/gallery/updatecover",
+        "ContentType": "application/json",
+        "Method": "POST",
+        "Route": "/api/myphotos/image/rotate",
+        "ExecultAssembly": "MyPhotos.dll",
+        "ExecuteType": "MyPhotos.Services.Api.ImageEditor",
+        "ExecuteMethod": "UpdateAlbumCover",
+        "auth_users": [
+            "user"
         ]
     }
 ]

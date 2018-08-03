@@ -1,0 +1,79 @@
+﻿<!doctype html>
+<html ng-app="MyPhotoApp">
+<head>
+  @Include("./header.zb",null)
+</head>
+<body class="show-sidebar dark-sidebar" ng-controller="MyPhotoApp.Main">
+
+  @Include("./menu.zb",null)
+
+
+  <div id="main-content" class="dark-template">
+        <div class="page-wrapper">
+
+            <div class="page-main no-side ajax-element">
+                <!-- portfolio wrapper -->
+                <div class="grid-portfolio" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+
+                    
+                    <!-- portfolio Item -->
+                    <div class="gp-item tj-hover-1 web-design" ng-repeat="image in images">
+                        <a href="details.z?file_hash={{image}}&galleryid={{galleryid}}" class="ajax-portfolio normal" target="_blank">
+                            <img src="../api/myphotos/image?file_hash={{image}}&t=m" alt="alt" class="img-responsive">
+                            <!-- Item Overlay -->
+                            <div class="tj-overlay">
+                                <div class="overlay-texts">
+                                    <h3 class="title">{{image.file_hash}}</h3>
+                                    <h4 class="subtitle">Photography, print</h4>
+                                </div>
+                            </div>
+                            <!-- /Item Overlay -->
+                        </a>
+                    </div>
+                    <!-- /portfolio Item -->
+
+
+                </div>
+                <!-- /portfolio wrapper -->
+                <!-- Grid filter -->
+                <div class="fixed-filter">
+                    <a href="#" class="select-filter"><i class="fa fa-filter"></i> Filter</a>
+                    <ul class="grid-filters">
+                        <li class="active"><a href="#" data-filter="*">all</a></li>
+                        <li><a href="#" data-filter=".web-design">living room</a></li>
+                        <li><a href="#" data-filter=".photography">bath room</a></li>
+                        <li><a href="#" data-filter=".video">bed room</a></li>
+                        <li><a href="#" data-filter=".print">dining room</a></li>
+                    </ul>
+                </div>
+                <!-- /Grid filter -->
+
+            </div>
+
+            <!--Ajax folio-->
+            <div id="ajax-folio-loader">
+                <!-- loading css3 -->
+                <div id="followingBallsG">
+                    <div id="followingBallsG_1" class="followingBallsG">
+                    </div>
+                    <div id="followingBallsG_2" class="followingBallsG">
+                    </div>
+                    <div id="followingBallsG_3" class="followingBallsG">
+                    </div>
+                    <div id="followingBallsG_4" class="followingBallsG">
+                    </div>
+                </div>
+            </div>
+            <div id="ajax-folio-item"></div>
+            <!--Ajax folio-->
+        </div>
+    </div>
+
+
+
+  @Include("./scripts.zb",null)
+  <script type="text/javascript" src="./app/MyPhotoApp.js"></script>
+  
+</body>
+
+</html>

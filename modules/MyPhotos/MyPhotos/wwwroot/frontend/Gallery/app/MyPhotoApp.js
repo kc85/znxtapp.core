@@ -13,7 +13,7 @@ var __userData = {};
            $scope.currentpage = 0;
            $scope.galleryid = GetParameterValues("galleryid");
            if ($scope.galleryid == undefined) {
-               window.location = "./gallery.html";
+               window.location = "./gallery.z";
            }
            $scope.name = "test";
            $scope.images = [];

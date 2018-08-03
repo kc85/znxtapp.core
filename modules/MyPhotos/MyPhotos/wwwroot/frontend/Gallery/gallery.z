@@ -1,0 +1,93 @@
+﻿<!doctype html>
+<html ng-app="MyPhotoGalleryApp">
+<head>
+  @Include("./header.zb",null)
+</head>
+<body class="show-sidebar dark-sidebar" ng-controller="MyPhotoGalleryApp.Main">
+
+
+  @Include("./menu.zb",null)
+
+  <!-- Page main wrapper -->
+    <div id="main-content" class="blog-list">
+        <!-- attention to the classname -->
+        <div class="page-wrapper regular-page">
+            <div class="container">
+
+                <!-- page title -->
+                <h2 class="section-title double-title">
+                    Albums
+                </h2>
+                <!--/ page title -->
+
+                <div class="row mb-large">
+
+                    <!-- main blog list content -->
+                    <div class="col-md-8">
+
+                        <!-- single post [with image] -->
+                        <div class="post" ng-repeat="g in gallery">
+
+                            <div class="post-thumb">
+                                <a href="index.z?galleryid={{g.id}}">
+                                    <img src="../api/myphotos/image?file_hash={{g.thumbnail}}&t=l" alt="img" class="img-responsive">
+                                </a>
+                            </div>
+
+                            <div class="post-content">
+                                <div class="post-content-wrapper">
+
+                                    <h2 class="post-header lined">
+                                        <a href="blog-single.html">{{g.name}}</a>
+                                    </h2>
+
+                                    <div class="post-meta">
+                                        <span class="date-span">
+                                            <i class="fa fa-lg fa-clock-o"></i>
+                                            <a href="#">08 02 , 2018</a>
+                                        </span>
+                                        <span class="comments-cat">
+                                            <i class="fa fa-lg fa-folder"></i>
+                                            <a href="#">Design</a>
+                                        </span>
+                                        <span class="comments-span">
+                                            <i class="fa fa-lg fa-comments"></i>
+                                            <a href="#">{{g.files_count}} Photos</a>
+                                        </span>
+                                        <span class="share-post-span">
+
+                                        </span>
+                                    </div>
+
+                                    <div class="post-main-content">
+                                        <p></p>
+                                        <div class="post-read-more">
+                                            <a href="index.z?galleryid={{g.id}}" class="btn btn-toranj">Show All Photos</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--/ single post [with image] -->
+                 
+                    </div>
+                    <!-- /main blog list content -->
+                    <!-- sidebar -->
+                    <div class="col-md-4 regular-sidebar">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+  @Include("./scripts.zb",null)
+  
+  <script type="text/javascript" src="./app/MyPhotoGalleryApp.js"></script>
+
+</body>
+
+</html>

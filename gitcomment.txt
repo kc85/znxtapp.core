@@ -1,1 +1,1 @@
-Update on myphotos modules
+Added My Photo Image viewer, User Profile of My Photos.

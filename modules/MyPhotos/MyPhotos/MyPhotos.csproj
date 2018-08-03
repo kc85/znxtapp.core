@@ -55,9 +55,11 @@
     <Compile Include="Model\FileModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Api\CronJob\ImageBackgroundSync.cs" />
+    <Compile Include="Services\Api\ImageEditor.cs" />
     <Compile Include="Services\Api\ImageBrowser.cs" />
     <Compile Include="Services\ImageService\Hashing.cs" />
     <Compile Include="Services\ImageService\ImageFinder.cs" />
+    <Compile Include="Services\ImageService\ImageGalleryHelper.cs" />
     <Compile Include="Services\ImageService\ImageProcessor.cs" />
     <Compile Include="Services\ImageService\ImageThumbnail.cs" />
   </ItemGroup>
@@ -76,6 +78,88 @@
     <None Include="packages.config" />
     <None Include="readme.md" />
     <None Include="Services\Api\readme.md" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Bold.eot" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Bold.ttf" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Bold.woff" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Bold.woff2" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Light.eot" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Light.ttf" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Light.woff" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Light.woff2" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Medium.eot" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Medium.ttf" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Medium.woff" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Medium.woff2" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Regular.eot" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Regular.ttf" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Regular.woff" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Regular.woff2" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Thin.eot" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Thin.ttf" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Thin.woff" />
+    <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Thin.woff2" />
+    <None Include="wwwroot\frontend\GalleryNew\clearcache.z">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="wwwroot\frontend\GalleryNew\userprofile.z" />
+    <None Include="wwwroot\frontend\GalleryNew\indexnew.z" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\addons\_datatables.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\core\bootstrap\_functions.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\core\bootstrap\_variables.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\core\_colors.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\core\_global.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\core\_helpers.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\core\_masks.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\core\_mixins.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\core\_typography.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\core\_variables.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\core\_waves.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_animations-basic.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_animations-extended.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_badges.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_buttons.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_cards.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_carousels.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_depreciated.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_dropdowns.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_footers.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_forms.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_input-group.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_list-group.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_modals.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_msc.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_navbars.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_pagination.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\free\_tables.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\mdb.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\style.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\_custom-skin.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\_custom-styles.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\scss\_custom-variables.scss" />
+    <None Include="wwwroot\frontend\GalleryNew\template\image_like_toolbar.zb">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="wwwroot\frontend\GalleryNew\template\image_footer_toolbar.zb">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="wwwroot\frontend\GalleryNew\template\footer_toolbar.zb">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="wwwroot\frontend\GalleryNew\template\user_pofile.zb">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="wwwroot\frontend\GalleryNew\template\login_view.zb">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="wwwroot\frontend\GalleryNew\template\image_view.zb">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="wwwroot\frontend\GalleryNew\template\js_libs.zb">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="wwwroot\frontend\GalleryNew\template\header_css.zb">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="wwwroot\frontend\Gallery\assets\css\fonts\fontawesome-webfont.eot" />
     <None Include="wwwroot\frontend\Gallery\assets\css\fonts\fontawesome-webfont.ttf" />
     <None Include="wwwroot\frontend\Gallery\assets\css\fonts\fontawesome-webfont.woff" />
@@ -107,12 +191,65 @@
     <None Include="wwwroot\frontend\Gallery\assets\css\fonts\raleway-thin-webfont.eot" />
     <None Include="wwwroot\frontend\Gallery\assets\css\fonts\raleway-thin-webfont.ttf" />
     <None Include="wwwroot\frontend\Gallery\assets\css\fonts\raleway-thin-webfont.woff" />
+    <None Include="wwwroot\frontend\Gallery\scripts.zb" />
+    <None Include="wwwroot\frontend\Gallery\menu.zb" />
+    <None Include="wwwroot\frontend\Gallery\header.zb" />
+    <None Include="wwwroot\frontend\manifest.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="build-events-scripts\post-build\NuGet.exe" />
     <Content Include="build-events-scripts\post-build\ZNxtApp.CLI.exe" />
     <Content Include="wwwroot\backend\app\your_module_backend\your_module.html" />
     <Content Include="wwwroot\backend\app\your_module_backend\your_module.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\app\MyPhotoUserInfo.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\app\MyPhotoApp.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\app\MyPhotoAppDetails.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\app\MyPhotoGalleryJs.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\app\MyPhotoGalleryCommon.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\app\MyPhotoGalleryApp.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\css\addons\datatables.css" />
+    <Content Include="wwwroot\frontend\GalleryNew\css\addons\datatables.min.css" />
+    <Content Include="wwwroot\frontend\GalleryNew\css\bootstrap.css" />
+    <Content Include="wwwroot\frontend\GalleryNew\css\bootstrap.min.css" />
+    <Content Include="wwwroot\frontend\GalleryNew\css\mdb.css" />
+    <Content Include="wwwroot\frontend\GalleryNew\css\mdb.min.css" />
+    <Content Include="wwwroot\frontend\GalleryNew\css\style.css" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\lightbox\default-skin.png" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\lightbox\default-skin.svg" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\lightbox\preloader.gif" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\my_photos_logo.png" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\my_photos_logo_01.png" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\overlays\01.png" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\overlays\02.png" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\overlays\03.png" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\overlays\04.png" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\overlays\05.png" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\overlays\06.png" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\overlays\07.png" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\overlays\08.png" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\overlays\09.png" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\svg\arrow_left.svg" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\svg\arrow_right.svg" />
+    <None Include="wwwroot\frontend\GalleryNew\gallery.z" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\addons\datatables.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\addons\datatables.min.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\angular.min.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\bootstrap.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\bootstrap.min.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\jquery-3.3.1.min.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\mdb.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\mdb.min.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\modules\chart.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\modules\enhanced-modals.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\modules\forms-free.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\modules\jquery.easing.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\modules\scrolling-navbar.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\modules\velocity.min.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\modules\waves.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\modules\wow.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\ng-infinite-scroll.min.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\js\popper.min.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\sw.js" />
     <Content Include="wwwroot\frontend\Gallery\app\MyPhotoGalleryApp.js" />
     <Content Include="wwwroot\frontend\Gallery\app\MyPhotoAppDetails.js" />
     <Content Include="wwwroot\frontend\Gallery\app\MyPhotoApp.js" />
@@ -248,9 +385,12 @@
     <Content Include="wwwroot\frontend\Gallery\assets\masterslider\style\loading-2.gif" />
     <Content Include="wwwroot\frontend\Gallery\assets\masterslider\style\masterslider.css" />
     <Content Include="wwwroot\frontend\Gallery\assets\masterslider\style\video-close-btn.png" />
-    <None Include="wwwroot\frontend\Gallery\details.z" />
-    <Content Include="wwwroot\frontend\Gallery\gallery.html" />
-    <Content Include="wwwroot\frontend\Gallery\index.html" />
+    <None Include="wwwroot\frontend\Gallery\details.z">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="wwwroot\frontend\Gallery\gallery.z" />
+    <Content Include="wwwroot\frontend\Gallery\sw.js" />
+    <None Include="wwwroot\frontend\Gallery\index.z" />
     <None Include="MyPhotos.nuspec" />
   </ItemGroup>
   <ItemGroup />

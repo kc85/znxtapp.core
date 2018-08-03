@@ -17,8 +17,10 @@ namespace MyPhotos.Services.ImageService
     public class ImageProcessor
     {
         public const string FILE_HASH = "file_hash";
+        public const string CHANGESET_NO = "changeset_no";
         public const string FILE_PATHS = "file_paths";
         public const string FILE_HASHS = "file_hashs";
+        public const string IMAGES = "images";
         public const string TAGS = "tags";
         private const string KEY = "key";
         private const string VALUE = "value";
@@ -46,8 +48,13 @@ namespace MyPhotos.Services.ImageService
         public const string DEFAULT_USER = "user";
         public const string PHOTO_DATE_TAKEN_TIME_STAMP = "date_taken_timestamp";
         public const string GALLERY_THUMBNAIL = "thumbnail";
+        public const string GALLERY_THUMBNAIL_IMAGE = "thumbnail_image";
+        
+        public const string GALLERY_ID = "galleryid";
+        
         public const string FILES_COUNT = "files_count";
         public const string PATH = "path";
+        public const string RELATED_FILES = "related_files";
 
         private List<FileModel> _existingFiles = new List<FileModel>();
 
@@ -208,6 +215,8 @@ namespace MyPhotos.Services.ImageService
                         AddSize(fileData, imageSize, IMAGE_L_SIZE);
 
                         fileData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
+                        fileData[CHANGESET_NO] = 0;
+
                         AddPath(fileData, fileModel);
                         AddTags(fileData, fileModel);
                         AddDefaultAuthUser(fileData);

@@ -1,0 +1,22 @@
+﻿	
+<!DOCTYPE html>
+
+<html lang="en"  ng-app="MyPhotoAppUser">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>My Photos</title>
+     @Include("./template/header_css.zb",null)
+</head>
+
+<body ng-controller="MyPhotoAppUser.main">
+
+   
+     @Include("./template/user_pofile.zb",null)
+	 @Include("./template/footer_toolbar.zb",null)
+	 @Include("./template/js_libs.zb",null)
+    <script type="text/javascript" src="./app/MyPhotoUserInfo.js"></script>
+	
+</body>
+</html>

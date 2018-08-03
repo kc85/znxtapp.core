@@ -1,0 +1,51 @@
+﻿<div class="col-12  gridpadding">
+  <div class="card">
+    <!--Card image-->
+    <div class="view overlay hm-white-slight zoom">
+      <img src="../api/myphotos/image?file_hash=EF52D2A241A7FA9939BEB28CBA4E7953708C0F595536B362F1763AD0ABBF676C&t=m&changeset_no=0"
+							style="width:100%"
+							class="img-fluid gallerythumbnail" alt=""/>
+        <a href="#">
+          <div class="mask"></div>
+        </a>
+      </div>
+    <!--Card content-->
+    <div class="card-body">
+      <!--Title-->
+      <h4 class="card-title">{{user.name}}</h4>
+      <a href="../signup/logout.z?rurl=../gallerynew/indexnew.z">
+        <i class="fa fa-sign-out pull-right"></i> Log Out
+      </a>
+      
+      <!--Text-->
+      <!--
+      <div class="row">
+        <div class="col-6">
+          Photos
+          <span class="badge badge-primary badge-pill">gallery.files_count</span>
+        </div>
+        <div class="col-6">
+          Views
+          <span class="badge badge-primary badge-pill">14</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p class="blue-grey-text">Eius, provident. Quo similique, repellat atque voluptas explicabo odio.</p>
+        </div>
+      </div>
+      
+                <div class="md-form">
+                <textarea type="text" id="form7" class="md-textarea form-control" rows="1"></textarea>
+                <label for="form7">Comment</label>
+                    </div>
+                </p>
+
+
+                <a href="#" class="btn btn-primary btn-deep-purple">Button</a>
+                -->
+
+    </div>
+  </div>
+</div>
+

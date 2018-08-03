@@ -1,79 +1,18 @@
 ﻿<!doctype html>
 <html ng-app="MyPhotoAppDetails">
 <head>
-    <meta charset="utf-8">
-    <meta name="description" content="	">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="ZNxtApp :: My Photos">
-    <meta property="og:title" content="Show full image" />
-    <meta property="og:url" content="https://znxt.app/gallery/index.html" />
-    <meta property="og:description" content="ZNxtApp :: My Photos">
-    <meta property="og:image" content="../api/myphotos/image?file_hash=@QueryString("file_hash")&t=s">
-    <link rel="shortcut icon" href="../api/myphotos/image?file_hash=@QueryString("file_hash")&t=s">
-    <link rel="icon" sizes="16x16 32x32 64x64" href="../api/myphotos/image?file_hash=@QueryString("file_hash")&t=s">
-    <link rel="icon" type="image/png" sizes="196x196" href="../api/myphotos/image?file_hash=@QueryString("file_hash")&t=m">
-    <title>ZNxtApp :: My Photos</title>
-    <!-- CSS styles -->
-    <link rel="stylesheet" href="./assets/css/base.css">
-    <link rel="stylesheet" href="./assets/css/styles/dark-sidebar.css">
-    <link rel="stylesheet" href="./assets/css/styles/skin1.css">
-    <!-- /CSS styles -->
+  @Include("./header.zb",null)
+
+  <meta property="og:image" content="../api/myphotos/image?file_hash=@QueryString("file_hash")&t=s">
+      <link rel="shortcut icon" href="../api/myphotos/image?file_hash=@QueryString("file_hash")&t=s">
+      <link rel="icon" sizes="16x16 32x32 64x64" href="../api/myphotos/image?file_hash=@QueryString("file_hash")&t=s">
+      <link rel="icon" type="image/png" sizes="196x196" href="../api/myphotos/image?file_hash=@QueryString("file_hash")&t=m">
+      <!-- /CSS styles -->
 
 </head>
 <body class="show-sidebar dark-sidebar" ng-controller="MyPhotoAppDetails.Main">
-
-    <a href="#" id="menu-toggle-wrapper">
-        <div id="menu-toggle"></div>
-    </a>
-
-    <!-- inner bar wrapper -->
-    <a href="#" id="inner-bar">
-
-    </a>
-    <!-- /inner bar wrapper -->
-
-    <div id="side-bar">
-        <div class="inner-wrapper">
-            <div id="side-inner">
-
-                <div id="logo-wrapper">
-                    <a href="index.html"><img src="./assets/img/demo-3/logo-dark.png" alt="logo"></a>
-                </div>
-
-                <div id="side-contents">
-
-                    <ul id="navigation">
-                        <li class="current-menu-item"><a href="index.html">Photos</a></li>
-                        <li><a href="#">Gallery</a></li>
-                        <li><a href="#">Team</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-
-                </div>
-
-                <!-- Sidebar footer -->
-                <div id="side-footer">
-                    <!-- Social icons -->
-                    <ul class="social-icons">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="#"><i class="fa fa-flickr"></i></a></li>
-                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                    </ul>
-                    <!-- /Social icons -->
-                    <div id="copyright">
-                        Z
-                    </div>
-                </div>
-                <!-- /Sidebar footer -->
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Page main wrapper -->
+  @Include("./menu.zb",null)
+  <!-- Page main wrapper -->
     <div id="main-content" class="dark-template">
 
         <!-- Portfolio -->
@@ -152,7 +91,7 @@
                         <!-- Duplicated details will be shown only at mobile devices -->
                         <div class="portfolio-md-detail hidden-md hidden-lg">
                             <ul class="list-items" ng-repeat="g in imagedata.metadata">
-                                <li>
+                                <li ng-hide="g.value.length == 0 ">
                                     <div class="list-label">{{g.key}}</div>
                                     <div class="list-des">{{g.value}}</div>
                                 </li>
@@ -239,60 +178,8 @@
     </div>
     <!-- /Page main wrapper -->
 
-
-    <script type="text/javascript" src="./assets/js/angular.min.js"></script>
-    <script type="text/javascript" src="./assets/js/ng-infinite-scroll.min.js"></script>
-
-    <!-- jquery core -->
-    <script type="text/javascript" src="./assets/js/vendors/jquery-1.11.0.min.js"></script>
-
-    <!-- imagesLoaded jquery plugin -->
-    <script type="text/javascript" src="./assets/js/vendors/imagesloaded.pkgd.min.js"></script>
-
-    <!-- jquery isotop plugin -->
-    <script type="text/javascript" src="./assets/js/vendors/isotope.pkgd.min.js"></script>
-
-    <!-- jquery history neede for ajax pages -->
-    <script type="text/javascript" src="./assets/js/vendors/jquery.history.js"></script>
-
-    <!-- owwwlab jquery kenburn slider plugin -->
-    <script type="text/javascript" src="./assets/js/jquery.owwwlab-kenburns.js"></script>
-
-    <!-- owwwlab jquery double carousel plugin -->
-    <script type="text/javascript" src="./assets/js/jquery.owwwlab-DoubleCarousel.js"></script>
-
-    <!-- owwwwlab jquery video background plugin -->
-    <script type="text/javascript" src="./assets/js/jquery.owwwlab-video.js"></script>
-
-    <!-- tweenmax animation framework -->
-    <script type="text/javascript" src="./assets/js/vendors/TweenMax.min.js"></script>
-
-    <!-- jquery nice scroll plugin needed for vertical portfolio page -->
-    <script type="text/javascript" src="./assets/js/vendors/jquery.nicescroll.min.js"></script>
-
-    <!-- jquery magnific popup needed for ligh-boxes -->
-    <script type="text/javascript" src="./assets/js/vendors/jquery.magnific-popup.js"></script>
-
-    <!-- html5 media player -->
-    <script type="text/javascript" src="./assets/js/vendors/mediaelement-and-player.min.js"></script>
-
-    <!-- jquery inview plugin -->
-    <script type="text/javascript" src="./assets/js/vendors/jquery.inview.min.js"></script>
-
-    <!-- smooth scroll -->
-    <script type="text/javascript" src="./assets/js/vendors/smoothscroll.js"></script>
-
-
-
-    <!-- Master Slider -->
-    <script src="./assets/masterslider/jquery.easing.min.js"></script>
-    <script src="./assets/masterslider/masterslider.min.js"></script>
-
-    <!-- theme custom scripts -->
-    <script type="text/javascript" src="./assets/js/custom.js"></script>
-    <script type="text/javascript" src="./app/MyPhotoAppDetails.js"></script>
-
-
+  @Include("./scripts.zb",null)
+  <script type="text/javascript" src="./app/MyPhotoAppDetails.js"></script>
 
 </body>
 

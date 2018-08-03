@@ -1,0 +1,21 @@
+﻿<html>
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="./app/MyPhotoGalleryCommon.js"></script>
+
+  <script type="text/javascript">
+
+    var callbackcomplete= false;
+	
+	removeCacheKey("/api/myphotos/gallery");
+    removeCacheKey("/indexnew.z",function(){
+    if(callbackcomplete==false){
+      callbackcomplete = true;
+      $.get("./indexnew.z?pagesize=100", function () {
+          window.location = "./indexnew.z?pagesize=100";
+      });
+    }
+    });
+
+
+  </script>
+</html>

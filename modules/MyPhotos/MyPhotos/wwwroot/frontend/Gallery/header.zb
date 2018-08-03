@@ -1,0 +1,21 @@
+﻿<meta charset="utf-8">
+<meta name="description" content="ZNxtApp :: My Photos">
+<meta property="og:title" content="Image details" />
+<meta property="og:url" content="https://znxt.app/gallery/index.z" />
+<meta property="og:description" content="ZNxtApp :: My Photos">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="manifest" href="../manifest.json">
+<!-- Add to home screen for Safari on iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="My Photos">
+<link rel="apple-touch-icon" href="images/icons/icon-152x152.png">
+<meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
+<meta name="msapplication-TileColor" content="#000">
+<title>ZNxtApp :: My Photos</title>
+<!-- CSS styles -->
+<link rel="stylesheet" href="./assets/css/base.css">
+<link rel="stylesheet" href="./assets/css/styles/dark-sidebar.css">
+<link rel="stylesheet" href="./assets/css/styles/skin1.css">
+<!-- /CSS styles -->
+  
