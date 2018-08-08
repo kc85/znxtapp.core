@@ -65,7 +65,9 @@
     <Compile Include="Services\Api\Setting\SettingController.cs" />
     <Compile Include="Services\Api\Signup\Facebook\FacebookAuthUserController.cs" />
     <Compile Include="Services\Api\Forgetpassword\Forgetpassword.cs" />
+    <Compile Include="Services\Api\Signup\Google\GoogleAuthUserController.cs" />
     <Compile Include="Services\Api\Signup\SignUpCommonController.cs" />
+    <Compile Include="Services\Api\Signup\SignupHelper.cs" />
     <Compile Include="Services\Api\Signup\UserRegistrationBase.cs" />
     <Compile Include="Services\Api\UserManagement\UpdateUserInfo.cs" />
     <Compile Include="Services\Api\UserManagement\UsersController.cs" />
@@ -97,7 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\Api\Signup\EmailId\" />
-    <Folder Include="Services\Api\Signup\Google\" />
     <Folder Include="Services\Api\Signup\MobileNumber\" />
   </ItemGroup>
   <ItemGroup>

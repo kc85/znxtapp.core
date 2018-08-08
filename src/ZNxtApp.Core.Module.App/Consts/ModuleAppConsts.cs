@@ -14,6 +14,7 @@ namespace ZNxtApp.Core.Module.App.Consts
         }
         public static class Field
         {
+            public const string AUTH_TOKEN = "auth_token";
             public const string GOOGLE_INVISIBLE_RECAPTCHA_SITE_SETTING_KEY = "google_invasible_recaptcha_key";
             public const string GOOGLE_RECAPTCHA_VALIDATE_URL_SETTING_KEY = "google_recaptcha_validate_url";
             public const string GOOGLE_INVISIBLE_RECAPTCHA_SECRECT_SETTING_KEY = "google_invisible_recaptcha_secrect";

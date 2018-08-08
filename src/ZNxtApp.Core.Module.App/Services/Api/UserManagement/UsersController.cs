@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Module.App.Consts;
+using ZNxtApp.Core.Module.App.Services.Api.Signup;
 using ZNxtApp.Core.Services;
 
 namespace ZNxtApp.Core.Module.App.Services.Api.UserManagement
@@ -32,6 +33,27 @@ namespace ZNxtApp.Core.Module.App.Services.Api.UserManagement
             }
 
         }
+        public JObject GetSessionUser()
+        {
+            var user = SessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
+
+            if (user == null)
+            {
+                return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
+            }
+            else
+            {
+                if (SignupHelper.IsValidToken(user, SessionProvider, Logger))
+                {
+                    return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, JObject.Parse(Newtonsoft.Json.JsonConvert.SerializeObject(user)));
+                }
+                else
+                {
+                    SessionProvider.ResetSession();
+                    return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
+                }
+            }
+        }
 
         public JObject GetUserInfo()
         {
@@ -56,13 +78,22 @@ namespace ZNxtApp.Core.Module.App.Services.Api.UserManagement
                     return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
 
                 }
-                JArray joinData = new JArray();
-                JObject collectionJoin = GetCollectionJoin(CommonConst.CommonField.USER_ID, CommonConst.Collection.USER_INFO, CommonConst.CommonField.USER_ID, null, ModuleAppConsts.Field.USER_INFO);
-                joinData.Add(collectionJoin);
-                JObject filter= new JObject();
-                filter[CommonConst.CommonField.USER_ID] = user_id;
-                var data =  GetPaggedData(CommonConst.Collection.USERS, joinData, filter.ToString());
-                return  ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, data[CommonConst.CommonField.DATA][0]);
+                if (SignupHelper.IsValidToken(userData,SessionProvider,Logger))
+                {
+                    JArray joinData = new JArray();
+                    JObject collectionJoin = GetCollectionJoin(CommonConst.CommonField.USER_ID, CommonConst.Collection.USER_INFO, CommonConst.CommonField.USER_ID, null, ModuleAppConsts.Field.USER_INFO);
+                    joinData.Add(collectionJoin);
+                    JObject filter = new JObject();
+                    filter[CommonConst.CommonField.USER_ID] = user_id;
+                    var data = GetPaggedData(CommonConst.Collection.USERS, joinData, filter.ToString());
+                    return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, data[CommonConst.CommonField.DATA][0]);
+                }
+                else
+                {
+                    Logger.Debug("User Auth token is not valid");
+                    SessionProvider.ResetSession();
+                    return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
+                }
             }
             catch (Exception ex)
             {

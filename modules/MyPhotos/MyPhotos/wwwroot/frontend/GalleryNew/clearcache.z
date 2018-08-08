@@ -10,8 +10,8 @@
     removeCacheKey("/indexnew.z",function(){
     if(callbackcomplete==false){
       callbackcomplete = true;
-      $.get("./indexnew.z?pagesize=100", function () {
-          window.location = "./indexnew.z?pagesize=100";
+      $.get("./indexnew.z", function () {
+          window.location = "./indexnew.z";
       });
     }
     });

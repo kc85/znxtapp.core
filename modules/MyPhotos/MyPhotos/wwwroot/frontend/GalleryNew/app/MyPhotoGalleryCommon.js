@@ -1,7 +1,23 @@
 ﻿
+var userlogincookiekey ="userlogin"
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+
+    console.log("Fire beforeinstallprompt");
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
+    $("#addToHomeScreenModal").modal("show");
+});
+
+
+
+
 
 function GetParameterValues(param) {
-    var url = window.location.href.replace(window.location.hash,"").slice(window.location.href.indexOf('?') + 1).split('&');
+    var url = window.location.search.slice(window.location.search.indexOf('?') + 1).split('&');
     for (var i = 0; i < url.length; i++) {
         var urlparam = url[i].split('=');
         if (urlparam[0] == param) {
@@ -44,6 +60,7 @@ function replaceImage(image) {
         var imageL = new Image();
         imageL.onload = function () {
             console.log("Large image Loaded ... ", this.src);
+
             mainImage.src = this.src;
         }
         imageL.src = "../api/myphotos/image?file_hash=" + fileHash + "&t=l&changeset_no=" + changeset;
@@ -51,13 +68,15 @@ function replaceImage(image) {
 }
 
 function showProfile() {
-    if (window.__userData == undefined) {
-        showLogin();
-    }
-    else {
-        window.location = "./userprofile.z"
-    }
-    
+    $.get("../api/user/me", function (response) {
+        window.__userData = response.data;
+        if (window.__userData == undefined) {
+            showLogin();
+        }
+        else {
+            window.location = "./userprofile.z"
+        }
+    });
 };
 function showLogin() {
     $("#myphotoLogin").modal("show");
@@ -84,8 +103,80 @@ var isMobile = {
     }
 };
 
+function googleLoginCheck(googleUser) {
+    // Useful data for your client-side scripts:
+    var profile = googleUser.getBasicProfile();
+    var id_token = googleUser.getAuthResponse().id_token;
+    $.ajax({
+        url:  "../api/user/google/auth",
+        type: 'post',
+        data: '{"auth_token": "' + id_token+ '", "rurl" : "./"}',
+        contentType: "application/json",
+        dataType: 'json',
+        success: function (data) {
+            if($('#myphotoLogin').css("display")=='block'){
+                removeCacheKey("/api/myphotos/gallery");
+                removeCacheKey("/indexnew.z",function(){
+                    window.location.reload();
+                });
+            }
+            $.get("../api/user/me", function (response) {
+                window.__userData = response.data;
+                if(window.__userData!=undefined){
+                    setCookie(userlogincookiekey,true,30);
+                }
+            });
+        },
+        error: function (err) {
+            console.log(err);
+            console.log("getUserLogin Cookie", getCookie(userlogincookiekey));
+            window.__userData = undefined;
+        }
+    });
+
+};
+
+function initGoogleAuth(callback){
+    gapi.load('auth2', function() {
+        gapi.auth2.init().then(function(){ 
+            if(callback!=undefined){
+                callback();
+            }
+        });
+    });
+}
+function googleSignOut() {
+    initGoogleAuth(function(){
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            setCookie(userlogincookiekey,false,30);
+            removeCacheKey("/api/myphotos/gallery");
+            removeCacheKey("/indexnew.z",function(){
+                window.location="../signup/logout.z?rurl=../gallerynew/indexnew.z";
+            });
+        });
+    });
+}
+
+
 $(document).ready(function () {
 
+    function getUserInfo(){
+        $.get("../api/user/me", function (response) {
+            window.__userData = response.data;
+            if(window.__userData!=undefined){
+                setCookie(userlogincookiekey,true,30);
+            }
+            else{
+                var c=  getCookie(userlogincookiekey);
+                setCookie(userlogincookiekey,false,30);
+                if(c == "true"){
+                    googleSignOut();
+                }
+            }
+        });
+    }
+    getUserInfo();
 
     $(document).on("click", '.whatsapp', function () {
         if (isMobile.any()) {
@@ -106,11 +197,52 @@ $(document).ready(function () {
         $('#btnShareImage').trigger('focus');
     })
 
-    function getUserInfo(){
-        $.get("../api/myphotos/userinfo", function (response) {
-            window.__userData = response.data;
 
-        })
-    }
-    getUserInfo();
+    $("#btnAddToHomeScreen").click(function(){
+    
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        deferredPrompt.userChoice
+          .then((choiceResult) => {
+              if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the A2HS prompt');
+            } else {
+                console.log('User dismissed the A2HS prompt');
+           }
+            deferredPrompt = null;
+            });
+    });
+
 });
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function getUrlHashKeys(){
+    var keys = {};
+    window.location.hash.replace("#!#", "").split("&").forEach(function (d) {
+        var keyVal = d.split("=");
+        keys[keyVal[0]] = keyVal[1];
+    });
+    return keys;
+}

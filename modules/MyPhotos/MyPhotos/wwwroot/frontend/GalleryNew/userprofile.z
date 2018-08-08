@@ -8,6 +8,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>My Photos</title>
      @Include("./template/header_css.zb",null)
+	 <script src="https://apis.google.com/js/platform.js?onload=initGoogleAuth" async="" defer=""></script>
+	 
 </head>
 
 <body ng-controller="MyPhotoAppUser.main">

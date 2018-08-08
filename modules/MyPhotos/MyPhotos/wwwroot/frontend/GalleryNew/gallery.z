@@ -6,13 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>My Photos</title>
-	  <link rel="manifest" href="../manifest.json">
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
-    <!-- Your custom styles (optional) -->
-    <link href="css/style.css" rel="stylesheet">
+	 @Include("./template/header_css.zb",null)
 </head>
 
 <body ng-controller="MyPhotoApp.Main">
@@ -27,7 +21,7 @@
     <div class="container-fluid" style="margin-top:70px;margin-bottom: 50px;" >
         <div class="row" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
             <div class="col-4 col-md-2 col-sm-3 gridpadding zoom view" ng-repeat="image in gallery_files">
-                <a href="#file_hash={{image.file_hash}}&changeset_no={{image.changeset_no}}" data-toggle="modal" ng-click="imageClick();">
+                <a href="#file_hash={{image.file_hash}}&changeset_no={{image.changeset_no}}&galleryid={{image.galleryid}}" data-toggle="modal" ng-click="imageClick();">
                     <img src="../api/myphotos/image?file_hash={{image.file_hash}}&t=m&changeset_no={{image.changeset_no}}" class="img-fluid z-depth-1" alt="">
                     <div class="mask flex-center waves-effect">
 

@@ -1,14 +1,18 @@
 ﻿<!-- SCRIPTS -->
 <!-- JQuery -->
 <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-<!-- Bootstrap tooltips -->
+<script src="https://apis.google.com/js/platform.js?onload=initGoogleAuth" async="" defer=""></script>
+<!--Bootstrap tooltips--> 
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/ng-infinite-scroll.min.js"></script>
 <script type="text/javascript" src="js/popper.min.js"></script>
-<!-- Bootstrap core JavaScript -->
+ <!--Bootstrap core JavaScript--> 
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
-<!-- MDB core JavaScript -->
+ <!--MDB core JavaScript -->
 <script type="text/javascript" src="js/mdb.min.js"></script>
+
+<!--<script src="@Model["base_uri"]/api/getjs?path=/GalleryNew/js"></script>-->
+
 <script type="text/javascript" src="./app/MyPhotoGalleryCommon.js"></script>
 
 <script>

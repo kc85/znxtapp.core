@@ -143,7 +143,7 @@ namespace MyPhotos.Services.Api
             var images = new JArray();
             for (int i = startCount; i < endCount && i < fileHashs.Count; i++)
             {
-                var fileData = GetImageData(fileHashs[i].ToString());
+                var fileData = ImageGalleryHelper.GetImageData (DBProxy,SessionProvider, fileHashs[i].ToString());
                 if (fileData.Count == 0)
                 {
                     Logger.Error(string.Format("Image File not found {0}", fileHashs[i].ToString()));
@@ -169,7 +169,8 @@ namespace MyPhotos.Services.Api
             var sort = new Dictionary<string, int>();
             sort[CommonConst.CommonField.NAME] = 1;
             sort[CommonConst.CommonField.ID] = 1;
-            var response = GetPaggedData(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, null, null, sort, new List<string> { CommonConst.CommonField.DISPLAY_ID, CommonConst.CommonField.NAME, ImageProcessor.FILES_COUNT, ImageProcessor.GALLERY_THUMBNAIL, ImageProcessor.AUTH_USERS });
+            var response = GetPagedData(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, "{}", new List<string> { CommonConst.CommonField.DISPLAY_ID, CommonConst.CommonField.NAME, ImageProcessor.FILES_COUNT, ImageProcessor.GALLERY_THUMBNAIL, ImageProcessor.AUTH_USERS },sort,100,1);
+            //var response = GetPaggedData(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, null, null, sort, new List<string> { CommonConst.CommonField.DISPLAY_ID, CommonConst.CommonField.NAME, ImageProcessor.FILES_COUNT, ImageProcessor.GALLERY_THUMBNAIL, ImageProcessor.AUTH_USERS });
             List<JToken> filterData = new List<JToken>();
 
             foreach (var item in response[CommonConst.CommonField.DATA])
@@ -193,23 +194,11 @@ namespace MyPhotos.Services.Api
 
         private void AddGalleryThumbnailImage(JToken galleryItem)
         {
-            galleryItem[ImageProcessor.GALLERY_THUMBNAIL_IMAGE] = GetImageData(galleryItem[ImageProcessor.GALLERY_THUMBNAIL].ToString())[0];
+            galleryItem[ImageProcessor.GALLERY_THUMBNAIL_IMAGE] = ImageGalleryHelper.GetImageData(DBProxy, SessionProvider, galleryItem[ImageProcessor.GALLERY_THUMBNAIL].ToString())[0];
             (galleryItem as JObject).Remove(ImageProcessor.GALLERY_THUMBNAIL);
 
         }
-        public JObject GetUser()
-        {
-            var user = SessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
-
-            if (user == null)
-            {
-                return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
-            }
-            else
-            {
-                return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, JObject.Parse(Newtonsoft.Json.JsonConvert.SerializeObject(user)));
-            }
-        }
+        
 
         private List<string> GetCurrentAuthGroups()
         {
@@ -276,8 +265,7 @@ namespace MyPhotos.Services.Api
                 return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
             }
 
-
-            var data = GetImageData(fileHash, new List<string> { ImageProcessor.METADATA, ImageProcessor.TAGS });
+            var data =ImageGalleryHelper.GetImageData(DBProxy,SessionProvider, fileHash, new List<string> { ImageProcessor.METADATA, ImageProcessor.TAGS, ImageProcessor.FILE_PATHS });
 
             if (data.Count == 0)
             {
@@ -285,38 +273,72 @@ namespace MyPhotos.Services.Api
             }
             else
             {
-                JArray files = galleryImages[CommonConst.CommonField.DATA][ImageProcessor.IMAGES] as JArray;
-                data[0][ImageProcessor.RELATED_FILES] = new JArray();
-                for (int i = 0; i < 10 && i < files.Count; i++)
-                {
-                    (data[0][ImageProcessor.RELATED_FILES] as JArray).Add(files[GetRandomNumberInRange(1, (files.Count - 1))]);
-                }
+                AddToUserView(galleryId, fileHash);
+                //JArray files = galleryImages[CommonConst.CommonField.DATA][ImageProcessor.IMAGES] as JArray;
+                //data[0][ImageProcessor.RELATED_FILES] = new JArray();
+                //for (int i = 0; i < 10 && i < files.Count; i++)
+                //{
+                //    (data[0][ImageProcessor.RELATED_FILES] as JArray).Add(files[GetRandomNumberInRange(1, (files.Count - 1))]);
+                //}
 
                 return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, data[0]);
             }
         }
 
-
-        private JArray GetImageData(string fileHash, List<string> extraFields = null)
+        private void AddToUserView(string galleryId, string fileHash)
         {
-            JObject filter = new JObject();
+            Logger.Debug("Adding UserViews");
+
+            var filter = new JObject();
             filter[ImageProcessor.FILE_HASH] = fileHash;
+            var viewData = DBProxy.FirstOrDefault(ImageProcessor.MYPHOTO_IMAGE_VIEW_COLLECTION, filter.ToString());
 
-            var fields = new List<string> { 
-            ImageProcessor.FILE_HASH, 
-            ImageProcessor.PHOTO_DATE_TAKEN_TIME_STAMP, 
-            ImageProcessor.PHOTO_DATE_TAKEN, 
-            ImageProcessor.IMAGE_S_SIZE, 
-            ImageProcessor.IMAGE_M_SIZE, 
-            ImageProcessor.IMAGE_L_SIZE,
-           
-            ImageProcessor.CHANGESET_NO
-            };
-            if (extraFields != null) fields.AddRange(extraFields);
+            if (viewData == null)
+            {
+                viewData = new JObject();
+                viewData[ImageProcessor.USERS] = new JArray();
+                viewData[ImageProcessor.COUNT] = 0;
+                viewData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
+            }
+            var viewCount = 0;
+            viewData[ImageProcessor.FILE_HASH] = fileHash;
+            Logger.Debug("Getting existing Count");
+            if (viewData[ImageProcessor.COUNT]!=null)
+            int.TryParse(viewData[ImageProcessor.COUNT].ToString(), out viewCount);
 
-            var data = DBProxy.Get(ImageProcessor.MYPHOTO_COLLECTION, filter.ToString(), fields);
-            return data;
+            viewData[ImageProcessor.COUNT] = viewCount + 1;
+            Logger.Debug("Getting Session User ");
+            var user = SessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
+            string userId = "-1";
+            if (user != null) userId = user.user_id;
+
+            Logger.Debug("Getting UserData", viewData);
+            JToken userData = null;
+            if (viewData[ImageProcessor.USERS] != null)
+                userData = (viewData[ImageProcessor.USERS] as JArray).FirstOrDefault(f => { return f[CommonConst.CommonField.USER_ID] != null && f[CommonConst.CommonField.USER_ID].ToString() == userId; });
+            if (userData == null)
+            {
+                userData = new JObject();
+                userData[CommonConst.CommonField.USER_ID] = userId;
+                userData[ImageProcessor.COUNT] = 0;
+                if (viewData[ImageProcessor.USERS] == null)
+                {
+                    viewData[ImageProcessor.USERS] = new JArray();
+                }
+                (viewData[ImageProcessor.USERS] as JArray).Add(userData);
+            }
+            var userViewCount = 0;
+            Logger.Debug("Getting existing user Count");
+            if (userData[ImageProcessor.COUNT]!=null)
+            int.TryParse(userData[ImageProcessor.COUNT].ToString(), out userViewCount);
+
+            userData[ImageProcessor.COUNT] = userViewCount + 1;
+
+            DBProxy.Update(ImageProcessor.MYPHOTO_IMAGE_VIEW_COLLECTION,filter.ToString(),viewData, true, MergeArrayHandling.Replace);
         }
+
+
+       
         Random r = new Random();
         public int GetRandomNumberInRange(int minNumber, int maxNumber)
         {

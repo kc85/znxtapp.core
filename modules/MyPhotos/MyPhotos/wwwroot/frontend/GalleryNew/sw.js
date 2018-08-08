@@ -1,17 +1,23 @@
-﻿const PRECACHE = 'precache-v1.178';
-const RUNTIME = 'runtime-v1.178';
+﻿const PRECACHE = 'precache-v1.249';
+const RUNTIME = 'runtime-v1.249';
 
 
 const BACKGROUND_CACHE_URLS = [
     '/api/myphotos/gallery',
-    '/indexnew.z'
+    '/indexnew.z',
+    '/api/myphotos/user/bookmark'
 ]
 
 const IGNORE_CACHE_URLS = [
-    '/api/myphotos/userinfo',
+    '/api/user/userinfo',
+    '/api/user/me',
     '/api/myphotos/image/rotate',
     '/api/myphotos/fetch',
-    '/clearcache.z'
+    '/clearcache.z',
+    '/api/user/google/auth',
+    '/api/myphotos/image/like',
+    '/api/myphotos/image/bookmark',
+    'https://apis.google.com/js/platform.js'
 ];
 
 // A list of local resources we always want to be cached.
@@ -52,6 +58,7 @@ self.addEventListener('fetch', event => {
     // Prevent the default, and handle the request ourselves.
     event.respondWith(async function() {
         // Try to get the response from a cache.
+        var cloneRequest = event.request.clone();
         const cachedResponse = await caches.match(event.request);
         // Return it if we found one.
         if (cachedResponse) {
@@ -63,7 +70,7 @@ self.addEventListener('fetch', event => {
         // If we didn't find a match in the cache, use the network.
         return fetch(event.request).then(
             function(reponse) {
-                addToCache(event.request.clone(), reponse.clone())
+                addToCache(cloneRequest, reponse.clone())
                 return reponse;
             });
     }());

@@ -2,8 +2,7 @@
   <div class="card">
     <!--Card image-->
     <div class="view overlay hm-white-slight zoom">
-      <img src="../api/myphotos/image?file_hash=EF52D2A241A7FA9939BEB28CBA4E7953708C0F595536B362F1763AD0ABBF676C&t=m&changeset_no=0"
-							style="width:100%"
+      <img src="{{user_pic}}"
 							class="img-fluid gallerythumbnail" alt=""/>
         <a href="#">
           <div class="mask"></div>
@@ -13,7 +12,7 @@
     <div class="card-body">
       <!--Title-->
       <h4 class="card-title">{{user.name}}</h4>
-      <a href="../signup/logout.z?rurl=../gallerynew/indexnew.z">
+      <a href="#"  onclick="googleSignOut();" class="btn btn-primary"  ng-hide="user == undefined" >
         <i class="fa fa-sign-out pull-right"></i> Log Out
       </a>
       

@@ -1,4 +1,7 @@
-﻿  <link rel="manifest" href="../manifest.json">
+﻿<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id" content="741157933797-9m0g7nls4hvi2ragkdapo6dqu8jnehqr.apps.googleusercontent.com">
+
+    <link rel="manifest" href="../manifest.json">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->

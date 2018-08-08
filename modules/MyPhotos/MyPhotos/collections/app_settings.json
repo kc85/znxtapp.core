@@ -1,8 +1,13 @@
-﻿[ 
-     {
+﻿[
+    {
         "auth_users": [ "*" ],
         "key": "my_photo_path",
         "data": "G:\\Photos"
+    },
+    {
+        "auth_users": [ "sys_admin" ],
+        "key": "Session_Duration",
+        "data": "120"
     }
 
 ]

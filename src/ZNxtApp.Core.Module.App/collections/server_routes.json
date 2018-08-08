@@ -36,6 +36,18 @@
     ]
   },
   {
+    "key": "POST:/api/user/google/auth",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/user/google/auth",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.Signup.GoogleAuthUserController",
+    "ExecuteMethod": "Auth",
+    "auth_users": [
+      "*"
+    ]
+  },
+  {
     "key": "POST:/api/user/registration/SendOTP",
     "ContentType": "application/json",
     "Method": "POST",
@@ -287,5 +299,17 @@
     "auth_users": [
       "sys_admin"
     ]
-  }
+  },
+  {
+        "key": "GET:/api/user/me",
+        "ContentType": "application/json",
+        "Method": "GET",
+        "Route": "/api/user/me",
+        "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+        "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.UserManagement.UsersController",
+        "ExecuteMethod": "GetSessionUser",
+        "auth_users": [
+            "user"
+        ]
+    }
 ]

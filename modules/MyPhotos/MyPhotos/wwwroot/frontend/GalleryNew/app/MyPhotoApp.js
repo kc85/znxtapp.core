@@ -18,7 +18,8 @@ var __userData = {};
            $scope.isbackbuttonpress = true;
            $scope.showImageTopToolbar = false;
            $scope.galleryid = GetParameterValues("galleryid");
-           if ($scope.galleryid == undefined) {
+           $scope.isShowBookmark = GetParameterValues("bookmark");
+           if ($scope.galleryid == undefined && $scope.isShowBookmark == undefined) {
                window.location = "./indexnew.z";
            }
            $scope.gallery_name = "";
@@ -26,7 +27,8 @@ var __userData = {};
            $scope.images = [];
            $scope.gallery_files = [];
            function active() {
-               $scope.screenHeight = $window.innerHeight+30;
+               $scope.screenHeight = $window.innerHeight + 30;
+               $scope.isbackbuttonpress = false;
                getUserInfo();
                showImageDetailsDialog(function (file) {
                    $scope.loadMore(function () {
@@ -38,7 +40,7 @@ var __userData = {};
                });
            }
            function getUserInfo() {
-               var url = "../api/myphotos/userinfo";
+               var url = "../api/user/me";
                $http.get(url).then(function (response) {
                    console.log(response)
                    if (response.data.code == 1) {
@@ -104,11 +106,12 @@ var __userData = {};
            }
            $scope.selectImage = function (image) {
                if (image != undefined) {
-                   $scope.selectedImagedata = undefined;
+                   $scope.galleryid = image.galleryid;
                    $scope.selectedImage = image;
                    $scope.shareLink = window.location.href;
                    $scope.shareText = "Share Image";
                    $scope.selectedImageIndex = fileIndex(image.file_hash);
+                   $scope.selectedImagedata = $scope.gallery_files[$scope.selectedImageIndex];
                    fetchImageDetails();
                }
                else {
@@ -141,7 +144,15 @@ var __userData = {};
                });
            };
            function fetchPageImage(callback) {
+               
                var url = "../api/myphotos/gallery?id=" + $scope.galleryid + "&currentpage=" + $scope.currentpage + "&pagesize=" + $scope.pagesize;
+               if ($scope.isShowBookmark != undefined) {
+                   if ($scope.gallery_files.length != 0) {
+                       return;
+                   }
+                   url = "../api/myphotos/user/bookmark";
+
+               }
                $http.get(url).then(function (response) {
                    if (response.data.code == 401) {
                        $scope.user = response.data.data;
@@ -151,6 +162,9 @@ var __userData = {};
                        response.data.data.images.forEach(function (d) {
                            if (d.changeset_no == undefined) {
                                d.changeset_no = 0;
+                           }
+                           if (d.galleryid == undefined) {
+                               d.galleryid = $scope.galleryid;
                            }
                            $scope.gallery_files.push(d);
                        });
@@ -166,6 +180,7 @@ var __userData = {};
                if ($scope.isbackbuttonpress) {
                    if (window.location.hash.length == 0) {
                        showImageDetailsDialog(function (data) {
+                        
                            $scope.selectImage(data);
                        });
                    }
@@ -184,12 +199,7 @@ var __userData = {};
 
            function showImageDetailsDialog(callback) {
                lastFileHash = "";
-               var keys = {};
-               window.location.hash.replace("#!#", "").split("&").forEach(function (d) {
-                   var keyVal = d.split("=");
-                   keys[keyVal[0]] = keyVal[1];
-               });
-
+               var keys = getUrlHashKeys();
                if (keys.file_hash != undefined) {
                    if (callback != undefined) callback(keys);
                    $("#imageViewDetails").modal("show");
@@ -217,6 +227,44 @@ var __userData = {};
                var selectedImage = $scope.gallery_files.filter(function (d) { return d.file_hash == file_hash; })[0];
                return $scope.gallery_files.indexOf(selectedImage);
            }
+           $scope.likeImage = function () {
+
+               if ($scope.loading != true) {
+                   $scope.loading = true;
+                   var url = "../api/myphotos/image/like?file_hash=" + $scope.selectedImage.file_hash + "&galleryid=" + $scope.galleryid;
+                   $http.post(url).then(function (response) {                       
+                       $scope.loading = false;
+                       if (response.data.data.count > 0) {
+                           $scope.selectedImagedata.likes_count++;
+                           $scope.selectedImagedata.is_liked = true;
+                       }
+                       else {
+                           $scope.selectedImagedata.is_liked = false;
+                           $scope.selectedImagedata.likes_count--;
+                       }
+                       
+                   });
+               };
+
+           };
+
+           $scope.bookmarkImage = function () {
+
+               if ($scope.loading != true) {
+                   $scope.loading = true;
+                   var url = "../api/myphotos/image/bookmark?file_hash=" + $scope.selectedImage.file_hash + "&galleryid=" + $scope.galleryid;
+                   $http.post(url).then(function (response) {
+                       removeCacheKey("/api/myphotos/user/bookmark");
+                       $scope.loading = false;
+                       if (response.data.data.count > 0) {                           
+                           $scope.selectedImagedata.is_bookmarked = true;
+                       }
+                       else {
+                           $scope.selectedImagedata.is_bookmarked = false;
+                       }
+                   });
+               };
+           };
 
            active();
 

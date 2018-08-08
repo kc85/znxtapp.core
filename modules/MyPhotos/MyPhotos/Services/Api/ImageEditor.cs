@@ -9,6 +9,8 @@ using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Services;
 using ZNxtApp.Core.Helpers;
+using System.IO;
+using System.Drawing;
 
 namespace MyPhotos.Services.Api
 {
@@ -45,20 +47,81 @@ namespace MyPhotos.Services.Api
                     Logger.Error(string.Format("File not found ::{0}", fileHash));
                     return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
                 }
+
+
+                var path = string.Empty;
+                var baseFolderPath = AppSettingService.GetAppSettingData("my_photo_path");
+                if (string.IsNullOrEmpty(baseFolderPath)) throw new KeyNotFoundException("my_photo_path");
+                if (fileData[ImageProcessor.FILE_PATHS] == null) throw new KeyNotFoundException(ImageProcessor.FILE_PATHS);
+
+                Logger.Debug(string.Format("Getting file info BasePath  : {0}", baseFolderPath));
+                foreach (var item in fileData[ImageProcessor.FILE_PATHS])
+                {
+                    if (File.Exists(string.Concat(baseFolderPath, "\\", item.ToString())))
+                    {
+                        path = string.Concat(baseFolderPath, "\\", item.ToString());
+                        break;
+                    }
+                }
+                if (!File.Exists(path)) throw new FileNotFoundException(path);
+
                 var changesetNo = 0;
+                if (fileData[ImageProcessor.CHANGESET_NO] != null)
+                {
+                    Logger.Debug(string.Format("changesetNo value from  fileData {0}", fileData[ImageProcessor.CHANGESET_NO].ToString()));
+                    int.TryParse(fileData[ImageProcessor.CHANGESET_NO].ToString(), out changesetNo);
+                }
+                else
+                {
+                    Logger.Debug(string.Format("changesetNo is null in fileData"));
+                }
 
+                Logger.Debug(string.Format("Image  file path info BasePath  : {0} File Name :{1}", baseFolderPath, path));
+              
+                using (var image = ImageGalleryHelper.GetImageBitmapFromFile(path))
+                {
+                    Logger.Debug(string.Format("Processing Image BasePath  : {0} File Name :{1}", baseFolderPath, path));
 
-                fileData[ImageProcessor.IMAGE_L_BASE64] = ImageGalleryHelper.RotateImage(fileData[ImageProcessor.IMAGE_L_BASE64].ToString(),70);
-                fileData[ImageProcessor.IMAGE_M_BASE64] = ImageGalleryHelper.RotateImage(fileData[ImageProcessor.IMAGE_M_BASE64].ToString(),90);
-                fileData[ImageProcessor.IMAGE_S_BASE64] = ImageGalleryHelper.RotateImage(fileData[ImageProcessor.IMAGE_S_BASE64].ToString(),90);
-                
-                if (fileData[ImageProcessor.CHANGESET_NO]!=null) int.TryParse(fileData[ImageProcessor.CHANGESET_NO].ToString(), out changesetNo);
-                
+                    int rotate = 90;
+                    if (fileData[ImageProcessor.IMAGE_ROTATE] != null && int.TryParse(fileData[ImageProcessor.IMAGE_ROTATE].ToString(), out rotate))
+                    {
+                        rotate += 90;
+                        if (rotate >= 360)
+                        {
+                            rotate = 0;
+                        }
+                    }
+                    switch (rotate)
+                    {
+                        case 90:
+                            ImageGalleryHelper.ProcessImage(fileData, image, RotateFlipType.Rotate90FlipNone);
+                            Logger.Debug(string.Format("Rotate image to {0}. {1}", rotate, RotateFlipType.Rotate90FlipNone.ToString()));
+                            break;
+                        case 180:
+                            ImageGalleryHelper.ProcessImage(fileData, image, RotateFlipType.Rotate180FlipNone);
+                            Logger.Debug(string.Format("Rotate image to {0}. {1}", rotate, RotateFlipType.Rotate180FlipNone.ToString()));
+                            break;
+                        case 270:
+                            ImageGalleryHelper.ProcessImage(fileData, image, RotateFlipType.Rotate270FlipNone);
+                            Logger.Debug(string.Format("Rotate image to {0}. {1}", rotate, RotateFlipType.Rotate270FlipNone.ToString()));
+                            break;
+                        default:
+                             ImageGalleryHelper.ProcessImage(fileData, image, RotateFlipType.RotateNoneFlipNone);
+                             Logger.Debug(string.Format("Rotate image to {0}. {1}", rotate, RotateFlipType.RotateNoneFlipNone.ToString()));
+                            break;
+                    }
+                    
+                    fileData[ImageProcessor.IMAGE_ROTATE] = rotate;
+                }
+               
+                Logger.Debug(string.Format("changesetNo : {0}. FileHash: {1}", changesetNo, fileHash));
+
                 fileData[ImageProcessor.CHANGESET_NO] = (changesetNo+1);
  
                 JObject filter = new JObject();
                 filter[ImageProcessor.FILE_HASH] = fileHash;
-                DBProxy.Update(ImageProcessor.MYPHOTO_COLLECTION, filter.ToString(), fileData, false, MergeArrayHandling.Replace);
+                DBProxy.Update(ImageProcessor.MYPHOTO_COLLECTION, filter.ToString(), fileData,true, MergeArrayHandling.Replace);
+
                 fileData.Remove(ImageProcessor.IMAGE_L_BASE64); 
                 fileData.Remove(ImageProcessor.IMAGE_M_BASE64);
                 fileData.Remove(ImageProcessor.IMAGE_S_BASE64);

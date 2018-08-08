@@ -17,6 +17,7 @@ namespace MyPhotos.Services.ImageService
     public class ImageProcessor
     {
         public const string FILE_HASH = "file_hash";
+        public const string USERS = "users";
         public const string CHANGESET_NO = "changeset_no";
         public const string FILE_PATHS = "file_paths";
         public const string FILE_HASHS = "file_hashs";
@@ -28,6 +29,8 @@ namespace MyPhotos.Services.ImageService
         public const string IMAGE_S_BASE64 = "image_s_base64";
         public const string IMAGE_M_BASE64 = "image_m_base64";
         public const string IMAGE_L_BASE64 = "image_l_base64";
+        public const string IMAGE_ROTATE= "rotate";
+        
         private const string IMAGE_S_URL = "image_s_url";
         private const string IMAGE_M_URL = "image_m_url";
         private const string IMAGE_L_URL = "image_l_url";
@@ -36,12 +39,15 @@ namespace MyPhotos.Services.ImageService
         public const string IMAGE_M_SIZE = "image_m_size";
         public const string IMAGE_L_SIZE = "image_l_size";
         public const string COUNT = "count";
-        private const string WIDTH = "width";
-        private const string HEIGHT = "height";
+        public const string WIDTH = "width";
+        public const string HEIGHT = "height";
 
         public const string MYPHOTO_COLLECTION = "my_photo";
         public const string MYPHOTO_GALLERY_COLLECTION = "my_photo_gallery";
         public const string MYPHOTO_DIR_SCAN_COLLECTION = "my_photo_dir_scan";
+        public const string MYPHOTO_IMAGE_VIEW_COLLECTION = "my_photo_image_view";
+        public const string MYPHOTO_IMAGE_LIKE_COLLECTION = "my_photo_image_like";
+        public const string MYPHOTO_IMAGE_BOOKMARK_COLLECTION = "my_photo_user_bookmark";
 
         public const string PHOTO_DATE_TAKEN = "date_taken";
         public const string AUTH_USERS = "auth_users";
@@ -53,6 +59,10 @@ namespace MyPhotos.Services.ImageService
         public const string GALLERY_ID = "galleryid";
         
         public const string FILES_COUNT = "files_count";
+        public const string VIEWS_COUNT = "views_count";
+        public const string LIKES_COUNT = "likes_count";
+        public const string IS_LIKED= "is_liked";
+        public const string IS_BOOKMARKED = "is_bookmarked";
         public const string PATH = "path";
         public const string RELATED_FILES = "related_files";
 
@@ -198,32 +208,20 @@ namespace MyPhotos.Services.ImageService
             {
                 JObject fileData = new JObject();
                 var path = string.Concat(baseFolderPath, "\\", fileModel.file_paths.First());
-                using (var imageBase = System.Drawing.Image.FromFile(path))
-                {
-                    using (var image = new Bitmap(imageBase))
+
+                using (var image = ImageGalleryHelper.GetImageBitmapFromFile(path))
                     {
-                        ImageThumbnail it = new ImageThumbnail();
-                        fileData[FILE_HASH] = fileModel.file_hash;
-                        Size imageSize = new Size();
-                        fileData[IMAGE_S_BASE64] = it.CompressImage(image, 100, 75, out imageSize,70 );
-                        AddSize(fileData, imageSize, IMAGE_S_SIZE);
-
-                        fileData[IMAGE_M_BASE64] = it.CompressImage(image, 240, 180,out imageSize);
-                        AddSize(fileData, imageSize, IMAGE_M_SIZE);
                         
-                        fileData[IMAGE_L_BASE64] = it.CompressImage(image, 1024, 768,out imageSize);
-                        AddSize(fileData, imageSize, IMAGE_L_SIZE);
-
+                        fileData[FILE_HASH] = fileModel.file_hash;
+                        ImageGalleryHelper.ProcessImage(fileData, image);
                         fileData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
-                        fileData[CHANGESET_NO] = 0;
-
                         AddPath(fileData, fileModel);
                         AddTags(fileData, fileModel);
                         AddDefaultAuthUser(fileData);
                         AddMetaData(image, fileData);
                         GetDateTaken(fileData, path);
                     }
-                }
+                
                 if (!dbProxy.Write(MYPHOTO_COLLECTION, fileData))
                 {
                     throw new Exception("Unable to add data to db");
@@ -241,13 +239,6 @@ namespace MyPhotos.Services.ImageService
             {
                 return null;
             }
-        }
-      
-        private void AddSize(JObject fileData, Size imageSize, string key)
-        {
-            fileData[key] = new JObject();
-            fileData[key][WIDTH] = imageSize.Width;
-            fileData[key][HEIGHT] = imageSize.Height;
         }
 
         private void AddDefaultAuthUser(JObject fileData)

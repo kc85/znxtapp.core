@@ -4,9 +4,10 @@
 }
 	
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="MyPhotoGalleryApp">
 <head>
     <meta charset="utf-8">
+	<meta name="mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>My Photos</title>
@@ -17,7 +18,7 @@
 <script>
 var galleryData = @galleryData;
 </script>
-<body>
+<body  ng-controller="MyPhotoGalleryApp.Main">
 
     <div class="card fix_header">
         <div class="card-body">
@@ -48,7 +49,7 @@ var galleryData = @galleryData;
                     <!--Card content-->
                     <div class="card-body">
                         <!--Title-->
-                        <h4 class="card-title">@gallery.name</h4>
+                        <h5 class="card-title">@gallery.name</h5>
                         <!--Text-->
 
                         <div class="row">
@@ -63,7 +64,7 @@ var galleryData = @galleryData;
                         </div>
                         <div class="row">
                             <div class="col-12">
-                                <p class="blue-grey-text">Eius, provident. Quo similique, repellat atque voluptas explicabo odio.</p>
+                                <p class="blue-grey-text">This is description of the album</p>
                             </div>
                         </div>
                         <!--
@@ -90,6 +91,7 @@ var galleryData = @galleryData;
 	 @Include("./template/js_libs.zb",null)
 
     <script type="text/javascript" src="./app/MyPhotoGalleryJs.js"></script>
+	<script type="text/javascript" src="./app/MyPhotoGalleryApp.js"></script>
 	
 </body>
 </html>

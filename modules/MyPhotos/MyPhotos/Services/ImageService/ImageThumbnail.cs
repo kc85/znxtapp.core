@@ -14,7 +14,7 @@ namespace MyPhotos.Services.ImageService
     {
     
 
-        public string CompressImage(Bitmap image, int maxWidth, int maxHeight, out Size imageSize,  int quality = 90)
+        public string CompressImage(Bitmap image, int maxWidth, int maxHeight, out Size imageSize,  int quality = 90,RotateFlipType rotate = RotateFlipType.RotateNoneFlipNone)
         {
             //return string.Empty;
 
@@ -84,6 +84,7 @@ namespace MyPhotos.Services.ImageService
 
                 using (var ms = new MemoryStream())
                 {
+                    newImage.RotateFlip(rotate);
                     newImage.Save(ms, imageCodecInfo, encoderParameters);
                     var imageBase64 = Convert.ToBase64String(ms.ToArray());
                     // newImage.Save(@"C:\temp\t\" + RandomString(10) + ".png", imageCodecInfo, encoderParameters);
