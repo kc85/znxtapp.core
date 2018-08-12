@@ -22,6 +22,7 @@ var __userData = {};
            if ($scope.galleryid == undefined && $scope.isShowBookmark == undefined) {
                window.location = "./indexnew.z";
            }
+           $scope.gallery = undefined
            $scope.gallery_name = "";
            $scope.screenHeight = 0;
            $scope.images = [];
@@ -54,7 +55,6 @@ var __userData = {};
                    else {
                        $scope.user = undefined;
                        __userData = undefined;
-
                    }
                });
            }
@@ -67,12 +67,12 @@ var __userData = {};
                }
            };
            $scope.rotateImage = function () {
-               if ($scope.loading != true) {
-                   $scope.loading = true;
+               if ($scope.busy != true) {
+                   $scope.busy = true;
                    var url = "../api/myphotos/image/rotate?file_hash=" + $scope.selectedImage.file_hash + "&galleryid=" + $scope.galleryid;
                    $scope.rotateText = "...";
                    $http.post(url).then(function (response) {
-                       $scope.loading = false;
+                       $scope.busy = false;
                        lastFileHash = "";
                        $scope.rotateText = "Rotate";
                        $scope.selectedImage = response.data.data;
@@ -108,8 +108,7 @@ var __userData = {};
                if (image != undefined) {
                    $scope.galleryid = image.galleryid;
                    $scope.selectedImage = image;
-                   $scope.shareLink = window.location.href;
-                   $scope.shareText = "Share Image";
+                   setShareLink();
                    $scope.selectedImageIndex = fileIndex(image.file_hash);
                    $scope.selectedImagedata = $scope.gallery_files[$scope.selectedImageIndex];
                    fetchImageDetails();
@@ -124,15 +123,26 @@ var __userData = {};
                $scope.isbackbuttonpress = true;
                $scope.showImageTopToolbar = false;
            }
+
+           function setShareLink() {
+               if ($scope.gallery != undefined) {
+                   var galleryshareurl = "https://znxt.app/gallerynew/share.z?thumbnail_image=" + $scope.gallery.thumbnail_image.file_hash + "&galleryid=" + $scope.galleryid;
+                   $scope.galleryShareLink = galleryshareurl;
+                   $scope.shareText = $scope.gallery.display_name;
+               }
+               if ($scope.selectedImage != undefined) {
+                   var url = "https://znxt.app/gallerynew/share.z?file_hash=" + $scope.selectedImage.file_hash + "&galleryid=" + $scope.galleryid;
+                   $scope.shareLink = url;
+               }
+           }
            function fetchImageDetails(callback) {
                var url = "../api/myphotos/fetch?file_hash=" + $scope.selectedImage.file_hash + "&galleryid=" + $scope.galleryid + "&pagesize=10";
                $http.get(url).then(function (response) {
-                   $scope.shareLink = window.location.href;
-                   $scope.shareText = "Share Image";
-
+                   setShareLink();
+                   
                    if (response.data.code == 401) {
                        $scope.user = response.data.data;
-                       showLogin();
+                       window.location = "./indexnex.z";
                    }
                    else {
                        $scope.selectedImagedata = response.data.data;
@@ -144,7 +154,7 @@ var __userData = {};
                });
            };
            function fetchPageImage(callback) {
-               
+              
                var url = "../api/myphotos/gallery?id=" + $scope.galleryid + "&currentpage=" + $scope.currentpage + "&pagesize=" + $scope.pagesize;
                if ($scope.isShowBookmark != undefined) {
                    if ($scope.gallery_files.length != 0) {
@@ -154,11 +164,16 @@ var __userData = {};
 
                }
                $http.get(url).then(function (response) {
+
                    if (response.data.code == 401) {
                        $scope.user = response.data.data;
                        showLogin();
                    }
                    else {
+                       $scope.gallery = response.data.data;
+                       if ($scope.isShowBookmark == undefined && $scope.gallery.thumbnail_image.changeset_no == undefined) {
+                           $scope.gallery.thumbnail_image.changeset_no = 0;
+                       }
                        response.data.data.images.forEach(function (d) {
                            if (d.changeset_no == undefined) {
                                d.changeset_no = 0;
@@ -168,7 +183,8 @@ var __userData = {};
                            }
                            $scope.gallery_files.push(d);
                        });
-                       $scope.gallery_name = response.data.data.name;
+                       $scope.gallery.images = undefined;
+                       setShareLink();
                    }
                    if (callback != undefined) {
                        callback();
@@ -176,6 +192,19 @@ var __userData = {};
                });
            }
 
+           $scope.isOwner = function () {
+               if ($scope.user != undefined && $scope.gallery!=undefined) {
+                   if ($scope.user.user_id == $scope.gallery.owner) {
+                       return true;
+                   }
+                   else if ($scope.user.groups.indexOf($scope.gallery.owner) != -1) {
+                       return true;
+                   }
+
+               }
+               return false;
+           }
+           
            $scope.$on('$locationChangeSuccess', function (event, newUrl, oldUrl) {
                if ($scope.isbackbuttonpress) {
                    if (window.location.hash.length == 0) {

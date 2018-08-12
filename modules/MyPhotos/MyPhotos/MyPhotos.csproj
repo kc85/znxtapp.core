@@ -105,6 +105,8 @@
     <None Include="wwwroot\frontend\GalleryNew\clearcache.z">
       <SubType>Designer</SubType>
     </None>
+    <None Include="wwwroot\frontend\GalleryNew\gatterysettings.z" />
+    <None Include="wwwroot\frontend\GalleryNew\share.z" />
     <None Include="wwwroot\frontend\GalleryNew\GOAuth2.z" />
     <None Include="wwwroot\frontend\GalleryNew\GOAuth.z" />
     <None Include="wwwroot\frontend\GalleryNew\userprofile.z" />
@@ -207,6 +209,7 @@
     <Content Include="build-events-scripts\post-build\ZNxtApp.CLI.exe" />
     <Content Include="wwwroot\backend\app\your_module_backend\your_module.html" />
     <Content Include="wwwroot\backend\app\your_module_backend\your_module.js" />
+    <Content Include="wwwroot\frontend\GalleryNew\app\MyPhotoGallerySettingApp.js" />
     <Content Include="wwwroot\frontend\GalleryNew\app\MyPhotoUserInfo.js" />
     <Content Include="wwwroot\frontend\GalleryNew\app\MyPhotoApp.js" />
     <Content Include="wwwroot\frontend\GalleryNew\app\MyPhotoAppDetails.js" />
@@ -223,6 +226,7 @@
     <Content Include="wwwroot\frontend\GalleryNew\img\lightbox\default-skin.png" />
     <Content Include="wwwroot\frontend\GalleryNew\img\lightbox\default-skin.svg" />
     <Content Include="wwwroot\frontend\GalleryNew\img\lightbox\preloader.gif" />
+    <Content Include="wwwroot\frontend\GalleryNew\img\myphotologo.png" />
     <Content Include="wwwroot\frontend\GalleryNew\img\my_photos_logo.png" />
     <Content Include="wwwroot\frontend\GalleryNew\img\my_photos_logo_01.png" />
     <Content Include="wwwroot\frontend\GalleryNew\img\overlays\01.png" />

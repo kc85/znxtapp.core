@@ -9,34 +9,92 @@
 	 @Include("./template/header_css.zb",null)
 </head>
 
-<body ng-controller="MyPhotoApp.Main">
-
-    <div class="card fix_header">
-        <div class="card-body">
-            <h4 class="card-title">{{gallery_name}}</h4>
-        </div>
+<body ng-controller="MyPhotoApp.Main" >
+    <div class="progress" ng-hide="gallery != undefined" style="height:5px;">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
     </div>
+    <div class="ng-hide" ng-show="gallery != undefined">
+        <div class="card fix_header" id="navbar">
+            <div class="card-body row" style="padding:7px">
+                <div class="col-8">
+                    <h5 class="card-title"><img src="./img/myphotologo.png" style="height:35px"> <span style="padding-left:5px;"> {{gallery.display_name}}</span></h5>
+                </div>
+                <div class="col-2 view ng-hide" ng-show="user != undefined && isShowBookmark == undefined && isOwner()">
+                    <a href="./gatterysettings.z?galleryid={{galleryid}}">
+                        <div class="mask toolMenuItemIcon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                <path fill="none" d="M0 0h20v20H0V0z" />
+                                <path d="M15.95 10.78c.03-.25.05-.51.05-.78s-.02-.53-.06-.78l1.69-1.32c.15-.12.19-.34.1-.51l-1.6-2.77c-.1-.18-.31-.24-.49-.18l-1.99.8c-.42-.32-.86-.58-1.35-.78L12 2.34c-.03-.2-.2-.34-.4-.34H8.4c-.2 0-.36.14-.39.34l-.3 2.12c-.49.2-.94.47-1.35.78l-1.99-.8c-.18-.07-.39 0-.49.18l-1.6 2.77c-.1.18-.06.39.1.51l1.69 1.32c-.04.25-.07.52-.07.78s.02.53.06.78L2.37 12.1c-.15.12-.19.34-.1.51l1.6 2.77c.1.18.31.24.49.18l1.99-.8c.42.32.86.58 1.35.78l.3 2.12c.04.2.2.34.4.34h3.2c.2 0 .37-.14.39-.34l.3-2.12c.49-.2.94-.47 1.35-.78l1.99.8c.18.07.39 0 .49-.18l1.6-2.77c.1-.18.06-.39-.1-.51l-1.67-1.32zM10 13c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z" />
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-2 view toolMenuItem ">
+                    <a data-text="{{shareText}}" data-link="{{galleryShareLink}}" id="btnShareImage" class="whatsapp">
+                        <div class="mask toolMenuItemIcon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="progress" ng-show="busy==true" style="height:5px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+            </div>
+        </div>
 
-
-    <div class="container-fluid" style="margin-top:70px;margin-bottom: 50px;" >
-        <div class="row" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
-            <div class="col-4 col-md-2 col-sm-3 gridpadding zoom view" ng-repeat="image in gallery_files">
-                <a href="#file_hash={{image.file_hash}}&changeset_no={{image.changeset_no}}&galleryid={{image.galleryid}}" data-toggle="modal" ng-click="imageClick();">
-                    <img src="../api/myphotos/image?file_hash={{image.file_hash}}&t=m&changeset_no={{image.changeset_no}}" class="img-fluid z-depth-1" alt="">
-                    <div class="mask flex-center waves-effect">
-
+        <div class="col-12 col-md-3 col-sm-6 gridpadding" style="margin-top:70px;">
+            <div class="card" ng-show="isShowBookmark == undefined">
+                <!--Card image-->
+                <div class="overlay hm-white-slight">
+                    <img file_hash="{{gallery.thumbnail_image.file_hash}}"
+                         changeset="{{gallery.thumbnail_image.changeset_no}}"
+                         src="../api/myphotos/image?file_hash={{gallery.thumbnail_image.file_hash}}&t=m&changeset_no={{gallery.thumbnail_image.changeset_no}}"
+                         style="width:100%"
+                         class="img-fluid gallerythumbnail"
+                         onload="replaceImage(this)"
+                         alt="">
+                </div>
+                <!--Card content-->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            Photos
+                            <span class="badge badge-primary badge-pill">{{gallery.files_count}}</span>
+                        </div>
                     </div>
-                </a>
-            </div>           
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="blue-grey-text">{{gallery.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="container-fluid" style="margin-bottom: 50px;">
+            <div class="row" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+                <div class="col-4 col-md-2 col-sm-3 gridpadding zoom view" ng-repeat="image in gallery_files">
+                    <a href="#file_hash={{image.file_hash}}&changeset_no={{image.changeset_no}}&galleryid={{image.galleryid}}" data-toggle="modal" ng-click="imageClick();">
+                        <img src="../api/myphotos/image?file_hash={{image.file_hash}}&t=m&changeset_no={{image.changeset_no}}" class="img-fluid z-depth-1" alt="">
+                        <div class="mask flex-center waves-effect">
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+
+        @Include("./template/image_view.zb",null)
+        @Include("./template/login_view.zb",null)
+        @Include("./template/footer_toolbar.zb",null)
+        @Include("./template/image_footer_toolbar.zb",null)
+
     </div>
 
-  
-
-    @Include("./template/image_view.zb",null)
-	@Include("./template/login_view.zb",null)
-	@Include("./template/footer_toolbar.zb",null)
-	@Include("./template/image_footer_toolbar.zb",null)
 	@Include("./template/js_libs.zb",null)
 
     <script type="text/javascript" src="./app/MyPhotoApp.js"></script>

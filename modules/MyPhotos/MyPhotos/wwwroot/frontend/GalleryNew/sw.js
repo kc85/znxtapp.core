@@ -1,11 +1,12 @@
-﻿const PRECACHE = 'precache-v1.249';
-const RUNTIME = 'runtime-v1.249';
+﻿const PRECACHE = 'precache-v1.312';
+const RUNTIME = 'runtime-v1.312';
 
 
 const BACKGROUND_CACHE_URLS = [
     '/api/myphotos/gallery',
     '/indexnew.z',
-    '/api/myphotos/user/bookmark'
+    '/api/myphotos/user/bookmark',
+    '/api/myphotos/users'
 ]
 
 const IGNORE_CACHE_URLS = [
@@ -17,6 +18,7 @@ const IGNORE_CACHE_URLS = [
     '/api/user/google/auth',
     '/api/myphotos/image/like',
     '/api/myphotos/image/bookmark',
+    '/api/myphotos/gallery/update',
     'https://apis.google.com/js/platform.js'
 ];
 

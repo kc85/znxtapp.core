@@ -1,4 +1,4 @@
-﻿<div class="row fix_footer blue" ng-show="selectedImage != undefined" style="z-index: 999999;">
+﻿<div class="row fix_footer blue" id="navbarfooter" ng-show="selectedImage != undefined" style="z-index: 999999;">
   <div class="col-3 view toolMenuItem" >
     
     <a ng-click="showPreviousImage();">

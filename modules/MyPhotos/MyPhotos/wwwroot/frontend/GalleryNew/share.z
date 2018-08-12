@@ -1,0 +1,28 @@
+﻿<html>
+<head>
+<meta property="og:title" content="My Photos" />
+<meta property="og:description" content="" />
+<meta property="og:url" content="https://znxt.app/gallerynew/gallery.z?galleryid=@QueryString("galleryid")#!#file_hash=@QueryString("file_hash")&changeset_no=3&galleryid=@QueryString("galleryid")" />
+<meta property="og:image" content="https://znxt.app/api/myphotos/image?file_hash=@QueryString("file_hash")@QueryString("thumbnail_image")&t=m" />
+
+
+
+@if(QueryString("file_hash")!=null)
+{
+        <script>
+            var url = "https://znxt.app/gallerynew/gallery.z?galleryid=@QueryString("galleryid")#!#file_hash=@QueryString("file_hash")&changeset_no=3&galleryid=@QueryString("galleryid")";
+            window.location = url;
+         </script>
+}
+else
+{
+        <script>
+            var url = "https://znxt.app/gallerynew/gallery.z?galleryid=@QueryString("galleryid")";
+            window.location = url;
+        </script>
+}
+
+
+
+</head>
+</html>

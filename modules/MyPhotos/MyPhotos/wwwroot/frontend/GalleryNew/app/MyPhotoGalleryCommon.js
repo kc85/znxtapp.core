@@ -65,6 +65,7 @@ function replaceImage(image) {
         }
         imageL.src = "../api/myphotos/image?file_hash=" + fileHash + "&t=l&changeset_no=" + changeset;
     }
+    blockImageDownload();
 }
 
 function showProfile() {
@@ -146,14 +147,11 @@ function initGoogleAuth(callback){
     });
 }
 function googleSignOut() {
-    initGoogleAuth(function(){
+    initGoogleAuth(function () {
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
-            setCookie(userlogincookiekey,false,30);
-            removeCacheKey("/api/myphotos/gallery");
-            removeCacheKey("/indexnew.z",function(){
-                window.location="../signup/logout.z?rurl=../gallerynew/indexnew.z";
-            });
+            setCookie(userlogincookiekey, false, 30);
+            window.location = "../signup/logout.z?rurl=../gallerynew/indexnew.z";
         });
     });
 }
@@ -177,7 +175,7 @@ $(document).ready(function () {
         });
     }
     getUserInfo();
-
+    //loadGalleryLargeImage();
     $(document).on("click", '.whatsapp', function () {
         if (isMobile.any()) {
             var text = $(this).attr("data-text");
@@ -215,6 +213,7 @@ $(document).ready(function () {
 
 });
 
+
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
@@ -245,4 +244,27 @@ function getUrlHashKeys(){
         keys[keyVal[0]] = keyVal[1];
     });
     return keys;
+}
+
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function () {
+    var currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos || currentScrollPos < 100) {
+        document.getElementById("navbar").style.top = "0";
+        document.getElementById("navbarfooter").style.bottom = "0";
+    } else {
+
+        document.getElementById("navbar").style.top = "-49px";
+        document.getElementById("navbarfooter").style.bottom = "-49px";
+    }
+    prevScrollpos = currentScrollPos;
+}
+
+
+function blockImageDownload() {
+    $('img').mousedown(function (e) {
+        if (e.button == 2) { // right click
+            return false; // do nothing!
+        }
+    });
 }

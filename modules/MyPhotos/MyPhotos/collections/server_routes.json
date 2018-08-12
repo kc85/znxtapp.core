@@ -60,13 +60,13 @@
         ]
     },
     {
-        "key": "POST:/api/myphotos/gallery/updatecover",
+        "key": "POST:/api/myphotos/gallery/update",
         "ContentType": "application/json",
         "Method": "POST",
-        "Route": "/api/myphotos/image/rotate",
+        "Route": "/api/myphotos/gallery/update",
         "ExecultAssembly": "MyPhotos.dll",
         "ExecuteType": "MyPhotos.Services.Api.ImageEditor",
-        "ExecuteMethod": "UpdateAlbumCover",
+        "ExecuteMethod": "UpdateAlbum",
         "auth_users": [
             "user"
         ]
@@ -95,14 +95,26 @@
             "user"
         ]
     },
-    {
-        "key": "GET:/api/myphotos/user/bookmark",
+  {
+    "key": "GET:/api/myphotos/user/bookmark",
+    "ContentType": "application/json",
+    "Method": "GET",
+    "Route": "/api/myphotos/user/bookmark",
+    "ExecultAssembly": "MyPhotos.dll",
+    "ExecuteType": "MyPhotos.Services.Api.ImageBookmarkCtrl",
+    "ExecuteMethod": "GetUserBookmark",
+    "auth_users": [
+      "user"
+    ]
+  },
+  {
+        "key": "GET:/api/myphotos/users",
         "ContentType": "application/json",
         "Method": "GET",
-        "Route": "/api/myphotos/user/bookmark",
+        "Route": "/api/myphotos/users",
         "ExecultAssembly": "MyPhotos.dll",
-        "ExecuteType": "MyPhotos.Services.Api.ImageBookmarkCtrl",
-        "ExecuteMethod": "GetUserBookmark",
+        "ExecuteType": "MyPhotos.Services.Api.ImageBrowser",
+        "ExecuteMethod": "MyPhotoUsers",
         "auth_users": [
             "user"
         ]

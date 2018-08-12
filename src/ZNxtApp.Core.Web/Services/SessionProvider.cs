@@ -25,12 +25,14 @@ namespace ZNxtApp.Core.Web.Services
         }
         public T GetValue<T>(string key)
         {
-            string filter = "{'" + CommonConst.CommonField.SESSION_ID + "' : '" + _httpProxy.SessionID + "','" + CommonConst.CommonField.DATA_KEY + "':'" + key + "'}";
-            
-            var sessionData = _dbProxy.Get(CommonConst.Collection.SESSION_DATA,filter);
-            if (sessionData.Count == 1)
+            JObject filter = new JObject();
+            filter[CommonConst.CommonField.SESSION_ID] = _httpProxy.SessionID;
+            var sessionData = _dbProxy.Get(CommonConst.Collection.SESSION_DATA,filter.ToString(), new List<string> { key });
+
+            if (sessionData.Count == 1 && sessionData[0][key] != null)
             {
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(sessionData[0][CommonConst.CommonField.DATA].ToString());
+                var value = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(sessionData[0][key].ToString());
+                return value;
             }
             else
             {
@@ -58,13 +60,12 @@ namespace ZNxtApp.Core.Web.Services
 
         public void SetValue<T>(string key, T value)
         {
-            string filter = "{'" + CommonConst.CommonField.SESSION_ID + "' : '" + _httpProxy.SessionID + "','" + CommonConst.CommonField.DATA_KEY + "':'" + key + "'}";
-            
+            JObject filter = new JObject();
+            filter[CommonConst.CommonField.SESSION_ID] = _httpProxy.SessionID;
             JObject sessionData = new JObject();
             sessionData[CommonConst.CommonField.SESSION_ID] = _httpProxy.SessionID;
-            sessionData[CommonConst.CommonField.DATA_KEY] = key;
-            sessionData[CommonConst.CommonField.DATA] = Newtonsoft.Json.JsonConvert.SerializeObject(value);
-            _dbProxy.Update(CommonConst.Collection.SESSION_DATA,filter, sessionData, true);
+            sessionData[key] = Newtonsoft.Json.JsonConvert.SerializeObject(value);
+            _dbProxy.Update(CommonConst.Collection.SESSION_DATA,filter.ToString(), sessionData, true, MergeArrayHandling.Union);
         }
     }
 }

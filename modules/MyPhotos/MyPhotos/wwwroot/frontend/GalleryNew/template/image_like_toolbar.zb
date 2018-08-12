@@ -1,7 +1,7 @@
 ﻿<div class="row grey lighten-3 fix_header ng-hide" ng-show="showImageTopToolbar" style="height:50px" >
  
   <div class="col-3 view toolMenuItem">
-    <a onclick="window.history.back();" >
+    <a onclick="closeImageDetail();" >
       <div class="mask toolMenuItemIcon">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
           <path d="M0 0h24v24H0z" fill="none"/>
@@ -14,7 +14,7 @@
   <div class="col-3 view toolMenuItem">
    
   </div>
-  <div class="col-3 view toolMenuItem ng-hide"  ng-hide="user == undefined">
+  <div class="col-3 view toolMenuItem ng-hide"  ng-show="isOwner()">
     <a ng-click="rotateImage()">
       <div class="mask toolMenuItemIcon" >
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

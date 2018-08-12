@@ -15,6 +15,7 @@
 
 <script type="text/javascript" src="./app/MyPhotoGalleryCommon.js"></script>
 
+
 <script>
   if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js');

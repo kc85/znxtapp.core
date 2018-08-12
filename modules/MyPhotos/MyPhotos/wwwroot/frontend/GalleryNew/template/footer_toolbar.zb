@@ -23,7 +23,7 @@
 </div>
 
 
-<div class="row fix_footer blue fix_footer" ng-show="selectedImage == undefined">
+<div class="row fix_footer blue fix_footer" id="navbarfooter" ng-show="selectedImage == undefined">
   <div class="col-3 view toolMenuItem">
     <a href="./indexnew.z" >
       <div class="mask toolMenuItemIcon">

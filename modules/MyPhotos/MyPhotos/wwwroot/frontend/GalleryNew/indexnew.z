@@ -15,75 +15,80 @@
 
 </head>
 
-<script>
-var galleryData = @galleryData;
-</script>
 <body  ng-controller="MyPhotoGalleryApp.Main">
 
-    <div class="card fix_header">
-        <div class="card-body">
-            <h4 class="card-title">Albums</h4>
+    <div class="card fix_header" id="navbar" >
+        <div class="card-body" style="padding:7px">
+            <h5 class="card-title"> <img src="./img/myphotologo.png" style="height:35px"> <span style="padding-left:5px;"> My Photos </span></h5>
         </div>
     </div>
 
 
-    <div class="container" style="margin-top:70px;margin-bottom: 50px">
-        <div class="row">
+    <div class="container" style="margin-top:50px;margin-bottom: 50px">
+        
+        <!--<div class="row" ng-show="user==undefined && gallery != undefined" >
+            <div class="col-12">
+                <h5 class="mt-1 mb-2">Login to My Photos</h5>
+                <div class="g-signin2" data-onsuccess="googleLoginCheck" data-theme="dark"></div>
+            </div>
+        </div>-->
+        <div class="row" >
 
 		@foreach (var gallery in @galleryData["data"])
     {
 
-            <div class="col-12 col-md-3 col-sm-6 gridpadding">
-                <div class="card">
-                    <!--Card image-->
-                    <div class="view overlay hm-white-slight zoom">
-                        <img id="@gallery.thumbnail_image.file_hash" 
-							changeset="@gallery.thumbnail_image.changeset_no" 
-							src="../api/myphotos/image?file_hash=@gallery.thumbnail_image.file_hash&t=m&changeset_no=@gallery.thumbnail_image.changeset_no" 
-							style="width:100%" 
-							class="img-fluid gallerythumbnail" alt="">
-                        <a href="gallery.z?galleryid=@gallery.id">
-                            <div class="mask"></div>
-                        </a>
-                    </div>
-                    <!--Card content-->
-                    <div class="card-body">
-                        <!--Title-->
-                        <h5 class="card-title">@gallery.name</h5>
-                        <!--Text-->
+            <div class="col-12 col-md-3 col-sm-6 gridpadding imagealbum" id="G_@gallery.id">
 
-                        <div class="row">
-                            <div class="col-6">
-                                Photos
-                                <span class="badge badge-primary badge-pill">@gallery.files_count</span>
-                            </div>
-                            <div class="col-6">
-                                Views
-                                <span class="badge badge-primary badge-pill">14</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <p class="blue-grey-text">This is description of the album</p>
-                            </div>
-                        </div>
-                        <!--
-                <div class="md-form">
-                <textarea type="text" id="form7" class="md-textarea form-control" rows="1"></textarea>
-                <label for="form7">Comment</label>
-                    </div>
-                </p>
+                <div class="view overlay hm-white-slight zoom">
 
+                    <!--<div file_hash="@gallery.thumbnail_image.file_hash"
+                         changeset="@gallery.thumbnail_image.changeset_no"
 
-                <a href="#" class="btn btn-primary btn-deep-purple">Button</a>
-                -->
+                         style="background-image:url('../api/myphotos/image?file_hash=@gallery.thumbnail_image.file_hash&t=l&changeset_no=@gallery.thumbnail_image.changeset_no'); 
+                                width:100%; height:170px; background-position:top; background-size: 100%" 
+                         class="gallerythumbnail rcorners3">&nbsp;</div>-->
 
-                    </div>
+                    <img file_hash="@gallery.thumbnail_image.file_hash"
+                         changeset="@gallery.thumbnail_image.changeset_no"
+                         src="../api/myphotos/image?file_hash=@gallery.thumbnail_image.file_hash&t=m&changeset_no=@gallery.thumbnail_image.changeset_no"
+                         style="width:100%"
+                         class="img-fluid gallerythumbnail rcorners3"
+                         alt="">
+                    <a href="gallery.z?galleryid=@gallery.id">
+                        <div class="mask waves-effect waves-light"></div>
+                    </a>
+                    <div class="font-weight-light" style="padding-left:5px">@gallery.display_name. @gallery.files_count photos</div>
+                    <div class="font-weight-light font-italic" style="padding-left:5px"><small>@gallery.description</small></div>
+
                 </div>
+                
             </div>
 		}
+            </div>
+            <div class="row" ng-hide="gallery == undefined">
+                <div class="col-12 col-md-3 col-sm-6 gridpadding" ng-repeat="g in gallery | filter : {elementfound : false}">
+                    <div class="view overlay hm-white-slight zoom">
 
-        </div>
+                        <!--<div file_hash="{{g.thumbnail_image.file_hash}}"
+                             changeset="{{g.thumbnail_image.changeset_no}}"
+                             style="background-image:url('../api/myphotos/image?file_hash={{g.thumbnail_image.file_hash}}&t=l&changeset_no={{g.thumbnail_image.changeset_no}}');
+                                    width:100%; height:170px; background-position:top; background-size: 100%"
+                             class="gallerythumbnail rcorners3">&nbsp;</div>-->
+
+                        <img file_hash="{{g.thumbnail_image.file_hash}}"
+                             changeset="{{g.thumbnail_image.changeset_no}}"
+                             src="../api/myphotos/image?file_hash={{g.thumbnail_image.file_hash}}&t=m&changeset_no={{g.thumbnail_image.changeset_no}}"
+                             style="width:100%"
+                             class="img-fluid gallerythumbnail rcorners3"
+                             alt="">
+                        <a href="gallery.z?galleryid={{g.id}}">
+                            <div class="mask waves-effect waves-light"></div>
+                        </a>
+                        <div class="font-weight-light" style="padding-left:5px">{{g.display_name}}. {{g.files_count photos}}</div>
+                        <div class="font-weight-light font-italic" style="padding-left:5px"><small>{{g.description}}</small></div>
+                    </div>
+                </div>
+            </div>        
     </div>
 
 	 @Include("./template/footer_toolbar.zb",null)

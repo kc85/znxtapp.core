@@ -16,6 +16,10 @@ namespace MyPhotos.Services.ImageService
 {
     public class ImageProcessor
     {
+        public const string DEFAULT_OWNER = "sys_admin";
+        public const string OWNER = "owner";
+        public const string DISPLAY_NAME = "display_name";
+        public const string DESCRIPTION = "description";
         public const string FILE_HASH = "file_hash";
         public const string USERS = "users";
         public const string CHANGESET_NO = "changeset_no";
@@ -112,8 +116,10 @@ namespace MyPhotos.Services.ImageService
                 if (gallery == null)
                 {
                     gallery = new JObject();
-                    gallery[CommonConst.CommonField.NAME] = item;
                     gallery[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
+                    gallery[DISPLAY_NAME] = gallery[CommonConst.CommonField.NAME] = item;
+                    gallery[DESCRIPTION] = "";
+                    gallery[OWNER] = DEFAULT_OWNER;
                     AddDefaultAuthUser(gallery);
                     gallery[GALLERY_THUMBNAIL] = fileHash;
                     gallery[FILE_HASHS] = new JArray();
@@ -210,17 +216,19 @@ namespace MyPhotos.Services.ImageService
                 var path = string.Concat(baseFolderPath, "\\", fileModel.file_paths.First());
 
                 using (var image = ImageGalleryHelper.GetImageBitmapFromFile(path))
-                    {
-                        
-                        fileData[FILE_HASH] = fileModel.file_hash;
-                        ImageGalleryHelper.ProcessImage(fileData, image);
-                        fileData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
-                        AddPath(fileData, fileModel);
-                        AddTags(fileData, fileModel);
-                        AddDefaultAuthUser(fileData);
-                        AddMetaData(image, fileData);
-                        GetDateTaken(fileData, path);
-                    }
+                {
+
+                    fileData[FILE_HASH] = fileModel.file_hash;
+                    fileData[OWNER] = DEFAULT_OWNER;
+
+                    ImageGalleryHelper.ProcessImage(fileData, image);
+                    fileData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
+                    AddPath(fileData, fileModel);
+                    AddTags(fileData, fileModel);
+                    AddDefaultAuthUser(fileData);
+                    AddMetaData(image, fileData);
+                    GetDateTaken(fileData, path);
+                }
                 
                 if (!dbProxy.Write(MYPHOTO_COLLECTION, fileData))
                 {

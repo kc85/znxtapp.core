@@ -35,7 +35,7 @@ namespace MyPhotos.Services.Api
                     return ResponseBuilder.CreateReponse(CommonConst._400_BAD_REQUEST);
                 }
 
-                if (!ImageGalleryHelper.HasAccess(DBProxy, SessionProvider, galleryId, fileHash))
+                if (!ImageGalleryHelper.IsOwner(DBProxy, SessionProvider, galleryId))
                 {
                     return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
                 }
@@ -136,24 +136,46 @@ namespace MyPhotos.Services.Api
 
         }
 
-        public JObject UpdateAlbumCover()
+        public JObject UpdateAlbum()
         {
-            var fileHash = HttpProxy.GetQueryString(ImageProcessor.FILE_HASH);
             var galleryId = HttpProxy.GetQueryString(ImageProcessor.GALLERY_ID);
 
-            if (string.IsNullOrEmpty(fileHash) || string.IsNullOrEmpty(galleryId))
+            var requestBody = HttpProxy.GetRequestBody<JObject>();
+            if (requestBody ==null || string.IsNullOrEmpty(galleryId))
             {
                 return ResponseBuilder.CreateReponse(CommonConst._400_BAD_REQUEST);
             }
-            if (!ImageGalleryHelper.HasAccess(DBProxy, SessionProvider, galleryId, fileHash))
+            if (!ImageGalleryHelper.IsOwner(DBProxy, SessionProvider, galleryId))
             {
                 return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
             }
             var filter = new JObject();
             filter[CommonConst.CommonField.DISPLAY_ID] = galleryId;
+
             var data = DBProxy.FirstOrDefault(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, filter.ToString());
-            data[ImageProcessor.GALLERY_THUMBNAIL] = fileHash;
-            if (DBProxy.Update(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, filter.ToString(), data) != 1)
+
+            if (data == null)
+            {
+                return ResponseBuilder.CreateReponse(CommonConst._400_BAD_REQUEST);
+            }
+            if (requestBody[ImageProcessor.DISPLAY_NAME]!=null)
+            {
+                data[ImageProcessor.DISPLAY_NAME] = requestBody[ImageProcessor.DISPLAY_NAME].ToString();
+            }
+            if (requestBody[ImageProcessor.DESCRIPTION] != null)
+            {
+                data[ImageProcessor.DESCRIPTION] = requestBody[ImageProcessor.DESCRIPTION].ToString();
+            }
+            if (requestBody[ImageProcessor.GALLERY_THUMBNAIL] != null)
+            {
+                data[ImageProcessor.GALLERY_THUMBNAIL] = requestBody[ImageProcessor.GALLERY_THUMBNAIL].ToString();
+            }
+            if (requestBody[ImageProcessor.AUTH_USERS] != null)
+            {
+                data[ImageProcessor.AUTH_USERS] = requestBody[ImageProcessor.AUTH_USERS];
+            }
+
+            if (DBProxy.Update(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, filter.ToString(), data,false, MergeArrayHandling.Replace) != 1)
             {
                 return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
             }

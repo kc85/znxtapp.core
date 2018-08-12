@@ -78,10 +78,24 @@ namespace MyPhotos.Services.ImageService
             return isValid;
 
         }
-        private static bool IsValidaUser(JObject data, ISessionProvider sessionProvider)
+        public static bool IsOwner(IDBService dbProxy, ISessionProvider sessionProvider, string galleryId)
+        {
+            JObject filter = new JObject();
+            filter[CommonConst.CommonField.DISPLAY_ID] = galleryId;
+
+            var data = dbProxy.FirstOrDefault(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, filter.ToString());
+            if (data == null)
+            {
+                return false;
+            }
+            AddDefaultOwner(data);
+            var auth_users = GetCurrentAuthGroups(sessionProvider);
+            var owner = data[ImageProcessor.OWNER].ToString();
+            return auth_users.IndexOf(owner) !=-1;
+        }
+        public static bool IsValidaUser(JToken data, ISessionProvider sessionProvider)
         {
             if (data == null) return false;
-
             var auth_users = GetCurrentAuthGroups(sessionProvider);
             bool isValid = false;
             foreach (var auth in data[ImageProcessor.AUTH_USERS])
@@ -213,6 +227,15 @@ namespace MyPhotos.Services.ImageService
             {
                 data[0][ImageProcessor.VIEWS_COUNT] = viewData[0][ImageProcessor.COUNT];
             }
+        }
+        public static void AddDefaultOwner(JToken data)
+        {
+            if (data[ImageProcessor.OWNER] == null)
+            {
+                data[ImageProcessor.OWNER] = ImageProcessor.DEFAULT_OWNER;
+            }
+            if (data[ImageProcessor.AUTH_USERS] != null)
+                (data[ImageProcessor.AUTH_USERS] as JArray).Add(data[ImageProcessor.OWNER].ToString());
         }
 
     }
