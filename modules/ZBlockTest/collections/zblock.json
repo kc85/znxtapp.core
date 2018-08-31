@@ -1,0 +1,63 @@
+﻿[
+    {
+        "key": "body_my_gallery_block",
+        "block_path": "./template/blocks/index/my_gallery.zb",
+        "pages": [ "index" ],
+        "display_area": "body",
+        "index": 4,
+        "is_enabled": true,
+        "active_from_date_time": "",
+        "active_to_date_time": ""
+    },
+    {
+        "key": "body_gallery_block",
+        "block_path": "./template/blocks/index/gallery.zb",
+        "pages": [ "index" ],
+        "display_area": "body",
+        "index": 5,
+        "is_enabled": true,
+        "active_from_date_time": "",
+        "active_to_date_time": ""
+    },
+    {
+        "key": "body_feature_block",
+        "block_path": "./template/blocks/index/feature.zb",
+        "pages": [ "index" ],
+        "display_area": "body",
+        "index": 10,
+        "is_enabled": true,
+        "active_from_date_time": "",
+        "active_to_date_time": ""
+    },
+    {
+        "key": "body_about_block",
+        "block_path": "./template/blocks/index/about.zb",
+        "pages": [ "index" ],
+        "display_area": "body",
+        "index": 20,
+        "is_enabled": true,
+        "active_from_date_time": "",
+        "active_to_date_time": ""
+    },
+    {
+        "key": "body_more_detail_block",
+        "block_path": "./template/blocks/index/more_detail.zb",
+        "pages": [ "index" ],
+        "display_area": "body",
+        "index": 30,
+        "is_enabled": true,
+        "active_from_date_time": "",
+        "active_to_date_time": ""
+    },
+    {
+        "key": "body_detail_features_block",
+        "block_path": "./template/blocks/index/detail_features.zb",
+        "pages": [ "index" ],
+        "display_area": "body",
+        "index": 40,
+        "is_enabled": true,
+        "active_from_date_time": "",
+        "active_to_date_time": ""
+    }
+
+]

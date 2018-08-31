@@ -35,23 +35,33 @@ namespace ZNxtApp.Core.Module.App.Services.Api.UserManagement
         }
         public JObject GetSessionUser()
         {
-            var user = SessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
+            try
+            {
 
-            if (user == null)
-            {
-                return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
-            }
-            else
-            {
-                if (SignupHelper.IsValidToken(user, SessionProvider, Logger))
+
+                var user = SessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
+
+                if (user == null)
                 {
-                    return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, JObject.Parse(Newtonsoft.Json.JsonConvert.SerializeObject(user)));
+                    return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
                 }
                 else
                 {
-                    SessionProvider.ResetSession();
-                    return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
+                    if (SignupHelper.IsValidToken(user, SessionProvider, Logger))
+                    {
+                        return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, JObject.Parse(Newtonsoft.Json.JsonConvert.SerializeObject(user)));
+                    }
+                    else
+                    {
+                        SessionProvider.ResetSession();
+                        return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(string.Format("UsersController.Get {0}", ex.Message), ex);
+                return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
             }
         }
 

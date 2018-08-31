@@ -36,7 +36,7 @@ namespace ZNxtApp.Core.Web.Services
                 var filter = new JObject();
                 filter[CommonConst.CommonField.DISPLAY_ID] = cronJob[CommonConst.CommonField.DISPLAY_ID];
                 cronJob[CommonConst.CommonField.STATUS] = CommonConst.CommonValue.INPROGRESS;
-                cronJob[CommonConst.CommonField.TRANSATTION_ID] = _logger.TransactionId;
+                cronJob[CommonConst.CommonField.TRANSACTION_ID] = _logger.TransactionId;
                 var startDatetime = DateTime.Now;
                 cronJob[CommonConst.CommonField.LAST_EXEC_ON] = startDatetime.ToString();
                 cronJob[CommonConst.CommonField.ERR_MESSAGE] = string.Empty;
@@ -74,7 +74,7 @@ namespace ZNxtApp.Core.Web.Services
                     {
                         history[CommonConst.CommonField.ERR_MESSAGE] = cronJob[CommonConst.CommonField.ERR_MESSAGE];
                     }
-                    history[CommonConst.CommonField.TRANSATTION_ID] = _logger.TransactionId;
+                    history[CommonConst.CommonField.TRANSACTION_ID] = _logger.TransactionId;
                     (cronJob[CommonConst.CommonField.HISTORY] as JArray).Add(history);
                 }
                 

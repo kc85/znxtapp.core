@@ -136,51 +136,5 @@ namespace MyPhotos.Services.Api
 
         }
 
-        public JObject UpdateAlbum()
-        {
-            var galleryId = HttpProxy.GetQueryString(ImageProcessor.GALLERY_ID);
-
-            var requestBody = HttpProxy.GetRequestBody<JObject>();
-            if (requestBody ==null || string.IsNullOrEmpty(galleryId))
-            {
-                return ResponseBuilder.CreateReponse(CommonConst._400_BAD_REQUEST);
-            }
-            if (!ImageGalleryHelper.IsOwner(DBProxy, SessionProvider, galleryId))
-            {
-                return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
-            }
-            var filter = new JObject();
-            filter[CommonConst.CommonField.DISPLAY_ID] = galleryId;
-
-            var data = DBProxy.FirstOrDefault(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, filter.ToString());
-
-            if (data == null)
-            {
-                return ResponseBuilder.CreateReponse(CommonConst._400_BAD_REQUEST);
-            }
-            if (requestBody[ImageProcessor.DISPLAY_NAME]!=null)
-            {
-                data[ImageProcessor.DISPLAY_NAME] = requestBody[ImageProcessor.DISPLAY_NAME].ToString();
-            }
-            if (requestBody[ImageProcessor.DESCRIPTION] != null)
-            {
-                data[ImageProcessor.DESCRIPTION] = requestBody[ImageProcessor.DESCRIPTION].ToString();
-            }
-            if (requestBody[ImageProcessor.GALLERY_THUMBNAIL] != null)
-            {
-                data[ImageProcessor.GALLERY_THUMBNAIL] = requestBody[ImageProcessor.GALLERY_THUMBNAIL].ToString();
-            }
-            if (requestBody[ImageProcessor.AUTH_USERS] != null)
-            {
-                data[ImageProcessor.AUTH_USERS] = requestBody[ImageProcessor.AUTH_USERS];
-            }
-
-            if (DBProxy.Update(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, filter.ToString(), data,false, MergeArrayHandling.Replace) != 1)
-            {
-                return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
-            }
-            return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS);
-
-        }
     }
 }

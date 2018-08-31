@@ -94,8 +94,9 @@ namespace ZNxtApp.Core.Config
         }
 
         public static string AuthToken { get; set; }
+        private static double _sessionDuration = 30;
 
-        public static double SessionDuration { get { return 30; } }
+        public static double SessionDuration { get { return _sessionDuration; } set { _sessionDuration = value; } }
 
         public static string AppBinPath { get; set; }
 

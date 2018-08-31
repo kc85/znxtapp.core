@@ -11,6 +11,8 @@ using ZNxtApp.Core.Helpers;
 using System.Drawing;
 using System.IO;
 using System.Drawing.Imaging;
+using MyPhotos.Model;
+using System.Windows.Media.Imaging;
 
 namespace MyPhotos.Services.ImageService
 {
@@ -130,6 +132,18 @@ namespace MyPhotos.Services.ImageService
                 return new Bitmap(imageBase);
             }
         }
+        public static Bitmap GetImageBitmapFromByte(byte[] byteData)
+        {
+
+            using (MemoryStream ms = new MemoryStream(byteData, 0, byteData.Length))
+            {
+                ms.Write(byteData, 0, byteData.Length);
+                using (var imageBase = System.Drawing.Image.FromStream(ms))
+                {
+                    return new Bitmap(imageBase);
+                }
+            }
+        }
         public static void ProcessImage(JObject fileData, Bitmap image, RotateFlipType rotate = RotateFlipType.RotateNoneFlipNone)
         {
             Size imageSize = new Size();
@@ -236,6 +250,143 @@ namespace MyPhotos.Services.ImageService
             }
             if (data[ImageProcessor.AUTH_USERS] != null)
                 (data[ImageProcessor.AUTH_USERS] as JArray).Add(data[ImageProcessor.OWNER].ToString());
+        }
+
+        public static  JObject CreateFileDataJObject(FileModel fileModel, string path, Bitmap image)
+        {
+            JObject fileData = new JObject();
+            fileData[ImageProcessor.FILE_HASH] = fileModel.file_hash;
+            fileData[ImageProcessor.OWNER] = ImageProcessor.DEFAULT_OWNER;
+
+            ImageGalleryHelper.ProcessImage(fileData, image);
+            fileData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
+            AddPath(fileData, fileModel);
+            AddTags(fileData, fileModel);
+            AddDefaultAuthUser(fileData);
+            AddMetaData(image, fileData);
+            AddDateTaken(fileData, path);
+            return fileData;
+        }
+
+        public static void AddTags(JObject fileObj, FileModel fileModel)
+        {
+            fileObj[ImageProcessor.TAGS] = new JArray();
+            foreach (var path in fileModel.file_paths)
+            {
+                var splitData = path.Split('\\');
+                for (int count = 0; count < splitData.Length - 1; count++)
+                {
+                    if (!string.IsNullOrEmpty(splitData[count]))
+                    {
+                        (fileObj[ImageProcessor.TAGS] as JArray).Add(splitData[count]);
+                    }
+                }
+            }
+
+        }
+
+        public static void AddPath(JObject fileObj, FileModel fileModel)
+        {
+            fileObj[ImageProcessor.FILE_PATHS] = new JArray();
+            foreach (var path in fileModel.file_paths)
+            {
+                (fileObj[ImageProcessor.FILE_PATHS] as JArray).Add(path);
+            }
+        }
+
+        private static void AddMetaData(Image image, JObject fileObj)
+        {
+            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
+            if (fileObj[ImageProcessor.METADATA] == null)
+            {
+                fileObj[ImageProcessor.METADATA] = new JArray();
+            }
+            foreach (var propItem in image.PropertyItems)
+            {
+                JObject data = new JObject();
+                data[ImageProcessor.KEY] = propItem.Type.ToString();
+                data[ImageProcessor.VALUE] = encoding.GetString(propItem.Value);
+                (fileObj[ImageProcessor.METADATA] as JArray).Add(data);
+            }
+        }
+        public static void AddDefaultAuthUser(JObject fileData)
+        {
+            fileData[ImageProcessor.AUTH_USERS] = new JArray();
+            (fileData[ImageProcessor.AUTH_USERS] as JArray).Add(ImageProcessor.DEFAULT_USER);
+        }
+        private  static void AddDateTaken(JObject fileObj, string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+
+
+                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    BitmapSource img = BitmapFrame.Create(fs);
+                    BitmapMetadata md = (BitmapMetadata)img.Metadata;
+                    string date = md.DateTaken;
+                    fileObj[ImageProcessor.PHOTO_DATE_TAKEN] = date;
+                    DateTime dt = new DateTime();
+                    if (DateTime.TryParse(date, out dt))
+                    {
+                        fileObj[ImageProcessor.PHOTO_DATE_TAKEN_TIME_STAMP] = CommonUtility.GetUnixTimestamp(dt);
+                    }
+
+                    JObject data = new JObject();
+                    data[ImageProcessor.KEY] = "CameraManufacturer";
+                    data[ImageProcessor.VALUE] = md.CameraManufacturer;
+                    (fileObj[ImageProcessor.METADATA] as JArray).Add(data);
+
+                    data = new JObject();
+                    data[ImageProcessor.KEY] = "CameraModel";
+                    data[ImageProcessor.VALUE] = md.CameraModel;
+                    (fileObj[ImageProcessor.METADATA] as JArray).Add(data);
+
+                    data = new JObject();
+                    data[ImageProcessor.KEY] = "Comment";
+                    data[ImageProcessor.VALUE] = md.Comment;
+                    (fileObj[ImageProcessor.METADATA] as JArray).Add(data);
+
+                    data = new JObject();
+                    data[ImageProcessor.KEY] = "Copyright";
+                    data[ImageProcessor.VALUE] = md.Copyright;
+                    (fileObj[ImageProcessor.METADATA] as JArray).Add(data);
+
+                    data = new JObject();
+                    data[ImageProcessor.KEY] = "Format";
+                    data[ImageProcessor.VALUE] = md.Format;
+                    (fileObj[ImageProcessor.METADATA] as JArray).Add(data);
+
+                    if (md.Keywords != null)
+                    {
+                        data = new JObject();
+                        data[ImageProcessor.KEY] = "Keywords";
+                        data[ImageProcessor.VALUE] = string.Join(",", md.Keywords);
+                        (fileObj[ImageProcessor.METADATA] as JArray).Add(data);
+                    }
+
+                    data = new JObject();
+                    data[ImageProcessor.KEY] = "Location";
+                    data[ImageProcessor.VALUE] = md.Location;
+                    (fileObj[ImageProcessor.METADATA] as JArray).Add(data);
+
+                    data = new JObject();
+                    data[ImageProcessor.KEY] = "Rating";
+                    data[ImageProcessor.VALUE] = md.Rating;
+                    (fileObj[ImageProcessor.METADATA] as JArray).Add(data);
+
+                    data = new JObject();
+                    data[ImageProcessor.KEY] = "Subject";
+                    data[ImageProcessor.VALUE] = md.Subject;
+                    (fileObj[ImageProcessor.METADATA] as JArray).Add(data);
+
+                    data = new JObject();
+                    data[ImageProcessor.KEY] = "Title";
+                    data[ImageProcessor.VALUE] = md.Title;
+                    (fileObj[ImageProcessor.METADATA] as JArray).Add(data);
+
+                }
+            }
         }
 
     }

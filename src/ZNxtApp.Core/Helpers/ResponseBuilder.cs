@@ -25,7 +25,7 @@ namespace ZNxtApp.Core.Helpers
         }
         public JObject CreateReponse(int code, JToken data = null, JObject extraData = null)
         {
-            var response = CreateReponse(code);
+            var response = CreateResponseObject(code);
             if (extraData != null)
             {
                 foreach (var item in extraData)
@@ -37,16 +37,28 @@ namespace ZNxtApp.Core.Helpers
             {
                 response[CommonConst.CommonField.HTTP_RESPONE_DATA] = data;
             }
+            AddDebugData(response);
             return response;
         }
-      
-        public  JObject CreateReponse(int code)
+
+        public JObject CreateReponse(int code)
+        {
+            var response = CreateResponseObject(code);
+            AddDebugData(response);
+            return response;
+        }
+
+        private JObject CreateResponseObject(int code)
         {
             JObject response = new JObject();
             response[CommonConst.CommonField.HTTP_RESPONE_CODE] = code;
             response[CommonConst.CommonField.HTTP_RESPONE_MESSAGE] = CommonConst.Messages[code];
-            response[CommonConst.CommonField.HTTP_RESPONE_TRANSACTION_ID] = _initData.TransactionId;
+            response[CommonConst.CommonField.TRANSACTION_ID] = _initData.TransactionId;
+            return response;
 
+        }
+        private void AddDebugData(JObject response)
+        {
             if (ApplicationMode.Maintenance == ApplicationConfig.GetApplicationMode)
             {
                 JObject objDebugData = new JObject();
@@ -55,7 +67,7 @@ namespace ZNxtApp.Core.Helpers
                 response[CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO] = objDebugData;
 
             }
-            return response;
+
         }
     }
 }

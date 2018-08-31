@@ -17,9 +17,27 @@
 
 <body  ng-controller="MyPhotoGalleryApp.Main">
 
-    <div class="card fix_header" id="navbar" >
+   
+    <div class="card fix_header" id="navbar">
         <div class="card-body" style="padding:7px">
-            <h5 class="card-title"> <img src="./img/myphotologo.png" style="height:35px"> <span style="padding-left:5px;"> My Photos </span></h5>
+            <div class="row">
+                <div class="col-10">
+                    <h5 class="card-title"> <img src="./img/myphotologo.png" style="height:35px"> <span style="padding-left:5px;"> My Photos </span></h5>
+
+                </div>
+                <div class="col-2 ng-hide" ng-show="user == undefined" id="loginRequiredDiv">
+                    <button class="btn g-signin2"  data-onsuccess="googleLoginCheck" type="button" style="margin: 0px;padding:0px;float:right" data-theme="dark">
+                    </button>
+                </div>
+                <div class="col-2 ng-hide" ng-hide="user == undefined">
+                    <a class="btn btn-danger" href="./gallerysettings.z" onclick="alert('In progress');" style="margin: 0px;padding:5px 12px 0px 12px;float:right">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none" />
+                            <path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -40,20 +58,22 @@
             <div class="col-12 col-md-3 col-sm-6 gridpadding imagealbum" id="G_@gallery.id">
 
                 <div class="view overlay hm-white-slight zoom">
-
+                    @if(gallery["thumbnail_image"] != null)
+                    {
                     <!--<div file_hash="@gallery.thumbnail_image.file_hash"
                          changeset="@gallery.thumbnail_image.changeset_no"
 
                          style="background-image:url('../api/myphotos/image?file_hash=@gallery.thumbnail_image.file_hash&t=l&changeset_no=@gallery.thumbnail_image.changeset_no'); 
                                 width:100%; height:170px; background-position:top; background-size: 100%" 
                          class="gallerythumbnail rcorners3">&nbsp;</div>-->
-
+                    
                     <img file_hash="@gallery.thumbnail_image.file_hash"
                          changeset="@gallery.thumbnail_image.changeset_no"
                          src="../api/myphotos/image?file_hash=@gallery.thumbnail_image.file_hash&t=m&changeset_no=@gallery.thumbnail_image.changeset_no"
                          style="width:100%"
                          class="img-fluid gallerythumbnail rcorners3"
                          alt="">
+                    }
                     <a href="gallery.z?galleryid=@gallery.id">
                         <div class="mask waves-effect waves-light"></div>
                     </a>

@@ -8,7 +8,8 @@
         <div style="text-align:center">
           <img file_hash="{{selectedImage.file_hash}}"
                src="../api/myphotos/image?file_hash={{selectedImage.file_hash}}&t=m&changeset_no={{selectedImage.changeset_no}}"
-               changeset="{{selectedImage.changeset_no}}" style="width:100%" class="z-depth-1" alt=""
+               changeset="{{selectedImage.changeset_no}}" style="width:100%" 
+               class="z-depth-1 imageViewDetail" alt=""
                onload="replaceImage(this)"
                ng-click="detailImageClick()"
                />
@@ -25,7 +26,7 @@
               </svg>
             </div>
             <div class="col-11">
-              <h4 class="side-title nmtop">{{selectedImagedata.date_taken}}</h4>
+              <h4 class="side-title nmtop">{{selectedImagedata.date_taken  | date:'medium'}}</h4>
             </div>
           </div>
           
@@ -62,7 +63,7 @@
             </div>
             <div class="col-11">
               <div>
-                <span ng-repeat="d in selectedImagedata.file_paths">{{d}}</span>                
+                <span ng-repeat="d in selectedImagedata.file_paths">{{d}} &nbsp;</span>                
               </div>
             </div>
           </div>

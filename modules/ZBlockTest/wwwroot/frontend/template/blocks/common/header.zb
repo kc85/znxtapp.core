@@ -1,0 +1,19 @@
+﻿<!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+
+    <!-- Brand -->
+    <a class="navbar-brand" href="./index_block.z">
+      <strong>ZPic</strong>
+    </a>
+
+    <!-- Collapse -->
+    <button class="btn g-signin2"  data-onsuccess="googleLoginCheck" type="button" style="margin: 0px;padding:0px;float:right" data-theme="dark">
+    </button>
+    <!--<button class="btn btn-danger" type="button" style="margin: 0px;padding: 10px 20px 10px 20px">
+      Login
+    </button>-->
+
+  </div>
+</nav>
+<!-- Navbar -->

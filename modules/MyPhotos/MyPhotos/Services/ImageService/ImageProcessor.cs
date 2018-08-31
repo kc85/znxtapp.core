@@ -27,8 +27,8 @@ namespace MyPhotos.Services.ImageService
         public const string FILE_HASHS = "file_hashs";
         public const string IMAGES = "images";
         public const string TAGS = "tags";
-        private const string KEY = "key";
-        private const string VALUE = "value";
+        public const string KEY = "key";
+        public const string VALUE = "value";
         public const string METADATA = "metadata";
         public const string IMAGE_S_BASE64 = "image_s_base64";
         public const string IMAGE_M_BASE64 = "image_m_base64";
@@ -55,7 +55,7 @@ namespace MyPhotos.Services.ImageService
 
         public const string PHOTO_DATE_TAKEN = "date_taken";
         public const string AUTH_USERS = "auth_users";
-        public const string DEFAULT_USER = "user";
+        public const string DEFAULT_USER = "sys_admin";
         public const string PHOTO_DATE_TAKEN_TIME_STAMP = "date_taken_timestamp";
         public const string GALLERY_THUMBNAIL = "thumbnail";
         public const string GALLERY_THUMBNAIL_IMAGE = "thumbnail_image";
@@ -72,8 +72,11 @@ namespace MyPhotos.Services.ImageService
 
         private List<FileModel> _existingFiles = new List<FileModel>();
 
-        public void Scan(string baseFolderPath, IDBService dbProxy, Func<string, bool> logger)
+        public void Scan(string baseFolderPath, string folderPath, IDBService dbProxy, Func<string, bool> logger)
         {
+
+            DirectoryInfo di = new DirectoryInfo(string.Format("{0}{1}", baseFolderPath,folderPath));
+            if (!di.Exists) throw new FileNotFoundException(string.Format("folder not found : {0}{1}", baseFolderPath, folderPath));
             ImageFinder ifm = new ImageFinder();
 
             var existingFiles = GetDBFiles(dbProxy);
@@ -85,15 +88,15 @@ namespace MyPhotos.Services.ImageService
                 previousCopy.Add((FileModel)item.Clone());
             }
             logger(string.Format("Scanning files..{0}", baseFolderPath));
-             ifm.GetFiles(baseFolderPath,dbProxy, previousfiles, (FileModel file) => {
+             ifm.GetFiles(baseFolderPath, folderPath, dbProxy, previousfiles, (FileModel file) => {
                 if (file.IsUpdated)
                 {
-                    UpdateFile(file, dbProxy);
+                    UpdateFile(file, dbProxy, logger);
                    
                 }
                 else
                 {
-                    AddFile(file, baseFolderPath, dbProxy);
+                    AddFile(file, baseFolderPath, dbProxy, logger);
                    
                 }
                 return true;
@@ -110,6 +113,7 @@ namespace MyPhotos.Services.ImageService
             var fileHash = fileData[FILE_HASH].ToString();
             foreach (var item in fileData[TAGS])
             {
+                
                 JObject filter = new JObject();
                 filter[CommonConst.CommonField.NAME] = item.ToString();
                 var gallery = dbProxy.FirstOrDefault(MYPHOTO_GALLERY_COLLECTION, filter.ToString());
@@ -120,7 +124,7 @@ namespace MyPhotos.Services.ImageService
                     gallery[DISPLAY_NAME] = gallery[CommonConst.CommonField.NAME] = item;
                     gallery[DESCRIPTION] = "";
                     gallery[OWNER] = DEFAULT_OWNER;
-                    AddDefaultAuthUser(gallery);
+                    ImageGalleryHelper.AddDefaultAuthUser(gallery);
                     gallery[GALLERY_THUMBNAIL] = fileHash;
                     gallery[FILE_HASHS] = new JArray();
                     (gallery[FILE_HASHS] as JArray).Add(fileHash);
@@ -141,47 +145,7 @@ namespace MyPhotos.Services.ImageService
         }
 
 
-        private void AddMetaData(Image image, JObject fileObj)
-        {
-            System.Text.ASCIIEncoding encoding = new System.Text.ASCIIEncoding();
-            if (fileObj[METADATA] == null)
-            {
-                fileObj[METADATA] = new JArray();
-            }
-            foreach (var propItem in image.PropertyItems)
-            {
-                JObject data = new JObject();
-                data[KEY] = propItem.Type.ToString();
-                data[VALUE] = encoding.GetString(propItem.Value);
-                (fileObj[METADATA] as JArray).Add(data);
-            }
-        }
-
-        private void AddPath(JObject fileObj, FileModel fileModel)
-        {
-            fileObj[FILE_PATHS] = new JArray();
-            foreach (var path in fileModel.file_paths)
-            {
-                (fileObj[FILE_PATHS] as JArray).Add(path);
-            }
-        }
-
-        private void AddTags(JObject fileObj, FileModel fileModel)
-        {
-            fileObj[TAGS] = new JArray();
-            foreach (var path in fileModel.file_paths)
-            {
-                var splitData = path.Split('\\');
-                for (int count = 0; count < splitData.Length-1; count++ )
-                {
-                    if (!string.IsNullOrEmpty(splitData[count]))
-                    {
-                        (fileObj[TAGS] as JArray).Add(splitData[count]);
-                    }
-                }
-            }
-
-        }
+       
 
         private void DeleteFile(List<FileModel> files,IDBService dbProxy)
         {
@@ -208,7 +172,7 @@ namespace MyPhotos.Services.ImageService
             return _existingFiles;
         }
 
-        private JObject AddFile(FileModel fileModel, string baseFolderPath, IDBService dbProxy)
+        private JObject AddFile(FileModel fileModel, string baseFolderPath, IDBService dbProxy, Func<string, bool> logger)
         {
             if (fileModel.IsAdded)
             {
@@ -217,19 +181,9 @@ namespace MyPhotos.Services.ImageService
 
                 using (var image = ImageGalleryHelper.GetImageBitmapFromFile(path))
                 {
-
-                    fileData[FILE_HASH] = fileModel.file_hash;
-                    fileData[OWNER] = DEFAULT_OWNER;
-
-                    ImageGalleryHelper.ProcessImage(fileData, image);
-                    fileData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
-                    AddPath(fileData, fileModel);
-                    AddTags(fileData, fileModel);
-                    AddDefaultAuthUser(fileData);
-                    AddMetaData(image, fileData);
-                    GetDateTaken(fileData, path);
+                    fileData = ImageGalleryHelper.CreateFileDataJObject(fileModel, path, image);
                 }
-                
+
                 if (!dbProxy.Write(MYPHOTO_COLLECTION, fileData))
                 {
                     throw new Exception("Unable to add data to db");
@@ -249,84 +203,10 @@ namespace MyPhotos.Services.ImageService
             }
         }
 
-        private void AddDefaultAuthUser(JObject fileData)
-        {
-            fileData[AUTH_USERS] = new JArray();
-            (fileData[AUTH_USERS] as JArray).Add(DEFAULT_USER);
-        }
+        
 
-        private string GetDateTaken(JObject fileObj, string filePath)
-        {
-            using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                BitmapSource img = BitmapFrame.Create(fs);
-                BitmapMetadata md = (BitmapMetadata)img.Metadata;
-                string date = md.DateTaken;
-                fileObj[PHOTO_DATE_TAKEN] = date;
-                DateTime dt = new DateTime();
-                if (DateTime.TryParse(date, out dt))
-                {
-                    fileObj[PHOTO_DATE_TAKEN_TIME_STAMP] = CommonUtility.GetUnixTimestamp(dt);
-                }
-
-                JObject data = new JObject();
-                data[KEY] = "CameraManufacturer";
-                data[VALUE] = md.CameraManufacturer;
-                (fileObj[METADATA] as JArray).Add(data);
-
-                data = new JObject();
-                data[KEY] = "CameraModel";
-                data[VALUE] = md.CameraModel;
-                (fileObj[METADATA] as JArray).Add(data);
-
-                data = new JObject();
-                data[KEY] = "Comment";
-                data[VALUE] = md.Comment;
-                (fileObj[METADATA] as JArray).Add(data);
-
-                data = new JObject();
-                data[KEY] = "Copyright";
-                data[VALUE] = md.Copyright;
-                (fileObj[METADATA] as JArray).Add(data);
-
-                data = new JObject();
-                data[KEY] = "Format";
-                data[VALUE] = md.Format;
-                (fileObj[METADATA] as JArray).Add(data);
-                
-                if (md.Keywords != null)
-                {
-                    data = new JObject();
-                    data[KEY] = "Keywords";
-                    data[VALUE] = string.Join(",", md.Keywords);
-                    (fileObj[METADATA] as JArray).Add(data);                    
-                }
-
-                data = new JObject();
-                data[KEY] = "Location";
-                data[VALUE] = md.Location;
-                (fileObj[METADATA] as JArray).Add(data);
-
-                data = new JObject();
-                data[KEY] = "Rating";
-                data[VALUE] = md.Rating;
-                (fileObj[METADATA] as JArray).Add(data);
-
-                data = new JObject();
-                data[KEY] = "Subject";
-                data[VALUE] = md.Subject;
-                (fileObj[METADATA] as JArray).Add(data);
-
-                data = new JObject();
-                data[KEY] = "Title";
-                data[VALUE] = md.Title;
-                (fileObj[METADATA] as JArray).Add(data);
-
-                return date;
-            }
-        }
-
-        private void UpdateFile(FileModel fileModel,IDBService dbProxy)
+      
+        private void UpdateFile(FileModel fileModel,IDBService dbProxy, Func<string, bool> logger)
         {
             if (fileModel.IsUpdated)
             {
@@ -339,8 +219,8 @@ namespace MyPhotos.Services.ImageService
                 {
                     (fileData[FILE_PATHS] as JArray).Add(item);
                 }
-                AddPath(fileData, fileModel);
-                AddTags(fileData, fileModel);
+                ImageGalleryHelper.AddPath(fileData, fileModel);
+                ImageGalleryHelper.AddTags(fileData, fileModel);
 
                 dbProxy.Update(MYPHOTO_COLLECTION, filter.ToString(), fileData, false, MergeArrayHandling.Union);
                 AddGallery(fileData, dbProxy);

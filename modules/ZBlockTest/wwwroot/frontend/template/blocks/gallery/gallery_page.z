@@ -1,0 +1,21 @@
+
+@{ 
+	
+	var galleryData = ExecuteAction("/api/myphotos/gallery",null);
+
+}
+
+
+@foreach (var image in @galleryData["data"]["images"])
+{
+	<div class="col-3 col-md-3 col-sm-6 gridpadding imagealbum">
+			<div class="view overlay hm-white-slight zoom">
+			<img file_hash="@image.file_hash"
+					changeset="@image.changeset_no"
+					src="../api/myphotos/image?file_hash=@image.file_hash&t=m&changeset_no=@image.changeset_no"
+					style="width:100%"
+					class="img-fluid gallerythumbnail rcorners3"
+					alt=""/>
+			</div>
+		</div>
+	}

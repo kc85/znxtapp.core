@@ -59,14 +59,50 @@
             "user"
         ]
     },
-    {
-        "key": "POST:/api/myphotos/gallery/update",
+  {
+    "key": "POST:/api/myphotos/gallery/update",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/myphotos/gallery/update",
+    "ExecultAssembly": "MyPhotos.dll",
+    "ExecuteType": "MyPhotos.Services.Api.AlbumCtrl",
+    "ExecuteMethod": "UpdateAlbum",
+    "auth_users": [
+      "user"
+    ]
+  },
+  {
+    "key": "POST:/api/myphotos/gallery/create",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/myphotos/gallery/create",
+    "ExecultAssembly": "MyPhotos.dll",
+    "ExecuteType": "MyPhotos.Services.Api.AlbumCtrl",
+    "ExecuteMethod": "Create",
+    "auth_users": [
+      "user"
+    ]
+  },
+  {
+    "key": "POST:/api/myphotos/gallery/addimage",
+    "ContentType": "application/json",
+    "Method": "POST",
+    "Route": "/api/myphotos/gallery/addimage",
+    "ExecultAssembly": "MyPhotos.dll",
+    "ExecuteType": "MyPhotos.Services.Api.AlbumCtrl",
+    "ExecuteMethod": "AddImage",
+    "auth_users": [
+      "user"
+    ]
+  },
+   {
+        "key": "POST:/api/myphotos/gallery/deleteimage",
         "ContentType": "application/json",
         "Method": "POST",
-        "Route": "/api/myphotos/gallery/update",
+        "Route": "/api/myphotos/gallery/deleteimage",
         "ExecultAssembly": "MyPhotos.dll",
-        "ExecuteType": "MyPhotos.Services.Api.ImageEditor",
-        "ExecuteMethod": "UpdateAlbum",
+        "ExecuteType": "MyPhotos.Services.Api.AlbumCtrl",
+        "ExecuteMethod": "DeleteImage",
         "auth_users": [
             "user"
         ]
@@ -108,15 +144,27 @@
     ]
   },
   {
-        "key": "GET:/api/myphotos/users",
+    "key": "GET:/api/myphotos/users",
+    "ContentType": "application/json",
+    "Method": "GET",
+    "Route": "/api/myphotos/users",
+    "ExecultAssembly": "MyPhotos.dll",
+    "ExecuteType": "MyPhotos.Services.Api.ImageBrowser",
+    "ExecuteMethod": "MyPhotoUsers",
+    "auth_users": [
+      "user"
+    ]
+  },
+  {
+        "key": "GET:/api/myphotos/folderscan",
         "ContentType": "application/json",
         "Method": "GET",
-        "Route": "/api/myphotos/users",
+        "Route": "/api/myphotos/folderscan",
         "ExecultAssembly": "MyPhotos.dll",
-        "ExecuteType": "MyPhotos.Services.Api.ImageBrowser",
-        "ExecuteMethod": "MyPhotoUsers",
+        "ExecuteType": "MyPhotos.Services.Api.FolderScanCtrl",
+        "ExecuteMethod": "Scan",
         "auth_users": [
-            "user"
+            "sys_admin"
         ]
     }
 ]

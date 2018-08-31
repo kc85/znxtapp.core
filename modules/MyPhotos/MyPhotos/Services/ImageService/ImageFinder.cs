@@ -26,12 +26,15 @@ namespace MyPhotos.Services.ImageService
             filter[ImageProcessor.FILE_HASH] = fileHash;
             return dbProxy.FirstOrDefault(ImageProcessor.MYPHOTO_COLLECTION, filter.ToString());
         }
-        public  void GetFiles(string path, IDBService dbProxy, List<FileModel> previousfiles, Func<FileModel,bool> onFileAddUpdate,Func<string,bool> logger)
+        public  void GetFiles(string path,string folderPath, IDBService dbProxy, List<FileModel> previousfiles, Func<FileModel,bool> onFileAddUpdate,Func<string,bool> logger)
         {
-           
             path = path.ToLower();
-            string [] dirs =  System.IO.Directory.GetDirectories(path, "*", SearchOption.AllDirectories);
-            logger(string.Format("Scan directories  : {0}. Total Dirs Found : {1}", path, dirs.Length));
+            var folderScanPath = string.Format("{0}{1}", path.ToLower(), folderPath.ToLower());
+            List<string> dirs = new List<string>();
+            dirs.Add(folderScanPath);
+            dirs.AddRange(System.IO.Directory.GetDirectories(folderScanPath, "*", SearchOption.AllDirectories));
+
+            logger(string.Format("Scan directories  : {0}. Total Dirs Found : {1}", folderScanPath, dirs.Count));
 
             foreach (var item in dirs)
             {
@@ -55,7 +58,7 @@ namespace MyPhotos.Services.ImageService
                     var dirDBObject = dbProxy.FirstOrDefault(ImageProcessor.MYPHOTO_DIR_SCAN_COLLECTION, dir.ToString());
                     if (dirDBObject != null)
                     {
-                        if (int.Parse(dir[ImageProcessor.COUNT].ToString()) == files.Count)
+                        if (dir[ImageProcessor.COUNT]!=null && int.Parse(dirDBObject[ImageProcessor.COUNT].ToString()) == files.Count)
                         {
                             logger(string.Format("Scan Skipped... Count of files same for directory : {0}. Total Files Found : {1}", item, files.Count));
                             continue;
@@ -68,12 +71,14 @@ namespace MyPhotos.Services.ImageService
                         try
                         {
                             var fileHash = Hashing.GetFileHash(filePath);
+                            logger(string.Format("Scaning file : FileHash : {0}, {1}", fileHash, filePath));
+
                             var absPath = filePath.ToLower().Replace(path, "");
                             var file = previousfiles.FirstOrDefault(f => f.file_hash == fileHash);
                             var dbFileData = GetFileData(fileHash, dbProxy);
                             if (file != null)
                             {
-                                if (file.file_paths.IndexOf(absPath) != -1)
+                                if (file.file_paths.IndexOf(absPath) == -1)
                                 {
                                     file.file_paths.Add(absPath);
                                     file.IsUpdated = true;

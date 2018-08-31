@@ -12,6 +12,10 @@ namespace ZNxtApp.Core.Helpers
         {
             return GetUnixTimestamp(DateTime.Now) + RandomString(3) + RandomNumber(5);
         }
+        public static string GetNewSessionID()
+        {
+            return GetNewID();
+        }
         public static Int32 GetUnixTimestamp(DateTime dt)
         {
             TimeSpan epochTicks = new TimeSpan(new DateTime(1970, 1, 1, 0, 0, 0).Ticks);

@@ -80,7 +80,7 @@ namespace ZNxtApp.Core.Web.Util
 
         private byte[] GetAsssemblyFromDB(string assemblyName, ILogger logger)
         {
-            logger.Info(string.Format("Laoding Assemmbly:{0}, from Download ", assemblyName));
+            logger.Info(string.Format("Loading Assemmbly:{0}, from Download ", assemblyName));
 
             
             var dataResponse = _dbProxy.Get(CommonConst.Collection.DLLS,GetFilter(assemblyName));

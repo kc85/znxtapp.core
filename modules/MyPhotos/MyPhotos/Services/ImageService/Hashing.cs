@@ -24,5 +24,15 @@ namespace MyPhotos.Services.ImageService
                 }
             }
         }
+        public static string GetFileHash(byte[] byteArr)
+        {
+            // return string.Empty;
+
+            var sha = new SHA256Managed();
+            byte[] checksum = sha.ComputeHash(byteArr);
+            return BitConverter.ToString(checksum).Replace("-", String.Empty);
+
+
+        }
     }
 }

@@ -36,10 +36,11 @@ namespace MyPhotos.Services.Api
 
                 if (string.IsNullOrEmpty(file_path))
                 {
+                    Logger.Error("No file path from App setting");
                     return 0;
                 }
                 ImageProcessor ip = new ImageProcessor();
-                ip.Scan(file_path,DBProxy,(string mesage)=>{ 
+                ip.Scan(file_path,string.Empty,DBProxy,(string mesage)=>{ 
                     
                     Logger.Debug(string.Format("ImageBackgroundSync: {0}" , mesage));
                     return true;

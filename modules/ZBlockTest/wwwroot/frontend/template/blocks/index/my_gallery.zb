@@ -1,0 +1,78 @@
+﻿
+@{
+	var user = GetSessionData("_session_user");
+	int galleryCount = 0;
+	int maxGalleryCount = 6;
+
+	var user_id = "";
+	if(user !=null){
+		user_id = user.user_id;
+	}
+
+	var param = new  Newtonsoft.Json.Linq.JObject();
+	param["user_id"] = user_id;
+	var galleryData = ExecuteAction("/api/myphotos/gallery",param);
+}
+
+@if(@user!=null && @galleryData["data"]!=null && @galleryData["data"].Count!=0) 
+{
+<!--Section: Main features & Quick Start-->
+	<section >
+
+	  <h3 class="h3 text-center mb-5" style="margin-top:15px">My Albums</h3>
+
+	  <!--Grid row-->
+	  <div class="row fadeIn">
+	  <div class="view col-12 col-md-3 col-sm-6 gridpadding ">
+		<img src="https://mdbootstrap.com/img/Photos/Others/forest-sm.jpg" class="img-fluid" alt="placeholder">
+			<div class="mask flex-center waves-effect waves-light rgba-teal-strong">
+				<h4 class="white-text">Add New Album</h4>
+			</div>
+		</div>
+
+		@foreach (var gallery in @galleryData["data"])
+		{
+			
+			{
+				galleryCount++;
+			}
+			if(galleryCount <= maxGalleryCount ){
+				<div class="col-12 col-md-3 col-sm-6 gridpadding imagealbum" id="G_@gallery.id">
+				  <div class="view overlay hm-white-slight zoom">
+					<img file_hash="@gallery.thumbnail_image.file_hash"
+						 changeset="@gallery.thumbnail_image.changeset_no"
+						 src="../api/myphotos/image?file_hash=@gallery.thumbnail_image.file_hash&t=m&changeset_no=@gallery.thumbnail_image.changeset_no"
+						 style="width:100%"
+						 class="img-fluid gallerythumbnail rcorners3"
+						 alt=""/>
+					  <a href="gallery.z?galleryid=@gallery.id">
+						<div class="mask waves-effect waves-light"></div>
+					  </a>
+					  <div class="font-weight-light" style="padding-left:5px">@gallery.display_name. @gallery.files_count photos</div>
+					  <div class="font-weight-light font-italic" style="padding-left:5px">
+						<small>@gallery.description</small>
+					  </div>
+					</div>
+				</div>
+			}
+		}
+		@if(@galleryCount >= @maxGalleryCount ){
+		 <div class="view col-12 col-md-3 col-sm-6 gridpadding ">
+			 <a href="./gallery_list.z?mygallery=true">
+				<img src="https://mdbootstrap.com/img/Photos/Others/forest-sm.jpg" class="img-fluid" alt="placeholder">
+					<div class="mask flex-center waves-effect waves-light rgba-teal-strong">
+						<h4 class="white-text">Show All Albums</h4>
+					</div>
+			</a>
+		</div>
+		}
+	  </div>
+	  <!--/Grid row-->
+
+	</section>
+}
+else if(@user!=null)
+{
+<button> Add Album </button>
+}
+<!--Section: Main features & Quick Start-->

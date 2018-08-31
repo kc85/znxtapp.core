@@ -1,0 +1,18 @@
+
+@{ 
+	InclueTemplate("./template/index_template.zt");
+	Model["page_title"] = "Albums";
+
+}
+
+  <!--Main layout-->
+  <main>
+    <div class="container" style="margin-top:80px">
+       <section>
+		<h1> Albums</h1>
+
+		@Include("./template/blocks/gallery_list/gallery_list.zb",null)
+		</section>
+    </div>
+  </main>
+  <!--Main layout-->

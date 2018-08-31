@@ -403,7 +403,7 @@ namespace ZNxtApp.Core.AppInstaller
             installStatusObj[CommonConst.CommonField.ID] = idKey ;
             installStatusObj[CommonConst.CommonField.UPDATED_DATE_TIME] = DateTime.Now;
             installStatusObj[CommonConst.CommonField.STATUS] = (int)installStatus;
-            installStatusObj[CommonConst.CommonField.TRANSATTION_ID] = _logger.TransactionId;
+            installStatusObj[CommonConst.CommonField.TRANSACTION_ID] = _logger.TransactionId;
             
             _dbProxy.Update(CommonConst.Collection.APP_INSTALL_STATUS,"{id:'" + idKey + "'}", installStatusObj, true);
             

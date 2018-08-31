@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Model;
@@ -18,8 +19,8 @@ namespace ZNxtApp.Core.Web.CronJobs
         public int CleanSession()
         {
 
-            int duration = 15;
-            int.TryParse(AppSettingService.GetAppSettingData(CommonConst.CommonField.SESSION_DURATION), out duration);
+            double duration = ApplicationConfig.SessionDuration;
+            double.TryParse(AppSettingService.GetAppSettingData(CommonConst.CommonField.SESSION_DURATION), out duration);
 
             var expirestime = CommonUtility.GetUnixTimestamp(DateTime.Now.AddMinutes(-duration));
             string filter = "{" + CommonConst.CommonField.UPDATED_DATE_TIME + " : { $lt : " + expirestime + "}}";

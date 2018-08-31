@@ -130,7 +130,7 @@ namespace ZNxtApp.Core.Web.Handler
             if (ApplicationMode.Maintenance == ApplicationConfig.GetApplicationMode)
             {
                 _httpContext.Response.Headers[string.Format("{0}.{1}", CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO, CommonConst.CommonValue.TIME_SPAN)] = (DateTime.Now - _initData.InitDateTime).TotalMilliseconds.ToString();
-                _httpContext.Response.Headers[string.Format("{0}.{1}", CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO, CommonConst.CommonField.TRANSATTION_ID)] = _initData.TransactionId;
+                _httpContext.Response.Headers[string.Format("{0}.{1}", CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO, CommonConst.CommonField.TRANSACTION_ID)] = _initData.TransactionId;
             }
             
             RemoveHeaders();
@@ -141,21 +141,24 @@ namespace ZNxtApp.Core.Web.Handler
         {
             if(context.Request.Cookies[CommonConst.CommonValue.SESSION_COOKIE]==null)
             {
-                CreateSession(context);
+                CreateUpdateSessionCookie(context);
             }
             else
             {
-                var expires = DateTime.Now.AddMinutes(ApplicationConfig.SessionDuration);
-                context.Request.Cookies[CommonConst.CommonValue.SESSION_COOKIE].Expires = expires;
+                CreateUpdateSessionCookie(context, context.Request.Cookies[CommonConst.CommonValue.SESSION_COOKIE]);
             }
         }
 
-        private void CreateSession(HttpContext context)
+        private void CreateUpdateSessionCookie(HttpContext context, HttpCookie cookie= null)
         {
-            var cookie = new HttpCookie(CommonConst.CommonValue.SESSION_COOKIE,Guid.NewGuid().ToString());
+            if (cookie == null)
+            {
+                cookie = new HttpCookie(CommonConst.CommonValue.SESSION_COOKIE, CommonUtility.GetNewSessionID());
+            }
             var expires = DateTime.Now.AddMinutes(ApplicationConfig.SessionDuration);            
             cookie.Expires = expires;
             cookie.HttpOnly = true;
+            cookie.Secure = true;
             context.Response.Cookies.Add(cookie);
         }
     }

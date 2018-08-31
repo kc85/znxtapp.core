@@ -25,7 +25,7 @@
             public const string UPDATED_BY = "updated_by";
             public const string LAST_EXEC_ON = "last_exec_on";
             public const string STATUS = "status";
-            public const string TRANSATTION_ID = "transaction_id";
+            public const string TRANSACTION_ID = "transaction_id";
             public static string DATA_MODULE_NAME = "module";
             public const string UPDATED_DATE_TIME = "updated_datetime";
             public const string NAME = "name";
@@ -102,6 +102,21 @@
             public const string USER_PIC = "user_pic";
             public const string HISTORY = "history";
             public const string START_ON = "start_on";
+            public const string OWNER = "owner";
+            public const string DISPLAY_NAME = "display_name";
+            public const string DESCRIPTION = "description";
+            public const string FILE_HASH = "file_hash";
+            public const string USERS = "users";
+            public const string IMAGES = "images";
+            public const string TAGS = "tags";
+            public const string KEY = "key";
+            public const string METADATA = "metadata";
+            public const string COUNT = "count";
+            public const string WIDTH = "width";
+            public const string HEIGHT = "height";
+            public const string AUTH_USERS = "auth_users";
+
+
         }
     }
 }

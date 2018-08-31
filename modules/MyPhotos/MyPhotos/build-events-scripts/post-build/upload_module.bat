@@ -26,4 +26,5 @@ cd %project_path%
 
 del %project_name%_%nuget_version%.zip
 
+echo %project_name%/%nuget_version%
 call .\build-events-scripts\post-build\winhttpjs.bat "%http_base_url%/api/module/reinstall?module_name=%project_name%/%nuget_version%"  -method POST   -reportfile reportfile_app.txt

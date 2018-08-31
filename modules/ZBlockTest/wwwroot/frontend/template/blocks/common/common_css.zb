@@ -1,0 +1,25 @@
+﻿<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+      <!-- Your custom styles (optional) -->
+      <link href="css/style.min.css" rel="stylesheet">
+          <link href="css/zpic.css" rel="stylesheet">
+        <style type="text/css">
+          html,
+          body,
+          header,
+          .carousel {
+          height: 100%;
+          }
+
+          @@media (min-width: 800px) and (max-width: 850px) {
+          .navbar:not(.top-nav-collapse) {
+          background: #1C2331!important;
+          }
+          }
+        </style>

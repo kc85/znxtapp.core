@@ -1,0 +1,14 @@
+[ 
+    {
+      "key":"ACTION:/api/zblock/getblocks",
+      "ContentType":"application/json",
+      "Method":"ACTION",
+      "Route":"/api/zblock/getblocks",
+      "ExecultAssembly":"ZBlockTest.dll",
+      "ExecuteType":"ZBlockTest.Services.Api.ZBlockCtrl",
+      "ExecuteMethod":"GetBlocks",
+      "auth_users":[
+         "*"
+      ]
+   }
+]

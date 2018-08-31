@@ -1,0 +1,31 @@
+﻿
+
+<!-- SCRIPTS -->
+<!-- JQuery -->
+<script src="https://apis.google.com/js/platform.js?onload=initGoogleAuth" async="" defer=""></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
+<!-- Initializations -->
+<script type="text/javascript">
+  // Animations initialization
+  new WOW().init();
+
+
+
+  $(document).ready(function () {
+  $(".gallerythumbnail").each(function (e) {
+  var changeset = $(this).attr("changeset");
+  var fileHash = $(this).attr("file_hash");
+  var mainImage = this;
+  var image = new Image();
+  image.onload = function () {
+  mainImage.src = this.src;
+  }
+  image.src = "../api/myphotos/image?file_hash=" + fileHash + "&t=l&changeset_no=" + changeset;
+  });
+  });
+</script>

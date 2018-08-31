@@ -8,15 +8,23 @@ var __userData = {};
        function ($scope, $location, $rootScope, $window, $http, $timeout) {
 
            $scope.busy = false;
-           $scope.galleryid = GetParameterValues("galleryid");         
+           $scope.isNewAlbum = false;
+           $scope.galleryid = GetParameterValues("galleryid");
            if ($scope.galleryid == undefined) {
-               window.location = "./indexnew.z";
+               $scope.isNewAlbum = true;
+               //window.location = "./indexnew.z";
            }
            $scope.gallery = undefined         
            function active() {
                getUserInfo();
-               
-               $scope.loadImages(function () { getAllUsers(); });
+               if ($scope.isNewAlbum == false) {
+                   $scope.loadImages(function () { getAllUsers(); });
+               }
+               else {
+                   $scope.gallery = {};
+                   $scope.gallery.auth_users = [];
+                   getAllUsers();
+               }
            }
            function getUserInfo() {
                var url = "../api/user/me";
@@ -42,8 +50,12 @@ var __userData = {};
                    }
                });
            }
-           $scope.save = function() {
-               var url = "../api/myphotos/gallery/update?galleryid=" +  $scope.galleryid;
+           $scope.save = function () {
+
+               var url = "../api/myphotos/gallery/update?galleryid=" + $scope.galleryid;
+               if ($scope.isNewAlbum == true) {
+                   url = "../api/myphotos/gallery/create";
+               }
                var data = {};
                data.description = $scope.gallery.description;
                data.display_name = $scope.gallery.display_name;
@@ -51,6 +63,10 @@ var __userData = {};
 
                $http.post(url, data).then(function (response) {
                    if (response.data.code == 1) {
+                       console.log(response.data)
+                       if ($scope.isNewAlbum == true) {
+                           window.location.replace("./gallery.z?galleryid=" + response.data.data.id);
+                       }
                        alert("Saved Data");
                    }
                });

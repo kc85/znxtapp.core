@@ -21,11 +21,13 @@
                    if (response.data.code == 1) {
                        $scope.user = response.data.data;
                    }
-                   else {
+                   else if (response.data.code == 401) {
                        console.log("User not Login");
                        $scope.user = undefined;
                        removeCacheKey("/api/myphotos/gallery");
-                       showLogin();
+                   }
+                   else {
+                       alert("Server Error");
                    }
                });
            }

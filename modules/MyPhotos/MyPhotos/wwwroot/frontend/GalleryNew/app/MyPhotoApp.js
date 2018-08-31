@@ -4,14 +4,13 @@ var __userData = {};
 (function () {
     var MyPhotoApp = angular.module(__myPhotoAppName, ['infinite-scroll']);
    
-    MyPhotoApp.controller(__myPhotoAppName + '.Main', ['$scope', '$location', '$rootScope','$window', '$http', '$timeout',
-       function ($scope, $location, $rootScope, $window, $http, $timeout) {
-
+    MyPhotoApp.controller(__myPhotoAppName + '.Main', ['$scope', '$location', '$rootScope','$window', '$http', '$timeout','fileUploadService',
+       function ($scope, $location, $rootScope, $window, $http, $timeout, fileUploadService) {
            $scope.busy = false;
            $scope.pagesize = 50;
            $scope.currentpage = 0;
            $scope.user = undefined;
-           $scope.rotateText = "Rotate";
+           $scope.userLoginRequired = false;
            $scope.loading = false;
            $scope.selectedImageChangesetNo = 0;
            $scope.selectedImageIndex = 0;
@@ -125,7 +124,7 @@ var __userData = {};
            }
 
            function setShareLink() {
-               if ($scope.gallery != undefined) {
+               if ($scope.gallery != undefined &&  $scope.gallery.thumbnail_image!=undefined && $scope.gallery.thumbnail_image!=undefined) {
                    var galleryshareurl = "https://znxt.app/gallerynew/share.z?thumbnail_image=" + $scope.gallery.thumbnail_image.file_hash + "&galleryid=" + $scope.galleryid;
                    $scope.galleryShareLink = galleryshareurl;
                    $scope.shareText = $scope.gallery.display_name;
@@ -141,8 +140,9 @@ var __userData = {};
                    setShareLink();
                    
                    if (response.data.code == 401) {
-                       $scope.user = response.data.data;
-                       window.location = "./indexnex.z";
+                       $scope.user = undefined;
+                       window.location.hash = "#";
+
                    }
                    else {
                        $scope.selectedImagedata = response.data.data;
@@ -154,7 +154,7 @@ var __userData = {};
                });
            };
            function fetchPageImage(callback) {
-              
+               $scope.gallery = {};
                var url = "../api/myphotos/gallery?id=" + $scope.galleryid + "&currentpage=" + $scope.currentpage + "&pagesize=" + $scope.pagesize;
                if ($scope.isShowBookmark != undefined) {
                    if ($scope.gallery_files.length != 0) {
@@ -166,12 +166,13 @@ var __userData = {};
                $http.get(url).then(function (response) {
 
                    if (response.data.code == 401) {
-                       $scope.user = response.data.data;
-                       showLogin();
+                       $scope.user = undefined;
+                       $scope.userLoginRequired = true;
+                       $scope.busy = false;
                    }
                    else {
                        $scope.gallery = response.data.data;
-                       if ($scope.isShowBookmark == undefined && $scope.gallery.thumbnail_image.changeset_no == undefined) {
+                       if ($scope.isShowBookmark == undefined && $scope.gallery.thumbnail_image!=undefined &&  $scope.gallery.thumbnail_image.changeset_no == undefined) {
                            $scope.gallery.thumbnail_image.changeset_no = 0;
                        }
                        response.data.data.images.forEach(function (d) {
@@ -243,13 +244,13 @@ var __userData = {};
 
                if ($scope.selectedImageIndex < $scope.gallery_files.length - 1) {
                    $scope.isbackbuttonpress = false;
-                   window.location = window.location.href.replace("file_hash=" + $scope.selectedImage.file_hash, "file_hash=" + $scope.gallery_files[$scope.selectedImageIndex+1].file_hash);
+                   window.location.replace(window.location.href.replace("file_hash=" + $scope.selectedImage.file_hash, "file_hash=" + $scope.gallery_files[$scope.selectedImageIndex+1].file_hash));
                }
            };
            $scope.showPreviousImage = function () {
                if ($scope.selectedImageIndex > 0) {
                    $scope.isbackbuttonpress = false;
-                   window.location = window.location.href.replace("file_hash=" + $scope.selectedImage.file_hash, "file_hash=" + $scope.gallery_files[$scope.selectedImageIndex - 1].file_hash);
+                   window.location.replace(window.location.href.replace("file_hash=" + $scope.selectedImage.file_hash, "file_hash=" + $scope.gallery_files[$scope.selectedImageIndex - 1].file_hash));
                }
            };
            function fileIndex(file_hash) {
@@ -293,6 +294,75 @@ var __userData = {};
                        }
                    });
                };
+           };
+
+           $scope.$watch('selectedUploadImage', function () {
+               ImageUploader();
+           });
+           function ImageUploader() {
+
+               if ($scope.selectedUploadImage != undefined) {
+                   if ($scope.busy != true) {
+                       $scope.busy = true;
+                       $scope.uploadimagetext = "Uploading image";
+                       var uploadImageUrl = "./api/myphotos/gallery/addimage?galleryid=" + $scope.galleryid;
+                       if ($scope.selectedUploadImage.type.indexOf("image") != -1) {
+
+                           fileUploadService.uploadFileToUrl($scope.selectedUploadImage, uploadImageUrl, undefined, function (response) {
+                               $scope.busy = false;
+                               $scope.uploadimagetext = "";
+                               if (response.data.code == 1) {
+                                   $scope.gallery_files = [];
+                                   removeCacheKey("/api/myphotos/gallery", function () {
+                                       $scope.currentpage = 0;
+                                       $scope.loadMore();
+                                   });
+                                   
+                               }
+                           }, function () {
+                               $scope.busy = false;
+                               $scope.uploadimagetext = "";
+                           });
+                       }
+                       else {
+                           alert("Invalid file selection. Please select image file");
+                       }
+                   }
+               }
+           }
+
+           $scope.deleteImage = function () {
+               if (confirm("Are you sure to delete image ?")) {
+                   if ($scope.loading != true) {
+                       $scope.loading = true;
+                       var url = "../api/myphotos/gallery/deleteimage?file_hash=" + $scope.selectedImage.file_hash + "&galleryid=" + $scope.galleryid;
+                       $http.post(url).then(function (response) {
+                           $scope.loading = false;
+                           if (response.data.code == 1) {
+                              $scope.closeImageDetail();
+                               var index = fileIndex($scope.selectedImage.file_hash);
+                               $scope.gallery_files.splice(index, 1);
+                           }
+                           else {
+                               alert("Error");
+                           }
+                       });
+                   };
+               }
+           }
+
+           $scope.setGalleryThumb = function () {
+               if (confirm("Are you sure to set this image as gallery home ?")) {
+                   var data = {};
+                   data.thumbnail = $scope.selectedImage.file_hash;
+                   var url = "../api/myphotos/gallery/update?galleryid=" + $scope.galleryid;
+                   $http.post(url, data).then(function (response) {
+                       if (response.data.code == 1) {
+                           console.log(response.data)
+                           alert("Applied");
+                       }
+                   });
+               }
            };
 
            active();

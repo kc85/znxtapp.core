@@ -1,0 +1,35 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="google-signin-scope" content="profile email">
+	<meta name="google-signin-client_id" content="741157933797-9m0g7nls4hvi2ragkdapo6dqu8jnehqr.apps.googleusercontent.com">
+	
+	<meta name="viewport" content="width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="141x111" href="./img/myphotologo.png">
+	<link rel="manifest" href="/manifest.json">
+
+    <title>ZPic</title>
+    @Include("./blocks/common/common_css.zb",null)
+</head>
+
+<body>
+@Include("./blocks/common/header.zb",null)
+@RenderBody()
+@Include("./blocks/common/footer.zb",null)
+@Include("./blocks/common/common_js.zb",null)
+
+</body>
+<script>
+  if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js');
+  }
+
+</script>
+
+</html>

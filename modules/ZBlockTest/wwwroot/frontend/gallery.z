@@ -1,0 +1,84 @@
+
+@{ 
+	var galleryid = QueryString("galleryid");
+	InclueTemplate("./template/index_template.zt");
+
+	var param = new  Newtonsoft.Json.Linq.JObject();
+	param["pagesize"] = 1000;
+	param["currentpage"] = 0;
+	param["id"] = galleryid;
+
+	var galleryData = ExecuteAction("/api/myphotos/gallery",param);
+
+	Model["page_title"] = "Album : "  + galleryData.data.display_name;
+	Model["meta_tags"] = new Newtonsoft.Json.Linq.JArray();
+   // (Model["meta_tags"] as Newtonsoft.Json.Linq.JArray).Add("<meta property='og:url' content='https://znxt.app/gallerynew/gallery.z?galleryid=@QueryString('galleryid')#!#file_hash=@QueryString('file_hash')&changeset_no=3&galleryid="+ galleryid +"/>");
+	
+    // <meta property='og:image' content='https://znxt.app/api/myphotos/image?file_hash=@QueryString('file_hash')@QueryString('thumbnail_image')&t=m' />
+
+
+
+}
+<link href="./css/lightgallery.css" rel="stylesheet">
+
+  <!--Main layout-->
+  <main style="margin-top:80px;">
+    <div class="container">
+       <h1>@galleryData.data.display_name</h1>
+
+	     <div class="demo-gallery">
+            <div id="lightgallery" class="list-unstyled row">
+			 @foreach (var image in @galleryData["data"]["images"])
+			{
+                <div class="col-4 col-md-2 col-sm-3 gridpadding zoom view" data-responsive="" 
+				data-src="../api/myphotos/image?file_hash=@image.file_hash&t=l&changeset_no=@image.changeset_no" 
+				data-sub-html="<h4>@galleryData.data.display_name</h4><p>@galleryData.data.description</p>">
+                    <a href="">
+                        <img class="img-responsive gallery-image " 
+							 src="../api/myphotos/image?file_hash=@image.file_hash&t=m&changeset_no=@image.changeset_no"
+				
+						/>
+						<div class="mask flex-center waves-effect">
+
+                        </div>
+                    </a>
+                </div>
+               }
+            </div>
+        </div>
+	   
+	    <div id="result1" class="row"> 
+		</div>
+       
+    </div>
+  </main>
+  
+  <script type="text/javascript">
+        $(document).ready(function(){
+         	 var options = {};
+			 options.download = false;
+			 options.counter = false;
+			 options.hideBarsDelay = 500;
+		
+           $('#lightgallery').lightGallery(options);
+
+        });
+        </script>
+
+
+  <script src="js/lightgallery-all.min.js"></script>
+
+  <script>
+  /*
+  $(document).ready(function () {
+  
+	$( "#result" ).load("./template/blocks/gallery/gallery_page.z?id=@galleryid&pagesize=50&currentpage=2", function() {
+		console.log( "Load was performed." );
+	});
+  
+  
+  });
+  */
+  </script>
+
+  <!--Main layout-->

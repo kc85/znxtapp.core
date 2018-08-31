@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DB321AA8-0A4F-408A-B5CE-B0F17AD00A87}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZBlockTest</RootNamespace>
+    <AssemblyName>ZBlockTest</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ZNxtApp.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZNxtApp.Core.1.0.14-Beta\lib\net452\ZNxtApp.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Api\ZBlockCtrl.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="build-events-scripts\post-build\readme.md" />
+    <None Include="build-events-scripts\post-build\upload_module.bat" />
+    <None Include="build-events-scripts\post-build\winhttpjs.bat" />
+    <None Include="collections\backend_ui_routes.json" />
+    <None Include="collections\server_routes.json" />
+    <None Include="collections\zblock.json" />
+    <None Include="Consts\readme.md" />
+    <None Include="module.json" />
+    <None Include="packages.config" />
+    <None Include="readme.md" />
+    <None Include="Services\Api\readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="build-events-scripts\post-build\NuGet.exe" />
+    <Content Include="build-events-scripts\post-build\ZNxtApp.CLI.exe" />
+    <Content Include="wwwroot\frontend\sw.js" />
+    <None Include="wwwroot\frontend\font\lg.eot" />
+    <None Include="wwwroot\frontend\font\lg.ttf" />
+    <None Include="wwwroot\frontend\font\lg.woff" />
+    <None Include="wwwroot\frontend\gallery_list.z" />
+    <None Include="wwwroot\frontend\gallery.z" />
+    <None Include="wwwroot\frontend\index_block.z" />
+    <Content Include="wwwroot\frontend\css\addons\datatables.css" />
+    <Content Include="wwwroot\frontend\css\addons\datatables.min.css" />
+    <Content Include="wwwroot\frontend\css\bootstrap.css" />
+    <Content Include="wwwroot\frontend\css\bootstrap.min.css" />
+    <Content Include="wwwroot\frontend\css\lightgallery.css" />
+    <Content Include="wwwroot\frontend\css\mdb.css" />
+    <Content Include="wwwroot\frontend\css\mdb.min.css" />
+    <Content Include="wwwroot\frontend\css\zpic.css" />
+    <Content Include="wwwroot\frontend\css\style.css" />
+    <Content Include="wwwroot\frontend\css\style.min.css" />
+    <Content Include="wwwroot\frontend\font\lg.svg" />
+    <Content Include="wwwroot\frontend\img\lightbox\default-skin.png" />
+    <Content Include="wwwroot\frontend\img\lightbox\default-skin.svg" />
+    <Content Include="wwwroot\frontend\img\lightbox\preloader.gif" />
+    <Content Include="wwwroot\frontend\img\loading.gif" />
+    <Content Include="wwwroot\frontend\img\myphotologo.png" />
+    <Content Include="wwwroot\frontend\img\overlays\01.png" />
+    <Content Include="wwwroot\frontend\img\overlays\02.png" />
+    <Content Include="wwwroot\frontend\img\overlays\03.png" />
+    <Content Include="wwwroot\frontend\img\overlays\04.png" />
+    <Content Include="wwwroot\frontend\img\overlays\05.png" />
+    <Content Include="wwwroot\frontend\img\overlays\06.png" />
+    <Content Include="wwwroot\frontend\img\overlays\07.png" />
+    <Content Include="wwwroot\frontend\img\overlays\08.png" />
+    <Content Include="wwwroot\frontend\img\overlays\09.png" />
+    <Content Include="wwwroot\frontend\img\sample.jpg" />
+    <Content Include="wwwroot\frontend\img\svg\arrow_left.svg" />
+    <Content Include="wwwroot\frontend\img\svg\arrow_right.svg" />
+    <Content Include="wwwroot\frontend\img\video-play.png" />
+    <Content Include="wwwroot\frontend\js\addons\datatables.js" />
+    <Content Include="wwwroot\frontend\js\addons\datatables.min.js" />
+    <Content Include="wwwroot\frontend\js\bootstrap.js" />
+    <Content Include="wwwroot\frontend\js\bootstrap.min.js" />
+    <Content Include="wwwroot\frontend\js\jquery-3.3.1.min.js" />
+    <Content Include="wwwroot\frontend\js\lightgallery-all.min.js" />
+    <Content Include="wwwroot\frontend\js\mdb.js" />
+    <Content Include="wwwroot\frontend\js\mdb.min.js" />
+    <Content Include="wwwroot\frontend\js\modules\chart.js" />
+    <Content Include="wwwroot\frontend\js\modules\enhanced-modals.js" />
+    <Content Include="wwwroot\frontend\js\modules\forms-free.js" />
+    <Content Include="wwwroot\frontend\js\modules\jquery.easing.js" />
+    <Content Include="wwwroot\frontend\js\modules\scrolling-navbar.js" />
+    <Content Include="wwwroot\frontend\js\modules\velocity.min.js" />
+    <Content Include="wwwroot\frontend\js\modules\waves.js" />
+    <Content Include="wwwroot\frontend\js\modules\wow.js" />
+    <Content Include="wwwroot\frontend\js\popper.min.js" />
+    <None Include="wwwroot\frontend\manifest.json" />
+    <None Include="wwwroot\frontend\template\blocks\common\common_js.zb">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="wwwroot\frontend\template\blocks\common\common_css.zb" />
+    <None Include="wwwroot\frontend\template\blocks\common\footer.zb" />
+    <None Include="wwwroot\frontend\template\blocks\common\header.zb" />
+    <None Include="wwwroot\frontend\template\blocks\gallery\gallery_page.z" />
+    <None Include="wwwroot\frontend\template\blocks\gallery_list\gallery_list.zb" />
+    <None Include="wwwroot\frontend\template\blocks\index\carousel_backup.zb" />
+    <None Include="wwwroot\frontend\template\blocks\index\my_gallery.zb" />
+    <None Include="wwwroot\frontend\template\blocks\index\gallery.zb" />
+    <None Include="wwwroot\frontend\template\blocks\index\more_detail.zb" />
+    <None Include="wwwroot\frontend\template\blocks\index\detail_features.zb" />
+    <None Include="wwwroot\frontend\template\blocks\index\about.zb" />
+    <None Include="wwwroot\frontend\template\blocks\index\feature.zb" />
+    <None Include="wwwroot\frontend\template\blocks\index\carousel.zb" />
+    <None Include="wwwroot\frontend\template\blocks\index.z" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Bold.eot" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Bold.ttf" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Bold.woff" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Bold.woff2" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Light.eot" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Light.ttf" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Light.woff" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Light.woff2" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Medium.eot" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Medium.ttf" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Medium.woff" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Medium.woff2" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Regular.eot" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Regular.ttf" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Regular.woff" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Regular.woff2" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Thin.eot" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Thin.ttf" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Thin.woff" />
+    <None Include="wwwroot\frontend\font\roboto\Roboto-Thin.woff2" />
+    <None Include="wwwroot\frontend\template\index_template - Copy.zt" />
+    <None Include="wwwroot\frontend\template\index_template.zt" />
+    <None Include="ZBlockTest.nuspec" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="PostBuildMacros">
+    <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
+      <Output TaskParameter="Assemblies" ItemName="Targets" />
+    </GetAssemblyIdentity>
+    <ItemGroup>
+      <VersionNumber Include="$([System.Text.RegularExpressions.Regex]::Replace(&quot;%(Targets.Version)&quot;, &quot;^(.+?)(\.0+)$&quot;, &quot;$1&quot;))" />
+    </ItemGroup>
+  </Target>
+  <PropertyGroup>
+    <PostBuildEventDependsOn>
+      $(PostBuildEventDependsOn);
+      PostBuildMacros;
+    </PostBuildEventDependsOn>
+    <PostBuildEvent>call "$(ProjectDir)build-events-scripts\post-build\upload_module.bat" @(VersionNumber) "$(SolutionDir).nuget" "$(TargetDir)" "$(ProjectDir)$(ProjectName).nuspec" $(ProjectName) "$(ProjectDir)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

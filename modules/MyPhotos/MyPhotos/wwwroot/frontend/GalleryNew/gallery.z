@@ -6,21 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>My Photos</title>
-	 @Include("./template/header_css.zb",null)
+    @Include("./template/header_css.zb",null)
 </head>
 
-<body ng-controller="MyPhotoApp.Main" >
+<body ng-controller="MyPhotoApp.Main">
     <div class="progress" ng-hide="gallery != undefined" style="height:5px;">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
     </div>
     <div class="ng-hide" ng-show="gallery != undefined">
         <div class="card fix_header" id="navbar">
             <div class="card-body row" style="padding:7px">
-                <div class="col-8">
-                    <h5 class="card-title"><img src="./img/myphotologo.png" style="height:35px"> <span style="padding-left:5px;"> {{gallery.display_name}}</span></h5>
+                <div class="col-6">
+                    <h5 class="card-title">
+                        <a href="./indexnew.z">
+                            <img src="./img/myphotologo.png" style="height:35px">
+                        </a>
+                        <span style="padding-left:5px;"> {{gallery.display_name}}</span>
+                    </h5>
                 </div>
                 <div class="col-2 view ng-hide" ng-show="user != undefined && isShowBookmark == undefined && isOwner()">
-                    <a href="./gatterysettings.z?galleryid={{galleryid}}">
+                    <a class="btn btn-danger" onclick="alert('upload image in progress');" style="margin: 0px;padding:5px 12px 0px 12px;float:right">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none" />
+                            <path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                        </svg>
+                    </a>
+                </div>
+                <div class="col-2 view ng-hide" ng-show="user != undefined && isShowBookmark == undefined && isOwner()">
+
+                    <a href="./gallerysettings.z?galleryid={{galleryid}}">
                         <div class="mask toolMenuItemIcon">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                                 <path fill="none" d="M0 0h20v20H0V0z" />
@@ -44,36 +58,62 @@
                 <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
             </div>
         </div>
-
-        <div class="col-12 col-md-3 col-sm-6 gridpadding" style="margin-top:70px;">
-            <div class="card" ng-show="isShowBookmark == undefined">
-                <!--Card image-->
-                <div class="overlay hm-white-slight">
-                    <img file_hash="{{gallery.thumbnail_image.file_hash}}"
-                         changeset="{{gallery.thumbnail_image.changeset_no}}"
-                         src="../api/myphotos/image?file_hash={{gallery.thumbnail_image.file_hash}}&t=m&changeset_no={{gallery.thumbnail_image.changeset_no}}"
-                         style="width:100%"
-                         class="img-fluid gallerythumbnail"
-                         onload="replaceImage(this)"
-                         alt="">
-                </div>
-                <!--Card content-->
+        <div class="col-12 col-md-3 col-sm-6 gridpadding ng-hide" style="margin-bottom: 50px;margin-top:70px;" ng-show="userLoginRequired == true">
+            <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-6">
-                            Photos
-                            <span class="badge badge-primary badge-pill">{{gallery.files_count}}</span>
+                        <div class="col-12 ng-hide" ng-show="user == undefined" id="loginRequiredDiv">
+                            Please login to access the gallery.
+                            <br />
+                            <div class="g-signin2" data-onsuccess="googleLoginCheck" data-theme="dark"></div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="blue-grey-text">{{gallery.description}}</p>
+                        <div class="col-12" ng-show="user != undefined">
+                            You don't have access to this Gallery. Please contact gallery owner to give access.
+                            <a href="./indexnew.z" class="btn btn-primary"> Go Back to Home </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container-fluid" style="margin-bottom: 50px;">
+
+        <div class="container-fluid" style="margin-bottom: 50px;margin-top:70px;">
+            <div class="col-12 col-md-3 col-sm-6 gridpadding" style="display:none">
+                <div class="card" ng-show="isShowBookmark == undefined && userLoginRequired == false">
+                    <!--Card image-->
+                    <div class="overlay hm-white-slight">
+                        <img file_hash="{{gallery.thumbnail_image.file_hash}}"
+                             changeset="{{gallery.thumbnail_image.changeset_no}}"
+                             src="../api/myphotos/image?file_hash={{gallery.thumbnail_image.file_hash}}&t=m&changeset_no={{gallery.thumbnail_image.changeset_no}}"
+                             style="width:100%"
+                             class="img-fluid gallerythumbnail"
+                             onload="replaceImage(this)"
+                             alt="">
+                    </div>
+                    <!--Card content-->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                Photos
+                                <span class="badge badge-primary badge-pill">{{gallery.files_count}}</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="blue-grey-text">{{gallery.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-show="isOwner()">
+                <div class="col-12 col-md-2 col-sm-3 gridpadding">
+                    <h4> Add New image </h4>
+                    <div>{{uploadimagetext}}</div>
+                    <form name="imageUploadfrm" ng-hide="busy==true">
+                        <input type="file" id="imageUpload_btn" class="btn" data-input="false" file-model="selectedUploadImage">
+                    </form>
+                </div>
+            </div>
             <div class="row" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
                 <div class="col-4 col-md-2 col-sm-3 gridpadding zoom view" ng-repeat="image in gallery_files">
                     <a href="#file_hash={{image.file_hash}}&changeset_no={{image.changeset_no}}&galleryid={{image.galleryid}}" data-toggle="modal" ng-click="imageClick();">
@@ -95,9 +135,10 @@
 
     </div>
 
-	@Include("./template/js_libs.zb",null)
+    @Include("./template/js_libs.zb",null)
 
     <script type="text/javascript" src="./app/MyPhotoApp.js"></script>
-	
+    <script type="text/javascript" src="./app/fileUploadService.js"></script>
+
 </body>
 </html>

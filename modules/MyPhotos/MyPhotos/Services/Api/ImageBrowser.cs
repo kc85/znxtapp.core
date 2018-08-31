@@ -14,10 +14,11 @@ namespace MyPhotos.Services.Api
 {
     public class ImageBrowser : ViewBaseService
     {
+        ParamContainer _paramContainer;
         public ImageBrowser(ParamContainer paramContainer)
             : base(paramContainer)
         {
-
+            _paramContainer = paramContainer;
         }
 
        
@@ -88,12 +89,17 @@ namespace MyPhotos.Services.Api
 
 
         }
-
+        
         public JObject GetGallery()
         {
             try
             {
-                var id = HttpProxy.GetQueryString("id");
+                var id = HttpProxy.GetQueryString(CommonConst.CommonField.DISPLAY_ID);
+                if (_paramContainer.GetKey(CommonConst.CommonField.DISPLAY_ID) != null)
+                {
+                    id = (string)_paramContainer.GetKey(CommonConst.CommonField.DISPLAY_ID);
+                    Logger.Debug(string.Format("Filter on Gallery {0}", id));
+;                }
                 if (string.IsNullOrEmpty(id))
                 {
                     return GetAllGalleries();
@@ -146,16 +152,27 @@ namespace MyPhotos.Services.Api
         {
             string strPagesize = HttpProxy.GetQueryString(CommonConst.CommonField.PAGE_SIZE_KEY.ToLower());
             string strCurrentPage = HttpProxy.GetQueryString(CommonConst.CommonField.CURRENT_PAGE_KEY.ToLower());
+            if (_paramContainer.GetKey(CommonConst.CommonField.PAGE_SIZE_KEY.ToLower()) != null)
+            {
+                strPagesize = (string)_paramContainer.GetKey(CommonConst.CommonField.PAGE_SIZE_KEY.ToLower());
+            }
+            if (_paramContainer.GetKey(CommonConst.CommonField.CURRENT_PAGE_KEY.ToLower()) != null)
+            {
+                strCurrentPage = (string)_paramContainer.GetKey(CommonConst.CommonField.CURRENT_PAGE_KEY.ToLower());
+            }
 
             int pageSize = 50;
-            int currentPage = 0;
+            int currentPage = 1;
 
             int.TryParse(strPagesize, out pageSize);
             int.TryParse(strCurrentPage, out currentPage);
 
             int startCount = (pageSize * (currentPage));
             int endCount = startCount + pageSize;
-
+            if (data[ImageProcessor.FILE_HASHS] == null)
+            {
+                data[ImageProcessor.FILE_HASHS] = new JArray();
+            }
             var fileHashs = (data[ImageProcessor.FILE_HASHS] as JArray);
              int totalPages  = 0;
              if (fileHashs.Count > 0 && pageSize != 0)
@@ -188,27 +205,55 @@ namespace MyPhotos.Services.Api
 
         private JObject GetAllGalleries()
         {
+            var user = SessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
+            var userId =  HttpProxy.GetQueryString(CommonConst.CommonField.USER_ID);
+
+            if (_paramContainer.GetKey(CommonConst.CommonField.USER_ID) != null)
+            {
+                userId = (string)_paramContainer.GetKey(CommonConst.CommonField.USER_ID);
+            }
+            if (!string.IsNullOrEmpty(userId) && user != null &&  userId != user.user_id)
+            {
+                return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
+            }
 
             var sort = new Dictionary<string, int>();
             sort[CommonConst.CommonField.NAME] = 1;
             sort[CommonConst.CommonField.ID] = 1;
-            var response = GetPagedData(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, "{}", new List<string> { CommonConst.CommonField.DISPLAY_ID, ImageProcessor.DISPLAY_NAME, ImageProcessor.DESCRIPTION, CommonConst.CommonField.NAME, ImageProcessor.FILES_COUNT, ImageProcessor.GALLERY_THUMBNAIL, ImageProcessor.AUTH_USERS },sort,100,1);
-            List<JToken> filterData = new List<JToken>();
+            var response = GetPagedData(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, "{}", new List<string> { CommonConst.CommonField.DISPLAY_ID, ImageProcessor.DISPLAY_NAME, ImageProcessor.DESCRIPTION, CommonConst.CommonField.NAME, ImageProcessor.FILES_COUNT, ImageProcessor.GALLERY_THUMBNAIL, ImageProcessor.AUTH_USERS, ImageProcessor.OWNER },sort,100,1);
 
+            List<JToken> filterData = new List<JToken>();
             foreach (var item in response[CommonConst.CommonField.DATA])
             {
-                ImageGalleryHelper.AddDefaultOwner(item);
-                if (!ImageGalleryHelper.IsValidaUser(item,SessionProvider))
+               
+
+                if (string.IsNullOrEmpty(userId))
                 {
-                    filterData.Add(item);
+                    ImageGalleryHelper.AddDefaultOwner(item);
+                    if (!ImageGalleryHelper.IsValidaUser(item, SessionProvider))
+                    {
+                        filterData.Add(item);
+                    }
+                    else
+                    {
+                       
+                        if (item[ImageProcessor.OWNER] == null)
+                        {
+                            item[ImageProcessor.OWNER] = ImageProcessor.DEFAULT_OWNER;
+                        }
+                        AddGalleryThumbnailImage(item);
+                    }
                 }
                 else
                 {
-                    if(item[ImageProcessor.OWNER] == null)
+                    if (item[ImageProcessor.OWNER]!=null && item[ImageProcessor.OWNER].ToString() == userId)
                     {
-                        item[ImageProcessor.OWNER] = ImageProcessor.DEFAULT_OWNER;
+                        AddGalleryThumbnailImage(item);
                     }
-                    AddGalleryThumbnailImage(item);
+                    else
+                    {
+                        filterData.Add(item);
+                    }
                 }
             }
 
@@ -251,8 +296,11 @@ namespace MyPhotos.Services.Api
             {
                 galleryItem[ImageProcessor.DESCRIPTION] = "";
             }
+            if (galleryItem[ImageProcessor.GALLERY_THUMBNAIL] != null)
+            {
                 galleryItem[ImageProcessor.GALLERY_THUMBNAIL_IMAGE] = ImageGalleryHelper.GetImageData(DBProxy, SessionProvider, galleryItem[ImageProcessor.GALLERY_THUMBNAIL].ToString())[0];
-            (galleryItem as JObject).Remove(ImageProcessor.GALLERY_THUMBNAIL);
+                (galleryItem as JObject).Remove(ImageProcessor.GALLERY_THUMBNAIL);
+            }
 
         }
         

@@ -44,11 +44,15 @@ function removeCacheKey(url,callback) {
                         removeCache(cacheName, r.url, callback);
                     }
                 });
-                callback();
+                
             });
 
         });
     });
+
+    if (callback != undefined) {
+        callback();
+    }
 }
 var lastFileHash = "";
 function replaceImage(image) {
@@ -58,10 +62,18 @@ function replaceImage(image) {
         lastFileHash = fileHash;
         var mainImage = image;
         var imageL = new Image();
+        $(imageL).attr("file_hash", fileHash);
+        $(imageL).attr("class", $(image).attr("class"));
         imageL.onload = function () {
-            console.log("Large image Loaded ... ", this.src);
-
-            mainImage.src = this.src;
+            if ($(this).hasClass("imageViewDetail")) {
+                var fileHash = $(this).attr("file_hash");
+                if (fileHash == getUrlHashKeys().file_hash) {
+                    mainImage.src = this.src;
+                }
+            }
+            else {
+                mainImage.src = this.src;
+            }
         }
         imageL.src = "../api/myphotos/image?file_hash=" + fileHash + "&t=l&changeset_no=" + changeset;
     }
@@ -115,7 +127,7 @@ function googleLoginCheck(googleUser) {
         contentType: "application/json",
         dataType: 'json',
         success: function (data) {
-            if($('#myphotoLogin').css("display")=='block'){
+            if ($('#myphotoLogin').css("display") == 'block' || $('#loginRequiredDiv').css("display") == 'block') {
                 removeCacheKey("/api/myphotos/gallery");
                 removeCacheKey("/indexnew.z",function(){
                     window.location.reload();

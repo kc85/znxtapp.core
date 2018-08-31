@@ -23,7 +23,7 @@ namespace ZNxtApp.Core.Web.Services
             get { return _transactionId; }
         }
 
-        public Logger(IDBService dbService = null)
+        public Logger(IDBService dbService = null,string loggerName= null)
         {
             if (dbService == null)
             {
@@ -32,13 +32,14 @@ namespace ZNxtApp.Core.Web.Services
            else {
                 _dbProxy = dbService;
             }
+            _loggerName = loggerName;
             _logLevels = GetLogLevels();
         }
         public static ILogger GetLogger(string loggerName, string transactionId, IDBService dbService = null)
         {
             lock (lockObjet)
             {
-                Logger _logger = new Logger(dbService);
+                Logger _logger = new Logger(dbService, loggerName);
                 _logger._loggerName = loggerName;
                 _logger._transactionId = transactionId;
                 return _logger;
@@ -126,7 +127,7 @@ namespace ZNxtApp.Core.Web.Services
             logData[CommonConst.CommonField.DISPLAY_ID] = Guid.NewGuid().ToString();
             logData[CommonConst.CommonField.LOGGER_NAME] = _loggerName;
             logData[CommonConst.CommonField.LOG_TYPE] = level;
-            logData[CommonConst.CommonField.TRANSATTION_ID] = TransactionId;
+            logData[CommonConst.CommonField.TRANSACTION_ID] = TransactionId;
             logData[CommonConst.CommonField.LOG_MESSAGE] = message;
             logData[CommonConst.CommonField.DATA] = loginputData;
             return logData;
@@ -135,13 +136,12 @@ namespace ZNxtApp.Core.Web.Services
         private List<string> GetLogLevels()
         {
             List<string> logLevals = new List<string>();
-            var setting = AppSettingService.Instance.GetAppSetting(this.ToString());
+            var setting = AppSettingService.Instance.GetAppSetting(GetLoggerName());
             if (setting == null)
             {
                 AddLogComponents();
+                setting = AppSettingService.Instance.GetAppSetting(GetLoggerName());
             }
-            setting = AppSettingService.Instance.GetAppSetting(this.ToString());
-
             if (setting[CommonConst.CommonField.DATA][CommonConst.CommonField.LOG_LOG_LEVELS] != null)
             {
                 foreach (var item in setting[CommonConst.CommonField.DATA][CommonConst.CommonField.LOG_LOG_LEVELS] as JArray)
@@ -160,12 +160,19 @@ namespace ZNxtApp.Core.Web.Services
             levels.Add(Loglevels.Info.ToString());
             levels.Add(Loglevels.Error.ToString());
             levels.Add(Loglevels.Transaction.ToString());
-            AppSettingService.Instance.SetAppSetting(this.ToString(), data);
+         
+            AppSettingService.Instance.SetAppSetting(GetLoggerName(), data);
         }
 
+        private string GetLoggerName()
+        {
+            var loggerName = string.Format("Logger:{0}",  this.ToString());
+            if (!string.IsNullOrEmpty(_loggerName)) loggerName = string.Format("Logger:{0}", _loggerName);
+            return loggerName;
+        }
         public JArray GetLogs(string transactionId)
         {
-            return _dbProxy.Get(CommonConst.Collection.SERVER_LOGS,"{'" + CommonConst.CommonField.TRANSATTION_ID + "' : '" + transactionId + "'}");
+            return _dbProxy.Get(CommonConst.Collection.SERVER_LOGS,"{'" + CommonConst.CommonField.TRANSACTION_ID + "' : '" + transactionId + "'}");
         }
     }
     public enum Loglevels

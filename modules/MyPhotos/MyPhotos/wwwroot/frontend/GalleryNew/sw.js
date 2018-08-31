@@ -1,5 +1,5 @@
-﻿const PRECACHE = 'precache-v1.312';
-const RUNTIME = 'runtime-v1.312';
+﻿const PRECACHE = 'precache-v1.385';
+const RUNTIME = 'runtime-v1.385';
 
 
 const BACKGROUND_CACHE_URLS = [
@@ -19,7 +19,9 @@ const IGNORE_CACHE_URLS = [
     '/api/myphotos/image/like',
     '/api/myphotos/image/bookmark',
     '/api/myphotos/gallery/update',
-    'https://apis.google.com/js/platform.js'
+    'https://apis.google.com/js/platform.js',
+    '/api/myphotos/gallery/addimage',
+    '/api/myphotos/gallery/deleteimage'
 ];
 
 // A list of local resources we always want to be cached.

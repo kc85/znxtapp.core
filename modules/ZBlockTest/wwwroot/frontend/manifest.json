@@ -1,0 +1,15 @@
+﻿{
+    "short_name": "ZPic",
+    "name": "ZPic.app",
+    "icons": [
+        {
+            "src": "img/myphotologo.png",
+            "sizes": "141x111",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/index_block.z?utm_source=homescreen",
+    "background_color": "#000",
+    "theme_color": "#536878",
+    "display": "standalone"
+}

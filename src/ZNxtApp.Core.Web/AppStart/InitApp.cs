@@ -72,10 +72,23 @@ namespace ZNxtApp.Core.Web.AppStart
             return loader.Load(string.Format("{0}.dll", args.Name.Split(',')[0]), _logger);
         }
 
-        private static void SetVariables()
+        private void SetVariables()
         {
-            ApplicationConfig.AppBinPath = HttpContext.Current.Server.MapPath("~/bin");
-            ApplicationConfig.AppWWWRootPath = string.Format(@"{0}\..\{1}", ApplicationConfig.AppBinPath, CommonConst.Collection.STATIC_CONTECT);
+            try
+            {
+
+                ApplicationConfig.AppBinPath = HttpContext.Current.Server.MapPath("~/bin");
+                ApplicationConfig.AppWWWRootPath = string.Format(@"{0}\..\{1}", ApplicationConfig.AppBinPath, CommonConst.Collection.STATIC_CONTECT);
+
+                double duration = ApplicationConfig.SessionDuration;
+                double.TryParse(AppSettingService.Instance.GetAppSettingData(CommonConst.CommonField.SESSION_DURATION), out duration);
+                ApplicationConfig.SessionDuration = duration;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message, ex);
+            }
         }
 
         private void AddTask(string name, long seconds)

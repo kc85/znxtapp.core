@@ -246,7 +246,7 @@ namespace ZNxtApp.Core.Web.Proxies
 
         private void CreateSession(HttpContext context)
         {
-            var cookie = new HttpCookie(CommonConst.CommonValue.SESSION_COOKIE, Guid.NewGuid().ToString());
+            var cookie = new HttpCookie(CommonConst.CommonValue.SESSION_COOKIE, CommonUtility.GetNewSessionID());
             var expires = DateTime.Now.AddMinutes(ApplicationConfig.SessionDuration);
             cookie.Expires = expires;
             cookie.HttpOnly = true;
