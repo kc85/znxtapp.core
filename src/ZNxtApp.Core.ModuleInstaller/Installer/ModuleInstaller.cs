@@ -178,7 +178,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                        
                         foreach (JObject joData in JObjectHelper.GetJArrayFromFile(fi.FullName))
                         {
-                            joData[CommonConst.CommonField.DISPLAY_ID] = Guid.NewGuid().ToString();
+                            joData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
                             joData[CommonConst.CommonField.CREATED_DATA_DATE_TIME] = DateTime.Now;
                             joData[CommonConst.CommonField.MODULE_NAME] = moduleName;
                             joData[CommonConst.CommonField.ÌS_OVERRIDE] = false;

@@ -44,17 +44,7 @@ namespace ZNxtApp.Core.Web.Services
         public string Encrypt(string inputString, string encryptionKey)
         {
             byte[] inputArray = UTF8Encoding.UTF8.GetBytes(inputString);
-            TripleDESCryptoServiceProvider tripleDES = new TripleDESCryptoServiceProvider();
-            byte[] trimmedBytes = new byte[24];
-            var byteArr = UTF8Encoding.UTF8.GetBytes(encryptionKey);
-            Buffer.BlockCopy(byteArr, 0, trimmedBytes, 0, 24);
-            tripleDES.Key = trimmedBytes;
-            tripleDES.Mode = CipherMode.ECB;
-            tripleDES.Padding = PaddingMode.PKCS7;
-            ICryptoTransform cTransform = tripleDES.CreateEncryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(inputArray, 0, inputArray.Length);
-            tripleDES.Clear();
-            return Convert.ToBase64String(resultArray, 0, resultArray.Length);
+            return Convert.ToBase64String(Encrypt(inputArray, encryptionKey));
         }
 
         public string Decrypt(string inputString)
@@ -66,6 +56,28 @@ namespace ZNxtApp.Core.Web.Services
         public string Decrypt(string inputString, string encryptionKey)
         {
             byte[] inputArray = Convert.FromBase64String(inputString);
+            
+            return UTF8Encoding.UTF8.GetString(Decrypt(inputArray, encryptionKey));
+        }
+
+        public byte[] Encrypt(byte[] data, string encryptionKey)
+        {
+            TripleDESCryptoServiceProvider tripleDES = new TripleDESCryptoServiceProvider();
+            byte[] trimmedBytes = new byte[24];
+            var byteArr = UTF8Encoding.UTF8.GetBytes(encryptionKey);
+            Buffer.BlockCopy(byteArr, 0, trimmedBytes, 0, 24);
+            tripleDES.Key = trimmedBytes;
+            tripleDES.Mode = CipherMode.ECB;
+            tripleDES.Padding = PaddingMode.PKCS7;
+            ICryptoTransform cTransform = tripleDES.CreateEncryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(data, 0, data.Length);
+            tripleDES.Clear();
+
+            return resultArray;
+        }
+
+        public byte[] Decrypt(byte[] data, string encryptionKey)
+        {
             TripleDESCryptoServiceProvider tripleDES = new TripleDESCryptoServiceProvider();
             byte[] trimmedBytes = new byte[24];
             var byteArr = UTF8Encoding.UTF8.GetBytes(encryptionKey);
@@ -73,9 +85,9 @@ namespace ZNxtApp.Core.Web.Services
             tripleDES.Mode = CipherMode.ECB;
             tripleDES.Padding = PaddingMode.PKCS7;
             ICryptoTransform cTransform = tripleDES.CreateDecryptor();
-            byte[] resultArray = cTransform.TransformFinalBlock(inputArray, 0, inputArray.Length);
+            byte[] resultArray = cTransform.TransformFinalBlock(data, 0, data.Length);
             tripleDES.Clear();
-            return UTF8Encoding.UTF8.GetString(resultArray);
+            return resultArray;
         }
     }
 }

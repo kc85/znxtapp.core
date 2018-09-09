@@ -308,7 +308,8 @@ var __userData = {};
                        var uploadImageUrl = "./api/myphotos/gallery/addimage?galleryid=" + $scope.galleryid;
                        if ($scope.selectedUploadImage.type.indexOf("image") != -1) {
 
-                           fileUploadService.uploadFileToUrl($scope.selectedUploadImage, uploadImageUrl, undefined, function (response) {
+                           fileUploadService.uploadFileToUrl($scope.uploadFiles, uploadImageUrl, undefined, function (response) {
+                               $scope.uploadFiles = [];
                                $scope.busy = false;
                                $scope.uploadimagetext = "";
                                if (response.data.code == 1) {
@@ -321,6 +322,7 @@ var __userData = {};
                                }
                            }, function () {
                                $scope.busy = false;
+                               $scope.uploadFiles = [];
                                $scope.uploadimagetext = "";
                            });
                        }

@@ -97,48 +97,14 @@ namespace MyPhotos.Services.Api
                 Logger.Debug(string.Format("File Count {0}", _fileUploader.GetFiles().Count));
                 if (_fileUploader.GetFiles().Count > 0)
                 {
-                    FileInfo fi = new FileInfo(_fileUploader.GetFiles()[0]);
-                    Logger.Debug(string.Format("Getting File Data"));
-
-                    byte[] fileData = _fileUploader.GetFileData(_fileUploader.GetFiles()[0]);
-                    using (Bitmap image = ImageGalleryHelper.GetImageBitmapFromByte(fileData))
+                    JArray fileHashs = new JArray();
+                    foreach (var fileName  in _fileUploader.GetFiles())
                     {
-                        var fileModel = new FileModel() { file_hash = Hashing.GetFileHash(fileData), file_paths = new List<string>() };
-                        JObject fileFilter = new JObject();
-                        fileFilter[ImageProcessor.FILE_HASH] = fileModel.file_hash;
-                        if (DBProxy.FirstOrDefault(ImageProcessor.MYPHOTO_COLLECTION, fileFilter.ToString()) == null)
-                        {
-                            var imageJObjectData = ImageGalleryHelper.CreateFileDataJObject(fileModel, string.Empty, image);
-                            imageJObjectData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
-                            imageJObjectData[ImageProcessor.OWNER] = user.user_id;
-                            DBProxy.Write(ImageProcessor.MYPHOTO_COLLECTION, imageJObjectData);
-                        }
-
-                        var filter = new JObject();
-                        filter[CommonConst.CommonField.DISPLAY_ID] = galleryId;
-
-                        var galleryData = DBProxy.FirstOrDefault(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, filter.ToString());
-                        if (galleryData == null)
-                        {
-                            galleryData = new JObject();
-                            galleryData[ImageProcessor.FILE_HASHS] = new JArray();
-                            (galleryData[ImageProcessor.FILE_HASHS] as JArray).Add(fileModel.file_hash);
-                            galleryData[ImageProcessor.GALLERY_THUMBNAIL] = fileModel.file_hash;
-                            galleryData[ImageProcessor.OWNER] = user.user_id;
-                            galleryData[ImageProcessor.AUTH_USERS] = new JArray();
-                            (galleryData[ImageProcessor.AUTH_USERS] as JArray).Add(user.user_id);
-                        }
-                        else
-                        {
-                            (galleryData[ImageProcessor.FILE_HASHS] as JArray).Insert(0, fileModel.file_hash);
-                        }
-                        galleryData[ImageProcessor.FILES_COUNT] = (galleryData[ImageProcessor.FILE_HASHS] as JArray).Count;
-
-                        DBProxy.Update(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, filter.ToString(), galleryData, false, MergeArrayHandling.Replace);
-                        JObject responseData = new JObject();
-                        responseData[ImageProcessor.FILE_HASH] = fileModel.file_hash;                        
-                        return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, responseData);
+                        fileHashs.Add(UploadFile(galleryId, user, fileName));
                     }
+                    JObject responseData = new JObject();
+                    responseData[ImageProcessor.FILE_HASHS] = fileHashs;
+                    return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, responseData);
                 }
                 else
                 {
@@ -153,6 +119,59 @@ namespace MyPhotos.Services.Api
                 return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
             }
         }
+
+        private string  UploadFile(string galleryId, UserModel user, string fileName)
+        {
+            FileInfo fi = new FileInfo(fileName);
+            Logger.Debug(string.Format("Getting File Data"));
+
+            byte[] fileData = _fileUploader.GetFileData(fileName);
+            using (Bitmap image = ImageGalleryHelper.GetImageBitmapFromByte(fileData))
+            {
+                Logger.Debug(string.Format("Getting file Hash"));
+                var fileModel = new FileModel() { file_hash = Hashing.GetFileHash(fileData), file_paths = new List<string>() };
+                JObject fileFilter = new JObject();
+                fileFilter[ImageProcessor.FILE_HASH] = fileModel.file_hash;
+                if (DBProxy.FirstOrDefault(ImageProcessor.MYPHOTO_COLLECTION, fileFilter.ToString()) == null)
+                {
+                    Logger.Debug(string.Format("CreateFileDataJObject"));
+                    var imageJObjectData = ImageGalleryHelper.CreateFileDataJObject(fileModel, string.Empty, image);
+                    imageJObjectData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
+                    imageJObjectData[ImageProcessor.OWNER] = user.user_id;
+                    DBProxy.Write(ImageProcessor.MYPHOTO_COLLECTION, imageJObjectData);
+                }
+
+                var filter = new JObject();
+                filter[CommonConst.CommonField.DISPLAY_ID] = galleryId;
+                Logger.Debug(string.Format("Getting gallery "));
+                var galleryData = DBProxy.FirstOrDefault(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, filter.ToString());
+                if (galleryData == null)
+                {
+                    galleryData = new JObject();
+                    galleryData[ImageProcessor.FILE_HASHS] = new JArray();
+                    (galleryData[ImageProcessor.FILE_HASHS] as JArray).Add(fileModel.file_hash);
+                    galleryData[ImageProcessor.GALLERY_THUMBNAIL] = fileModel.file_hash;
+                    galleryData[ImageProcessor.OWNER] = user.user_id;
+                    galleryData[ImageProcessor.AUTH_USERS] = new JArray();
+                    (galleryData[ImageProcessor.AUTH_USERS] as JArray).Add(user.user_id);
+                }
+                else
+                {
+                    if (galleryData[ImageProcessor.FILE_HASHS] == null)
+                    {
+                        galleryData[ImageProcessor.FILE_HASHS] = new JArray();
+                    }
+                    Logger.Debug(string.Format("Adding file to collection "));
+                    (galleryData[ImageProcessor.FILE_HASHS] as JArray).Insert(0, fileModel.file_hash);
+                }
+                galleryData[ImageProcessor.FILES_COUNT] = (galleryData[ImageProcessor.FILE_HASHS] as JArray).Count;
+
+                DBProxy.Update(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, filter.ToString(), galleryData, false, MergeArrayHandling.Replace);
+
+                return fileModel.file_hash;
+            }
+        }
+
         public JObject Create()
         {
             try

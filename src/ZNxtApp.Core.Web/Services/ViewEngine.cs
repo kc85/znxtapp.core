@@ -49,6 +49,31 @@ namespace ZNxtApp.Core.Web.Services
                 return _viewEngine;
             }
         }
+        //public static string IsolatedTransform<Ttype>(string templateId, string templateData, object data) where Ttype : class
+        //{
+        //    using (var service = IsolatedRazorEngineService.Create(RazorEngineAppDomain))
+        //    {
+        //        if (service.IsTemplateCached(templateId, typeof(Ttype)))
+        //        {
+        //            return service.Run(templateId, typeof(Ttype), data);
+        //        }
+        //        else
+        //        {
+        //            return service.RunCompile(templateData, templateId, typeof(Ttype), data);
+        //        }
+        //    }
+        //}
+        //public static AppDomain RazorEngineAppDomain()
+        //{
+        //    AppDomainSetup adSetup = new AppDomainSetup();
+        //    adSetup.ApplicationBase = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+        //    var current = AppDomain.CurrentDomain;
+        //    var strongNames = new StrongName[0];
+        //    return AppDomain.CreateDomain(
+        //        "RazorEngineDoamin", null,
+        //        current.SetupInformation, new PermissionSet(PermissionState.Unrestricted),
+        //        strongNames);
+        //}
         public string Compile(string inputTemplete, string key, object dataModel)
         {
             try
@@ -69,8 +94,15 @@ namespace ZNxtApp.Core.Web.Services
                     }
                     inputTemplete = headerAppender.AppendLine("}").AppendLine(inputTemplete).ToString();
                 }
-                string result = Engine.Razor.RunCompile(inputTemplete, key, null, dataModel);
-                return result;
+
+                if (!Engine.Razor.IsTemplateCached(key, null))
+                {
+                    return Engine.Razor.RunCompile(inputTemplete, key, null, dataModel);
+                }
+                else
+                {
+                    return Engine.Razor.Run(key, null, dataModel);
+                }
             }
             catch (Exception ex)
             {

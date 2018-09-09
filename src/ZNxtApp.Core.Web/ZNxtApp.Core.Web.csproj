@@ -89,6 +89,7 @@
     <Compile Include="Interfaces\IRouteExecuter.cs" />
     <Compile Include="Services\EventSubscription.cs" />
     <Compile Include="Interfaces\IEventSubscription.cs" />
+    <Compile Include="Services\KeyValueFileStorage.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Services\OTPService.cs" />
     <Compile Include="Services\PingService.cs" />

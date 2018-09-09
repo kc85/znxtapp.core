@@ -4,10 +4,15 @@
         "key": "my_photo_path",
         "data": "G:\\Photos"
     },
+  {
+    "auth_users": [ "sys_admin" ],
+    "key": "Session_Duration",
+    "data": "120"
+  },
     {
-        "auth_users": [ "sys_admin" ],
-        "key": "Session_Duration",
-        "data": "120"
+        "auth_users": [ "*" ],
+        "key": "my_photo_data_path",
+        "data": "E:\\data\\ZPic_data"
     }
 
 ]

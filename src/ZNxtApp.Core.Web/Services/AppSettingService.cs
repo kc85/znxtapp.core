@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,6 +75,11 @@ namespace ZNxtApp.Core.Web.Services
         }
         public string GetAppSettingData(string key)
         {
+            if(ConfigurationManager.AppSettings[key]!=null)
+            {
+                return ConfigurationManager.AppSettings[key];
+            }
+
             var data = GetAppSetting(key);
             if (data != null && data[CommonConst.CommonField.DATA]!=null)
             {

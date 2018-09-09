@@ -20,22 +20,20 @@ namespace ZNxtApp.Core.Web.Services.Api
 
         public JObject Ping()
         {
-            string template = "Hello @Name , welcome to RazorEngine! @dt()";
-
-            var inputData = new Dictionary<string, dynamic>();
-            inputData["Name"] = "Khanin";
-            Func<string> dt = () => { return DateTime.Now.ToString() ; };
-            inputData["dt"] = dt;
-
-            JObject data = new JObject();
-            data["Text"] = ViewEngine.Compile(template, "templateKey", inputData);
-            
-            if (PingService.PingDb())
+            try
             {
-                return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, data);
+                if (PingService.PingDb())
+                {
+                    return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS);
+                }
+                else
+                {
+                    return ResponseBuilder.CreateReponse(PingResponseCode._PING_FAIL);
+                }
             }
-            else
+            catch (Exception ex)
             {
+                Logger.Error(ex.Message, ex);
                 return ResponseBuilder.CreateReponse(PingResponseCode._PING_FAIL);
             }
         }

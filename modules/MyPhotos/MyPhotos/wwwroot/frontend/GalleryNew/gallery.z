@@ -110,7 +110,7 @@
                     <h4> Add New image </h4>
                     <div>{{uploadimagetext}}</div>
                     <form name="imageUploadfrm" ng-hide="busy==true">
-                        <input type="file" id="imageUpload_btn" class="btn" data-input="false" file-model="selectedUploadImage">
+                        <input type="file" id="imageUpload_btn" class="btn" data-input="false" file-model="selectedUploadImage" multiple="true">
                     </form>
                 </div>
             </div>

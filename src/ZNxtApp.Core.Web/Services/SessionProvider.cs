@@ -42,7 +42,7 @@ namespace ZNxtApp.Core.Web.Services
 
         public void ResetSession()
         {
-            string filter = "{'" + CommonConst.CommonField.SESSION_ID + "' : '" + _httpProxy.SessionID + "'}";
+            string filter = "{'" + CommonConst.CommonField.ID + "' : '" + _httpProxy.SessionID + "'}";
             try
             {
                 _dbProxy.Delete(CommonConst.Collection.SESSION_DATA, filter);
@@ -61,10 +61,12 @@ namespace ZNxtApp.Core.Web.Services
         public void SetValue<T>(string key, T value)
         {
             JObject filter = new JObject();
-            filter[CommonConst.CommonField.SESSION_ID] = _httpProxy.SessionID;
+            filter[CommonConst.CommonField.ID] = _httpProxy.SessionID;
             JObject sessionData = new JObject();
+            sessionData[CommonConst.CommonField.ID] = _httpProxy.SessionID;
             sessionData[CommonConst.CommonField.SESSION_ID] = _httpProxy.SessionID;
             sessionData[key] = Newtonsoft.Json.JsonConvert.SerializeObject(value);
+
             _dbProxy.Update(CommonConst.Collection.SESSION_DATA,filter.ToString(), sessionData, true, MergeArrayHandling.Union);
         }
     }

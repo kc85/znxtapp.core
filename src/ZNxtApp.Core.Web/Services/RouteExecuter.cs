@@ -116,8 +116,9 @@ namespace ZNxtApp.Core.Web.Services
             {
                 objTxnStartData[CommonConst.CommonField.PAYLOAD] = strPayload;
             }
-            objTxnStartData[CommonConst.CommonField.USER] = httpProxy.GetRequestBody();
-            loggerController.Transaction(objTxnStartData, TransactionState.Start);
+            //TODO
+           // objTxnStartData[CommonConst.CommonField.USER] = httpProxy.GetRequestBody();
+           // loggerController.Transaction(objTxnStartData, TransactionState.Start);
         }
         private void WriteEndTransaction(ILogger loggerController, string response )
         {            
@@ -133,7 +134,8 @@ namespace ZNxtApp.Core.Web.Services
             {
                 objTxnStartData[CommonConst.CommonField.PAYLOAD] = response;
             }
-            loggerController.Transaction(objTxnStartData, TransactionState.Finish);
+            // TODO 
+           // loggerController.Transaction(objTxnStartData, TransactionState.Finish);
         }
     }
 }
