@@ -39,6 +39,7 @@
                     getUserInfoUrl = "./api/user/userinfo?user_id=" + userData.user_id + "";
                 }
                 dataService.get(getUserInfoUrl).then(function (response) {
+                    $scope.loadingUseData = false;
                     if (response.data.code == 1) {
                         if ($scope.isShowMyProfile == true) {
                             $scope.user = response.data.data;
@@ -46,7 +47,7 @@
                         else {
                             $scope.user = response.data.data[0];
                         }
-                        setUserInfoData(user);
+                        setUserInfoData($scope.user);
                         if (callback != undefined) {
                             callback();
                         }
@@ -55,6 +56,8 @@
                         $scope.isError = true;
                         $scope.errorMessage = "Something went wrong in the server";
                     }
+                    
+                }, function () {
                     $scope.loadingUseData = false;
                 });
             }
@@ -64,9 +67,15 @@
             $scope.user = user;
             $scope.user_profile_image = "";
             if (user.user_info[0] != undefined) {
-                $scope.user_profile_image = user.user_info[0].user_pic_l.replace("/frontend/", "../");
-                if ($scope.userData.user_info[0].addresses != undefined) {
-                    $scope.defaultAddress = $scope.userData.user_info[0].addresses.filter(function (d) { return d.is_default == true && d.is_deleted != true })[0];
+
+                if (user.user_info[0].user_pic_l != undefined) {
+                    $scope.user_profile_image = user.user_info[0].user_pic_l.replace("/frontend/", "../");
+                }
+                else {
+                    $scope.user_profile_image = user.user_info[0].user_pic;
+                }
+                if (user.user_info[0].addresses != undefined) {
+                    $scope.defaultAddress = user.user_info[0].addresses.filter(function (d) { return d.is_default == true && d.is_deleted != true })[0];
                 }
             }
         }
@@ -85,7 +94,12 @@
                 if ($scope.userProfileImage.type.indexOf("image") != -1) {
                     fileUploadService.uploadFileToUrl($scope.userProfileImage, uploadUserImageUrl, undefined, function (response) {
                         if (response.data.code == 1) {
-                            $scope.user_profile_image = response.data.data.user_pic_m.replace("/frontend/", "../");
+                            if (response.data.data.user_pic_m != undefined) {
+                                $scope.user_profile_image = response.data.data.user_pic_m.replace("/frontend/", "../");
+                            }
+                            else {
+                                $scope.user_profile_image = response.data.data.user_pic;
+                            }
                             console.log($scope.user_profile_image);
                             $scope.$emit("onUserInfoUpdate", $scope.user);
                             logger.success("upload image succefully");
@@ -102,6 +116,7 @@
 
         $scope.$on("onShowUserDetails", function (e, user) {
             if ($scope.isShowMyProfile != true) {
+                $scope.user = user;
                 $scope.userProfileMenus = menus.filter(function (d) { return d.display_area == "user_profile_body" });
                 $scope.active();
                 scrollY = $window.scrollY;

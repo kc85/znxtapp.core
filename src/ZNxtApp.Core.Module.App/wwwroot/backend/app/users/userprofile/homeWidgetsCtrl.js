@@ -10,6 +10,7 @@
         $scope.lastPasswordReset= Date.toString();
 
         $scope.$on("onShowUserProfileItem", function (e, menu, user) {
+
             if(menu.key == "info")
             {
                 $scope.userData = user;

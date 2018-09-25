@@ -101,6 +101,43 @@
     ],
     "index": 20
   },
+  
+  {
+    "key": "adv_backend_ui_address_widget",
+    "label": "address_widget",
+    "href": "/adv_backend_ui_routes",
+    "icon": "fa-paw",
+    "display_area": "user_profile_home_widget",
+    "url": "#",
+    "config": {
+      "templateUrl": "app/users/userprofile/home_widgets/address_widget.html"
+    },
+    "parent_links": [
+      "advance"
+    ],
+    "auth_users": [
+      "user_profile"
+    ],
+    "index": 100
+  },
+  {
+    "key": "adv_backend_user_group_widget",
+    "label": "user_group_widget",
+    "href": "/user_group_widget",
+    "icon": "fa-paw",
+    "display_area": "user_profile_home_widget",
+    "url": "#",
+    "config": {
+      "templateUrl": "app/users/userprofile/home_widgets/user_group_widget.html"
+    },
+    "parent_links": [
+      "user_profile"
+    ],
+    "auth_users": [
+      "sys_admin"
+    ],
+    "index": 100
+  },
   {
     "key": "user_profile_pasword",
     "label": "Reset Password",

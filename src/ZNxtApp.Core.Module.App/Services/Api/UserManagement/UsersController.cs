@@ -21,6 +21,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.UserManagement
         {
             try
             {
+                
                 JArray joinData = new JArray();
                 JObject collectionJoin = GetCollectionJoin(CommonConst.CommonField.USER_ID,CommonConst.Collection.USER_INFO, CommonConst.CommonField.USER_ID, null, ModuleAppConsts.Field.USER_INFO);
                 joinData.Add(collectionJoin);
