@@ -1,0 +1,33 @@
+﻿@{
+		var actionParam = new Newtonsoft.Json.Linq.JObject();
+		actionParam["page"] = "index";
+		var data  = ExecuteAction("/api/zblock/getblocks",actionParam);
+
+
+}
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+	@if(@Model["meta_tags"]!=null){
+		
+		foreach(var tag in @Model["meta_tags"]){
+		
+		@tag
+		 
+		 }
+	}
+</head>
+<body>
+<hr>
+    @foreach(var d in data["data"])
+	{
+  		@Include(d["block_path"].ToString(),d)
+    }
+	
+</body>
+</html>

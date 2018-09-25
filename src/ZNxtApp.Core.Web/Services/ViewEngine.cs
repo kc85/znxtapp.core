@@ -4,20 +4,18 @@ using RazorEngine.Templating;
 using RazorEngine.Text;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Interfaces;
 
 namespace ZNxtApp.Core.Web.Services
 {
-    public class ViewEngine :IViewEngine
+    public class ViewEngine : IViewEngine
     {
         private static object _lock = new object();
         private static ViewEngine _viewEngine;
         private bool isDevEnv = false;
-        
+
         private ViewEngine()
         {
             var config = new TemplateServiceConfiguration();
@@ -33,6 +31,7 @@ namespace ZNxtApp.Core.Web.Services
 #endif
             Engine.Razor = RazorEngineService.Create(config);
         }
+
         public static ViewEngine GetEngine()
         {
             if (_viewEngine == null)
@@ -49,6 +48,7 @@ namespace ZNxtApp.Core.Web.Services
                 return _viewEngine;
             }
         }
+
         //public static string IsolatedTransform<Ttype>(string templateId, string templateData, object data) where Ttype : class
         //{
         //    using (var service = IsolatedRazorEngineService.Create(RazorEngineAppDomain))

@@ -26,6 +26,7 @@ var __userData = {};
            $scope.screenHeight = 0;
            $scope.images = [];
            $scope.gallery_files = [];
+           $scope.isLoadMore = true;
            function active() {
                $scope.screenHeight = $window.innerHeight + 30;
                $scope.isbackbuttonpress = false;
@@ -85,7 +86,9 @@ var __userData = {};
            };
 
            $scope.loadMore = function (callback) {
-           
+               if ($scope.isLoadMore !== true) {
+                   return;
+               }
                if ($scope.busy == false) {
                    $scope.busy = true;
                    fetchPageImage(function () {
@@ -174,6 +177,10 @@ var __userData = {};
                        $scope.gallery = response.data.data;
                        if ($scope.isShowBookmark == undefined && $scope.gallery.thumbnail_image!=undefined &&  $scope.gallery.thumbnail_image.changeset_no == undefined) {
                            $scope.gallery.thumbnail_image.changeset_no = 0;
+                       }
+                       if (response.data.data.images.length == 0)
+                       {
+                           $scope.isLoadMore = false;
                        }
                        response.data.data.images.forEach(function (d) {
                            if (d.changeset_no == undefined) {

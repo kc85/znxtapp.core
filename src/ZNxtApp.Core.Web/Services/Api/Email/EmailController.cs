@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
+using ZNxtApp.Core.Consts;
+using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Services;
-using ZNxtApp.Core.Helpers;
-using ZNxtApp.Core.Consts;
 
 namespace ZNxtApp.Core.Web.Services.Api.Email
 {
@@ -20,13 +17,12 @@ namespace ZNxtApp.Core.Web.Services.Api.Email
             _paramContainer = paramContainer;
         }
 
-
         public bool Send()
         {
             try
             {
                 string emailQueueId = _paramContainer.GetKey(CommonConst.CommonValue.EMAIL_QUEUE_ID);
-                
+
                 if (string.IsNullOrEmpty(emailQueueId))
                 {
                     Logger.Error("Error : emailQueueId not found");
@@ -40,7 +36,6 @@ namespace ZNxtApp.Core.Web.Services.Api.Email
                     return false;
                 }
 
-                
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient(AppSettingService.GetAppSettingData(CommonConst.CommonField.SMTP_SERVER));
 
@@ -49,7 +44,7 @@ namespace ZNxtApp.Core.Web.Services.Api.Email
                 {
                     mail.To.Add(item.ToString());
                 }
-                
+
                 mail.Subject = emailData[CommonConst.CommonField.SUBJECT].ToString();
                 mail.Body = emailData[CommonConst.CommonField.BODY].ToString();
                 mail.IsBodyHtml = true;
@@ -68,7 +63,6 @@ namespace ZNxtApp.Core.Web.Services.Api.Email
                 Logger.Error(string.Format("Error sending email : {0}", ex.Message), ex);
                 return false;
             }
-            
         }
     }
 }

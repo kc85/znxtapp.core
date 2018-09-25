@@ -6,7 +6,6 @@ using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.DB.Mongo;
 using ZNxtApp.Core.Interfaces;
-using ZNxtApp.Core.Web.Services;
 
 namespace ZNxtApp.Core.Web.Util
 {
@@ -16,9 +15,9 @@ namespace ZNxtApp.Core.Web.Util
         private static AssemblyLoader _assemblyLoader;
         private IDBService _dbProxy;
         public Dictionary<string, byte[]> _loadedAssembly = new Dictionary<string, byte[]>();
-        
+
         private AssemblyLoader()
-        {   
+        {
             _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
         }
 
@@ -34,14 +33,14 @@ namespace ZNxtApp.Core.Web.Util
             return _assemblyLoader;
         }
 
-        public Type GetType(string assemblyName, string executeType,ILogger logger)
+        public Type GetType(string assemblyName, string executeType, ILogger logger)
         {
             logger.Info(string.Format("GetType: {0}, executeType: {1}", assemblyName, executeType));
-            var assembly = Load(assemblyName.Trim(),logger);
+            var assembly = Load(assemblyName.Trim(), logger);
             return assembly.GetType(executeType.Trim());
         }
 
-        public Assembly Load(string assemblyName,ILogger logger)
+        public Assembly Load(string assemblyName, ILogger logger)
         {
             var assembly = GetFromAppDomain(assemblyName);
             if (assembly == null)
@@ -60,7 +59,7 @@ namespace ZNxtApp.Core.Web.Util
                 }
                 else
                 {
-                    assemblyBytes = GetAsssemblyFromDB(assemblyName,logger);
+                    assemblyBytes = GetAsssemblyFromDB(assemblyName, logger);
                     if (assemblyBytes != null)
                     {
                         _loadedAssembly[assemblyName] = assemblyBytes;
@@ -82,8 +81,7 @@ namespace ZNxtApp.Core.Web.Util
         {
             logger.Info(string.Format("Loading Assemmbly:{0}, from Download ", assemblyName));
 
-            
-            var dataResponse = _dbProxy.Get(CommonConst.Collection.DLLS,GetFilter(assemblyName));
+            var dataResponse = _dbProxy.Get(CommonConst.Collection.DLLS, GetFilter(assemblyName));
 
             if (dataResponse.Count > 0)
             {

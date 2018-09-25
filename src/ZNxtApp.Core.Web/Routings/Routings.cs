@@ -23,24 +23,21 @@ namespace ZNxtApp.Core.Web.Routings
         private Routings()
         {
             _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
-            _logger = Logger.GetLogger(this.GetType().Name,string.Empty);
+            _logger = Logger.GetLogger(this.GetType().Name, string.Empty);
             LoadRoutes();
         }
-
-
 
         public void LoadRoutes()
         {
             try
             {
                 _routsModules = new List<RoutingModel>();
-                
-                var dataResponse = _dbProxy.Get(CommonConst.Collection.SERVER_ROUTES,CommonConst.Filters.IS_OVERRIDE_FILTER);
+
+                var dataResponse = _dbProxy.Get(CommonConst.Collection.SERVER_ROUTES, CommonConst.Filters.IS_OVERRIDE_FILTER);
                 foreach (var item in dataResponse)
                 {
                     _routsModules.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<RoutingModel>(item.ToString()));
                 }
-
             }
             catch (Exception ex)
             {

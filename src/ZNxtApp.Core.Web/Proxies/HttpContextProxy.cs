@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -10,8 +11,6 @@ using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Web.Services;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace ZNxtApp.Core.Web.Proxies
 {
@@ -22,6 +21,7 @@ namespace ZNxtApp.Core.Web.Proxies
         private ILogger _logger;
         private DataBuilderHelper _dataBuilderHelper;
         private Dictionary<string, string> _responseHeaders = new Dictionary<string, string>();
+
         public Dictionary<string, string> ResponseHeaders
         {
             get
@@ -41,6 +41,7 @@ namespace ZNxtApp.Core.Web.Proxies
         {
             get { return _response; }
         }
+
         public string TransactionId { get; private set; }
         private int _responseStatusCode;
         private string _responseStatusMessage;
@@ -75,7 +76,7 @@ namespace ZNxtApp.Core.Web.Proxies
             {
                 TransactionId = string.Format("{0}{1}", CommonUtility.GetTimestamp(DateTime.Now), CommonUtility.RandomNumber(2));
             }
-            _logger = Logger.GetLogger(this.GetType().FullName,TransactionId);
+            _logger = Logger.GetLogger(this.GetType().FullName, TransactionId);
         }
 
         public string GetURIAbsolutePath()
@@ -197,12 +198,12 @@ namespace ZNxtApp.Core.Web.Proxies
             return _context.Request.Form[key];
         }
 
-
         public string GetContentType(string path)
         {
             FileInfo fi = new FileInfo(path);
             return GetContentType(fi);
         }
+
         public string GetContentType(FileInfo pathInfo)
         {
             if (_serverPagesContentType.ContainsKey(pathInfo.Extension))
@@ -214,7 +215,6 @@ namespace ZNxtApp.Core.Web.Proxies
                 return MimeMapping.GetMimeMapping(pathInfo.FullName);
             }
         }
-
 
         public string SessionID
         {
@@ -228,15 +228,13 @@ namespace ZNxtApp.Core.Web.Proxies
                 {
                     return null;
                 }
-
             }
         }
 
-        
         public void ResetSession()
         {
             _context.Response.Cookies.Remove(CommonConst.CommonValue.SESSION_COOKIE);
-            
+
             CreateSession(_context);
             if (_context.Session != null)
             {
@@ -252,6 +250,7 @@ namespace ZNxtApp.Core.Web.Proxies
             cookie.HttpOnly = true;
             context.Response.Cookies.Add(cookie);
         }
+
         public void UnloadAppDomain()
         {
             System.Web.HttpRuntime.UnloadAppDomain();
@@ -259,7 +258,7 @@ namespace ZNxtApp.Core.Web.Proxies
 
         public string GetHeader(string key)
         {
-           return _context.Request.Headers[key];
+            return _context.Request.Headers[key];
         }
 
         public Dictionary<string, string> GetHeaders()

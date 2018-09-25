@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
-using System.Threading;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Enums;
@@ -11,11 +10,10 @@ using ZNxtApp.Core.Interfaces;
 namespace ZNxtApp.Core.AppInstaller
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class Installer : IAppInstaller
     {
-
         private static object lockObject = new object();
         private AppInstallStatus _status;
         private IPingService _pingService;
@@ -34,7 +32,6 @@ namespace ZNxtApp.Core.AppInstaller
         private readonly IRoutings _routings;
         private string idKey = "Install_module";
 
-
         private Installer(IPingService pingService, DataBuilderHelper dataBuilderHelper, ILogger logger, IDBService dbProxy, IEncryption encryptionService, IModuleInstaller moduleInstaller, IRoutings routing)
         {
             _pingService = pingService;
@@ -45,16 +42,15 @@ namespace ZNxtApp.Core.AppInstaller
             _moduleInstaller = moduleInstaller;
             _routings = routing;
             GetInstallStatus();
-
         }
 
-        public static IAppInstaller GetInstance(IPingService pingService, DataBuilderHelper dataBuilderHelper, ILogger logger, IDBService dbProxy, IEncryption encryptionService, IModuleInstaller moduleInstaller,IRoutings routing)
+        public static IAppInstaller GetInstance(IPingService pingService, DataBuilderHelper dataBuilderHelper, ILogger logger, IDBService dbProxy, IEncryption encryptionService, IModuleInstaller moduleInstaller, IRoutings routing)
         {
             if (_appInstaller == null)
             {
                 lock (lockObject)
                 {
-                    _appInstaller = new Installer(pingService, dataBuilderHelper, logger, dbProxy, encryptionService, moduleInstaller,routing);
+                    _appInstaller = new Installer(pingService, dataBuilderHelper, logger, dbProxy, encryptionService, moduleInstaller, routing);
                 }
             }
             return _appInstaller;
@@ -70,7 +66,6 @@ namespace ZNxtApp.Core.AppInstaller
             try
             {
                 RequestHandler(httpProxy);
-
             }
             catch (Exception ex)
             {
@@ -84,7 +79,7 @@ namespace ZNxtApp.Core.AppInstaller
             _logger.Debug(string.Format("Installer.RequestHandler path:{0}", requestResource));
             if (!HandleAPI(httpProxy, requestResource))
             {
-                 HandleResource( requestResource, httpProxy);
+                HandleResource(requestResource, httpProxy);
             }
         }
 
@@ -110,7 +105,7 @@ namespace ZNxtApp.Core.AppInstaller
         }
 
         private JObject GetStatus()
-        {   
+        {
             var response = _dataBuilderHelper.GetResponseObject(CommonConst._200_OK);
             _dataBuilderHelper.AddData(response, "status", _status.ToString()).AddData(response, "is_prerequisite_check", IsPrerequisiteCheck);
             _logger.Debug(string.Format("Installer.GetStatus"), response);
@@ -144,15 +139,13 @@ namespace ZNxtApp.Core.AppInstaller
             }
             catch (Exception ex)
             {
-
                 httpProxy.SetResponse(CommonConst._500_SERVER_ERROR, ex.Message);
                 httpProxy.ContentType = CommonConst.CONTENT_TYPE_APPLICATION_JSON;
-                _logger.Error( string.Format("Error in App install {0}",ex.Message), ex);
+                _logger.Error(string.Format("Error in App install {0}", ex.Message), ex);
             }
-
         }
 
-        private void InstallModule(AppInstallerConfig requestData,IHttpContextProxy httpProxy)
+        private void InstallModule(AppInstallerConfig requestData, IHttpContextProxy httpProxy)
         {
             foreach (var item in requestData.DefaultModules)
             {
@@ -241,7 +234,7 @@ namespace ZNxtApp.Core.AppInstaller
                 {
                     var fi = new FileInfo(filePath);
                     var collectionName = fi.Name.Replace(fi.Extension, "").Replace(string.Format(".{0}", environment), "");
-                    JArray arrData = JObjectHelper.GetJArrayFromFile(fi.FullName);                    
+                    JArray arrData = JObjectHelper.GetJArrayFromFile(fi.FullName);
                     WriteInstallData(arrData, collectionName);
                 }
             }
@@ -256,8 +249,6 @@ namespace ZNxtApp.Core.AppInstaller
         {
             try
             {
-
-
                 string[] files = Directory.GetFiles(serverpath, string.Format("*{0}", CommonConst.CONFIG_FILE_EXTENSION));
 
                 foreach (var filePath in files)
@@ -275,10 +266,9 @@ namespace ZNxtApp.Core.AppInstaller
                             continue;
                         }
                         JArray arrData = JObjectHelper.GetJArrayFromFile(fi.FullName);
-                        
+
                         if (cleanExistingData)
                         {
-                            
                             _dbProxy.Delete(collectionName, CommonConst.EMPTY_JSON_OBJECT);
                         }
                         WriteInstallData(arrData, collectionName);
@@ -291,7 +281,6 @@ namespace ZNxtApp.Core.AppInstaller
             }
             catch (Exception ex)
             {
-
                 _logger.Error(string.Format("Error in installing Error: {0}", ex.Message), ex);
             }
         }
@@ -316,11 +305,11 @@ namespace ZNxtApp.Core.AppInstaller
                 if (key != null)
                 {
                     string updateFilter = "{" + CommonConst.CommonField.DATA_KEY + ":'" + key.ToString() + "'}";
-                    _dbProxy.Write(collection,item, updateFilter, true);
+                    _dbProxy.Write(collection, item, updateFilter, true);
                 }
                 else
                 {
-                    _dbProxy.Write(collection,item);
+                    _dbProxy.Write(collection, item);
                 }
             }
         }
@@ -350,7 +339,7 @@ namespace ZNxtApp.Core.AppInstaller
         {
             var response = _dataBuilderHelper.GetResponseObject(CommonConst._200_OK);
             _dataBuilderHelper
-                //.AddDataToArray(response, JObject.Parse("{'type' : 'file_access',  'status' :  " + CheckFileAccess().ToString().ToLower() + "}"))
+             //.AddDataToArray(response, JObject.Parse("{'type' : 'file_access',  'status' :  " + CheckFileAccess().ToString().ToLower() + "}"))
              .AddDataToArray(response, JObject.Parse("{'type' : 'module_folder_write_access',  'status'  :  " + CheckModuleFileAccess().ToString().ToLower() + "}"))
                 .AddDataToArray(response, JObject.Parse("{'type' : 'mongo_db_access',  'status'  :  " + MongoDBConnection().ToString().ToLower() + "}"));
 
@@ -358,7 +347,6 @@ namespace ZNxtApp.Core.AppInstaller
             _logger.Debug(string.Format("Installer.CheckAccess"), response);
 
             return response;
-
         }
 
         private bool CheckModuleFileAccess()
@@ -400,13 +388,13 @@ namespace ZNxtApp.Core.AppInstaller
         {
             _status = installStatus;
             JObject installStatusObj = new JObject();
-            installStatusObj[CommonConst.CommonField.ID] = idKey ;
+            installStatusObj[CommonConst.CommonField.ID] = idKey;
             installStatusObj[CommonConst.CommonField.UPDATED_DATE_TIME] = DateTime.Now;
             installStatusObj[CommonConst.CommonField.STATUS] = (int)installStatus;
             installStatusObj[CommonConst.CommonField.TRANSACTION_ID] = _logger.TransactionId;
-            
-            _dbProxy.Update(CommonConst.Collection.APP_INSTALL_STATUS,"{id:'" + idKey + "'}", installStatusObj, true);
-            
+
+            _dbProxy.Update(CommonConst.Collection.APP_INSTALL_STATUS, "{id:'" + idKey + "'}", installStatusObj, true);
+
             //var tempFolder = ApplicationConfig.AppInstallFolder;
             //JObjectHelper.WriteJSONData(string.Format("{0}\\{1}", tempFolder, _installStatusFile), installStatusObj);
         }
@@ -417,8 +405,7 @@ namespace ZNxtApp.Core.AppInstaller
 
             try
             {
-                
-                JArray data = _dbProxy.Get(CommonConst.Collection.APP_INSTALL_STATUS,"{id:'" + idKey + "'}");
+                JArray data = _dbProxy.Get(CommonConst.Collection.APP_INSTALL_STATUS, "{id:'" + idKey + "'}");
                 if (data.Count != 0)
                 {
                     JObject installStatusObj = data[0] as JObject;

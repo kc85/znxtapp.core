@@ -4,37 +4,38 @@ using System.Collections.Generic;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.DB.Mongo;
-using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 
 namespace ZNxtApp.Core.Web.Services
 {
-    public class Logger : ILogger,ILogReader
+    public class Logger : ILogger, ILogReader
     {
         private static object lockObjet = new object();
         private string _loggerName;
         private string _transactionId;
         private IDBService _dbProxy;
-        public IDBService DBProxy { get { return _dbProxy; } set { _dbProxy = value; } } 
-        List<string> _logLevels;
-        
+        public IDBService DBProxy { get { return _dbProxy; } set { _dbProxy = value; } }
+        private List<string> _logLevels;
+
         public string TransactionId
         {
             get { return _transactionId; }
         }
 
-        public Logger(IDBService dbService = null,string loggerName= null)
+        public Logger(IDBService dbService = null, string loggerName = null)
         {
             if (dbService == null)
             {
                 _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
             }
-           else {
+            else
+            {
                 _dbProxy = dbService;
             }
             _loggerName = loggerName;
             _logLevels = GetLogLevels();
         }
+
         public static ILogger GetLogger(string loggerName, string transactionId, IDBService dbService = null)
         {
             lock (lockObjet)
@@ -45,6 +46,7 @@ namespace ZNxtApp.Core.Web.Services
                 return _logger;
             }
         }
+
         public static ILogReader GetLogReader()
         {
             lock (lockObjet)
@@ -116,10 +118,11 @@ namespace ZNxtApp.Core.Web.Services
         private void WriteLog(JObject logData)
         {
             lock (lockObjet)
-            {                
-                _dbProxy.WriteData(CommonConst.Collection.SERVER_LOGS,logData);
+            {
+                _dbProxy.WriteData(CommonConst.Collection.SERVER_LOGS, logData);
             }
         }
+
         private JObject LoggerCommon(string message, JObject loginputData, string level)
         {
             var logData = new JObject();
@@ -132,7 +135,7 @@ namespace ZNxtApp.Core.Web.Services
             logData[CommonConst.CommonField.DATA] = loginputData;
             return logData;
         }
-       
+
         private List<string> GetLogLevels()
         {
             List<string> logLevals = new List<string>();
@@ -151,6 +154,7 @@ namespace ZNxtApp.Core.Web.Services
             }
             return logLevals;
         }
+
         private void AddLogComponents()
         {
             JObject data = new JObject();
@@ -160,21 +164,23 @@ namespace ZNxtApp.Core.Web.Services
             levels.Add(Loglevels.Info.ToString());
             levels.Add(Loglevels.Error.ToString());
             levels.Add(Loglevels.Transaction.ToString());
-         
+
             AppSettingService.Instance.SetAppSetting(GetLoggerName(), data);
         }
 
         private string GetLoggerName()
         {
-            var loggerName = string.Format("Logger:{0}",  this.ToString());
+            var loggerName = string.Format("Logger:{0}", this.ToString());
             if (!string.IsNullOrEmpty(_loggerName)) loggerName = string.Format("Logger:{0}", _loggerName);
             return loggerName;
         }
+
         public JArray GetLogs(string transactionId)
         {
-            return _dbProxy.Get(CommonConst.Collection.SERVER_LOGS,"{'" + CommonConst.CommonField.TRANSACTION_ID + "' : '" + transactionId + "'}");
+            return _dbProxy.Get(CommonConst.Collection.SERVER_LOGS, "{'" + CommonConst.CommonField.TRANSACTION_ID + "' : '" + transactionId + "'}");
         }
     }
+
     public enum Loglevels
     {
         Debug,

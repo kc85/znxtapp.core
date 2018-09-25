@@ -1,5 +1,4 @@
 @mixin btn-styles($btn-color) {
-
     // remove this line if you want black shadows
     @include shadow-2dp-color($btn-color);
 
@@ -52,7 +51,6 @@
           color: $btn-color;
       }
   }
-
 }
 
 // for social buttons
@@ -75,7 +73,6 @@
         box-shadow: none;
     }
 }
-
 
 @mixin variations-content($args) {
   //@debug "#{map-get($args, mixin-name)}{ #{map-get($args, material-param-1)}: #{map-get($args, variation-color)}; }";
@@ -111,7 +108,6 @@
 }
 
 @mixin generic-variations($component, $selector-suffix, $color-default, $mixin-name, $mdb-param-1) {
-
   //setup map to pass parameters (instead of the incredibly long-error-prone list for each and every @include)
   $args: (
           //extra: $selector-suffix,
@@ -123,7 +119,6 @@
   // bootstrap styles
   &#{$selector-suffix},
   &#{$component}-default#{$selector-suffix} {
-
     $args-extra: map-merge($args, (
             variation-color: $white-color,
             variation-color-text: $gray
@@ -180,7 +175,6 @@
     ));
     @include call-variations-content-mixin($args-rose);
   }
-
 }
 
 @mixin variations($component, $selector-suffix, $mdb-param-1, $color-default) {

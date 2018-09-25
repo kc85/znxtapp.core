@@ -1,12 +1,13 @@
-﻿using ZNxtApp.Core.Model;
+﻿using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Interfaces;
-using ZNxtApp.Core.Consts;
+using ZNxtApp.Core.Model;
 
 namespace ZNxtApp.Core.Services
 {
     public abstract class ViewBaseService : ApiBaseService
     {
-        protected IwwwrootContentHandler ContentHandler; 
+        protected IwwwrootContentHandler ContentHandler;
+
         public ViewBaseService(ParamContainer paramContainer)
             : base(paramContainer)
         {

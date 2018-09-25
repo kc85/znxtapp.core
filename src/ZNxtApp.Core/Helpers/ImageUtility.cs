@@ -8,15 +8,16 @@ namespace ZNxtApp.Core.Helpers
 {
     public static class ImageUtility
     {
-
-        public static string GetSmallImage(byte[] fileData, int w=50, int h=50)
+        public static string GetSmallImage(byte[] fileData, int w = 50, int h = 50)
         {
             return GetCropedImage(fileData, w, h);
         }
+
         public static string GetMediumImage(byte[] fileData, int w = 120, int h = 120)
         {
             return GetCropedImage(fileData, w, h);
         }
+
         public static string GetLargeImage(byte[] fileData, int w = 200, int h = 200)
         {
             return GetCropedImage(fileData, w, h);

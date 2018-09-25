@@ -1,5 +1,5 @@
-﻿const PRECACHE = 'precache-v1.010';
-const RUNTIME = 'runtime-v1.010';
+﻿const PRECACHE = 'precache-v1.011';
+const RUNTIME = 'runtime-v1.011';
 
 
 const BACKGROUND_CACHE_URLS = [
@@ -28,8 +28,7 @@ const IGNORE_CACHE_URLS = [
 
 // A list of local resources we always want to be cached.
 const PRECACHE_URLS = [
-    './index_block.z',
-    './gallery_list.z'
+    './index_block.z'
 ];
 
 

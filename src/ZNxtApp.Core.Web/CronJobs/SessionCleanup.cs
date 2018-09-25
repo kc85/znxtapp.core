@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
@@ -16,9 +12,9 @@ namespace ZNxtApp.Core.Web.CronJobs
         public SessionCleanup(ParamContainer paramContainer) : base(paramContainer)
         {
         }
+
         public int CleanSession()
         {
-
             double duration = ApplicationConfig.SessionDuration;
             double.TryParse(AppSettingService.GetAppSettingData(CommonConst.CommonField.SESSION_DURATION), out duration);
 

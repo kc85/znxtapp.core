@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Interfaces;
@@ -12,7 +8,6 @@ namespace ZNxtApp.Core.Helpers
 {
     public class ResponseBuilder
     {
-
         private readonly ILogger _logger;
         public ILogReader _logReader;
         private readonly IInitData _initData;
@@ -23,6 +18,7 @@ namespace ZNxtApp.Core.Helpers
             _initData = initData;
             _logReader = logReader;
         }
+
         public JObject CreateReponse(int code, JToken data = null, JObject extraData = null)
         {
             var response = CreateResponseObject(code);
@@ -55,8 +51,8 @@ namespace ZNxtApp.Core.Helpers
             response[CommonConst.CommonField.HTTP_RESPONE_MESSAGE] = CommonConst.Messages[code];
             response[CommonConst.CommonField.TRANSACTION_ID] = _initData.TransactionId;
             return response;
-
         }
+
         private void AddDebugData(JObject response)
         {
             if (ApplicationMode.Maintenance == ApplicationConfig.GetApplicationMode)
@@ -65,9 +61,7 @@ namespace ZNxtApp.Core.Helpers
                 objDebugData[CommonConst.CommonValue.TIME_SPAN] = (DateTime.Now - _initData.InitDateTime).TotalMilliseconds;
                 objDebugData[CommonConst.CommonValue.LOGS] = _logReader.GetLogs(_initData.TransactionId);
                 response[CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO] = objDebugData;
-
             }
-
         }
     }
 }

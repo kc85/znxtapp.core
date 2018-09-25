@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ZNxtApp.Core.Interfaces;
 
 namespace ZNxtApp.Core.Web.Services.Api.ModuleInstaller
@@ -28,6 +24,7 @@ namespace ZNxtApp.Core.Web.Services.Api.ModuleInstaller
                 return string.Empty;
             }
         }
+
         public ModuleInstallerResponseCode()
         {
             text[_MAINTANCE_MODE_OFF] = "MAINTANCE_MODE_OFF";

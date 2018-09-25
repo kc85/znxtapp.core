@@ -1,21 +1,16 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Net;
 using System.Web;
-using System.Web.SessionState;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.DB.Mongo;
 using ZNxtApp.Core.Interfaces;
-using ZNxtApp.Core.ModuleInstaller.Installer;
 using ZNxtApp.Core.Web.Services;
-using ZNxtApp.Core.Web.Util;
 
 namespace ZNxtApp.Core.Web.Handler
 {
     public class RequestHandler : RequestHandlerBase
     {
-
         private IAppInstaller _appInstaller;
 
         public override void ProcessRequest(HttpContext context)
@@ -41,7 +36,7 @@ namespace ZNxtApp.Core.Web.Handler
                 }
                 catch (Exception ex)
                 {
-                    // TODO need to handle it better 
+                    // TODO need to handle it better
                     _logger.Error(ex.Message, ex);
                     JObject data = new JObject();
                     data["Error"] = ex.Message;
@@ -82,13 +77,13 @@ namespace ZNxtApp.Core.Web.Handler
                new EncryptionService(),
                new ModuleInstaller.Installer.ModuleInstaller(appInstallerLogger, dbProxy),
               routings);
-
         }
 
         private string ManagePageUrl(string pageUri)
         {
             return SetDefaultPage(pageUri);
         }
+
         private string SetDefaultPage(string pageUri)
         {
             if (pageUri == "/")

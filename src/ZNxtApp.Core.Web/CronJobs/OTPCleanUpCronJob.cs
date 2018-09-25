@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Model;
@@ -15,6 +11,7 @@ namespace ZNxtApp.Core.Web.CronJobs
         public OTPCleanUpCronJob(ParamContainer paramContainer) : base(paramContainer)
         {
         }
+
         public int UpdateOTPStatus()
         {
             int duration = 15;

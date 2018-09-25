@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZNxtApp.Core.Config;
+﻿using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.DB.Mongo;
 using ZNxtApp.Core.Helpers;
@@ -26,11 +21,11 @@ namespace ZNxtApp.Core.Web.Helper
             IEncryption encryption = new EncryptionService();
             ISMSService smsService = new SMSService(loggerController, dbService, actionExecuter, viewEngine, paramContainer);
             IEmailService emailService = new EmailService(loggerController, dbService, actionExecuter, viewEngine, paramContainer);
-            IOTPService otpService = new OTPService(loggerController, dbService, smsService, emailService,appSettingService);
+            IOTPService otpService = new OTPService(loggerController, dbService, smsService, emailService, appSettingService);
             IKeyValueStorage keyValueStorage = new KeyValueFileStorage(encryption, appSettingService);
 
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_DBPROXY, () => { return dbService; });
-          
+
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_LOGGER, () => { return loggerController; });
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_ACTIONEXECUTER, () => { return actionExecuter; });
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_PING_SERVICE, () => { return pingService; });
@@ -44,8 +39,8 @@ namespace ZNxtApp.Core.Web.Helper
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_KEY_VALUE_STORAGE, () => { return keyValueStorage; });
 
             return paramContainer;
-
         }
+
         public static ParamContainer CreateParamContainer(RoutingModel route, IHttpContextProxy httpProxy, ILogger loggerController, IActionExecuter actionExecuter)
         {
             var paramContainer = CreateParamContainer(loggerController, actionExecuter);
@@ -72,10 +67,7 @@ namespace ZNxtApp.Core.Web.Helper
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_SESSION_PROVIDER, () => { return sessionProvider; });
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_CONTENT_HANDLER, () => { return ContentHandler; });
 
-            
-
             return paramContainer;
         }
-
     }
 }

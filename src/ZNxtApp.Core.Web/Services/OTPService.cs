@@ -5,8 +5,6 @@ using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Enums;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
-using ZNxtApp.Core.Model;
-using System;
 
 namespace ZNxtApp.Core.Web.Services
 {
@@ -18,10 +16,9 @@ namespace ZNxtApp.Core.Web.Services
         private readonly IEmailService _emailService;
         private readonly IAppSettingService _appSettingService;
 
-
         public OTPService(ILogger logger,
                           IDBService dbService,
-                          ISMSService smsService, 
+                          ISMSService smsService,
                           IEmailService emailService,
                           IAppSettingService appSettingService)
         {
@@ -32,7 +29,7 @@ namespace ZNxtApp.Core.Web.Services
             _appSettingService = appSettingService;
         }
 
-        public bool Validate(string phoneNumber,string otp, OTPType otpType, string securityToken= null)
+        public bool Validate(string phoneNumber, string otp, OTPType otpType, string securityToken = null)
         {
             Dictionary<string, string> filter = new Dictionary<string, string>();
             filter[CommonConst.CommonField.OTP] = otp;
@@ -69,7 +66,7 @@ namespace ZNxtApp.Core.Web.Services
 
         public bool Send(string phoneNumber, string smsTemplate, OTPType otpType, string securityToken = null)
         {
-            var otpData = CreateOTPData(otpType,securityToken);
+            var otpData = CreateOTPData(otpType, securityToken);
             otpData[CommonConst.CommonField.PHONE] = phoneNumber;
 
             if (_dbService.Write(CommonConst.Collection.OTPs, otpData))
@@ -93,8 +90,8 @@ namespace ZNxtApp.Core.Web.Services
             otpData[CommonConst.CommonField.DURATION] = 15;
             otpData[CommonConst.CommonField.STATUS] = OTPStatus.New.ToString();
             return otpData;
-
         }
+
         public bool SendEmail(string email, string emailTemplate, string subject, OTPType otpType, string securityToken)
         {
             var otpData = CreateOTPData(otpType, securityToken);

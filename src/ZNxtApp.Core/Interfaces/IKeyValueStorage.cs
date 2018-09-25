@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZNxtApp.Core.Interfaces
 {
@@ -30,7 +27,7 @@ namespace ZNxtApp.Core.Interfaces
         /// <param name="encriptionKey"></param>
         /// <returns></returns>
         bool Put<T>(string bucket, string key, T data, string encriptionKey = null);
-       
+
         /// <summary>
         /// Delete value from bucket
         /// </summary>
@@ -46,9 +43,8 @@ namespace ZNxtApp.Core.Interfaces
         /// <returns></returns>
         List<String> GetKeys(string bucket);
 
-
         /// <summary>
-        /// Get 
+        /// Get
         /// </summary>
         /// <returns></returns>
         List<String> GetBuckets();

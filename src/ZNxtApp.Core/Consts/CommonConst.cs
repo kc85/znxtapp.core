@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using ZNxtApp.Core.Interfaces;
 
 namespace ZNxtApp.Core.Consts
@@ -14,7 +14,7 @@ namespace ZNxtApp.Core.Consts
         public const string ENVIRONMENT_SETTING_KEY = "Environment";
         public const string CONFIG_FILE_EXTENSION = ".json";
         public const string EMPTY_JSON_OBJECT = "{}";
-        public const string MODULE_INSTALL_WWWROOT_FOLDER  = "wwwroot";
+        public const string MODULE_INSTALL_WWWROOT_FOLDER = "wwwroot";
         public const string MODULE_INSTALL_DLLS_FOLDER = "dlls";
         public const string MODULE_INSTALL_COLLECTIONS_FOLDER = "collections";
         public const int _404_RESOURCE_NOT_FOUND = 404;
@@ -22,7 +22,7 @@ namespace ZNxtApp.Core.Consts
         public const int _1_SUCCESS = 1;
         public const int _400_BAD_REQUEST = 400;
         public const int _401_UNAUTHORIZED = 401;
-        public const int _500_SERVER_ERROR= 500;
+        public const int _500_SERVER_ERROR = 500;
         private const string UNKNOWN_MESSAGE = "UNKNOWN_STATUS_CODE";
 
         public static MessageText Messages
@@ -38,6 +38,7 @@ namespace ZNxtApp.Core.Consts
             private Dictionary<int, string> text = new Dictionary<int, string>();
             private static MessageText _messageText;
             private static object lockObj = new object();
+
             public string this[int value]
             {
                 get
@@ -62,7 +63,7 @@ namespace ZNxtApp.Core.Consts
                 }
             }
 
-            private string GetMessage(int code )
+            private string GetMessage(int code)
             {
                 foreach (var assemble in AppDomain.CurrentDomain.GetAssemblies())
                 {
@@ -77,7 +78,7 @@ namespace ZNxtApp.Core.Consts
                         }
                     }
                 }
-              
+
                 return string.Empty;
             }
 
@@ -90,7 +91,7 @@ namespace ZNxtApp.Core.Consts
                 text[CommonConst._1_SUCCESS] = "SUCCESS";
                 text[_401_UNAUTHORIZED] = "UNAUTHORIZED";
             }
-            
+
             public static MessageText GetMessage()
             {
                 if (_messageText == null)
@@ -104,15 +105,11 @@ namespace ZNxtApp.Core.Consts
             }
         }
 
-
         public static class ActionMethods
         {
             public const string GET = "GET";
             public const string POST = "POST";
             public const string ACTION = "ACTION";
-
-
         }
-
     }
 }

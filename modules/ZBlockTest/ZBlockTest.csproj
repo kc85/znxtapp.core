@@ -158,7 +158,7 @@
     <None Include="wwwroot\frontend\font\roboto\Roboto-Thin.ttf" />
     <None Include="wwwroot\frontend\font\roboto\Roboto-Thin.woff" />
     <None Include="wwwroot\frontend\font\roboto\Roboto-Thin.woff2" />
-    <None Include="wwwroot\frontend\template\index_template - Copy.zt" />
+    <None Include="wwwroot\frontend\template\template_backup - Copy.zt" />
     <None Include="wwwroot\frontend\template\index_template.zt" />
     <None Include="ZBlockTest.nuspec" />
   </ItemGroup>

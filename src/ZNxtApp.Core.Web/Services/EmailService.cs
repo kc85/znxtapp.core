@@ -1,18 +1,17 @@
 ﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using ZNxtApp.Core.Consts;
-using ZNxtApp.Core.Interfaces;
-using ZNxtApp.Core.Helpers;
-using ZNxtApp.Core.Web.Helper;
 using ZNxtApp.Core.Enums;
+using ZNxtApp.Core.Helpers;
+using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Model;
-using System;
+using ZNxtApp.Core.Web.Helper;
 
 namespace ZNxtApp.Core.Web.Services
 {
     public class EmailService : IEmailService, IFlushService
     {
-
         private readonly ILogger _logger;
         private readonly IDBService _dbService;
         private readonly IActionExecuter _actionExecuter;
@@ -32,7 +31,6 @@ namespace ZNxtApp.Core.Web.Services
             _paramContainer = paramContainer;
         }
 
-
         public bool Send(List<string> toEmail, string fromEmail, List<string> CC, string emailTemplate, string subject, Dictionary<string, dynamic> modelData)
         {
             var emailTemplateData = _dbService.FirstOrDefault(CommonConst.Collection.EMAIL_TEMPLATE, CommonConst.CommonField.DATA_KEY, emailTemplate);
@@ -48,7 +46,8 @@ namespace ZNxtApp.Core.Web.Services
                 return false;
             }
         }
-         public bool Send(List<string> toEmail, string fromEmail, List<string> CC, string emailTemplate, string subject, JObject data)
+
+        public bool Send(List<string> toEmail, string fromEmail, List<string> CC, string emailTemplate, string subject, JObject data)
         {
             Dictionary<string, dynamic> dataObj = new Dictionary<string, dynamic>();
             foreach (var item in data)
@@ -57,6 +56,7 @@ namespace ZNxtApp.Core.Web.Services
             }
             return Send(toEmail, fromEmail, CC, emailTemplate, subject, dataObj);
         }
+
         public bool Send(List<string> toEmail, string fromEmail, List<string> CC, string emailBody, string subject)
         {
             JObject emailData = new JObject();
@@ -104,21 +104,19 @@ namespace ZNxtApp.Core.Web.Services
                 {
                     _logger.Error("Email sender route not found, Please install  email module ");
                     return false;
-
                 }
             }
             else
             {
                 _logger.Error("Error in add email data in queue");
                 return false;
-
             }
         }
+
         public bool Flush()
         {
             _logger.Error("TODO EmailService.Flush");
             throw new NotImplementedException();
         }
-
     }
 }

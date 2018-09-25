@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZNxtApp.Core.Consts;
-using ZNxtApp.Core.Model;
+﻿using ZNxtApp.Core.Model;
 
 namespace ZNxtApp.Core.Services
 {
@@ -13,7 +7,6 @@ namespace ZNxtApp.Core.Services
         public EventSubscriberInitBaseService(ParamContainer paramContainer)
             : base(paramContainer)
         {
-            
         }
     }
 }

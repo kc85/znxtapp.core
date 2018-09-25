@@ -3,12 +3,10 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Consts;
+using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Model;
-using ZNxtApp.Core.Helpers;
 
 namespace ZNxtApp.Core.Services
 {
@@ -25,6 +23,7 @@ namespace ZNxtApp.Core.Services
             Route = paramContainer.GetKey(CommonConst.CommonValue.PARAM_ROUTE);
             SessionProvider = paramContainer.GetKey(CommonConst.CommonValue.PARAM_SESSION_PROVIDER);
         }
+
         protected JObject GetPaggedData(string collection, JArray joins = null, string overrideFilters = null, Dictionary<string, int> sortColumns = null, List<string> fields = null)
         {
             int pageSize = 10, pageSizeData = 0;
@@ -49,20 +48,17 @@ namespace ZNxtApp.Core.Services
                 filterQuery = overrideFilters;
             }
 
-            
-
             var sortData = HttpProxy.GetQueryString("sort");
 
             if (sortData != null)
             {
                 sortColumns = (Dictionary<string, int>)JsonConvert.DeserializeObject<Dictionary<string, int>>(sortData);
             }
-            else if(sortColumns == null)
+            else if (sortColumns == null)
             {
                 sortColumns = new Dictionary<string, int>();
                 sortColumns[CommonConst.CommonField.CREATED_DATA_DATE_TIME] = -1;
             }
-           
 
             if (fields == null)
             {
@@ -83,7 +79,6 @@ namespace ZNxtApp.Core.Services
 
         protected JObject GetCollectionJoin(string soureField, string destinationCollection, string destinationJoinField, List<string> fields, string valueKey)
         {
-           
             JObject collectionJoin = new JObject();
             collectionJoin[CommonConst.CommonField.DB_JOIN_DESTINATION_COLELCTION] = destinationCollection;
             collectionJoin[CommonConst.CommonField.DB_JOIN_DESTINATION_FIELD] = destinationJoinField;
@@ -103,14 +98,13 @@ namespace ZNxtApp.Core.Services
 
         protected JObject GetPagedData(string collection, string query, List<string> fields = null, Dictionary<string, int> sortColumns = null, int pageSize = 10, int currentPage = 1)
         {
-
             int? top = null;
             int? skip = null;
 
             top = pageSize;
             skip = (pageSize * (currentPage - 1));
             Logger.Debug(string.Format("GetPageData. Top:{0} Skip:{1} Query:{2}", top, skip, query));
-            var dbArrData = DBProxy.Get(collection,query, fields, sortColumns, top, skip);
+            var dbArrData = DBProxy.Get(collection, query, fields, sortColumns, top, skip);
             JObject extraData = new JObject();
 
             long count = DBProxy.GetCount(collection, query);
@@ -118,7 +112,7 @@ namespace ZNxtApp.Core.Services
             extraData[CommonConst.CommonField.TOTAL_PAGES_KEY] = Math.Ceiling(((double)count / pageSize));
             extraData[CommonConst.CommonField.PAGE_SIZE_KEY] = pageSize;
             extraData[CommonConst.CommonField.CURRENT_PAGE_KEY] = currentPage;
-           
+
             return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, dbArrData, extraData);
         }
 
@@ -173,9 +167,9 @@ namespace ZNxtApp.Core.Services
                         List<string> filter = new List<string>();
                         foreach (var item in joinCoumnId.Value)
                         {
-                            filter.Add("{ " + join[CommonConst.CommonField.DB_JOIN_DESTINATION_FIELD].ToString() + ": \""+ item +"\" }");
+                            filter.Add("{ " + join[CommonConst.CommonField.DB_JOIN_DESTINATION_FIELD].ToString() + ": \"" + item + "\" }");
                         }
-                        string filterQuery = "{ $or: [ "+ string.Join(",",filter)+ "] }";
+                        string filterQuery = "{ $or: [ " + string.Join(",", filter) + "] }";
 
                         JArray joinCollectionData = DBProxy.Get(join[CommonConst.CommonField.DB_JOIN_DESTINATION_COLELCTION].ToString(), filterQuery, fields);
                         foreach (JObject joinData in joinCollectionData)
@@ -199,7 +193,5 @@ namespace ZNxtApp.Core.Services
                 }
             }
         }
-
     }
-
 }

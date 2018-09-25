@@ -11,15 +11,17 @@ namespace ZNxtApp.Core.Web.Services
     {
         private static EventSubscription _eventSubscription;
         private static object _lockobj = new object();
-        private List<EventSubscriptionModel> _events; 
+        private List<EventSubscriptionModel> _events;
         private IDBService _dbProxy;
         private readonly ILogger _logger;
+
         private EventSubscription(IDBService dbProxy, ILogger logger)
         {
             _logger = logger;
             _dbProxy = dbProxy;
             LoadSubscriptions();
         }
+
         public static EventSubscription GetInstance(IDBService _dbProxy, ILogger logger)
         {
             if (_eventSubscription == null)
@@ -31,11 +33,12 @@ namespace ZNxtApp.Core.Web.Services
             }
             return _eventSubscription;
         }
-        
+
         public List<EventSubscriptionModel> GetSubscriptions(string eventName, ExecutionEventType eventType)
         {
             return _events.Where(f => f.EventName == eventName && f.EventType == eventType).ToList();
         }
+
         public void LoadSubscriptions(bool forceLoad = false)
         {
             if (_events == null || forceLoad)
@@ -43,8 +46,8 @@ namespace ZNxtApp.Core.Web.Services
                 lock (_lockobj)
                 {
                     _events = new List<EventSubscriptionModel>();
-                    
-                    var data = _dbProxy.Get(CommonConst.Collection.EVENT_SUBSCRIPTION,CommonConst.Filters.IS_OVERRIDE_FILTER);
+
+                    var data = _dbProxy.Get(CommonConst.Collection.EVENT_SUBSCRIPTION, CommonConst.Filters.IS_OVERRIDE_FILTER);
                     foreach (var item in data)
                     {
                         EventSubscriptionModel eventModel = Newtonsoft.Json.JsonConvert.DeserializeObject<EventSubscriptionModel>(item.ToString());
@@ -52,7 +55,6 @@ namespace ZNxtApp.Core.Web.Services
                     }
                 }
             }
-
         }
     }
 }

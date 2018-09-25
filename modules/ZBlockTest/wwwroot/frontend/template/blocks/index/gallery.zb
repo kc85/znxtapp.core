@@ -21,7 +21,7 @@
 		{
 			galleryCount++;
 		}
-		if(galleryCount <= maxGalleryCount ){
+		if(galleryCount <= maxGalleryCount && gallery["thumbnail_image"]!=null){
 			<div class="col-12 col-md-3 col-sm-6 gridpadding imagealbum" id="G_@gallery.id">
 			  <div class="view overlay hm-white-slight zoom">
 				<img file_hash="@gallery.thumbnail_image.file_hash"

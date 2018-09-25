@@ -26,23 +26,25 @@
 
     @foreach (var gallery in @galleryData["data"])
     {
-			<div class="col-12 col-md-3 col-sm-6 gridpadding imagealbum" id="G_@gallery.id">
-			  <div class="view overlay hm-white-slight zoom">
-				<img file_hash="@gallery.thumbnail_image.file_hash"
-					 changeset="@gallery.thumbnail_image.changeset_no"
-					 src="../api/myphotos/image?file_hash=@gallery.thumbnail_image.file_hash&t=m&changeset_no=@gallery.thumbnail_image.changeset_no"
-					 style="width:100%"
-					 class="img-fluid gallerythumbnail rcorners3"
-					 alt=""/>
-				  <a href="gallery.z?galleryid=@gallery.id">
-					<div class="mask waves-effect waves-light"></div>
-				  </a>
-				  <div class="font-weight-light" style="padding-left:5px">@gallery.display_name. @gallery.files_count photos</div>
-				  <div class="font-weight-light font-italic" style="padding-left:5px">
-					<small>@gallery.description</small>
-				  </div>
+		if(gallery["thumbnail_image"]!=null){
+				<div class="col-12 col-md-3 col-sm-6 gridpadding imagealbum wow" id="G_@gallery.id">
+				  <div class="view overlay hm-white-slight zoom">
+					<img file_hash="@gallery.thumbnail_image.file_hash"
+						 changeset="@gallery.thumbnail_image.changeset_no"
+						 src="../api/myphotos/image?file_hash=@gallery.thumbnail_image.file_hash&t=m&changeset_no=@gallery.thumbnail_image.changeset_no"
+						 style="width:100%"
+						 class="img-fluid gallerythumbnail rcorners3"
+						 alt=""/>
+					  <a href="gallery.z?galleryid=@gallery.id">
+						<div class="mask waves-effect waves-light"></div>
+					  </a>
+					  <div class="font-weight-light" style="padding-left:5px">@gallery.display_name. @gallery.files_count photos</div>
+					  <div class="font-weight-light font-italic" style="padding-left:5px">
+						<small>@gallery.description</small>
+					  </div>
+					</div>
 				</div>
-			</div>
+		}
     }	
   </div>	
 }

@@ -28,6 +28,7 @@
             public const string EVENT_SUBSCRIPTION = "event_subscription";
             public const string APP_INSTALL_STATUS = "app_install_status";
         }
+
         public static class CollectionAccessTypes
         {
             public const string READONLY = "read_only";

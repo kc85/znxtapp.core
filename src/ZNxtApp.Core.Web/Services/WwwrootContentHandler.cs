@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using ZNxtApp.Core.Config;
-using ZNxtApp.Core.Consts;
-using ZNxtApp.Core.Helpers;
+﻿using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Web.Helper;
 using ZNxtApp.Core.Web.Util;
@@ -30,6 +21,7 @@ namespace ZNxtApp.Core.Web.Services
             _viewEngine = viewEngine;
             _actionExecuter = actionExecuter;
         }
+
         public string GetStringContent(string path)
         {
             path = StaticContentHandler.MappedUriPath(path);
@@ -44,12 +36,12 @@ namespace ZNxtApp.Core.Web.Services
                 return data;
             }
         }
+
         public byte[] GetContent(string path)
         {
             path = StaticContentHandler.MappedUriPath(path);
             var data = StaticContentHandler.GetContent(_dbProxy, _logger, path);
             return data;
         }
-       
     }
 }

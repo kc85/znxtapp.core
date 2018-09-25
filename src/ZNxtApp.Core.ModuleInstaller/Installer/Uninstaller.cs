@@ -30,8 +30,8 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
             {
                 RevertCollections(moduleName, item.ToString(), httpProxy);
             }
-            
-            _dbProxy.Delete(CommonConst.Collection.MODULES,moduleObject.ToString());
+
+            _dbProxy.Delete(CommonConst.Collection.MODULES, moduleObject.ToString());
             return true;
         }
 
@@ -47,8 +47,8 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
             JObject updateData = new JObject();
             updateData[CommonConst.CommonField.OVERRIDE_BY] = CommonConst.CommonValue.NONE;
             updateData[CommonConst.CommonField.IS_OVERRIDE] = false;
-            
-            _dbProxy.Update(collection,updateRevertFilter, updateData, false, MergeArrayHandling.Union);
+
+            _dbProxy.Update(collection, updateRevertFilter, updateData, false, MergeArrayHandling.Union);
         }
     }
 }

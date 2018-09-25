@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
@@ -16,41 +14,40 @@ namespace ZNxtApp.Core.Web.Services
     {
         private ILogger _logger;
         private AssemblyLoader _assemblyLoader;
+
         public ActionExecuter(ILogger logger)
         {
             _logger = logger;
             _assemblyLoader = AssemblyLoader.GetAssemblyLoader();
-
         }
+
         public T Exec<T>(string action, IDBService dbProxy, ParamContainer helper)
         {
             var result = Exec(action, dbProxy, helper);
             return JObjectHelper.Deserialize<T>(result.ToString());
         }
+
         public object Exec(string action, IDBService dbProxy, ParamContainer helper)
         {
-            
             JObject filter = JObject.Parse(CommonConst.Filters.IS_OVERRIDE_FILTER);
             filter[CommonConst.CommonField.METHOD] = CommonConst.ActionMethods.ACTION;
             filter[CommonConst.CommonField.ROUTE] = action;
 
-            var data = dbProxy.Get(CommonConst.Collection.SERVER_ROUTES,filter.ToString());
+            var data = dbProxy.Get(CommonConst.Collection.SERVER_ROUTES, filter.ToString());
             if (data.Count == 0)
             {
                 throw new KeyNotFoundException(string.Format("Not Found: {0}", filter.ToString()));
             }
             RoutingModel route = JObjectHelper.Deserialize<RoutingModel>(data[0].ToString());
 
-            Func<dynamic> routeAction  = () => { return route; };
+            Func<dynamic> routeAction = () => { return route; };
             helper[CommonConst.CommonValue.PARAM_ROUTE] = routeAction;
 
-            return Exec(route,helper);
+            return Exec(route, helper);
         }
 
         public object Exec(RoutingModel route, ParamContainer helper)
         {
-
-
             if (route.auth_users.FirstOrDefault(f => f.Trim() == "*") == null)
             {
                 ISessionProvider sessionProvider = helper.GetKey(CommonConst.CommonValue.PARAM_SESSION_PROVIDER);
@@ -64,7 +61,7 @@ namespace ZNxtApp.Core.Web.Services
 
                 var authToken = httpProxy.GetHeaders().FirstOrDefault(f => f.Key.ToLower() == "");
                 var sessionUser = sessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
-                // add auth here. 
+                // add auth here.
                 if (sessionUser == null)
                 {
                     throw new UnauthorizedAccessException("No session user found");

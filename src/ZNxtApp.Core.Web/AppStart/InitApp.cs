@@ -45,7 +45,6 @@ namespace ZNxtApp.Core.Web.AppStart
             SetVariables();
             GetCronJob();
             SetCronJob();
-            
         }
 
         private void SetCronJob()
@@ -62,11 +61,11 @@ namespace ZNxtApp.Core.Web.AppStart
         }
 
         private void GetCronJob()
-        {            
-            _cronJobs = _dbProxy.Get(CommonConst.Collection.CRON_JOB,CommonConst.EMPTY_JSON_OBJECT);
+        {
+            _cronJobs = _dbProxy.Get(CommonConst.Collection.CRON_JOB, CommonConst.EMPTY_JSON_OBJECT);
         }
 
-        System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        private System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
             AssemblyLoader loader = AssemblyLoader.GetAssemblyLoader();
             return loader.Load(string.Format("{0}.dll", args.Name.Split(',')[0]), _logger);
@@ -76,14 +75,12 @@ namespace ZNxtApp.Core.Web.AppStart
         {
             try
             {
-
                 ApplicationConfig.AppBinPath = HttpContext.Current.Server.MapPath("~/bin");
                 ApplicationConfig.AppWWWRootPath = string.Format(@"{0}\..\{1}", ApplicationConfig.AppBinPath, CommonConst.Collection.STATIC_CONTECT);
 
                 double duration = ApplicationConfig.SessionDuration;
                 double.TryParse(AppSettingService.Instance.GetAppSettingData(CommonConst.CommonField.SESSION_DURATION), out duration);
                 ApplicationConfig.SessionDuration = duration;
-
             }
             catch (Exception ex)
             {
@@ -98,6 +95,7 @@ namespace ZNxtApp.Core.Web.AppStart
                 DateTime.Now.AddSeconds(seconds), Cache.NoSlidingExpiration,
                 CacheItemPriority.NotRemovable, OnCacheRemove);
         }
+
         public void CacheItemRemoved(string key, object val, CacheItemRemovedReason r)
         {
             //Logger.TransactionID = CommonUtility.GenerateTxnId("CJ");

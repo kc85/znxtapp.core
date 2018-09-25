@@ -73,13 +73,11 @@
   }
 
   input[type=checkbox] {
-
     &:focus + .checkbox-material .check:after {
       opacity: 0.2;
     }
 
     &:checked {
-
       & + .checkbox-material .check {
         background: $mdb-checkbox-checked-color;
       }
@@ -112,7 +110,6 @@
 
       & + .checkbox-material .check:after {
         animation: rippleOff $mdb-checkbox-animation-ripple; // Ripple effect on uncheck
-
       }
     }
   }

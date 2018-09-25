@@ -1,30 +1,26 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Services;
-using System.IO;
 
 namespace ZNxtApp.Core.Web.Services.Api.ModuleInstaller
 {
     public class ModuleInstaller : ApiBaseService
     {
-        IModuleInstaller _moduleInstaller;
-        IModuleUninstaller _moduleUninstaller;
-        private Func<Func<string,JObject>, JObject> _moduleMethodCaller = null;
+        private IModuleInstaller _moduleInstaller;
+        private IModuleUninstaller _moduleUninstaller;
+        private Func<Func<string, JObject>, JObject> _moduleMethodCaller = null;
+
         public ModuleInstaller(ParamContainer requestParam) : base(requestParam)
         {
-
             _moduleInstaller = new ZNxtApp.Core.ModuleInstaller.Installer.ModuleInstaller(Logger, DBProxy);
             _moduleUninstaller = new ZNxtApp.Core.ModuleInstaller.Installer.Uninstaller(Logger, DBProxy);
 
-            _moduleMethodCaller = (Func<string,JObject> methodCall) =>
+            _moduleMethodCaller = (Func<string, JObject> methodCall) =>
            {
                try
                {
@@ -64,14 +60,13 @@ namespace ZNxtApp.Core.Web.Services.Api.ModuleInstaller
                    Logger.Error(string.Format("ModuleInstaller, Error:", ex.Message), ex);
                    return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
                }
-               
            };
-
         }
+
         public JObject GetModuleDetails()
         {
-            
-            return  _moduleMethodCaller((string moduleName) => {
+            return _moduleMethodCaller((string moduleName) =>
+            {
                 var moduleDetails = _moduleInstaller.GetDetails(moduleName);
                 if (moduleDetails != null)
                 {
@@ -83,7 +78,6 @@ namespace ZNxtApp.Core.Web.Services.Api.ModuleInstaller
                     Logger.Error(string.Format("Module not found : {0}", moduleName));
                     return ResponseBuilder.CreateReponse(ModuleInstallerResponseCode._MODULE_NOT_FOUND);
                 }
-
             });
         }
 
@@ -100,11 +94,12 @@ namespace ZNxtApp.Core.Web.Services.Api.ModuleInstaller
                 Logger.Error(string.Format("ModuleInstaller.Reinstall, Error:", ex.Message), ex);
                 return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
             }
-
         }
+
         public JObject Install()
         {
-            return _moduleMethodCaller((string moduleName) => {
+            return _moduleMethodCaller((string moduleName) =>
+            {
                 if (_moduleInstaller.Install(moduleName, HttpProxy, true))
                 {
                     HttpProxy.UnloadAppDomain();
@@ -116,13 +111,12 @@ namespace ZNxtApp.Core.Web.Services.Api.ModuleInstaller
                     return ResponseBuilder.CreateReponse(ModuleInstallerResponseCode._MODULE_NOT_FOUND);
                 }
             });
-
-    
         }
 
         public JObject Uninstall()
         {
-            return _moduleMethodCaller((string moduleName) => {
+            return _moduleMethodCaller((string moduleName) =>
+            {
                 if (_moduleUninstaller.Uninstall(moduleName, HttpProxy))
                 {
                     HttpProxy.UnloadAppDomain();
@@ -135,6 +129,5 @@ namespace ZNxtApp.Core.Web.Services.Api.ModuleInstaller
                 }
             });
         }
-
     }
 }

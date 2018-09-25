@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZNxtApp.Core.Consts;
+﻿using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Model;
@@ -11,7 +6,7 @@ using ZNxtApp.Core.Model;
 namespace ZNxtApp.Core.Services
 {
     public abstract class BaseService
-    {   
+    {
         protected IDBService DBProxy { get; private set; }
         protected ILogger Logger { get; private set; }
         protected IActionExecuter ActionExecuter { get; private set; }
@@ -39,7 +34,6 @@ namespace ZNxtApp.Core.Services
             EmailService = paramContainer.GetKey(CommonConst.CommonValue.PARAM_EMAIL_SERVICE);
             EncryptionService = paramContainer.GetKey(CommonConst.CommonValue.PARAM_ENCRYPTION_SERVICE);
             KeyValueStorage = paramContainer.GetKey(CommonConst.CommonValue.PARAM_KEY_VALUE_STORAGE);
-
         }
     }
 }

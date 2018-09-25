@@ -1,16 +1,15 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ZNxtApp.Core.Interfaces
 {
     public interface IHttpContextProxy : IInitData
     {
-     
         string GetURIAbsolutePath();
 
         string GetHttpMethod();
+
         Dictionary<string, string> ResponseHeaders { get; set; }
 
         int ResponseStatusCode { get; }
@@ -41,12 +40,14 @@ namespace ZNxtApp.Core.Interfaces
 
         string GetFormData(string key);
 
-        string SessionID{get;}
+        string SessionID { get; }
 
         void UnloadAppDomain();
+
         string GetHeader(string key);
-        Dictionary<string,string> GetHeaders();
+
+        Dictionary<string, string> GetHeaders();
+
         string GetContentType(string path);
-        
     }
 }

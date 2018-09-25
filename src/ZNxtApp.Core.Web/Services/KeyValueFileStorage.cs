@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Interfaces;
 
 namespace ZNxtApp.Core.Web.Services
 {
-
     public class KeyValueFileStorage : IKeyValueStorage
     {
         private IEncryption _encryption;
@@ -21,6 +17,7 @@ namespace ZNxtApp.Core.Web.Services
             _appSettingService = appSettingService;
             _storageBasePath = appSettingService.GetAppSettingData("KeyValueFileStoragePath");
         }
+
         public bool Delete(string bucket, string key)
         {
             var path = GetPath(bucket, key);
@@ -54,7 +51,7 @@ namespace ZNxtApp.Core.Web.Services
         {
             if (typeof(T) == typeof(Byte[]))
             {
-                byte  [] byteData = data as Byte[];
+                byte[] byteData = data as Byte[];
                 if (!string.IsNullOrEmpty(encriptionKey))
                 {
                     byteData = _encryption.Encrypt(byteData, encriptionKey);
@@ -66,11 +63,11 @@ namespace ZNxtApp.Core.Web.Services
             {
                 throw new NotSupportedException(string.Format("Type not supported {0}", typeof(T).ToString()));
             }
-
         }
-        private string GetPath(string bucket, string key= null)
+
+        private string GetPath(string bucket, string key = null)
         {
-            string path =  string.Format("{0}\\{1}", _storageBasePath, bucket);
+            string path = string.Format("{0}\\{1}", _storageBasePath, bucket);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);

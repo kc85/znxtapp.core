@@ -1,25 +1,23 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ZNxtApp.Core.Consts;
+using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Services;
-using ZNxtApp.Core.Interfaces;
-using ZNxtApp.Core.Consts;
 
 namespace ZNxtApp.Core.Web.Services.Api.FileUpload
 {
     public class FileUploadController : ApiBaseService
     {
-        IHttpFileUploader _fileUploader;
+        private IHttpFileUploader _fileUploader;
         private ParamContainer _paramContainer;
+
         public FileUploadController(ParamContainer paramContainer) : base(paramContainer)
         {
             _fileUploader = paramContainer.GetKey(CommonConst.CommonValue.PARAM_HTTPREQUESTPROXY);
-            _paramContainer = paramContainer; 
+            _paramContainer = paramContainer;
         }
+
         public JObject Upload()
         {
             try
@@ -78,7 +76,6 @@ namespace ZNxtApp.Core.Web.Services.Api.FileUpload
                 Logger.Error(string.Format("Error in FileUploadController.Upload : {0} ", ex.Message), ex);
                 return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
             }
-           
         }
     }
 }

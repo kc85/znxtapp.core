@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
-using ZNxtApp.Core.DB.Mongo;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Model;
@@ -26,8 +24,6 @@ namespace ZNxtApp.Core.Web.Services
         {
             try
             {
-
-                
                 IActionExecuter actionExecuter = new ActionExecuter(_logger);
                 ParamContainer pamamContainer = CreateParamContainer(_logger, actionExecuter);
                 pamamContainer.AddKey(CommonConst.CommonValue.PARAM_CRON_JOB_OBJ, () => { return cronJob; });
@@ -61,7 +57,6 @@ namespace ZNxtApp.Core.Web.Services
                 {
                     cronJob[CommonConst.CommonField.ERR_MESSAGE] = ex.Message;
                     cronJob[CommonConst.CommonField.STATUS] = CommonConst.CommonValue.FINISH_WITH_ERROR;
-                    
                 }
                 finally
                 {
@@ -77,11 +72,8 @@ namespace ZNxtApp.Core.Web.Services
                     history[CommonConst.CommonField.TRANSACTION_ID] = _logger.TransactionId;
                     (cronJob[CommonConst.CommonField.HISTORY] as JArray).Add(history);
                 }
-                
 
                 dbProxy.Update(CommonConst.Collection.CRON_JOB, filter.ToString(), cronJob, false, MergeArrayHandling.Replace);
-
-
             }
             catch (Exception ex)
             {

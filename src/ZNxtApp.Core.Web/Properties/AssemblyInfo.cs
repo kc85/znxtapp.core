@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ZNxtAap.Core.Web")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Hewlett-Packard Company")]
+[assembly: AssemblyCompany("ZNxtApp")]
 [assembly: AssemblyProduct("ZNxtAap.Core.Web")]
-[assembly: AssemblyCopyright("Copyright © Hewlett-Packard Company 2017")]
+[assembly: AssemblyCopyright("Copyright © ZNxtApp 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

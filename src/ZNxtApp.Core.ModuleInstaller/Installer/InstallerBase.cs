@@ -19,13 +19,13 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
         protected void CleanDBCollection(string moduleName, string collection)
         {
             string cleanupFilter = "{ " + CommonConst.CommonField.MODULE_NAME + ":'" + moduleName + "'}";
-            
-            _dbProxy.Delete(collection,cleanupFilter);
+
+            _dbProxy.Delete(collection, cleanupFilter);
         }
 
         protected JObject GetModule(JObject moduleObject)
-        {            
-            var data = _dbProxy.Get(CommonConst.Collection.MODULES,moduleObject.ToString());
+        {
+            var data = _dbProxy.Get(CommonConst.Collection.MODULES, moduleObject.ToString());
             if (data.Count == 0)
             {
                 return null;
@@ -35,6 +35,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                 return data[0] as JObject;
             }
         }
+
         protected string GetModuleName(string moduleFullName)
         {
             return moduleFullName.Split('/')[0];
@@ -42,7 +43,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
 
         protected string GetModuleVersion(string moduleFullName)
         {
-            var data =  moduleFullName.Split('/');
+            var data = moduleFullName.Split('/');
             if (data.Length != 0)
             {
                 return data[1];

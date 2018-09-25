@@ -1,15 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Interfaces;
 
 namespace ZNxtApp.Core.Helpers
 {
-    public static  class GoogleCaptchaHelper
+    public static class GoogleCaptchaHelper
     {
         public static bool ValidateResponse(ILogger logger, string captchaResponse, string secret, string validateUrl)
         {

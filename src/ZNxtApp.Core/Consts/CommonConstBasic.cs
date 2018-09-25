@@ -115,8 +115,6 @@
             public const string WIDTH = "width";
             public const string HEIGHT = "height";
             public const string AUTH_USERS = "auth_users";
-
-
         }
     }
 }

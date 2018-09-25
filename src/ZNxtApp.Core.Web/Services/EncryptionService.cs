@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Interfaces;
 
 namespace ZNxtApp.Core.Web.Services
 {
     public class EncryptionService : IEncryption
     {
-
         private string _encryptionKey = "sscYyr+k1EjnpNoZnil2S6o67zaRWAaEdGVzdF8wYzhlY";
         private string _hashKey = "F8wYzhlYzdhZi1hOTIwLTQ5MWItODcyOC0yYzJhMzk2Z";
 
@@ -26,6 +22,7 @@ namespace ZNxtApp.Core.Web.Services
                 _hashKey = ConfigurationManager.AppSettings["HashKey"];
             }
         }
+
         public string GetHash(string inputString)
         {
             return GetHash(inputString, _hashKey);
@@ -50,13 +47,12 @@ namespace ZNxtApp.Core.Web.Services
         public string Decrypt(string inputString)
         {
             return Decrypt(inputString, _encryptionKey);
-
         }
 
         public string Decrypt(string inputString, string encryptionKey)
         {
             byte[] inputArray = Convert.FromBase64String(inputString);
-            
+
             return UTF8Encoding.UTF8.GetString(Decrypt(inputArray, encryptionKey));
         }
 

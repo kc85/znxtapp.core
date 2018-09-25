@@ -1,5 +1,6 @@
 
 @{ 
+	Model["meta_tags"] = new Newtonsoft.Json.Linq.JArray();	
 	InclueTemplate("./template/index_template.zt");
 	Model["page_title"] = "Albums";
 

@@ -14,6 +14,14 @@
     <link rel="icon" sizes="141x111" href="./img/myphotologo.png">
 	<link rel="manifest" href="/manifest.json">
 
+	@if(@Model["meta_tags"]!=null){
+		
+		foreach(var tag in @Model["meta_tags"]){
+		
+		@tag
+		 
+		 }
+	}
     <title>ZPic</title>
     @Include("./blocks/common/common_css.zb",null)
 </head>

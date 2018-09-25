@@ -28,8 +28,9 @@ namespace ZNxtApp.Core.Model
 
         public override string ToString()
         {
-            return string.Format("{0}: {1}, Type: {2}, Assembly: {3}, Method: {4}, Module:{5}", Method, Route, ExecuteType, ExecultAssembly, ExecuteMethod,module);
+            return string.Format("{0}: {1}, Type: {2}, Assembly: {3}, Method: {4}, Module:{5}", Method, Route, ExecuteType, ExecultAssembly, ExecuteMethod, module);
         }
+
         public string GetEventName()
         {
             return string.Format("{0}:{1}", Method, Route);

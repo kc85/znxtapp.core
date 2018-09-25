@@ -45,21 +45,24 @@ namespace ZNxtApp.Core.Config
                 return ConfigurationManager.AppSettings["AppPath"];
             }
         }
+
         public static string AppBackendPath
         {
             get
             {
-                return ( ConfigurationManager.AppSettings["BackendPath"] == null ?
+                return (ConfigurationManager.AppSettings["BackendPath"] == null ?
                     "/admin001" : ConfigurationManager.AppSettings["BackendPath"]);
             }
         }
+
         public static string AppDefaultPage
         {
             get
             {
-                return (ConfigurationManager.AppSettings["DefaultPage"] ==null ? "/index.z" : ConfigurationManager.AppSettings["DefaultPage"]);
+                return (ConfigurationManager.AppSettings["DefaultPage"] == null ? "/index.z" : ConfigurationManager.AppSettings["DefaultPage"]);
             }
         }
+
         public static string SystemTempFolder
         {
             get
@@ -82,6 +85,7 @@ namespace ZNxtApp.Core.Config
                 return tempFolder;
             }
         }
+
         public static ApplicationMode GetApplicationMode
         {
             get
@@ -106,11 +110,9 @@ namespace ZNxtApp.Core.Config
         {
             get
             {
-
                 return ConfigurationManager.AppSettings["ModuleCachePath"];
             }
         }
-
 
         public static string AppInstallFolder
         {
@@ -127,9 +129,7 @@ namespace ZNxtApp.Core.Config
                 bool result = false;
                 bool.TryParse(ConfigurationManager.AppSettings["StaticContentCache"], out result);
                 return result;
-
             }
-
         }
     }
 

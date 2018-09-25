@@ -25,7 +25,6 @@
         public enum AuthToken
         {
             AUTH_REQUEST_REQUIRED_PARAMETER_MISSING = 6000
-
         }
     }
 }

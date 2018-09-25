@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Net;
 using System.Web;
-using System.Web.SessionState;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.DB.Mongo;
+using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
-using ZNxtApp.Core.Web.AppStart;
 using ZNxtApp.Core.Web.Interfaces;
 using ZNxtApp.Core.Web.Proxies;
 using ZNxtApp.Core.Web.Services;
-using ZNxtApp.Core.Web.Util;
-using ZNxtApp.Core.AppInstaller;
-using System.IO;
-using ZNxtApp.Core.Web.Helper;
-using System.Collections.Generic;
-using ZNxtApp.Core.Helpers;
 
 namespace ZNxtApp.Core.Web.Handler
 {
@@ -43,7 +35,6 @@ namespace ZNxtApp.Core.Web.Handler
         {
             _viewEngine = ViewEngine.GetEngine();
             _routeExecuter = new RouteExecuter();
-            
         }
 
         private void CreateRoute()
@@ -62,7 +53,7 @@ namespace ZNxtApp.Core.Web.Handler
             _actionExecuter = new ActionExecuter(_logger);
             CreateRoute();
             _httpContext = context;
-            _contentHandler = new WwwrootContentHandler(_httpProxy, dbProxy, _viewEngine,_actionExecuter, _logger);
+            _contentHandler = new WwwrootContentHandler(_httpProxy, dbProxy, _viewEngine, _actionExecuter, _logger);
         }
 
         protected void WriteResponse()
@@ -81,6 +72,7 @@ namespace ZNxtApp.Core.Web.Handler
 
             RemoveHeaders();
         }
+
         private void RemoveHeaders()
         {
             HttpContext.Current.Response.Headers.Remove("Server");
@@ -93,7 +85,6 @@ namespace ZNxtApp.Core.Web.Handler
 
         protected void HandleStaticContent(string requestUriPath)
         {
-
             if (CommonUtility.IsTextConent(_httpProxy.GetContentType(requestUriPath)))
             {
                 var responseString = _contentHandler.GetStringContent(requestUriPath);
@@ -117,7 +108,6 @@ namespace ZNxtApp.Core.Web.Handler
                 {
                     _httpProxy.SetResponse(CommonConst._404_RESOURCE_NOT_FOUND, responseData);
                 }
-
             }
             _httpProxy.ContentType = _httpProxy.GetContentType(requestUriPath);
 
@@ -132,14 +122,13 @@ namespace ZNxtApp.Core.Web.Handler
                 _httpContext.Response.Headers[string.Format("{0}.{1}", CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO, CommonConst.CommonValue.TIME_SPAN)] = (DateTime.Now - _initData.InitDateTime).TotalMilliseconds.ToString();
                 _httpContext.Response.Headers[string.Format("{0}.{1}", CommonConst.CommonField.HTTP_RESPONE_DEBUG_INFO, CommonConst.CommonField.TRANSACTION_ID)] = _initData.TransactionId;
             }
-            
+
             RemoveHeaders();
         }
 
-       
         private void HandleSession(HttpContext context)
         {
-            if(context.Request.Cookies[CommonConst.CommonValue.SESSION_COOKIE]==null)
+            if (context.Request.Cookies[CommonConst.CommonValue.SESSION_COOKIE] == null)
             {
                 CreateUpdateSessionCookie(context);
             }
@@ -149,13 +138,13 @@ namespace ZNxtApp.Core.Web.Handler
             }
         }
 
-        private void CreateUpdateSessionCookie(HttpContext context, HttpCookie cookie= null)
+        private void CreateUpdateSessionCookie(HttpContext context, HttpCookie cookie = null)
         {
             if (cookie == null)
             {
                 cookie = new HttpCookie(CommonConst.CommonValue.SESSION_COOKIE, CommonUtility.GetNewSessionID());
             }
-            var expires = DateTime.Now.AddMinutes(ApplicationConfig.SessionDuration);            
+            var expires = DateTime.Now.AddMinutes(ApplicationConfig.SessionDuration);
             cookie.Expires = expires;
             cookie.HttpOnly = true;
             cookie.Secure = true;

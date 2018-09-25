@@ -1,12 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
-using ZNxtApp.Core.DB.Mongo;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Model;
@@ -17,29 +11,27 @@ namespace ZNxtApp.Core.Web.Services
 {
     public class RouteExecuter : IRouteExecuter
     {
-         
-        public void Exec(RoutingModel route,IHttpContextProxy httpProxy)
+        public void Exec(RoutingModel route, IHttpContextProxy httpProxy)
         {
             ILogger loggerController = Logger.GetLogger(route.ExecuteType, httpProxy.TransactionId);
             RouteEventHandler routeEventHandler = new RouteEventHandler();
-            
+
             try
             {
-                
                 loggerController.Info(string.Format("{0}:: Route: [{1}]", "RouteExecuter.Exec", route.ToString()));
                 IActionExecuter actionExecuter = new ActionExecuter(loggerController);
                 ParamContainer paramContainer = ActionExecuterHelper.CreateParamContainer(route, httpProxy, loggerController, actionExecuter);
                 WriteStartTransaction(loggerController, httpProxy, route);
                 (paramContainer.GetKey(CommonConst.CommonValue.PARAM_SESSION_PROVIDER) as ISessionProvider).SetValue(CommonConst.CommonField.UPDATED_DATE_TIME, CommonUtility.GetUnixTimestamp(DateTime.Now));
-                // Execute before Events 
+                // Execute before Events
                 routeEventHandler.ExecBeforeEvent(actionExecuter, route, paramContainer);
-                
+
                 var objResult = actionExecuter.Exec(route, paramContainer);
                 httpProxy.ContentType = route.ContentType;
 
-                // Add response in param 
+                // Add response in param
                 paramContainer.AddKey(CommonConst.CommonValue.PARAM_API_RESPONSE, () => { return objResult; });
-               
+
                 if (objResult == null)
                 {
                     httpProxy.SetResponse(CommonConst._500_SERVER_ERROR);
@@ -61,7 +53,7 @@ namespace ZNxtApp.Core.Web.Services
                     httpProxy.SetResponse(CommonConst._200_OK, responseData);
                 }
 
-                // Execute after Events 
+                // Execute after Events
                 routeEventHandler.ExecAfterEvent(actionExecuter, route, paramContainer, objResult);
 
                 //    List<string> userGroups = _httpProxy.GetSessionUserGroups();
@@ -87,7 +79,6 @@ namespace ZNxtApp.Core.Web.Services
                 //        SetUnauthorized();
                 //        return Encoding.UTF8.GetBytes((ZApp.Common.HttpUtility.GetFullResponse((int)ResponseCodes.Unauthorized, ResponseCodes.Unauthorized.ToString(), null)).ToString());
                 //    }
-
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -117,11 +108,12 @@ namespace ZNxtApp.Core.Web.Services
                 objTxnStartData[CommonConst.CommonField.PAYLOAD] = strPayload;
             }
             //TODO
-           // objTxnStartData[CommonConst.CommonField.USER] = httpProxy.GetRequestBody();
-           // loggerController.Transaction(objTxnStartData, TransactionState.Start);
+            // objTxnStartData[CommonConst.CommonField.USER] = httpProxy.GetRequestBody();
+            // loggerController.Transaction(objTxnStartData, TransactionState.Start);
         }
-        private void WriteEndTransaction(ILogger loggerController, string response )
-        {            
+
+        private void WriteEndTransaction(ILogger loggerController, string response)
+        {
             JObject objTxnStartData = new JObject();
             JObject payload = null;
             if (JObjectHelper.TryParseJson(response, ref payload))
@@ -134,8 +126,8 @@ namespace ZNxtApp.Core.Web.Services
             {
                 objTxnStartData[CommonConst.CommonField.PAYLOAD] = response;
             }
-            // TODO 
-           // loggerController.Transaction(objTxnStartData, TransactionState.Finish);
+            // TODO
+            // loggerController.Transaction(objTxnStartData, TransactionState.Finish);
         }
     }
 }

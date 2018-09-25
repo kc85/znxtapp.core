@@ -12,11 +12,11 @@
 
 	Model["page_title"] = "Album : "  + galleryData.data.display_name;
 	Model["meta_tags"] = new Newtonsoft.Json.Linq.JArray();
-   // (Model["meta_tags"] as Newtonsoft.Json.Linq.JArray).Add("<meta property='og:url' content='https://znxt.app/gallerynew/gallery.z?galleryid=@QueryString('galleryid')#!#file_hash=@QueryString('file_hash')&changeset_no=3&galleryid="+ galleryid +"/>");
-	
-    // <meta property='og:image' content='https://znxt.app/api/myphotos/image?file_hash=@QueryString('file_hash')@QueryString('thumbnail_image')&t=m' />
-
-
+    (Model["meta_tags"] as Newtonsoft.Json.Linq.JArray).Add("<meta property='og:url' content='https://znxt.app/gallery.z?galleryid="+ galleryid +"/>");
+    
+	if(galleryData["data"]!=null && galleryData["data"]["thumbnail_image"]!=null){
+		(Model["meta_tags"] as Newtonsoft.Json.Linq.JArray).Add("<meta property='og:image' content='https://znxt.app/api/myphotos/image?file_hash=" + galleryData.data.thumbnail_image.file_hash+ "&t=m' />");
+	}
 
 }
 <link href="./css/lightgallery.css" rel="stylesheet">

@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Model;
@@ -13,9 +9,8 @@ namespace ZNxtApp.Core.Web.Services.Api
 {
     public class PingController : ApiBaseService
     {
-        public PingController(ParamContainer requestParam) :base(requestParam)
+        public PingController(ParamContainer requestParam) : base(requestParam)
         {
-
         }
 
         public JObject Ping()
@@ -37,12 +32,11 @@ namespace ZNxtApp.Core.Web.Services.Api
                 return ResponseBuilder.CreateReponse(PingResponseCode._PING_FAIL);
             }
         }
-       
+
         public int Completed()
         {
             return 1;
         }
-
 
         public JObject ActionTest()
         {

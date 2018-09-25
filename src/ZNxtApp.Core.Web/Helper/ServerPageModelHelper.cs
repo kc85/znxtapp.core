@@ -4,11 +4,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
-using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Web.Services;
@@ -48,6 +45,7 @@ namespace ZNxtApp.Core.Web.Helper
                 return string.Empty;
             }
         }
+
         private static void UpdateBaseModel(Dictionary<string, dynamic> pageModel, string requestUriPath, string pageName)
         {
             var uri = StaticContentHandler.UnmappedUriPath(requestUriPath);
@@ -62,8 +60,8 @@ namespace ZNxtApp.Core.Web.Helper
             pageModel[CommonConst.CommonField.PAGE_NAME] = pageName;
             pageModel[CommonConst.CommonField.URI] = uri;
             AddBaseData(pageModel);
-
         }
+
         private static Dictionary<string, dynamic> SetDefaultModel(IDBService dbProxy, IHttpContextProxy httpProxy, ILogger logger, IViewEngine viewEngine, IActionExecuter actionExecuter, Dictionary<string, dynamic> model, string folderPath = null)
         {
             ISessionProvider sessionProvider = new SessionProvider(httpProxy, dbProxy, logger);
@@ -77,9 +75,7 @@ namespace ZNxtApp.Core.Web.Helper
             Func<string, string, JArray> getData =
                 (string collection, string filter) =>
             {
-                
-                return dbProxy.Get(collection,filter);
-
+                return dbProxy.Get(collection, filter);
             };
             Func<string, string> getAppSetting =
                (string key) =>
@@ -89,18 +85,15 @@ namespace ZNxtApp.Core.Web.Helper
                    {
                        response = ConfigurationManager.AppSettings[key];
                    }
-                 return response;
-
+                   return response;
                };
             Func<string, JObject> getSessionValue =
                (string key) =>
                {
                    return sessionProvider.GetValue<JObject>(key);
-
                };
             Func<string, string> includeTemplete = (string templatePath) =>
             {
-
                 FileInfo fi = new FileInfo(string.Format("c:\\{0}{1}", folderPath, templatePath));
                 string path = fi.FullName.Replace("c:", "");
                 model[CommonConst.CommonValue.PAGE_TEMPLATE_PATH] = path;
@@ -137,7 +130,6 @@ namespace ZNxtApp.Core.Web.Helper
                        }
                    }
                    return actionExecuter.Exec<JObject>(actionPath, dbProxy, param);
-
                };
 
             Func<string, JObject, Dictionary<string, dynamic>> IncludeModel =
@@ -145,7 +137,6 @@ namespace ZNxtApp.Core.Web.Helper
                {
                    try
                    {
-                       
                        var param = ActionExecuterHelper.CreateParamContainer(null, httpProxy, logger, actionExecuter);
 
                        Dictionary<string, dynamic> modelData = new Dictionary<string, dynamic>();
@@ -162,7 +153,6 @@ namespace ZNxtApp.Core.Web.Helper
                        object response = actionExecuter.Exec(includeModelPath, dbProxy, param);
                        if (response is Dictionary<string, dynamic>)
                        {
-
                            return response as Dictionary<string, dynamic>;
                        }
                        else
@@ -196,7 +186,6 @@ namespace ZNxtApp.Core.Web.Helper
 
             model[CommonConst.CommonValue.METHODS]["Authorized"] = authorized;
 
-
             Func<string, JObject, string> includeBlock =
                 (string blockPath, JObject blockModel) =>
                 {
@@ -214,7 +203,6 @@ namespace ZNxtApp.Core.Web.Helper
                         {
                             inputBlockModel[item.Key] = item.Value;
                         }
-
                     }
                     FileInfo fi = new FileInfo(string.Format("c:\\{0}{1}", folderPath, blockPath));
                     string path = fi.FullName.Replace("c:", "");
@@ -241,9 +229,8 @@ namespace ZNxtApp.Core.Web.Helper
             return model;
         }
 
-        public static void AddBaseData(Dictionary<string,dynamic> baseData)
+        public static void AddBaseData(Dictionary<string, dynamic> baseData)
         {
-
             baseData[CommonConst.CommonField.APP_NAME] = ApplicationConfig.AppName;
         }
     }

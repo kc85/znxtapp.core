@@ -38,7 +38,6 @@
     &.btn-danger{
       @include btn-styles($brand-danger);
     }
-    
 
     &:focus,
     &:active,
@@ -58,7 +57,6 @@
           top: 2px;
       }
     }
-
 
     &.btn-fab {
         // see above for color variations
@@ -134,7 +132,6 @@
             padding: 13px 18px;
         }
     }
-
 }
 
 .btn{
@@ -145,5 +142,4 @@
         top: -1px;
         position: relative;
     }
-
 }

@@ -12,10 +12,12 @@ namespace ZNxtApp.Core.Helpers
         {
             return GetUnixTimestamp(DateTime.Now) + RandomString(3) + RandomNumber(5);
         }
+
         public static string GetNewSessionID()
         {
             return GetNewID();
         }
+
         public static Int32 GetUnixTimestamp(DateTime dt)
         {
             TimeSpan epochTicks = new TimeSpan(new DateTime(1970, 1, 1, 0, 0, 0).Ticks);
@@ -26,22 +28,19 @@ namespace ZNxtApp.Core.Helpers
         public static bool IsServerSidePage(string url, bool checkBlocks = false)
         {
             var fi = new FileInfo(url);
-            if(!checkBlocks)
+            if (!checkBlocks)
                 return fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION;
             else
             {
-                return 
+                return
                     fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_EXTENSION ||
                     fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_BLOCK_EXTENSION ||
                     fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_CSS_EXTENSION ||
                     fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_TEMPLATE_EXTENSION ||
                     fi.Extension == CommonConst.CommonField.SERVER_SIDE_PROCESS_HTML_JS_EXTENSION
                     ;
-
             }
-
         }
-       
 
         public static string GetBase64(byte[] data)
         {
@@ -65,6 +64,7 @@ namespace ZNxtApp.Core.Helpers
 
         private static Random random = new Random();
         private static object syncObj = new object();
+
         public static string RandomString(int length)
         {
             lock (syncObj)
@@ -85,8 +85,6 @@ namespace ZNxtApp.Core.Helpers
             }
         }
 
-        
-
         public static string GetAppConfigValue(string key)
         {
             return System.Configuration.ConfigurationManager.AppSettings[key];
@@ -96,10 +94,10 @@ namespace ZNxtApp.Core.Helpers
         {
             return contentType.Contains("text/") || contentType.Contains("application/json") || contentType.Contains("application/xml");
         }
+
         public static string GetTimestamp(DateTime value)
         {
             return value.ToString("yyyyMMddHHmmssffff");
         }
-        
     }
 }

@@ -5,103 +5,74 @@ Response:
 {
   "code": 1,
   "message": "SUCCESS",
-  "transaction_id": "20180901223216429963",
+  "transaction_id": "20180923225230974302",
   "debug": {
-    "time_span": 10839.8597,
+    "time_span": 12904.084,
     "logs": [
       {
-        "created_datetime": 1535841136,
-        "id": "5bb84802-d5f9-4ab6-8009-da4642369a9d",
+        "created_datetime": 1537743150,
+        "id": "34e2fd63-59f7-4ddf-92e1-e050358f9760",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Info",
-        "transaction_id": "20180901223216429963",
+        "transaction_id": "20180923225230974302",
         "message": "RouteExecuter.Exec:: Route: [POST: /api/module/reinstall, Type: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller, Assembly: ZNxtApp.Core.Web.dll, Method: Reinstall, Module:ZApp]",
         "data": {},
-        "updated_datetime": 1535841136,
+        "updated_datetime": 1537743150,
         "created_by": ""
       },
       {
-        "created_datetime": 1535841136,
-        "id": "5a3d12a5-d6b9-4d76-af5e-c202bbc56620",
-        "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
-        "type": "Transaction",
-        "transaction_id": "20180901223216429963",
-        "message": "Transaction State:Start",
-        "data": {
-          "Url": "/api/module/reinstall",
-          "Route": {
-            "ContentType": "application/json",
-            "Method": "POST",
-            "Route": "/api/module/reinstall",
-            "ExecultAssembly": "ZNxtApp.Core.Web.dll",
-            "ExecuteType": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
-            "ExecuteMethod": "Reinstall",
-            "module": "ZApp",
-            "auth_users": [
-              "*"
-            ],
-            "TemplateURL": null
-          },
-          "Payload": "",
-          "User": ""
-        },
-        "TransactionState": "Start",
-        "updated_datetime": 1535841136,
-        "created_by": ""
-      },
-      {
-        "created_datetime": 1535841136,
-        "id": "45219fb2-ad4c-4917-a37d-abf634807659",
+        "created_datetime": 1537743151,
+        "id": "e717bb6e-e9ad-4de0-bed6-d3f9033f33fa",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Info",
-        "transaction_id": "20180901223216429963",
+        "transaction_id": "20180923225230974302",
         "message": "GetType: ZNxtApp.Core.Web.dll, executeType: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "data": {},
-        "updated_datetime": 1535841136,
+        "updated_datetime": 1537743151,
         "created_by": ""
       },
       {
-        "created_datetime": 1535841147,
-        "id": "7ba7aded-c919-4719-9cad-8cd7efaecb8f",
+        "created_datetime": 1537743163,
+        "id": "2bbc3f9c-baeb-42f5-ade6-e3fbe8744b89",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Debug",
-        "transaction_id": "20180901223216429963",
-        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\MyPhotos_1.0.1.40556-Beta\\Content\\collections\\app_settings.json",
+        "transaction_id": "20180923225230974302",
+        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\MyPhotos_1.0.1.41162-Beta\\Content\\collections\\app_settings.json",
         "data": {},
-        "updated_datetime": 1535841147,
+        "updated_datetime": 1537743163,
         "created_by": ""
       },
       {
-        "created_datetime": 1535841147,
-        "id": "55a51abf-a9e7-4f6c-923c-ae51748775c1",
+        "created_datetime": 1537743163,
+        "id": "4fcaf1c0-fe93-4136-8479-356cbee82a2b",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Debug",
-        "transaction_id": "20180901223216429963",
-        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\MyPhotos_1.0.1.40556-Beta\\Content\\collections\\backend_ui_routes.json",
+        "transaction_id": "20180923225230974302",
+        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\MyPhotos_1.0.1.41162-Beta\\Content\\collections\\backend_ui_routes.json",
         "data": {},
-        "updated_datetime": 1535841147,
+        "updated_datetime": 1537743163,
         "created_by": ""
       },
       {
-        "created_datetime": 1535841147,
-        "id": "86ea26c0-290d-47ab-a6fa-ddf90ad89f70",
+        "created_datetime": 1537743163,
+        "id": "1b04e02a-1dfb-4c8a-81ac-b6f61a04737b",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Debug",
-        "transaction_id": "20180901223216429963",
-        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\MyPhotos_1.0.1.40556-Beta\\Content\\collections\\cron_job.json",
+        "transaction_id": "20180923225230974302",
+        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\MyPhotos_1.0.1.41162-Beta\\Content\\collections\\cron_job.json",
         "data": {},
-        "updated_datetime": 1535841147,
+        "updated_datetime": 1537743163,
         "created_by": ""
       },
       {
-        "created_datetime": 1535841147,
-        "id": "431b85f6-8ecf-42e1-b34d-4f6fe6ad4cae",
+        "created_datetime": 1537743163,
+        "id": "ec049355-586f-4ac2-8436-1372cc522191",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Debug",
-        "transaction_id": "20180901223216429963",
-        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\MyPhotos_1.0.1.40556-Beta\\Content\\collections\\server_routes.json",
+        "transaction_id": "20180923225230974302",
+        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\MyPhotos_1.0.1.41162-Beta\\Content\\collections\\server_routes.json",
         "data": {},
-        "updated_datetime": 1535841147,
+        "updated_datetime": 1537743163,
         "created_by": ""
       }
     ]
@@ -110,14 +81,14 @@ Response:
       
 Headers:
 Cache-Control: private
-Date: Sat, 01 Sep 2018 17:02:27 GMT
-Content-Length: 4255
+Date: Sun, 23 Sep 2018 17:22:44 GMT
+Content-Length: 3216
 Content-Type: application/json
-Set-Cookie: za_s_k=1535841136BN047327; expires=Sat, 01-Sep-2018 19:02:16 GMT; path=/; secure; HttpOnly
+Set-Cookie: za_s_k=1537743150E2D34982; expires=Sun, 23-Sep-2018 19:22:30 GMT; path=/; secure; HttpOnly
 
 
 URL:
-https://znxt.app/api/module/reinstall?module_name=MyPhotos/1.0.1.40556-Beta
+https://znxt.app/api/module/reinstall?module_name=MyPhotos/1.0.1.41162-Beta
 URL Code Page:
 65001
 User Agent:

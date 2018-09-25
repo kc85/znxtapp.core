@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZNxtApp.Core.Model
 {
@@ -21,10 +18,12 @@ namespace ZNxtApp.Core.Model
                 _keys[key] = value;
             }
         }
+
         public void AddKey(string key, Func<dynamic> val)
         {
             _keys[key] = val;
         }
+
         public dynamic GetKey(string key)
         {
             if (_keys.ContainsKey(key))
@@ -37,13 +36,9 @@ namespace ZNxtApp.Core.Model
             }
         }
 
-      
-
         public void AddKey(object pARAM_CONTENT_HANDLER, Func<dynamic> p)
         {
             throw new NotImplementedException();
         }
-
-      
     }
 }

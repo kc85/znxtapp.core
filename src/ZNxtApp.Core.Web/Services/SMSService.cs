@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using ZNxtApp.Core.Consts;
-using ZNxtApp.Core.Interfaces;
-using ZNxtApp.Core.Helpers;
-using ZNxtApp.Core.Web.Helper;
 using ZNxtApp.Core.Enums;
+using ZNxtApp.Core.Helpers;
+using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Model;
+using ZNxtApp.Core.Web.Helper;
 
 namespace ZNxtApp.Core.Web.Services
 {
@@ -15,8 +15,9 @@ namespace ZNxtApp.Core.Web.Services
         private readonly IDBService _dbService;
         private readonly IActionExecuter _actionExecuter;
         private readonly IViewEngine _viewEngine;
-        const string SMS_QUEUE_ID = "sms_queue_id";
+        private const string SMS_QUEUE_ID = "sms_queue_id";
         private readonly ParamContainer _paramContainer;
+
         public SMSService(ILogger logger,
                           IDBService dbService,
                           IActionExecuter actionExecuter,
@@ -66,7 +67,6 @@ namespace ZNxtApp.Core.Web.Services
                     {
                         _logger.Error("SMS sender route not found, Please install  sms module ");
                         return false;
-
                     }
                 }
                 else
@@ -83,7 +83,6 @@ namespace ZNxtApp.Core.Web.Services
 
         public bool Send(string toNumber, string textTemplate, Dictionary<string, dynamic> modelData, bool putInQueue = true)
         {
-            
             var smsTemplateData = _dbService.FirstOrDefault(CommonConst.Collection.SMS_TEMPLATE, CommonConst.CommonField.DATA_KEY, textTemplate);
             if (smsTemplateData != null && smsTemplateData[CommonConst.CommonField.BODY] != null)
             {
@@ -101,7 +100,6 @@ namespace ZNxtApp.Core.Web.Services
 
         public bool Send(string toNumber, string smsTemplate, JObject data, bool putInQueue = true)
         {
-
             Dictionary<string, dynamic> modelData = new Dictionary<string, dynamic>();
 
             foreach (var item in data)
@@ -110,6 +108,7 @@ namespace ZNxtApp.Core.Web.Services
             }
             return Send(toNumber, smsTemplate, modelData, putInQueue);
         }
+
         public bool Flush()
         {
             _logger.Error("TODO SMSService.Flush");

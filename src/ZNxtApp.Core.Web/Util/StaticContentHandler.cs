@@ -10,12 +10,11 @@ namespace ZNxtApp.Core.Web.Util
 {
     public class StaticContentHandler
     {
-
         public static byte[] GetContent(IDBService dbProxy, ILogger logger, string path)
         {
             string wwwrootpath = ApplicationConfig.AppWWWRootPath;
-                        
-            JObject document = (JObject)dbProxy.Get(CommonConst.Collection.STATIC_CONTECT,GetFilter(path)).First;
+
+            JObject document = (JObject)dbProxy.Get(CommonConst.Collection.STATIC_CONTECT, GetFilter(path)).First;
             if (document != null)
             {
                 var data = document[CommonConst.CommonField.DATA];
@@ -52,8 +51,8 @@ namespace ZNxtApp.Core.Web.Util
         public static string GetStringContent(IDBService dbProxy, ILogger _logger, string path)
         {
             string wwwrootpath = ApplicationConfig.AppWWWRootPath;
-                       
-            JObject document = (JObject)dbProxy.Get(CommonConst.Collection.STATIC_CONTECT,GetFilter(path)).First;
+
+            JObject document = (JObject)dbProxy.Get(CommonConst.Collection.STATIC_CONTECT, GetFilter(path)).First;
             if (document != null)
             {
                 var data = document[CommonConst.CommonField.DATA];
@@ -88,6 +87,7 @@ namespace ZNxtApp.Core.Web.Util
                 return path;
             }
         }
+
         public static string UnmappedUriPath(string path)
         {
             if (path.IndexOf(string.Format("/{0}", CommonConst.CommonValue.APP_BACKEND_FOLDERPATH)) == 0)
@@ -102,6 +102,7 @@ namespace ZNxtApp.Core.Web.Util
                 return path;
             }
         }
+
         public static bool IsAdminPage(string url)
         {
             return url.IndexOf(string.Format("/{0}", CommonConst.CommonValue.APP_BACKEND_FOLDERPATH)) == 0;

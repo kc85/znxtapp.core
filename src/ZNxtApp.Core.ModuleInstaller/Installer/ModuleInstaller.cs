@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Net;
+using System.Xml;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
-using System.Linq;
-using System.Net;
-using System.IO.Compression;
-using System.Xml;
 
 namespace ZNxtApp.Core.ModuleInstaller.Installer
 {
@@ -42,7 +42,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                     {
                         return false;
                     }
-                    
+
                     UpdateModuleInfo(moduleDir, moduleName, moduleVerion, ref moduleObject);
                     var moduleCollections = new JArray();
                     if (moduleObject[CommonConst.MODULE_INSTALL_COLLECTIONS_FOLDER] != null)
@@ -59,8 +59,8 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                     InstallWWWRoot(moduleDir, moduleName);
                     InstallDlls(moduleDir, moduleName);
                     InstallCollections(moduleDir, moduleName, moduleCollections);
-                    
-                    _dbProxy.Update(CommonConst.Collection.MODULES,"{" + CommonConst.CommonField.DATA_KEY + " :'" + moduleName + "'}", moduleObject, true);
+
+                    _dbProxy.Update(CommonConst.Collection.MODULES, "{" + CommonConst.CommonField.DATA_KEY + " :'" + moduleName + "'}", moduleObject, true);
                     return true;
                 }
                 else
@@ -71,7 +71,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
             }
             catch (Exception ex)
             {
-                _logger.Error(string.Format("Error installing module {0}, {1}", moduleFullName,ex.Message), ex);
+                _logger.Error(string.Format("Error installing module {0}, {1}", moduleFullName, ex.Message), ex);
                 return false;
             }
         }
@@ -97,7 +97,6 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                 {
                     File.Delete(filePath);
                     Directory.Delete(folderPath, true);
-
                 }
                 catch (Exception e)
                 {
@@ -105,7 +104,6 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                 }
                 _logger.Error(string.Format("Error in downloading nuger package {0}, Error: {1}", moduleName, ex.Message), ex);
             }
-
         }
 
         private JObject CreateCollectionEntry(string name, string accessType)
@@ -126,7 +124,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
                 moduleFileData[CommonConst.CommonField.VERSION] = moduleVersion;
                 moduleObject = JObjectHelper.Marge(moduleObject, moduleFileData, MergeArrayHandling.Union);
             }
-            string fileNugetPackageInfo = string.Format("{0}\\{1}.nuspec", baseModulePath,moduleName);
+            string fileNugetPackageInfo = string.Format("{0}\\{1}.nuspec", baseModulePath, moduleName);
             if (File.Exists(fileNugetPackageInfo))
             {
                 XmlDocument xdoc = new XmlDocument();
@@ -175,7 +173,7 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
 
                         CleanDBCollection(moduleName, collectionName);
                         _logger.Debug(string.Format("InstallCollections File:{0}", fi.FullName));
-                       
+
                         foreach (JObject joData in JObjectHelper.GetJArrayFromFile(fi.FullName))
                         {
                             joData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
@@ -231,13 +229,13 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
         private void WriteToDB(JObject joData, string moduleName, string collection, string compareKey)
         {
             OverrideData(joData, moduleName, compareKey, collection);
-            if (!_dbProxy.Write(collection,joData))
+            if (!_dbProxy.Write(collection, joData))
             {
                 _logger.Error(string.Format("Error while uploading file data {0}", joData.ToString()), null);
             }
         }
 
-        private void OverrideData(JObject joData, string moduleName, string compareKey,string collection)
+        private void OverrideData(JObject joData, string moduleName, string compareKey, string collection)
         {
             string updateOverrideFilter = "{ $and: [ { " + CommonConst.CommonField.IS_OVERRIDE + ":false }, {" + compareKey + ":'" + joData[compareKey].ToString() + "'}] } ";
             var updateObject = new JObject();
@@ -251,11 +249,8 @@ namespace ZNxtApp.Core.ModuleInstaller.Installer
             //updateObject[CommonConst.CommonField.LAST_OVERRIDES] = lastOverrides;
 
             updateObject[CommonConst.CommonField.OVERRIDE_BY] = moduleName;
-            _dbProxy.Write(collection,updateObject, updateOverrideFilter);
+            _dbProxy.Write(collection, updateObject, updateOverrideFilter);
         }
-
-       
-
 
         public JObject GetDetails(string moduleName)
         {

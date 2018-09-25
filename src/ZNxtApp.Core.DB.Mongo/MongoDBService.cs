@@ -3,14 +3,12 @@ using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Exceptions;
 using ZNxtApp.Core.Exceptions.ErrorCodes;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
-using ZNxtApp.Core.Model;
 
 namespace ZNxtApp.Core.DB.Mongo
 {
@@ -20,8 +18,6 @@ namespace ZNxtApp.Core.DB.Mongo
         private MongoClient _mongoClient;
         public Func<string> User;
 
-        
-
         private string _dbName;
 
         public MongoDBService(string dbName)
@@ -29,15 +25,16 @@ namespace ZNxtApp.Core.DB.Mongo
             _dbName = dbName;
             Init();
         }
+
         private string GetUserId()
         {
             return User != null ? User() : "";
         }
-        public bool WriteData(string collection,Newtonsoft.Json.Linq.JObject data)
+
+        public bool WriteData(string collection, Newtonsoft.Json.Linq.JObject data)
         {
             try
             {
-                
                 UpdateCommonData(data);
                 data[CommonConst.CommonField.CREATED_DATA_DATE_TIME] = CommonUtility.GetUnixTimestamp(DateTime.Now);
                 data[CommonConst.CommonField.UPDATED_DATE_TIME] = CommonUtility.GetUnixTimestamp(DateTime.Now);
@@ -70,10 +67,9 @@ namespace ZNxtApp.Core.DB.Mongo
             {
                 data[CommonConst.CommonField.DISPLAY_ID] = data[CommonConst.CommonField.ID];
             }
-           
         }
 
-        public JArray Get(string collection,string bsonQuery, List<string> properties = null, Dictionary<string, int> sortColumns = null, int? top = null, int? skip = null)
+        public JArray Get(string collection, string bsonQuery, List<string> properties = null, Dictionary<string, int> sortColumns = null, int? top = null, int? skip = null)
         {
             var findOptions = new FindOptions<BsonDocument>();
 
@@ -87,7 +83,7 @@ namespace ZNxtApp.Core.DB.Mongo
                 }
             }
             findOptions.Sort = sort.ToString();
-            return GetData(collection,bsonQuery, findOptions);
+            return GetData(collection, bsonQuery, findOptions);
         }
 
         private static void GetFilterProperty(List<string> properties, int? top, int? skip, FindOptions<BsonDocument> findOptions)
@@ -106,7 +102,7 @@ namespace ZNxtApp.Core.DB.Mongo
             }
         }
 
-        private JArray GetData(string collection,string bsonQuery, FindOptions<BsonDocument> findOptions)
+        private JArray GetData(string collection, string bsonQuery, FindOptions<BsonDocument> findOptions)
         {
             IMongoCollection<BsonDocument> query = _mongoDataBase.GetCollection<BsonDocument>(collection);
             JArray resultData = new JArray();
@@ -138,7 +134,7 @@ namespace ZNxtApp.Core.DB.Mongo
 
             var dbArrData = Get(collection, query, fields, sortColumns, top, skip);
             JObject extraData = new JObject();
-            long count = GetCount(collection,query);
+            long count = GetCount(collection, query);
 
             extraData[CommonConst.CommonField.TOTAL_RECORD_COUNT_KEY] = count;
             extraData[CommonConst.CommonField.TOTAL_PAGES_KEY] = Math.Ceiling(((double)count / pageSize));
@@ -149,7 +145,7 @@ namespace ZNxtApp.Core.DB.Mongo
             return extraData;
         }
 
-        public long Delete(string collection,string bsonQuery)
+        public long Delete(string collection, string bsonQuery)
         {
             var result = _mongoDataBase.GetCollection<BsonDocument>(collection).DeleteMany(GetFilter(bsonQuery));
             return result.DeletedCount;
@@ -159,7 +155,7 @@ namespace ZNxtApp.Core.DB.Mongo
         {
             data[CommonConst.CommonField.UPDATED_DATE_TIME] = CommonUtility.GetUnixTimestamp(DateTime.Now);
             data[CommonConst.CommonField.UPDATED_BY] = GetUserId();
-            var dataResut = Get(collection,bsonQuery, null, null);
+            var dataResut = Get(collection, bsonQuery, null, null);
             var dbcollection = _mongoDataBase.GetCollection<BsonDocument>(collection);
             if (overrideData)
             {
@@ -187,7 +183,7 @@ namespace ZNxtApp.Core.DB.Mongo
                 }
                 else
                 {
-                    WriteData(collection,data);
+                    WriteData(collection, data);
                 }
             }
             else

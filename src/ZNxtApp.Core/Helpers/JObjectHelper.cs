@@ -12,10 +12,12 @@ namespace ZNxtApp.Core.Helpers
         {
             return Deserialize<T>(data.ToString());
         }
+
         public static T Deserialize<T>(string data)
         {
-           return JsonConvert.DeserializeObject<T>(data);
+            return JsonConvert.DeserializeObject<T>(data);
         }
+
         public static JObject Serialize<T>(T data)
         {
             string varData = JsonConvert.SerializeObject(data);
@@ -43,7 +45,7 @@ namespace ZNxtApp.Core.Helpers
             File.WriteAllText(filePath, data.ToString());
         }
 
-        public static  JObject Marge(JObject obj1, JObject obj2, MergeArrayHandling mergeType)
+        public static JObject Marge(JObject obj1, JObject obj2, MergeArrayHandling mergeType)
         {
             obj1.Merge(obj2, new JsonMergeSettings
             {
@@ -51,6 +53,7 @@ namespace ZNxtApp.Core.Helpers
             });
             return obj1;
         }
+
         public static bool TryParseJson(string data, ref JObject jsonObj)
         {
             try
@@ -64,13 +67,13 @@ namespace ZNxtApp.Core.Helpers
             }
         }
 
-        public static JObject GetJObjectDbDataFromFile(FileInfo fi, string contentType, string basepath, string moduleName,string pathPrefix = "")
+        public static JObject GetJObjectDbDataFromFile(FileInfo fi, string contentType, string basepath, string moduleName, string pathPrefix = "")
         {
             string fileData = GetData(fi.FullName, contentType);
             string wwwwpath = fi.FullName.Replace(basepath, "").Replace("\\", "/");
             JObject data = new JObject();
             data[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
-            data[CommonConst.CommonField.FILE_PATH] = string.Format("{0}{1}", pathPrefix,wwwwpath);
+            data[CommonConst.CommonField.FILE_PATH] = string.Format("{0}{1}", pathPrefix, wwwwpath);
             data[CommonConst.CommonField.DATA] = fileData;
             data[CommonConst.CommonField.CREATED_DATA_DATE_TIME] = DateTime.Now;
             data[CommonConst.CommonField.FILE_SIZE] = fi.Length;
@@ -103,6 +106,5 @@ namespace ZNxtApp.Core.Helpers
         {
             return File.ReadAllText(path);
         }
-
     }
 }

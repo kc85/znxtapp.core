@@ -5,10 +5,9 @@ namespace ZNxtApp.Core.Interfaces
 {
     public interface IDBService
     {
-        
         bool WriteData(string collection, JObject data);
 
-        long GetCount(string collection,string bsonQuery);
+        long GetCount(string collection, string bsonQuery);
 
         JArray Get(string collection, string bsonQuery, List<string> properties = null, Dictionary<string, int> sortColumns = null, int? top = null, int? skip = null);
 
@@ -19,7 +18,6 @@ namespace ZNxtApp.Core.Interfaces
         JObject GetPageData(string collection, string query, List<string> fields = null, Dictionary<string, int> sortColumns = null, int pageSize = 10, int currentPage = 1);
 
         bool DropDB();
-        
     }
 
     public enum SortBy
