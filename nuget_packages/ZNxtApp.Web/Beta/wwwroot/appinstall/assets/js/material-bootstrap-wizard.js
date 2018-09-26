@@ -3,13 +3,13 @@
  =========================================================
  * Material Bootstrap Wizard - v1.0.2
  =========================================================
- 
+
  * Product Page: https://www.creative-tim.com/product/material-bootstrap-wizard
  * Copyright 2017 Creative Tim (http://www.creative-tim.com)
  * Licensed under MIT (https://github.com/creativetimofficial/material-bootstrap-wizard/blob/master/LICENSE.md)
- 
+
  =========================================================
- 
+
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  */
 
@@ -20,7 +20,6 @@ var transparent = true;
 var mobile_device = false;
 
 $(document).ready(function(){
-
     $.material.init();
 
     /*  Activate the tooltips      */
@@ -126,7 +125,6 @@ $(document).ready(function(){
         }
   	});
 
-
     // Prepare the preview for profile picture
     $("#wizard-picture").change(function(){
         readURL(this);
@@ -151,10 +149,7 @@ $(document).ready(function(){
     });
 
     $('.set-full-height').css('height', 'auto');
-
 });
-
-
 
  //Function to show image before upload
 
@@ -221,12 +216,10 @@ function refreshAnimation($wizard, index){
     $('.moving-tab').css({
         'transform':'translate3d(' + move_distance + 'px, ' + vertical_level +  'px, 0)',
         'transition': 'all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1)'
-
     });
 }
 
 materialDesign = {
-
     checkScrollForTransparentNavbar: debounce(function() {
                 if($(document).scrollTop() > 260 ) {
                     if(transparent) {
@@ -240,7 +233,6 @@ materialDesign = {
                     }
                 }
         }, 17)
-
 }
 
 function debounce(func, wait, immediate) {

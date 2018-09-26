@@ -48,5 +48,12 @@ namespace ZNxtApp.Core.Interfaces
         /// </summary>
         /// <returns></returns>
         List<String> GetBuckets();
+
+
+        /// <summary>
+        /// Delete Bucket
+        /// </summary>
+        /// <returns></returns>
+        bool DeleteBucket(string bucket);
     }
 }

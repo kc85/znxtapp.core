@@ -52,16 +52,40 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="FileKeyValueTest.cs" />
     <Compile Include="ModelBaseServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ConstTest.cs" />
     <Compile Include="AppInstallConfig.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ZNxtApp.Core.AppInstallerTest\ZNxtApp.Core.AppInstallerTest.csproj">
+      <Project>{b108cbb4-f03e-4a70-86f3-4def435607f5}</Project>
+      <Name>ZNxtApp.Core.AppInstallerTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZNxtApp.Core.AppInstaller\ZNxtApp.Core.AppInstaller.csproj">
+      <Project>{79192a0a-4e4b-4204-b0e1-3ff2e17ff935}</Project>
+      <Name>ZNxtApp.Core.AppInstaller</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZNxtApp.Core.DB.Mongo\ZNxtApp.Core.DB.Mongo.csproj">
+      <Project>{80b58e76-bf74-404c-a359-1946a3f1df37}</Project>
+      <Name>ZNxtApp.Core.DB.Mongo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZNxtApp.Core.ModuleInstaller\ZNxtApp.Core.ModuleInstaller.csproj">
+      <Project>{659f8af0-4c67-4495-a89e-60a41a4840e4}</Project>
+      <Name>ZNxtApp.Core.ModuleInstaller</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZNxtApp.Core.Web\ZNxtApp.Core.Web.csproj">
+      <Project>{622bc05c-d210-47c3-b83d-7b4c7e25386c}</Project>
+      <Name>ZNxtApp.Core.Web</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ZNxtApp.Core\ZNxtApp.Core.csproj">
       <Project>{82ca2f2e-4aac-48f5-ba04-96bea1d0d667}</Project>
       <Name>ZNxtApp.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

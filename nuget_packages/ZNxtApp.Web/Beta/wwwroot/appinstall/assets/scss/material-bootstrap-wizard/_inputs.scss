@@ -26,7 +26,6 @@
       line-height: $line-height;
       color: $mdb-input-placeholder-color;
       font-weight: 400;
-
 }
     // margin-bottom must be specified to give help-block vertical space.
     //    $see also form-group padding-bottom (and size variants) re: collapsible margins.  These work together.
@@ -59,7 +58,6 @@
 }
 
 @mixin form-group-validation-state($name, $color){
-
   &.#{$name} { // e.g. has-error
     .form-control {
       box-shadow: none;
@@ -149,7 +147,6 @@
     color: $mdb-input-placeholder-color;
     font-weight: 400;
 }
-
 
   //&:textarea {    // appears to be an invalid selector
   //  height: 40px;
@@ -303,9 +300,7 @@
 // lg floating size/location
 @include form-group-size-variant(unquote(".form-group.form-group-lg"), $mdb-input-font-size-large, $mdb-label-top-margin-large, $mdb-input-padding-large-vertical, $mdb-input-line-height-large, $mdb-label-as-placeholder-shim-large);
 
-
 select.form-control {
-
   border: 0;
   box-shadow: none;
   border-radius: 0;
@@ -377,7 +372,6 @@ select.form-control {
   height: 100%;
   z-index: 100;
 }
-
 
 .form-control-feedback{
     opacity: 0;

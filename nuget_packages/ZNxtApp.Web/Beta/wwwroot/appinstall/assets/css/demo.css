@@ -43,8 +43,6 @@ body{
     font-weight: 500;
 }
 
-
-
 .title.text-center{
     margin-bottom: 50px;
 }
@@ -140,7 +138,6 @@ body{
     color: #ddd !important;
 }
 
-
 .parallax{
   width:100%;
   height:570px;
@@ -150,7 +147,6 @@ body{
     background-repeat:no-repeat;
     background-size:cover;
     background-position: center center;
-
 }
 
 .logo-container.logo-documentation{
@@ -177,7 +173,6 @@ body{
     height: 40px;
     text-align: left;
 }
-
 
 .navbar-default .logo-container .brand{
     color: #999999;
@@ -223,7 +218,6 @@ body{
     width: 200px;
     margin-top: 0;
 }
-
 
 .parallax .parallax-image{
     width: 100%;
@@ -312,7 +306,6 @@ body{
     transition: all .2s;
 }
 
-
 #images h4{
     margin-bottom: 30px;
 }
@@ -322,7 +315,6 @@ body{
 #javascriptComponents .btn-raised{
     margin: 10px 5px;
 }
-
 
 /*      layer animation          */
 
@@ -461,8 +453,6 @@ body{
   background-size: cover;
 }
 
-
-
 .navbar {
   border: 0;
   border-radius: 3px;
@@ -531,7 +521,6 @@ body{
   border-radius: 3px;
 }
 @media (max-width: 1199px) {
-
   .navbar .navbar-brand {
     height: 50px;
     padding: 10px 15px;
@@ -545,7 +534,6 @@ body{
 footer {
   padding: 15px 0;
   text-align: center;
-
 }
 .footer a{
     font-weight: bold;

@@ -41,8 +41,6 @@
 .tooltip.in{
     opacity: 1;
     @include transform-translate-y(0px);
-
-
 }
 .tooltip{
     opacity: 0;

@@ -15,7 +15,6 @@
 }
 
 @mixin set-wizard-color($color) {
-
     .moving-tab{
         background-color: $color;
         @include shadow-big-color($color);

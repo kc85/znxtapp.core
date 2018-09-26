@@ -25,14 +25,14 @@
         "key": "company_address",
         "data": "Baner Pune, 400101"
     },
-    
+
     {
         "auth_users": [ "sys_admin" ],
         "key": "otp_validaty_duration",
         "comment": "duration in minutes",
         "data": "15"
     },
-   
+
     {
         "auth_users": [ "sys_admin" ],
         "key": "remove_sensitive_data_list",
@@ -45,7 +45,6 @@
     "data": "ZNxtApp@gmail.com",
     "is_override": false,
     "override_by": "none"
-
   },
   {
     "auth_users": [ "sys_admin" ],

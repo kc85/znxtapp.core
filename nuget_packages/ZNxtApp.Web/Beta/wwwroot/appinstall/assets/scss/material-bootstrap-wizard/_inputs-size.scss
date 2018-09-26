@@ -60,12 +60,10 @@ output {
 
 .radio,
 .checkbox {
-
   label {
     min-height: $mdb-input-line-height-computed; // Ensure the input doesn't jump when there is no text
   }
 }
-
 
 // Static form control text
 //
@@ -79,7 +77,6 @@ output {
   min-height: ($mdb-input-line-height-computed + $mdb-input-font-size-base);
 }
 
-
 // Form control sizing
 //
 // Relative text size, padding, and border-radii changes for form controls. For
@@ -89,7 +86,6 @@ output {
 // mixin pulled from bootstrap and altered for less/sass compatibility with sass parent hack.
 //  bootstrap-sass has this one, but we would have to then convert it back to less.  chicken meet egg.
 @mixin input-size($parent, $mdb-input-height, $padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius){
-
   #{$parent} {
     height: $mdb-input-height;
     padding: $padding-vertical $padding-horizontal;
@@ -108,8 +104,6 @@ output {
     height: auto;
   }
 }
-
-
 
 // Form control sizing
 //
@@ -172,9 +166,7 @@ output {
   }
 }
 
-
 .form-horizontal {
-
   // Consistent vertical alignment of radios and checkboxes
   //
   // Labels also get some reset styles, but that is scoped to a media query below.
@@ -198,7 +190,6 @@ output {
       padding-top: ($mdb-input-padding-base-vertical + 1); // Default padding plus a border
     }
   }
-
 
   // Form group sizes
   //

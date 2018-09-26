@@ -82,7 +82,6 @@
     input[type=radio]:checked ~ .check:after {
       animation: rippleOn 500ms;
     }
-
   }
 
   input[type=radio] {
@@ -100,10 +99,8 @@
   }
 
   input[type=radio][disabled] {
-
     // light theme spec: Disabled: #000000, Opacity  26%
     @include radio-color($black, 0.26);
-
   }
 }
 
