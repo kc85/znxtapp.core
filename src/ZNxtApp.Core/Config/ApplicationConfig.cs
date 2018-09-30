@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using ZNxtApp.Core.Interfaces;
 
 namespace ZNxtApp.Core.Config
 {
@@ -98,6 +99,7 @@ namespace ZNxtApp.Core.Config
         }
 
         public static string AuthToken { get; set; }
+
         private static double _sessionDuration = 30;
 
         public static double SessionDuration { get { return _sessionDuration; } set { _sessionDuration = value; } }
@@ -131,6 +133,12 @@ namespace ZNxtApp.Core.Config
                 return result;
             }
         }
+        private static IDependencyResolver _dependencyResolver;
+
+        public static void SetDependencyResolver (IDependencyResolver dependencyResolver) {
+            _dependencyResolver = dependencyResolver;
+        }
+        public static  IDependencyResolver DependencyResolver { get { return _dependencyResolver; } }
     }
 
     public enum ApplicationMode

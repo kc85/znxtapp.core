@@ -5,6 +5,7 @@ using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.DB.Mongo;
 using ZNxtApp.Core.Interfaces;
+using ZNxtApp.Core.Services;
 using ZNxtApp.Core.Web.Services;
 
 namespace ZNxtApp.Core.Web.Handler
@@ -65,9 +66,9 @@ namespace ZNxtApp.Core.Web.Handler
 
         private void CreateInstallInstance()
         {
-            var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
+            var dbProxy = new MongoDBService();
             var appInstallerLogger = Logger.GetLogger(typeof(ModuleInstaller.Installer.ModuleInstaller).Name, _httpProxy.TransactionId, dbProxy);
-            var pingService = new PingService(new MongoDBService(ApplicationConfig.DataBaseName));
+            var pingService = new PingService(new MongoDBService());
             var routings = ZNxtApp.Core.Web.Routings.Routings.GetRoutings();
             _appInstaller = ZNxtApp.Core.AppInstaller.Installer.GetInstance(
                pingService,

@@ -75,6 +75,10 @@
       <Project>{659f8af0-4c67-4495-a89e-60a41a4840e4}</Project>
       <Name>ZNxtApp.Core.ModuleInstaller</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ZNxtApp.Core.Services\ZNxtApp.Core.Services.csproj">
+      <Project>{4a53bc07-c73c-46a9-8d3e-7bb29bd2addb}</Project>
+      <Name>ZNxtApp.Core.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ZNxtApp.Core.Web\ZNxtApp.Core.Web.csproj">
       <Project>{622bc05c-d210-47c3-b83d-7b4c7e25386c}</Project>
       <Name>ZNxtApp.Core.Web</Name>

@@ -5,6 +5,7 @@ using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.DB.Mongo;
 using ZNxtApp.Core.Interfaces;
+using ZNxtApp.Core.Services;
 
 namespace ZNxtApp.Core.Web.Services
 {
@@ -26,7 +27,7 @@ namespace ZNxtApp.Core.Web.Services
         {
             if (dbService == null)
             {
-                _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
+                _dbProxy = new MongoDBService();
             }
             else
             {
@@ -138,12 +139,13 @@ namespace ZNxtApp.Core.Web.Services
 
         private List<string> GetLogLevels()
         {
+            IAppSettingService appSetting =  ApplicationConfig.DependencyResolver.GetInstance<IAppSettingService>();
             List<string> logLevals = new List<string>();
-            var setting = AppSettingService.Instance.GetAppSetting(GetLoggerName());
+            var setting = appSetting.GetAppSetting(GetLoggerName());
             if (setting == null)
             {
                 AddLogComponents();
-                setting = AppSettingService.Instance.GetAppSetting(GetLoggerName());
+                setting = appSetting.GetAppSetting(GetLoggerName());
             }
             if (setting[CommonConst.CommonField.DATA][CommonConst.CommonField.LOG_LOG_LEVELS] != null)
             {

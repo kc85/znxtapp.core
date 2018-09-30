@@ -76,6 +76,8 @@
     <Compile Include="Interfaces\IActionExecuter.cs" />
     <Compile Include="Interfaces\IAppInstaller.cs" />
     <Compile Include="Interfaces\IAppSettingService.cs" />
+    <Compile Include="Interfaces\IDependencyRegister.cs" />
+    <Compile Include="Interfaces\IDependencyResolver.cs" />
     <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="Interfaces\IHttpFIleUploader.cs" />
     <Compile Include="Interfaces\IKeyValueStorage.cs" />

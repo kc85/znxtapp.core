@@ -6,7 +6,7 @@ using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Model;
-using ZNxtApp.Core.Web.Util;
+using ZNxtApp.Core.Services.Helper;
 
 namespace ZNxtApp.Core.Web.Services
 {

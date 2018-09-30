@@ -7,8 +7,9 @@ using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.DB.Mongo;
 using ZNxtApp.Core.Interfaces;
+using ZNxtApp.Core.Services;
+using ZNxtApp.Core.Services.Helper;
 using ZNxtApp.Core.Web.Services;
-using ZNxtApp.Core.Web.Util;
 
 namespace ZNxtApp.Core.Web.AppStart
 {
@@ -16,15 +17,21 @@ namespace ZNxtApp.Core.Web.AppStart
     {
         private static object lockObj = new object();
         private static InitApp _initApp = null;
+        private static IDependencyRegister _dependencyRegister;
         private CacheItemRemovedCallback OnCacheRemove = null;
         private ILogger _logger;
         private IDBService _dbProxy;
         private JArray _cronJobs = new JArray();
-
+        
         private InitApp()
         {
+            
+        }
+
+        private void InitDB()
+        {
             _logger = Logger.GetLogger(this.GetType().Name, string.Empty);
-            _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
+            _dbProxy = new MongoDBService();
         }
 
         public static void Run()
@@ -42,9 +49,23 @@ namespace ZNxtApp.Core.Web.AppStart
         private void InitAppRun()
         {
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+            SetDepencencies();
+            InitDB();
             SetVariables();
             GetCronJob();
             SetCronJob();
+        }
+        
+        private void SetDepencencies()
+        {
+            _dependencyRegister = new UnityDependencyRegister();
+            ApplicationConfig.SetDependencyResolver(_dependencyRegister.GetResolver());
+            _dependencyRegister.Register<IDBService, MongoDBService>();
+            _dependencyRegister.RegisterInstance<IAppSettingService>(AppSettingService.Instance);
+            _dependencyRegister.Register<IEncryption, EncryptionService>();
+            _dependencyRegister.RegisterInstance<IViewEngine>(RazorTemplateEngine.GetEngine());
+            _dependencyRegister.Register<IPingService, PingService>();
+            _dependencyRegister.Register<IKeyValueStorage, FileKeyValueFileStorage>();
         }
 
         private void SetCronJob()
@@ -96,7 +117,7 @@ namespace ZNxtApp.Core.Web.AppStart
                 CacheItemPriority.NotRemovable, OnCacheRemove);
         }
 
-        public void CacheItemRemoved(string key, object val, CacheItemRemovedReason r)
+        private void CacheItemRemoved(string key, object val, CacheItemRemovedReason r)
         {
             //Logger.TransactionID = CommonUtility.GenerateTxnId("CJ");
             CronJobExecuter job = new CronJobExecuter();

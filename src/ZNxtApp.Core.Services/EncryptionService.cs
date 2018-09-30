@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using ZNxtApp.Core.Interfaces;
 
-namespace ZNxtApp.Core.Web.Services
+namespace ZNxtApp.Core.Services
 {
     public class EncryptionService : IEncryption
     {

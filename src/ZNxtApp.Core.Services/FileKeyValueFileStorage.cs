@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using System.IO;
 using ZNxtApp.Core.Interfaces;
 
-namespace ZNxtApp.Core.Web.Services
+namespace ZNxtApp.Core.Services
 {
-    public class KeyValueFileStorage : IKeyValueStorage
+    public class FileKeyValueFileStorage : IKeyValueStorage
     {
         private IEncryption _encryption;
         private IAppSettingService _appSettingService;
         private string _storageBasePath = string.Empty;
 
         private string _fileExtn = ".zdata";
-        public KeyValueFileStorage(IEncryption encryption, IAppSettingService appSettingService)
+
+        public FileKeyValueFileStorage(IEncryption encryption, IAppSettingService appSettingService)
         {
             _encryption = encryption;
             _appSettingService = appSettingService;
@@ -49,7 +50,7 @@ namespace ZNxtApp.Core.Web.Services
 
         public List<string> GetBuckets()
         {
-            List<string> buckets  = new List<string>();
+            List<string> buckets = new List<string>();
             DirectoryInfo di = new DirectoryInfo(GetBaseFolder());
             foreach (var item in di.GetDirectories())
             {
@@ -84,7 +85,7 @@ namespace ZNxtApp.Core.Web.Services
             }
             else
             {
-                var sttringData =  JsonConvert.SerializeObject(data);
+                var sttringData = JsonConvert.SerializeObject(data);
                 File.WriteAllText(GetPath(bucket, key), sttringData);
                 return true;
             }
@@ -97,11 +98,12 @@ namespace ZNxtApp.Core.Web.Services
                 Directory.Delete(GetBucketFolder(bucket), true);
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
         }
+
         private string GetBaseFolder()
         {
             string path = string.Format("{0}", _storageBasePath);
@@ -111,6 +113,7 @@ namespace ZNxtApp.Core.Web.Services
             }
             return path;
         }
+
         private string GetBucketFolder(string bucket)
         {
             string path = string.Format("{0}\\{1}", GetBaseFolder(), bucket);
@@ -120,6 +123,7 @@ namespace ZNxtApp.Core.Web.Services
             }
             return path;
         }
+
         private string GetPath(string bucket, string key = null)
         {
             var path = GetBucketFolder(bucket);
@@ -160,6 +164,5 @@ namespace ZNxtApp.Core.Web.Services
             }
             return System.Text.Encoding.UTF8.GetString(byteData);
         }
-
     }
 }

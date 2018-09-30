@@ -4,10 +4,9 @@ using System.Configuration;
 using System.Linq;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
-using ZNxtApp.Core.DB.Mongo;
 using ZNxtApp.Core.Interfaces;
 
-namespace ZNxtApp.Core.Web.Services
+namespace ZNxtApp.Core.Services
 {
     public class AppSettingService : IAppSettingService
     {
@@ -19,7 +18,7 @@ namespace ZNxtApp.Core.Web.Services
 
         private AppSettingService()
         {
-            _dbService = new MongoDBService(ApplicationConfig.DataBaseName);
+            _dbService = ApplicationConfig.DependencyResolver.GetInstance<IDBService>();
         }
 
         public static AppSettingService Instance

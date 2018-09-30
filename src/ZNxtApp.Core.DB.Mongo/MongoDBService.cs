@@ -19,12 +19,23 @@ namespace ZNxtApp.Core.DB.Mongo
         public Func<string> User;
 
         private string _dbName;
-
-        public MongoDBService(string dbName)
+        public MongoDBService()
         {
-            _dbName = dbName;
+            _dbName = ApplicationConfig.DataBaseName;
             Init();
         }
+        //public MongoDBService(string dbName)
+        //{
+        //    if (string.IsNullOrEmpty(dbName))
+        //    {
+        //        _dbName = ApplicationConfig.DataBaseName;
+        //    }
+        //    else
+        //    {
+        //        _dbName = dbName;
+        //    }
+        //    Init();
+        //}
 
         private string GetUserId()
         {

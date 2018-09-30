@@ -8,15 +8,15 @@ using System.Text;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Interfaces;
 
-namespace ZNxtApp.Core.Web.Services
+namespace ZNxtApp.Core.Services
 {
-    public class ViewEngine : IViewEngine
+    public class RazorTemplateEngine : IViewEngine
     {
         private static object _lock = new object();
-        private static ViewEngine _viewEngine;
+        private static RazorTemplateEngine _viewEngine;
         private bool isDevEnv = false;
 
-        private ViewEngine()
+        private RazorTemplateEngine()
         {
             var config = new TemplateServiceConfiguration();
             config.Language = Language.CSharp;
@@ -32,13 +32,13 @@ namespace ZNxtApp.Core.Web.Services
             Engine.Razor = RazorEngineService.Create(config);
         }
 
-        public static ViewEngine GetEngine()
+        public static RazorTemplateEngine GetEngine()
         {
             if (_viewEngine == null)
             {
                 lock (_lock)
                 {
-                    _viewEngine = new ViewEngine();
+                    _viewEngine = new RazorTemplateEngine();
 
                     return _viewEngine;
                 }

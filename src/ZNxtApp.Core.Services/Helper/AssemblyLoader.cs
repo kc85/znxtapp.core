@@ -4,10 +4,9 @@ using System.IO;
 using System.Reflection;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
-using ZNxtApp.Core.DB.Mongo;
 using ZNxtApp.Core.Interfaces;
 
-namespace ZNxtApp.Core.Web.Util
+namespace ZNxtApp.Core.Services.Helper
 {
     public class AssemblyLoader
     {
@@ -18,7 +17,7 @@ namespace ZNxtApp.Core.Web.Util
 
         private AssemblyLoader()
         {
-            _dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
+            _dbProxy = ApplicationConfig.DependencyResolver.GetInstance<IDBService>();
         }
 
         public static AssemblyLoader GetAssemblyLoader()

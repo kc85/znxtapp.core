@@ -6,7 +6,7 @@ using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 
-namespace ZNxtApp.Core.Web.Util
+namespace ZNxtApp.Core.Services.Helper
 {
     public class StaticContentHandler
     {

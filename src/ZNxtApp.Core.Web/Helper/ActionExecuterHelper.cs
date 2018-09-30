@@ -4,6 +4,7 @@ using ZNxtApp.Core.DB.Mongo;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Model;
+using ZNxtApp.Core.Services;
 using ZNxtApp.Core.Web.Services;
 
 namespace ZNxtApp.Core.Web.Helper
@@ -13,19 +14,21 @@ namespace ZNxtApp.Core.Web.Helper
         public static ParamContainer CreateParamContainer(ILogger loggerController, IActionExecuter actionExecuter)
         {
             ILogReader logReader = Logger.GetLogReader();
-            IDBService dbService = new MongoDBService(ApplicationConfig.DataBaseName);
-            IPingService pingService = new PingService(new MongoDBService(ApplicationConfig.DataBaseName));
-            ParamContainer paramContainer = new ParamContainer();
             IAppSettingService appSettingService = AppSettingService.Instance;
-            IViewEngine viewEngine = ViewEngine.GetEngine();
-            IEncryption encryption = new EncryptionService();
+            ParamContainer paramContainer = new ParamContainer();
+
+            IDBService dbService = ApplicationConfig.DependencyResolver.GetInstance<IDBService>();
+            IPingService pingService = ApplicationConfig.DependencyResolver.GetInstance<IPingService>();
+            IViewEngine viewEngine = ApplicationConfig.DependencyResolver.GetInstance<IViewEngine>();
+            IEncryption encryption = ApplicationConfig.DependencyResolver.GetInstance<IEncryption>();
+            IKeyValueStorage keyValueStorage = ApplicationConfig.DependencyResolver.GetInstance<IKeyValueStorage>();
+
+
             ISMSService smsService = new SMSService(loggerController, dbService, actionExecuter, viewEngine, paramContainer);
             IEmailService emailService = new EmailService(loggerController, dbService, actionExecuter, viewEngine, paramContainer);
             IOTPService otpService = new OTPService(loggerController, dbService, smsService, emailService, appSettingService);
-            IKeyValueStorage keyValueStorage = new KeyValueFileStorage(encryption, appSettingService);
 
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_DBPROXY, () => { return dbService; });
-
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_LOGGER, () => { return loggerController; });
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_ACTIONEXECUTER, () => { return actionExecuter; });
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_PING_SERVICE, () => { return pingService; });

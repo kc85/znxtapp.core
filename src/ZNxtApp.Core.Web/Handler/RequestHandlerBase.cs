@@ -5,6 +5,7 @@ using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.DB.Mongo;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
+using ZNxtApp.Core.Services;
 using ZNxtApp.Core.Web.Interfaces;
 using ZNxtApp.Core.Web.Proxies;
 using ZNxtApp.Core.Web.Services;
@@ -33,7 +34,7 @@ namespace ZNxtApp.Core.Web.Handler
 
         public RequestHandlerBase()
         {
-            _viewEngine = ViewEngine.GetEngine();
+            _viewEngine = RazorTemplateEngine.GetEngine();
             _routeExecuter = new RouteExecuter();
         }
 
@@ -45,7 +46,7 @@ namespace ZNxtApp.Core.Web.Handler
         public virtual void ProcessRequest(HttpContext context)
         {
             HandleSession(context);
-            var dbProxy = new MongoDBService(ApplicationConfig.DataBaseName);
+            var dbProxy = new MongoDBService();
 
             _httpProxy = new HttpContextProxy(context);
             _initData = _httpProxy;

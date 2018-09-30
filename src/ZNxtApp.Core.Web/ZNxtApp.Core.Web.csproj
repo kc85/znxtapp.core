@@ -82,14 +82,11 @@
     <Compile Include="Services\Api\Ping\PingCompletedEventSubscriber.cs" />
     <Compile Include="Services\Api\Ping\PingInitEventSubscriber.cs" />
     <Compile Include="Services\Api\Ping\PingResponseCode.cs" />
-    <Compile Include="Services\AppSettingService.cs" />
     <Compile Include="Services\CronJobExecuter.cs" />
     <Compile Include="Services\EmailService.cs" />
-    <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Interfaces\IRouteExecuter.cs" />
     <Compile Include="Services\EventSubscription.cs" />
     <Compile Include="Interfaces\IEventSubscription.cs" />
-    <Compile Include="Services\KeyValueFileStorage.cs" />
     <Compile Include="Services\Logger.cs" />
     <Compile Include="Services\OTPService.cs" />
     <Compile Include="Services\PingService.cs" />
@@ -97,10 +94,7 @@
     <Compile Include="Services\RouteExecuter.cs" />
     <Compile Include="Services\SessionProvider.cs" />
     <Compile Include="Services\SMSService.cs" />
-    <Compile Include="Services\ViewEngine.cs" />
     <Compile Include="Services\WwwrootContentHandler.cs" />
-    <Compile Include="Util\AssemblyLoader.cs" />
-    <Compile Include="Util\StaticContentHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZNxtApp.Core.DB.Mongo\ZNxtApp.Core.DB.Mongo.csproj">
@@ -114,6 +108,10 @@
     <ProjectReference Include="..\ZNxtApp.Core.ModuleInstaller\ZNxtApp.Core.ModuleInstaller.csproj">
       <Project>{659f8af0-4c67-4495-a89e-60a41a4840e4}</Project>
       <Name>ZNxtApp.Core.ModuleInstaller</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZNxtApp.Core.Services\ZNxtApp.Core.Services.csproj">
+      <Project>{4a53bc07-c73c-46a9-8d3e-7bb29bd2addb}</Project>
+      <Name>ZNxtApp.Core.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\ZNxtApp.Core\ZNxtApp.Core.csproj">
       <Project>{82ca2f2e-4aac-48f5-ba04-96bea1d0d667}</Project>

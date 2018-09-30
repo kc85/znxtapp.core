@@ -19,6 +19,7 @@
          <dependency id="Microsoft.AspNet.Razor" version="3.0.0" />
          <dependency id="RazorEngine" version="3.10.0" />
 		 <dependency id="MongoDB.Driver" version="2.5.0" />
+		 <dependency id="Unity" version="5.8.11" /> 
       </dependencies>
    </metadata>
    <files>

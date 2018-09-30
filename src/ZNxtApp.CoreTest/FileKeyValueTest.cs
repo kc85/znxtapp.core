@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Web.Services;
+using ZNxtApp.Core.Services;
+using ZNxtApp.Core.Config;
 
 namespace ZNxtApp.CoreTest
 {
@@ -63,7 +65,9 @@ namespace ZNxtApp.CoreTest
         [TestMethod]
         public void KeyValuePut_Success()
         {
-            IKeyValueStorage store = new KeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
+            var dbname = ApplicationConfig.DataBaseName;
+
+            IKeyValueStorage store = new FileKeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
 
             Assert.AreEqual(store.Put<string>("test", "v1", "data"), true);
 
@@ -71,7 +75,7 @@ namespace ZNxtApp.CoreTest
         [TestMethod]
         public void KeyValueGet_Success()
         {
-            IKeyValueStorage store = new KeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
+            IKeyValueStorage store = new FileKeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
 
             var data = "data";
             store.Put<string>("test", "v1", data);
@@ -83,7 +87,7 @@ namespace ZNxtApp.CoreTest
         [TestMethod]
         public void KeyValueByteArr_Success()
         {
-            IKeyValueStorage store = new KeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
+            IKeyValueStorage store = new FileKeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
 
             var data = "data";
             store.Put<byte [] >("test", "v1", Encoding.ASCII.GetBytes(data));
@@ -94,7 +98,7 @@ namespace ZNxtApp.CoreTest
         [TestMethod]
         public void KeyValueByteArrEncryption_Success()
         {
-            IKeyValueStorage store = new KeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
+            IKeyValueStorage store = new FileKeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
 
             var data = "datakhaninChoudhury1212121";
             store.Put<byte[]>("test", "v2", Encoding.ASCII.GetBytes(data), "Encryptionstring%%!&&asdasd!dasd");
@@ -105,7 +109,7 @@ namespace ZNxtApp.CoreTest
         [TestMethod]
         public void KeyValueDelete_Success()
         {
-            IKeyValueStorage store = new KeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
+            IKeyValueStorage store = new FileKeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
 
            store.Put<string>("test", "v11", "data");
             Assert.AreEqual(store.Delete("test", "v11"), true);
@@ -113,7 +117,7 @@ namespace ZNxtApp.CoreTest
         [TestMethod]
         public void KeyValueDeleteAll_Success()
         {
-            IKeyValueStorage store = new KeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
+            IKeyValueStorage store = new FileKeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
 
             store.Put<string>("test", "v11", "data");
 
@@ -126,7 +130,7 @@ namespace ZNxtApp.CoreTest
         [TestMethod]
         public void KeyValueGetBucket_Success()
         {
-            IKeyValueStorage store = new KeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
+            IKeyValueStorage store = new FileKeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
 
             
             store.Put<string>("test", "v11", "data");
@@ -138,7 +142,7 @@ namespace ZNxtApp.CoreTest
         [TestMethod]
         public void KeyValueDeleteBucket_Success()
         {
-            IKeyValueStorage store = new KeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
+            IKeyValueStorage store = new FileKeyValueFileStorage(new EncryptionService(), AppSettingService.Instance);
 
 
             foreach (var item in store.GetBuckets())
