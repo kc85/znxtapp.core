@@ -5,52 +5,52 @@ Response:
 {
   "code": 1,
   "message": "SUCCESS",
-  "transaction_id": "20180926214729709770",
+  "transaction_id": "20181004232138999776",
   "debug": {
-    "time_span": 1627.895,
+    "time_span": 2154.4877,
     "logs": [
       {
-        "created_datetime": 1537998450,
-        "id": "1620b274-e392-49bd-9ff9-47811aca9846",
+        "created_datetime": 1538695299,
+        "id": "57075163-2e8d-4f3e-a927-be84b0625ed9",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Info",
-        "transaction_id": "20180926214729709770",
+        "transaction_id": "20181004232138999776",
         "message": "RouteExecuter.Exec:: Route: [POST: /api/module/reinstall, Type: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller, Assembly: ZNxtApp.Core.Web.dll, Method: Reinstall, Module:ZApp]",
         "data": {},
-        "updated_datetime": 1537998450,
+        "updated_datetime": 1538695299,
         "created_by": ""
       },
       {
-        "created_datetime": 1537998450,
-        "id": "f11c8e08-3451-4811-9d39-316b0537f452",
+        "created_datetime": 1538695299,
+        "id": "61c18786-5d64-41ed-b1e5-d282575bfcaa",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Info",
-        "transaction_id": "20180926214729709770",
+        "transaction_id": "20181004232138999776",
         "message": "GetType: ZNxtApp.Core.Web.dll, executeType: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "data": {},
-        "updated_datetime": 1537998450,
+        "updated_datetime": 1538695299,
         "created_by": ""
       },
       {
-        "created_datetime": 1537998451,
-        "id": "99bcaa07-1375-4c61-9393-b1888b0be4e8",
+        "created_datetime": 1538695300,
+        "id": "0e80d250-9dcc-4b96-a3b8-06f3a62244ee",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Debug",
-        "transaction_id": "20180926214729709770",
-        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.SMS.TextLocal_1.0.11.39169-Beta\\Content\\collections\\app_settings.json",
+        "transaction_id": "20181004232138999776",
+        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.SMS.TextLocal_1.0.11.42016-Beta\\Content\\collections\\app_settings.json",
         "data": {},
-        "updated_datetime": 1537998451,
+        "updated_datetime": 1538695300,
         "created_by": ""
       },
       {
-        "created_datetime": 1537998451,
-        "id": "ac8b1467-7303-4fb5-a765-f403544ffb9a",
+        "created_datetime": 1538695301,
+        "id": "905c8e87-77c5-43a1-a72f-8ddcf1acc530",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Debug",
-        "transaction_id": "20180926214729709770",
-        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.SMS.TextLocal_1.0.11.39169-Beta\\Content\\collections\\server_routes.json",
+        "transaction_id": "20181004232138999776",
+        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.SMS.TextLocal_1.0.11.42016-Beta\\Content\\collections\\server_routes.json",
         "data": {},
-        "updated_datetime": 1537998451,
+        "updated_datetime": 1538695301,
         "created_by": ""
       }
     ]
@@ -59,14 +59,14 @@ Response:
       
 Headers:
 Cache-Control: private
-Date: Wed, 26 Sep 2018 16:17:31 GMT
-Content-Length: 2272
+Date: Thu, 04 Oct 2018 17:51:41 GMT
+Content-Length: 2273
 Content-Type: application/json
-Set-Cookie: za_s_k=1537998449R4U90244; expires=Wed, 26-Sep-2018 16:17:29 GMT; path=/; secure; HttpOnly
+Set-Cookie: za_s_k=1538695298DXO90495; expires=Thu, 04-Oct-2018 17:51:38 GMT; path=/; secure; HttpOnly
 
 
 URL:
-http://localhost/ZNxtApp.Core.WebTest/api/module/reinstall?module_name=ZNxtApp.Core.Module.SMS.TextLocal/1.0.11.39169-Beta
+http://localhost/ZNxtApp.Core.WebTest/api/module/reinstall?module_name=ZNxtApp.Core.Module.SMS.TextLocal/1.0.11.42016-Beta
 URL Code Page:
 65001
 User Agent:

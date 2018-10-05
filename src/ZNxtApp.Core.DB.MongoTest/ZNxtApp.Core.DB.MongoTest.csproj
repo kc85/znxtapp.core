@@ -56,6 +56,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="MongoDBGetDataTest.cs" />
+    <Compile Include="MongoDBWriteDataTest.cs" />
     <Compile Include="MongoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,6 +65,10 @@
     <ProjectReference Include="..\ZNxtApp.Core.DB.Mongo\ZNxtApp.Core.DB.Mongo.csproj">
       <Project>{80b58e76-bf74-404c-a359-1946a3f1df37}</Project>
       <Name>ZNxtApp.Core.DB.Mongo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZNxtApp.Core.Services\ZNxtApp.Core.Services.csproj">
+      <Project>{4a53bc07-c73c-46a9-8d3e-7bb29bd2addb}</Project>
+      <Name>ZNxtApp.Core.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\ZNxtApp.Core\ZNxtApp.Core.csproj">
       <Project>{82ca2f2e-4aac-48f5-ba04-96bea1d0d667}</Project>

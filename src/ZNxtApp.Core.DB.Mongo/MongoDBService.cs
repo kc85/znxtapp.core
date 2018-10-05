@@ -12,18 +12,21 @@ using ZNxtApp.Core.Interfaces;
 
 namespace ZNxtApp.Core.DB.Mongo
 {
-    public class MongoDBService : IDBService
+    public partial class MongoDBService : IDBService
     {
         private IMongoDatabase _mongoDataBase;
         private MongoClient _mongoClient;
         public Func<string> User;
-
+        private IJSONValidator _JSONValidator;
         private string _dbName;
+
         public MongoDBService()
         {
             _dbName = ApplicationConfig.DataBaseName;
+            _JSONValidator = ApplicationConfig.DependencyResolver.GetInstance<IJSONValidator>();
             Init();
         }
+
         //public MongoDBService(string dbName)
         //{
         //    if (string.IsNullOrEmpty(dbName))

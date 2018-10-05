@@ -26,5 +26,9 @@
         {
             AUTH_REQUEST_REQUIRED_PARAMETER_MISSING = 6000
         }
+        public enum DBSchemaValidation
+        {
+            DB_SCHEMA_VALIDATION_ERROR = 6500
+        }
     }
 }

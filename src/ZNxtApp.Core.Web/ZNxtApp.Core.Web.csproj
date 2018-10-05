@@ -66,6 +66,7 @@
     <Compile Include="Handler\RequestHandler.cs" />
     <Compile Include="Handler\RequestHandlerBase.cs" />
     <Compile Include="Helper\ActionExecuterHelper.cs" />
+    <Compile Include="Helper\AuthTokenHelper.cs" />
     <Compile Include="Helper\ServerPageModelHelper.cs" />
     <Compile Include="Models\EventSubscriptionModel.cs" />
     <Compile Include="Models\ExecutionEventType.cs" />

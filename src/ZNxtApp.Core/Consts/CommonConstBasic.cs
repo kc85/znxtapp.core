@@ -115,6 +115,9 @@
             public const string WIDTH = "width";
             public const string HEIGHT = "height";
             public const string AUTH_USERS = "auth_users";
+            public const string SCHEMA = "schema";
+            public const string AUTH_TOKEN = "auth_token";
+
         }
     }
 }

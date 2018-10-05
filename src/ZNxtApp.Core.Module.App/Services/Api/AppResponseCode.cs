@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ZNxtApp.Core.Interfaces;
 
 namespace ZNxtApp.Core.Module.App.Services.Api
@@ -30,6 +26,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api
                 return string.Empty;
             }
         }
+
         public AppResponseCode()
         {
             text[_CAPTCHA_VALIDATION_FAIL] = "CAPTCHA_VALIDATION_FAIL";

@@ -61,6 +61,7 @@ namespace ZNxtApp.Core.Web.AppStart
             _dependencyRegister = new UnityDependencyRegister();
             ApplicationConfig.SetDependencyResolver(_dependencyRegister.GetResolver());
             _dependencyRegister.Register<IDBService, MongoDBService>();
+            _dependencyRegister.Register<IJSONValidator, JSONValidator>();
             _dependencyRegister.RegisterInstance<IAppSettingService>(AppSettingService.Instance);
             _dependencyRegister.Register<IEncryption, EncryptionService>();
             _dependencyRegister.RegisterInstance<IViewEngine>(RazorTemplateEngine.GetEngine());

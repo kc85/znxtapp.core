@@ -36,6 +36,10 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json.Schema, Version=3.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.Schema.3.0.10\lib\net45\Newtonsoft.Json.Schema.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -66,6 +70,7 @@
     <Compile Include="Exceptions\ErrorCodes\ErrorCode.cs" />
     <Compile Include="Exceptions\ExceptionBase.cs" />
     <Compile Include="Exceptions\InvalidFilterException.cs" />
+    <Compile Include="Exceptions\SchemaValidationException.cs" />
     <Compile Include="Helpers\IDBServiceExtensions.cs" />
     <Compile Include="Helpers\GoogleCaptchaHelper.cs" />
     <Compile Include="Helpers\CommonUtility.cs" />
@@ -76,10 +81,12 @@
     <Compile Include="Interfaces\IActionExecuter.cs" />
     <Compile Include="Interfaces\IAppInstaller.cs" />
     <Compile Include="Interfaces\IAppSettingService.cs" />
+    <Compile Include="Interfaces\IDBQueryBuilder.cs" />
     <Compile Include="Interfaces\IDependencyRegister.cs" />
     <Compile Include="Interfaces\IDependencyResolver.cs" />
     <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="Interfaces\IHttpFIleUploader.cs" />
+    <Compile Include="Interfaces\IJSONValidator.cs" />
     <Compile Include="Interfaces\IKeyValueStorage.cs" />
     <Compile Include="Interfaces\IOTPService.cs" />
     <Compile Include="Interfaces\ISMSService.cs" />
@@ -98,6 +105,7 @@
     <Compile Include="Interfaces\IRoutings.cs" />
     <Compile Include="Interfaces\ISessionProvider.cs" />
     <Compile Include="Interfaces\IViewEngine.cs" />
+    <Compile Include="Model\DBQuery.cs" />
     <Compile Include="Model\ParamContainer.cs" />
     <Compile Include="Model\RoutingModel.cs" />
     <Compile Include="Enums\UserIDType.cs" />

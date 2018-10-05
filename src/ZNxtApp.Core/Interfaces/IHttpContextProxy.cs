@@ -13,6 +13,8 @@ namespace ZNxtApp.Core.Interfaces
         Dictionary<string, string> ResponseHeaders { get; set; }
 
         int ResponseStatusCode { get; }
+
+
         string ResponseStatusMessage { get; }
         byte[] Response { get; }
 

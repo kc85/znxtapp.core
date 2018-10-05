@@ -101,7 +101,7 @@
     ],
     "index": 20
   },
-  
+
   {
     "key": "adv_backend_ui_address_widget",
     "label": "address_widget",
@@ -217,6 +217,24 @@
     "url": "#",
     "config": {
       "templateUrl": "app/developer/pages/pages.html"
+    },
+    "parent_links": [
+      "advance"
+    ],
+    "auth_users": [
+      "sys_admin"
+    ],
+    "index": 110
+  }
+  ,{
+    "key": "adv_pages_sub_blocks",
+    "label": "Blocks",
+    "href": "/adv_pages_sub_blocks",
+    "icon": "fa-paw",
+    "display_area": "main_body",
+    "url": "#",
+    "config": {
+      "templateUrl": "app/developer/pages/blocks/blocks.html"
     },
     "parent_links": [
       "advance"

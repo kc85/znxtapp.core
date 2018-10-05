@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ZNxtApp.Core.Module.App.Consts
+﻿namespace ZNxtApp.Core.Module.App.Consts
 {
     public static class ModuleAppConsts
     {
         public static class Collection
         {
             public const string BACKEND_UI_ROUTES = "backend_ui_routes";
+            public const string AUTH_TOKEN_COLLECTION = "auth_tokens";
+
         }
+
         public static class Field
         {
             public const string AUTH_TOKEN = "auth_token";
@@ -29,7 +26,7 @@ namespace ZNxtApp.Core.Module.App.Consts
             public const string FACEBOOK_GRAPH_API_URL_SETTING_KEY = "facebook_graph_api_url";
             public const string FACEBOOK_REQUEST_OBJECT_ACCESS_SETTING_KEY = "facebook_request_object_access";
             public const string FACEBOOK_OAUTH_CALLBACK_URL_SETTING_KEY = "facebook_oauth_callback_url";
-            
+
             public const string SIGN_UP_OTP_SMS_TEMPLATE = "OTP_SIGN_UP_SMS";
             public const string SIGN_UP_OTP_EMAIL_TEMPLATE = "OTP_SIGN_UP_EMAIL";
             public const string SIGN_UP_OTP_EMAIL_SUBJECT = "OTP_SIGN_UP_EMAIL_SUBJECT";
@@ -37,7 +34,6 @@ namespace ZNxtApp.Core.Module.App.Consts
             public const string DEFAULT_USER_GROUPS_APP_SETTING_KEY = "default_user_groups";
             public const string SIGNUP_LENDING_PAGE_SETTING_KEY = "signup_redirect_page";
             public const string FORGET_PASS_LENDING_PAGE_SETTING_KEY = "forget_password_redirect_page";
-
 
             public const string FORGET_PASS_OTP_SMS_TEMPLATE = "OTP_FORGET_PASS_SMS";
             public const string FORGET_PASS_OTP_EMAIL_TEMPLATE = "OTP_FORGET_PASS_EMAIL";
@@ -48,6 +44,9 @@ namespace ZNxtApp.Core.Module.App.Consts
             public const string USER_PIC_M = "user_pic_m";
             public const string USER_PIC_S = "user_pic_s";
             public const string USER_PIC_L = "user_pic_l";
+
+          
+
 
         }
     }

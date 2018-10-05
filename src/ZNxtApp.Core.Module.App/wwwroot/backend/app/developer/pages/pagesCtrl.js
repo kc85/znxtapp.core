@@ -6,7 +6,7 @@
     function ($scope, $location, $rootScope, $controller, dataService, userData) {
        
         angular.extend(this, $controller(__ZNxtAppName + '.gridBaseCtrl', { $scope: $scope }));
-        $scope.name = "Pages and Blocks";
+        $scope.name = "Pages";
         $scope.pageData = {};
         $scope.showDetails = false;
         $scope.filterIncludeColumns = ["id", "file_path", "module_name", "content_type"];

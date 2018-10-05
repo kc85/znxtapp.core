@@ -5,10 +5,13 @@ using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.DB.Mongo;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Interfaces;
+using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Services;
+using ZNxtApp.Core.Web.Helper;
 using ZNxtApp.Core.Web.Interfaces;
 using ZNxtApp.Core.Web.Proxies;
 using ZNxtApp.Core.Web.Services;
+using ZNxtApp.Core.Helpers;
 
 namespace ZNxtApp.Core.Web.Handler
 {
@@ -47,7 +50,7 @@ namespace ZNxtApp.Core.Web.Handler
         {
             HandleSession(context);
             var dbProxy = new MongoDBService();
-
+            var encryption = new EncryptionService();
             _httpProxy = new HttpContextProxy(context);
             _initData = _httpProxy;
             _logger = Logger.GetLogger(this.GetType().Name, _httpProxy.TransactionId, dbProxy);
@@ -55,6 +58,32 @@ namespace ZNxtApp.Core.Web.Handler
             CreateRoute();
             _httpContext = context;
             _contentHandler = new WwwrootContentHandler(_httpProxy, dbProxy, _viewEngine, _actionExecuter, _logger);
+            HandleAuthTokenKey(dbProxy, encryption);
+
+        }
+
+        private void HandleAuthTokenKey(MongoDBService dbProxy, IEncryption encryption)
+        {
+            if (AuthTokenHelper.IsAuthTokenExits(_httpProxy))
+            {
+                _logger.Debug("find Auth Token Header");
+                var userId = AuthTokenHelper.GetUserId(_httpProxy, dbProxy, encryption);
+
+                _logger.Debug("got User Id");
+                ISessionProvider session = new SessionProvider(_httpProxy, dbProxy, _logger);
+                var userData = session.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
+                if (userData != null && userData.user_id != userId)
+                {
+                    throw new Exception("Session user conflict with authtoken");
+                }
+
+                var user = dbProxy.FirstOrDefault<UserModel>(CommonConst.Collection.USERS, CommonConst.CommonField.USER_ID, userId);
+                if (user == null)
+                {
+                    throw new Exception("User not found for authtoken");
+                }
+                session.SetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY, user);
+            }
         }
 
         protected void WriteResponse()

@@ -27,6 +27,8 @@
             public const string DEFAULT_INSTALL_MODULES = "default_install_modules";
             public const string EVENT_SUBSCRIPTION = "event_subscription";
             public const string APP_INSTALL_STATUS = "app_install_status";
+            public const string AUTH_TOKEN_COLLECTION = "auth_tokens";
+
         }
 
         public static class CollectionAccessTypes

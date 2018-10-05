@@ -16,39 +16,51 @@ namespace ZNxtApp.Core.Web.Handler
 
         public override void ProcessRequest(HttpContext context)
         {
-            base.ProcessRequest(context);
-
-            var requestUriPath = _httpProxy.GetURIAbsolutePath().ToLower();
-            requestUriPath = ManagePageUrl(requestUriPath);
-
-            if (ApplicationMode.Maintenance == ApplicationConfig.GetApplicationMode)
+            try
             {
-                try
+                base.ProcessRequest(context);
+
+                var requestUriPath = _httpProxy.GetURIAbsolutePath().ToLower();
+                requestUriPath = ManagePageUrl(requestUriPath);
+
+                if (ApplicationMode.Maintenance == ApplicationConfig.GetApplicationMode)
                 {
-                    CreateInstallInstance();
-                    if (_appInstaller.Status != Enums.AppInstallStatus.Finish)
+                    try
                     {
-                        _appInstaller.Install(_httpProxy);
+                        CreateInstallInstance();
+                        if (_appInstaller.Status != Enums.AppInstallStatus.Finish)
+                        {
+                            _appInstaller.Install(_httpProxy);
+                        }
+                        else
+                        {
+                            HandleRequest(requestUriPath);
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        HandleRequest(requestUriPath);
+                        throw;
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    // TODO need to handle it better
-                    _logger.Error(ex.Message, ex);
-                    JObject data = new JObject();
-                    data["Error"] = ex.Message;
-                    _httpProxy.SetResponse(CommonConst._500_SERVER_ERROR, data);
+                    HandleRequest(requestUriPath);
                 }
+               
             }
-            else
+            catch (Exception ex)
             {
-                HandleRequest(requestUriPath);
+                // TODO need to handle it better
+                _logger.Error(ex.Message, ex);
+                JObject data = new JObject();
+                data["Error"] = ex.Message;
+                data["StackTrace"] = ex.StackTrace;
+                _httpProxy.SetResponse(CommonConst._500_SERVER_ERROR, data);
             }
-            WriteResponse();
+            finally
+            {
+                WriteResponse();
+            }
         }
 
         private void HandleRequest(string requestUriPath)
