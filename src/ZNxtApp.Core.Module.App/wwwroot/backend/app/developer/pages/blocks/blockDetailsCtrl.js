@@ -1,10 +1,8 @@
 ﻿(function () {
-
     var ZApp = angular.module(__ZNxtAppName);
 
-    ZApp.controller(__ZNxtAppName + '.blockDetailsCtrl', ['$scope', '$controller', '$location', '$rootScope','$window', 'dataService', 'userData','loggerService',
-    function ($scope, $controller, $location, $rootScope, $window, dataService, userData,logger) {
-        
+    ZApp.controller(__ZNxtAppName + '.blockDetailsCtrl', ['$scope', '$controller', '$location', '$rootScope', '$window', 'dataService', 'userData', 'loggerService',
+    function ($scope, $controller, $location, $rootScope, $window, dataService, userData, logger) {
         $scope.block = {};
         var scrollX = 0;
         var scrollY;
@@ -19,6 +17,5 @@
             scrollX = $window.scrollX;
             $window.scrollTo(0, 0);
         });
-
     }]);
 })();

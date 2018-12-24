@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZNxtApp.Core.Model;
-using ZNxtApp.Core.Services;
-using ZNxtApp.Core.Helpers;
+﻿using System.Linq;
 using ZNxtApp.Core.Consts;
+using ZNxtApp.Core.Helpers;
+using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Module.SMS.TextLocal.Consts;
+using ZNxtApp.Core.Services;
 
 namespace ZNxtApp.Core.Module.SMS.TextLocal.Services.Api
 {
     public class TextLocalSMSController : ApiBaseService
     {
-        ParamContainer _paramContainer;
+        private ParamContainer _paramContainer;
+
         public TextLocalSMSController(ParamContainer paramContainer) : base(paramContainer)
         {
             _paramContainer = paramContainer;
@@ -35,7 +32,6 @@ namespace ZNxtApp.Core.Module.SMS.TextLocal.Services.Api
                 Logger.Error("sms_data is null");
                 ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
             }
-
 
             var phone = smsData[CommonConst.CommonField.PHONE].ToString();
             var textSMSData = smsData[CommonConst.CommonField.BODY].ToString();

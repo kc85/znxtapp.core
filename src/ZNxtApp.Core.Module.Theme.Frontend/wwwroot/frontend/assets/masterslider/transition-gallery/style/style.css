@@ -34,7 +34,7 @@ body {
 	margin-top: 40px;
 	width: 100%;
 }
-		
+
 .sidebar {
 	height: 100%;
 	width: 220px;
@@ -51,11 +51,10 @@ body {
     height: 100%;
 }
 
-
 .list-cont{
 	position: absolute;
 	top:0;
-	
+
 	width:340px;
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -63,19 +62,17 @@ body {
 	border-right: solid 1px #bfbfbf;
 }
 
-
 .preview-cont {
  	position: absolute;
 	left: 0;
 	right: 0;
 	top: 0;
-	
+
 	margin-left: 341px;
 	background: #f5f5f5;
 	overflow: auto;
 	bottom: 220px;
 }
-
 
 .scene {
     width: 730px;
@@ -119,8 +116,8 @@ body {
 		width: 340px;
 		font-size: 13px;
 		float: left;
-	} 	
-	
+	}
+
 	.content .icon{
 		display:block;
 		height:16px;
@@ -131,26 +128,26 @@ body {
 		-moz-transition: 	all 300ms;
 		-webkit-transition: all 300ms;
 		-o-transition: 		all 300ms;
-		transition: 		all 300ms;		
+		transition: 		all 300ms;
 	}
-	
+
 	.content .icon:hover{
 		opacity: 1	;
 	}
-	
+
 	.content .transition-group .title{
 		height: 33px;
 		background: rgb(162, 162, 162);
-		
+
 		-moz-transition: 	all 300ms;
 		-webkit-transition: all 300ms;
 		-o-transition: 		all 300ms;
-		transition: 		all 300ms;	
+		transition: 		all 300ms;
 	}
 	.content .transition-group:hover .title{
 		background: #797979;
 	}
-	
+
 		.content .transition-group .title p, .code-window .title p{
 			position: relative;
 			top: 4px;
@@ -159,30 +156,27 @@ body {
 			float: left;
 			width: 169px;
 		}
-				
 
 	.content .transition-group ul{
 		background: #F4F4F4;
 		list-style: none;
 		margin-top: -8px;
 	}
-	
+
 		.content .transition-group ul li{
-			
 			height:59px;
 			border-bottom: solid 1px #C4C4C4;
 			position: relative;
 		}
-		
-		
+
 		.content .transition-group ul li:hover{
 			background: white;
 		}
-	
+
 		.content .transition-group ul li:last-child{
 			border-bottom: none;
 		}
-		
+
 			.content .transition-group ul li p{
 				position: relative;
 				top: 22px;
@@ -191,7 +185,7 @@ body {
 				width: 169px;
 				color: #5A5A5A;
 			}
-			
+
 .opttions-title {
     background: rgb(162, 162, 162);
     color: white;
@@ -225,7 +219,7 @@ body {
 	width: 99px;
 	margin-left: 5px;
 }
-	
+
 #showease, #hideease {
 	margin-left: 19px;
 	width: 124px;
@@ -266,7 +260,7 @@ margin-left: 27px;
 	left: 341px;
 	background: rgb(235, 235, 235);
 }
-	
+
 .output-title {
     font-size: 13px;
     background: rgb(162, 162, 162);
@@ -318,5 +312,3 @@ margin-left: 27px;
    background-color: #3D3D3D;
    color:white;
 }
-
-

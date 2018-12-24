@@ -46,21 +46,30 @@ namespace ZNxtApp.Core.Web.Handler
                 {
                     HandleRequest(requestUriPath);
                 }
-               
             }
             catch (Exception ex)
             {
                 // TODO need to handle it better
                 _logger.Error(ex.Message, ex);
-                JObject data = new JObject();
+                JObject data = CreateResponse(CommonConst._500_SERVER_ERROR);
                 data["Error"] = ex.Message;
                 data["StackTrace"] = ex.StackTrace;
+                _httpProxy.ContentType = CommonConst.CONTENT_TYPE_APPLICATION_JSON;
                 _httpProxy.SetResponse(CommonConst._500_SERVER_ERROR, data);
             }
             finally
             {
                 WriteResponse();
             }
+        }
+
+        private JObject CreateResponse(int code)
+        {
+            JObject response = new JObject();
+            response[CommonConst.CommonField.HTTP_RESPONE_CODE] = code;
+            response[CommonConst.CommonField.HTTP_RESPONE_MESSAGE] = CommonConst.Messages[code];
+            response[CommonConst.CommonField.TRANSACTION_ID] = _initData.TransactionId;
+            return response;
         }
 
         private void HandleRequest(string requestUriPath)

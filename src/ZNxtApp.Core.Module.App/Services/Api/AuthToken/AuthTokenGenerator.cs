@@ -39,7 +39,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.AuthToken
                 if (DBProxy.WriteData(ModuleAppConsts.Collection.AUTH_TOKEN_COLLECTION, data, false))
                 {
                     data[ModuleAppConsts.Field.AUTH_TOKEN] = apikey;
-                    return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS,data);
+                    return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, data);
                 }
                 else
                 {
@@ -56,9 +56,10 @@ namespace ZNxtApp.Core.Module.App.Services.Api.AuthToken
 
         private string GenerateApiKey()
         {
-           return string.Format("{0}{1}{2}{3}", CommonUtility.RandomString(10), CommonUtility.RandomNumber(6), CommonUtility.RandomString(10), CommonUtility.RandomNumber(6));
+            return string.Format("{0}{1}{2}{3}", CommonUtility.RandomString(10), CommonUtility.RandomNumber(6), CommonUtility.RandomString(10), CommonUtility.RandomNumber(6));
         }
-        private JObject GenerateApiKeyData(UserModel userData,string key)
+
+        private JObject GenerateApiKeyData(UserModel userData, string key)
         {
             JObject data = new JObject();
 

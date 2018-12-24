@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Threading;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Model;
-using ZNxtApp.Core.Module.App.Services.Api.Signup;
 using ZNxtApp.Core.Services;
 
 namespace ZNxtApp.Core.Module.App.Services.Api.Common
@@ -12,7 +10,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Common
     {
         public CommonGetController(ParamContainer paramContainer) : base(paramContainer)
         {
-
         }
 
         public JObject Get()

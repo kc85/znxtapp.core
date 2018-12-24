@@ -2,7 +2,6 @@
     'use strict';
     var ZApp = angular.module(__ZNxtAppName);
 
-    
     ZApp.directive('fileModel', ['$parse', function ($parse) {
         return {
             restrict: 'A',

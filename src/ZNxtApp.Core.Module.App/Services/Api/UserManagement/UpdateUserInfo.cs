@@ -1,22 +1,18 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using ZNxtApp.Core.Consts;
+using ZNxtApp.Core.Helpers;
+using ZNxtApp.Core.Interfaces;
 using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Module.App.Consts;
 using ZNxtApp.Core.Services;
-using ZNxtApp.Core.Helpers;
-using ZNxtApp.Core.Interfaces;
-using System.IO;
 
 namespace ZNxtApp.Core.Module.App.Services.Api.UserManagement
 {
     public class UpdateUserInfo : ViewBaseService
     {
-        IHttpFileUploader _fileUploader;
+        private IHttpFileUploader _fileUploader;
         private ParamContainer _paramContainer;
 
         public UpdateUserInfo(ParamContainer paramContainer) : base(paramContainer)
@@ -48,10 +44,10 @@ namespace ZNxtApp.Core.Module.App.Services.Api.UserManagement
             {
                 Logger.Debug("User id conflict with session data");
                 return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
-
             }
             return AdminUpdate();
         }
+
         public JObject AdminUpdate()
         {
             try
@@ -78,7 +74,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.UserManagement
 
                 if (request[ModuleAppConsts.Field.USER_INFO] != null && (request[ModuleAppConsts.Field.USER_INFO] as JArray).Count > 0)
                 {
-
                     var userInfo = request[ModuleAppConsts.Field.USER_INFO][0] as JObject;
                     Logger.Debug("Updating User Info", userInfo);
                     var dbresponse = DBProxy.Update(CommonConst.Collection.USER_INFO, updateFilter.ToString(), userInfo, true, MergeArrayHandling.Replace);
@@ -130,22 +125,19 @@ namespace ZNxtApp.Core.Module.App.Services.Api.UserManagement
 
                 byte[] fileData = _fileUploader.GetFileData(_fileUploader.GetFiles()[0]);
 
-                
                 JObject uploadReponse = _fileUploader.SaveToDB(DBProxy, fi.Name, path, CommonConst.Collection.STATIC_CONTECT, null, Convert.ToBase64String(fileData));
                 Logger.Debug(string.Format("Uploaded default file"), uploadReponse);
 
-                JObject uploadReponseS = _fileUploader.SaveToDB(DBProxy, fi.Name, path, CommonConst.Collection.STATIC_CONTECT,null, ImageUtility.GetSmallImage(fileData));
+                JObject uploadReponseS = _fileUploader.SaveToDB(DBProxy, fi.Name, path, CommonConst.Collection.STATIC_CONTECT, null, ImageUtility.GetSmallImage(fileData));
                 Logger.Debug(string.Format("Uploaded small file"), uploadReponseS);
 
                 JObject uploadReponseM = _fileUploader.SaveToDB(DBProxy, fi.Name, path, CommonConst.Collection.STATIC_CONTECT, null, ImageUtility.GetMediumImage(fileData));
                 Logger.Debug(string.Format("Uploaded medium file"), uploadReponseM);
 
-
                 JObject uploadReponseL = _fileUploader.SaveToDB(DBProxy, fi.Name, path, CommonConst.Collection.STATIC_CONTECT, null, ImageUtility.GetLargeImage(fileData));
                 Logger.Debug(string.Format("Uploaded large file"), uploadReponseL);
 
-
-                if (uploadReponse != null && uploadReponseS != null && uploadReponseM!=null && uploadReponseL!=null)
+                if (uploadReponse != null && uploadReponseS != null && uploadReponseM != null && uploadReponseL != null)
                 {
                     var filePath = uploadReponse[CommonConst.CommonField.FILE_PATH].ToString();
                     var filePathS = uploadReponseS[CommonConst.CommonField.FILE_PATH].ToString();
@@ -166,7 +158,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.UserManagement
                     Logger.Debug(string.Format("AdminChangeUserImage UpdateCount:{0}", userdata));
 
                     return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, userdata);
-
                 }
                 else
                 {

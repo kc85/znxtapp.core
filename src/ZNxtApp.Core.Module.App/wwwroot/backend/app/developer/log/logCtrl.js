@@ -1,15 +1,14 @@
 ﻿(function () {
-
     var ZApp = angular.module(__ZNxtAppName);
 
     ZApp.controller(__ZNxtAppName + '.logCtrl', ['$scope', '$controller', '$location', '$rootScope', 'dataService', 'userData',
-    function ($scope,$controller, $location, $rootScope, dataService, userData) {
+    function ($scope, $controller, $location, $rootScope, dataService, userData) {
         angular.extend(this, $controller(__ZNxtAppName + '.gridBaseCtrl', { $scope: $scope }));
         $scope.name = "Server Log";
         $scope.logData = {};
         $scope.pageData = {};
         $scope.showDetails = false;
-        $scope.active = function() {
+        $scope.active = function () {
             if ($scope.loadingData == false) {
                 $scope.loadingData = true;
                 dataService.get("./api/admin/log?pagesize=" + $scope.pageSize + "&currentpage=" + $scope.currentPage + "&filter=" + $scope.getFilter()).then(function (response) {
@@ -21,7 +20,7 @@
                 });
             }
         }
-        
+
         $scope.showDetailsPage = function (log) {
             $scope.showDetails = true;
             $scope.$broadcast("onShowLogViewDetails", log);

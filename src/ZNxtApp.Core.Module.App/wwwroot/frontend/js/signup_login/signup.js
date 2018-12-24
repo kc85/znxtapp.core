@@ -39,7 +39,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: 'POST',
-            url: appRootPath +'/api/user/facebook/auth',
+            url: appRootPath + '/api/user/facebook/auth',
             success: function (data) {
                 console.log(data);
                 alert("This is not yet implemented");
@@ -56,7 +56,7 @@ $(document).ready(function () {
         });
     });
 
-   $("#btnSendSignUpOTP").click(function (e) {
+    $("#btnSendSignUpOTP").click(function (e) {
         $("#errorMessage").hide();
         if (animating) return;
 
@@ -72,7 +72,7 @@ $(document).ready(function () {
         animating = true;
         $(that).addClass("processing");
         $.ajax({
-            url: appRootPath+ "/api/user/registration/SendOTP",
+            url: appRootPath + "/api/user/registration/SendOTP",
             type: 'post',
             data: '{"user_id": "' + mobileNo + '", "g-recaptcha-response" : "' + grecaptcharesponse + '", "user_type" : "' + user_type + '"}',
             contentType: "application/json",
@@ -83,7 +83,6 @@ $(document).ready(function () {
                 $(that).removeClass("success processing");
 
                 if (data.code === success_code) {
-                    
                     otp_security_token = data.security_token;
                     $("#txtMobileNumber").attr("disabled", "true");
                     $("#btnSendSignUpOTP").hide();
@@ -126,7 +125,7 @@ $(document).ready(function () {
         var otp = $("#txtOTP").val();
 
         $.ajax({
-            url: appRootPath+ "/api/user/registration/OTP",
+            url: appRootPath + "/api/user/registration/OTP",
             type: 'post',
             data: '{"otp": "' + otp + '", "user_id" :"' + mobileNo + '", "security_token" :"' + otp_security_token + '","user_type" : "' + user_type + '"}',
             contentType: "application/json",
@@ -137,7 +136,7 @@ $(document).ready(function () {
                 if (data.code === success_code) {
                     $("#divOtp").fadeOut();
                     $("#divPassword").fadeIn();
-                   // window.location = appRootPath+ data.rurl;
+                    // window.location = appRootPath+ data.rurl;
                 }
                 else {
                     $("#errorMessage").show();
@@ -154,9 +153,7 @@ $(document).ready(function () {
         });
     });
 
-
     $("#btnSignupWithPassSubmit").click(function (e) {
-
         $("#errorMessage").hide();
         if (animating) return;
 
@@ -182,19 +179,18 @@ $(document).ready(function () {
             $("#errorMessage").html("Password and confirm password not match");
             return;
         }
-      
+
         $.ajax({
-            url: appRootPath+ "/api/user/registration/signup",
+            url: appRootPath + "/api/user/registration/signup",
             type: 'post',
             data: '{"user_id": "' + email + '", "password" :"' + password + '", "confirm_password":"' + passwordC + '", "g-recaptcha-response" : "' + grecaptcharesponse + '","user_type" : "' + user_type + '"}',
             contentType: "application/json",
             dataType: 'json',
             success: function (data) {
-               
                 if (data.code === success_code) {
                     $("#divOtp").fadeOut();
                     $("#divPassword").fadeIn();
-                     window.location = appRootPath+ data.rurl;
+                    window.location = appRootPath + data.rurl;
                 }
                 else {
                     animating = false;
@@ -212,10 +208,7 @@ $(document).ready(function () {
                 grecaptcha.reset();
             }
         });
-
-
     });
-
 
     function validate(val) {
         var pattern = new RegExp("^[0-9]{10}$");
@@ -240,14 +233,12 @@ $(document).ready(function () {
 });
 
 function onBlurPasswordText(txt) {
-
     if ($(txt).val().length < 5) {
         $("#errorMessage").show();
         $("#errorMessage").html("Password length should be min of 5 chars");
     }
 }
 function onBlurSignUpText(txt) {
-    
     if ($(".login__form").is(":visible")) {
         if (validateEmail($(txt).val())) {
             //$("#divPassword").fadeIn();
@@ -257,7 +248,6 @@ function onBlurSignUpText(txt) {
                 $("#divSendOtp").fadeIn();
                 $("#divFbSignUp").fadeOut();
                 $("#errorMessage").fadeOut();
-
             }
             else {
                 $("#btnSendSignUpOTP").hide();
@@ -265,7 +255,6 @@ function onBlurSignUpText(txt) {
             }
             user_type = "Email";
             $("#btnSendSignUpOTP").html("Send OTP on My Email");
-
         }
         else if (validatePhone($(txt).val())) {
             if (signup_otp_check_enabled) {
@@ -279,7 +268,6 @@ function onBlurSignUpText(txt) {
             }
             user_type = "PhoneNumber";
             $("#btnSendSignUpOTP").html("Send OTP on My Mobile");
-
         }
         else {
             $("#divPassword").fadeOut();

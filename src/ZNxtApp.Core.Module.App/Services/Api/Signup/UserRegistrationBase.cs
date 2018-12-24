@@ -1,14 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Enums;
+using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Services;
-using ZNxtApp.Core.Helpers;
 
 namespace ZNxtApp.Core.Module.App.Services.Api.Signup
 {
@@ -19,8 +16,8 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
 
         public UserRegistrationBase(ParamContainer paramContainer) : base(paramContainer)
         {
-
         }
+
         protected UserModel GetUserDataFromRequest(JObject request)
         {
             UserModel user = new UserModel();
@@ -42,6 +39,5 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
         {
             return DBProxy.FirstOrDefault<JObject>(CommonConst.Collection.USERS, CommonConst.CommonField.USER_ID, userId);
         }
-
     }
 }

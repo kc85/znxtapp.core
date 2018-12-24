@@ -21,11 +21,9 @@ $(document).ready(function () {
     });
 
     $("#btnNext").click(function () {
-
         $("#adminEamilShow").html($("#adminEmail").val());
     });
 
-     
     function getStatus() {
         var jqxhr = $.get("./install/checkstatus", function (data) {
             console.log("success", data);

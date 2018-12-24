@@ -1,30 +1,27 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Consts;
-using ZNxtApp.Core.Model;
-using ZNxtApp.Core.Module.App.Consts;
-using ZNxtApp.Core.Services;
 using ZNxtApp.Core.Helpers;
+using ZNxtApp.Core.Model;
+using ZNxtApp.Core.Services;
 
 namespace ZNxtApp.Core.Module.App.Services.Api.Content
 {
-    public class UpdateContent: ViewBaseService
+    public class UpdateContent : ViewBaseService
     {
         private string _contentUpdateModuleName = "ContentUploader";
-        private string _contentHistory= "history";
+        private string _contentHistory = "history";
 
         public UpdateContent(ParamContainer paramContainer) : base(paramContainer)
         {
         }
+
         public JObject Update()
         {
             try
             {
-                Logger.Debug(string.Format("Enter to UpdateContent.Update, SessionProvider:{0}", (SessionProvider == null? "null": "OK")));
+                Logger.Debug(string.Format("Enter to UpdateContent.Update, SessionProvider:{0}", (SessionProvider == null ? "null" : "OK")));
                 UserModel user = SessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
 
                 if (user == null)
@@ -41,17 +38,16 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Content
                 string id = string.Empty;
                 string data = string.Empty;
                 string moduleName = string.Empty;
-                if (request[CommonConst.CommonField.DISPLAY_ID] != null && 
-                    request[CommonConst.CommonField.DATA]!=null &&
-                    request[CommonConst.CommonField.MODULE_NAME] != null 
+                if (request[CommonConst.CommonField.DISPLAY_ID] != null &&
+                    request[CommonConst.CommonField.DATA] != null &&
+                    request[CommonConst.CommonField.MODULE_NAME] != null
 
                     )
                 {
                     id = request[CommonConst.CommonField.DISPLAY_ID].ToString();
                     data = request[CommonConst.CommonField.DATA].ToString();
-                     moduleName= request[CommonConst.CommonField.MODULE_NAME].ToString();
+                    moduleName = request[CommonConst.CommonField.MODULE_NAME].ToString();
                 }
-               
 
                 if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(data) || string.IsNullOrEmpty(moduleName))
                 {
@@ -106,7 +102,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Content
                     }
                     else
                     {
-                        if(!UpdateCustomContentData(existingData, user, data, filterFindExistingCustomization))
+                        if (!UpdateCustomContentData(existingData, user, data, filterFindExistingCustomization))
                         {
                             return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
                         }
@@ -135,17 +131,17 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Content
             }
         }
 
-        JObject ReturnSuccess(JObject data)
+        private JObject ReturnSuccess(JObject data)
         {
             var file_path = data[CommonConst.CommonField.FILE_PATH].ToString();
-            if(CommonUtility.IsServerSidePage(file_path))
+            if (CommonUtility.IsServerSidePage(file_path))
             {
                 HttpProxy.UnloadAppDomain();
             }
             return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS);
         }
 
-        private bool UpdateCustomContentData(JObject contentCustomData, UserModel user,string data, JObject updateFilter)
+        private bool UpdateCustomContentData(JObject contentCustomData, UserModel user, string data, JObject updateFilter)
         {
             JObject updateFilterExistingData = new JObject();
             updateFilterExistingData[CommonConst.CommonField.FILE_PATH] = contentCustomData[CommonConst.CommonField.FILE_PATH].ToString();

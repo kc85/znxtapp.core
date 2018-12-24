@@ -144,17 +144,25 @@ namespace MyPhotos.Services.ImageService
                 }
             }
         }
-        public static void ProcessImage(JObject fileData, Bitmap image, RotateFlipType rotate = RotateFlipType.RotateNoneFlipNone)
+        public static void ProcessImage(JObject fileData, Bitmap image, IKeyValueStorage keyValueStorage, RotateFlipType rotate = RotateFlipType.RotateNoneFlipNone)
         {
             Size imageSize = new Size();
             ImageThumbnail it = new ImageThumbnail();
-            fileData[ImageProcessor.IMAGE_S_BASE64] = it.CompressImage(image, 100, 75, out imageSize, 70, rotate);
+            var fileHash = fileData[ImageProcessor.FILE_HASH].ToString();
+
+            keyValueStorage.Put<string>(ImageProcessor.IMAGE_KEY_VALUE_BUCKET, ImageProcessor.GetFileKey(ImageProcessor.IMAGE_S_BASE64, fileHash), it.CompressImage(image, 100, 75, out imageSize, 70, rotate));
+            
+            //fileData[ImageProcessor.IMAGE_S_BASE64] = it.CompressImage(image, 100, 75, out imageSize, 70, rotate);
             AddSize(fileData, imageSize, ImageProcessor.IMAGE_S_SIZE);
 
-            fileData[ImageProcessor.IMAGE_M_BASE64] = it.CompressImage(image, 240, 180, out imageSize,90, rotate);
+            keyValueStorage.Put<string>(ImageProcessor.IMAGE_KEY_VALUE_BUCKET, ImageProcessor.GetFileKey(ImageProcessor.IMAGE_M_BASE64, fileHash), it.CompressImage(image, 240, 180, out imageSize, 90, rotate));
+
+            //fileData[ImageProcessor.IMAGE_M_BASE64] = it.CompressImage(image, 240, 180, out imageSize,90, rotate);
             AddSize(fileData, imageSize, ImageProcessor.IMAGE_M_SIZE);
 
-            fileData[ImageProcessor.IMAGE_L_BASE64] = it.CompressImage(image, 1024, 768, out imageSize,90, rotate);
+            keyValueStorage.Put<string>(ImageProcessor.IMAGE_KEY_VALUE_BUCKET, ImageProcessor.GetFileKey(ImageProcessor.IMAGE_L_BASE64, fileHash), it.CompressImage(image, 1024, 768, out imageSize, 90, rotate));
+
+            //fileData[ImageProcessor.IMAGE_L_BASE64] = it.CompressImage(image, 1024, 768, out imageSize,90, rotate);
             AddSize(fileData, imageSize, ImageProcessor.IMAGE_L_SIZE);
             fileData[ImageProcessor.CHANGESET_NO] = 0;
         }
@@ -248,17 +256,17 @@ namespace MyPhotos.Services.ImageService
             {
                 data[ImageProcessor.OWNER] = ImageProcessor.DEFAULT_OWNER;
             }
-            if (data[ImageProcessor.AUTH_USERS] != null)
+            if (data[ImageProcessor.AUTH_USERS] != null && (data[ImageProcessor.AUTH_USERS] as JArray).FirstOrDefault(f=>f.ToString() == ImageProcessor.OWNER) == null)
                 (data[ImageProcessor.AUTH_USERS] as JArray).Add(data[ImageProcessor.OWNER].ToString());
         }
 
-        public static  JObject CreateFileDataJObject(FileModel fileModel, string path, Bitmap image)
+        public static  JObject CreateFileDataJObject(FileModel fileModel, string path, Bitmap image, IKeyValueStorage keyValueStorage)
         {
             JObject fileData = new JObject();
             fileData[ImageProcessor.FILE_HASH] = fileModel.file_hash;
             fileData[ImageProcessor.OWNER] = ImageProcessor.DEFAULT_OWNER;
 
-            ImageGalleryHelper.ProcessImage(fileData, image);
+            ProcessImage(fileData, image, keyValueStorage);
             fileData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
             AddPath(fileData, fileModel);
             AddTags(fileData, fileModel);

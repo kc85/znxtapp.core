@@ -4,8 +4,8 @@
 @font-face {
 	font-family: 'Far.Egypt';
 	src: url('../fonts/Far_Egypt.eot');
-	src: local('â˜º'), url('../fonts/Far_Egypt.woff') format('woff'), 
-	url('../fonts/Far_Egypt.ttf') format('truetype'), 
+	src: local('â˜º'), url('../fonts/Far_Egypt.woff') format('woff'),
+	url('../fonts/Far_Egypt.ttf') format('truetype'),
 	url('../fonts/Far_Egypt.svg') format('svg');
 	font-weight: normal;
 	font-style: normal;
@@ -40,7 +40,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
 
 body,
 .tj-hover-3 .tj-overlay .subtitle,
@@ -171,7 +170,6 @@ blockquote {
 }
 
 .fixed-filter .select-filter {
-
 	padding-right: 0px;
 	padding-left: 50px;
 }
@@ -193,7 +191,7 @@ blockquote {
 	margin-right: 0;
 }
 
-/* Menu 
+/* Menu
 **************************************************/
 
 #navigation{
@@ -206,25 +204,23 @@ blockquote {
 	left:20px;
 	right:auto;
 }
-#navigation li ul li a:hover, 
-#navigation li ul li a:focus, 
+#navigation li ul li a:hover,
+#navigation li ul li a:focus,
 #navigation li ul li.current-menu-item a {
 	border-left: none;
 }
 #navigation li ul li a {
 	padding-right: 8px;
 	padding-left: 0px;
-
 }
-#navigation > li > a:hover, 
-#navigation > li > a:focus, 
-#navigation > li.current-menu-item > a, 
+#navigation > li > a:hover,
+#navigation > li > a:focus,
+#navigation > li.current-menu-item > a,
 #navigation > li.current-menu-parent > a {
-
 	border: none;
 }
-#navigation li.current-menu-item a:before, 
-#navigation li.current-menu-parent >a:before, 
+#navigation li.current-menu-item a:before,
+#navigation li.current-menu-parent >a:before,
 #navigation .nav-prev>a:before {
 	right: 0;
 	left:auto;
@@ -252,21 +248,21 @@ blockquote {
 	margin-left: 0;
 	margin-right: -23px;
 }
-.blog-minimal-s #blog-list .post-body, 
+.blog-minimal-s #blog-list .post-body,
 .blog-minimal #blog-list .post-body {
 	margin-right: 120px;
 	margin-left: 0;
 }
-.blog-minimal-s #blog-list .post-thumb, 
+.blog-minimal-s #blog-list .post-thumb,
 .blog-minimal #blog-list .post-thumb {
 	float: right;
 }
-.blog-list .post-meta span, 
+.blog-list .post-meta span,
 .blog-single-alt .post-meta span {
 	margin: 0;
 	padding-left:20px;
 }
-.blog-list .post-meta span i, 
+.blog-list .post-meta span i,
 .blog-single-alt .post-meta span i{
 	padding-left:10px;
 }
@@ -290,7 +286,6 @@ blockquote {
 	margin-right: 75px;
 }
 
-
 /* Comments
 **************************************************/
 #comment-list .author-image {
@@ -304,12 +299,10 @@ blockquote {
 /* Captions
 **************************************************/
 .cap-bordered {
-
 padding-left: 0;
 border-left: none;
 padding-right: 30px;
 border-right: 10px solid #fff;
-
 }
 .cap-bordered.cap-reverse {
 	border-right: none;
@@ -322,9 +315,7 @@ border-right: 10px solid #fff;
 	border-right: 10px solid #dc971f;
 }
 .cap-compact.cap-reverse {
-
 	border-left: 10px solid #dc971f;
-
 }
 .bordered {
 	padding-left: 0px;
@@ -339,7 +330,7 @@ border-right: 10px solid #fff;
 	left: auto;
 }
 
-/* Shortcodes 
+/* Shortcodes
 **************************************************/
 .vertical-services ul {
 	margin-left: 0px;
@@ -356,7 +347,6 @@ border-right: 10px solid #fff;
 	border-left: none;
 	border-right: 1px solid #dc971f;
 }
-
 
 .accordion .item .head a {
 	padding: 10px 40px 10px 20px;
@@ -395,8 +385,6 @@ ul.list-hover li:hover, ul.list-hover li:focus {
 	padding-right: 10px;
 }
 
-
-
 /* Gallery
 **************************************************/
 .tj-ms-gallery .ms-dir-v,
@@ -432,7 +420,6 @@ ul.list-hover li:hover, ul.list-hover li:focus {
 	margin-right: 0;
 }
 
-
 /* Isotop
 **************************************************/
 .grid-portfolio .gp-item{
@@ -444,7 +431,6 @@ ul.list-hover li:hover, ul.list-hover li:focus {
           transition-property: right, top, transform, opacity;
 }
 
-
 /* Master Slider
 **************************************************/
 .ms-skin-toranj .ms-nav-next:after{
@@ -452,20 +438,17 @@ ul.list-hover li:hover, ul.list-hover li:focus {
 }
 
 .ms-skin-toranj .ms-nav-prev:after{
-	
 	content:"\f105";
 }
-
 
 .team-members .content-carousel .item .info:before{
 	margin-left:0;
 	margin-right:-10%;
 }
-/* Responsiveness  
+/* Responsiveness
  **************************************************/
 
 @media only screen and (max-width: 992px){
-
 	#side-bar{
 		right: 0px;
 	}
@@ -495,7 +478,7 @@ ul.list-hover li:hover, ul.list-hover li:focus {
 	#portfolio-nav li{
 		margin-left:10px;
 	}
-	
+
 	#menu-icon{
 		left: auto;
 		right: 0;
@@ -516,7 +499,7 @@ ul.list-hover li:hover, ul.list-hover li:focus {
 
 	.cap-bordered.cap-reverse{
 		padding-left: 20px;
-		border-left: 6px solid #fff; 
+		border-left: 6px solid #fff;
 	}
 	.mfp-container{
 		right: 0;
@@ -524,7 +507,7 @@ ul.list-hover li:hover, ul.list-hover li:focus {
 	.page-title .title span{
 		margin-right: 15px;
 		margin-left: 0;
-	} 
+	}
 	.blog-minimal #blog-list{
 		margin-left: 0;
 		margin-right: 0;
@@ -547,7 +530,7 @@ ul.list-hover li:hover, ul.list-hover li:focus {
 
 	.grid-filters-wrapper{
 		right: auto;
-		left: 0;		
+		left: 0;
 	}
 	.grid-filters-wrapper .grid-filters{
 		margin-right: 0;
@@ -573,26 +556,16 @@ ul.list-hover li:hover, ul.list-hover li:focus {
 	.show-sidebar .page-side{
 		margin-right: 0;
 	}
-
-
-
 }
 
-
-
 @media only screen and (max-width: 600px){
-
 	#side-bar{
 		left: auto;
 		right: 0;
 	}
-	
 }
 
 @media only screen and (max-width: 480px){
-
-
-	
 	.cap-lg .cap-des:after{
 		margin-left: 0px;
 		margin-right: -50px
@@ -609,9 +582,3 @@ ul.list-hover li:hover, ul.list-hover li:focus {
 		margin-left: 35px;
 	}
 }
-
-
-
-
-
-

@@ -21,12 +21,10 @@
     var ZApp = angular.module(__ZNxtAppName);
     ZApp.controller(__ZNxtAppName + '.userprofile.home.userGroupWidgetCtrl', ['$scope', '$rootScope', 'dataService',
     function ($scope, $rootScope, dataService) {
-
         $scope.$on("onShowUserProfileItem", function (e, menu, user) {
             if (menu.key == "info") {
                 $scope.userData = user;
             }
         });
-
     }]);
 })();

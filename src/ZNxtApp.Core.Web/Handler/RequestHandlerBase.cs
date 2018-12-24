@@ -11,7 +11,6 @@ using ZNxtApp.Core.Web.Helper;
 using ZNxtApp.Core.Web.Interfaces;
 using ZNxtApp.Core.Web.Proxies;
 using ZNxtApp.Core.Web.Services;
-using ZNxtApp.Core.Helpers;
 
 namespace ZNxtApp.Core.Web.Handler
 {
@@ -48,7 +47,6 @@ namespace ZNxtApp.Core.Web.Handler
 
         public virtual void ProcessRequest(HttpContext context)
         {
-            HandleSession(context);
             var dbProxy = new MongoDBService();
             var encryption = new EncryptionService();
             _httpProxy = new HttpContextProxy(context);
@@ -59,30 +57,34 @@ namespace ZNxtApp.Core.Web.Handler
             _httpContext = context;
             _contentHandler = new WwwrootContentHandler(_httpProxy, dbProxy, _viewEngine, _actionExecuter, _logger);
             HandleAuthTokenKey(dbProxy, encryption);
-
+            HandleSession(context);
         }
 
-        private void HandleAuthTokenKey(MongoDBService dbProxy, IEncryption encryption)
+        private void HandleAuthTokenKey(IDBService dbProxy, IEncryption encryption)
         {
             if (AuthTokenHelper.IsAuthTokenExits(_httpProxy))
             {
-                _logger.Debug("find Auth Token Header");
                 var userId = AuthTokenHelper.GetUserId(_httpProxy, dbProxy, encryption);
 
-                _logger.Debug("got User Id");
-                ISessionProvider session = new SessionProvider(_httpProxy, dbProxy, _logger);
-                var userData = session.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
-                if (userData != null && userData.user_id != userId)
+                var userTempData = _httpProxy.GetTempValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
+                if (userTempData == null)
                 {
-                    throw new Exception("Session user conflict with authtoken");
+                    ISessionProvider session = new SessionProvider(_httpProxy, dbProxy, _logger);
+                    var userData = session.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
+                    if (userData != null && userData.user_id != userId)
+                    {
+                        throw new Exception("Session user conflict with authtoken");
+                    }
+                    if (userData == null)
+                    {
+                        userData = dbProxy.FirstOrDefault<UserModel>(CommonConst.Collection.USERS, CommonConst.CommonField.USER_ID, userId);
+                        if (userData == null)
+                        {
+                            throw new Exception("User not found for authtoken");
+                        }
+                    }
+                    _httpProxy.SetTempValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY, userData);
                 }
-
-                var user = dbProxy.FirstOrDefault<UserModel>(CommonConst.Collection.USERS, CommonConst.CommonField.USER_ID, userId);
-                if (user == null)
-                {
-                    throw new Exception("User not found for authtoken");
-                }
-                session.SetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY, user);
             }
         }
 
@@ -158,6 +160,11 @@ namespace ZNxtApp.Core.Web.Handler
 
         private void HandleSession(HttpContext context)
         {
+            if (AuthTokenHelper.IsAuthTokenExits(_httpProxy))
+            {
+                // if there is auth token no cookies set in the response.
+                return;
+            }
             if (context.Request.Cookies[CommonConst.CommonValue.SESSION_COOKIE] == null)
             {
                 CreateUpdateSessionCookie(context);

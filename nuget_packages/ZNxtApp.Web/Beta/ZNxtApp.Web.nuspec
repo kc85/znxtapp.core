@@ -20,6 +20,7 @@
          <dependency id="RazorEngine" version="3.10.0" />
 		 <dependency id="MongoDB.Driver" version="2.5.0" />
 		 <dependency id="Unity" version="5.8.11" /> 
+		 <dependency id="RestSharp" version="106.5.4" />
       </dependencies>
    </metadata>
    <files>

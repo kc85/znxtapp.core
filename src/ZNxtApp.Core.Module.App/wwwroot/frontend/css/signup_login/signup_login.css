@@ -592,7 +592,6 @@ input, button {
     zoom: 1;  /* Fix for IE7 */
 }
 
-
 footer {
     background-color: transparent;
     position: absolute;
@@ -603,5 +602,4 @@ footer {
     overflow:hidden;
     text-align:center;
     color:#fff;
-
 }

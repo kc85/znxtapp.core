@@ -94,19 +94,19 @@ namespace MyPhotos.Services.Api
                     switch (rotate)
                     {
                         case 90:
-                            ImageGalleryHelper.ProcessImage(fileData, image, RotateFlipType.Rotate90FlipNone);
+                            ImageGalleryHelper.ProcessImage(fileData, image,KeyValueStorage, RotateFlipType.Rotate90FlipNone);
                             Logger.Debug(string.Format("Rotate image to {0}. {1}", rotate, RotateFlipType.Rotate90FlipNone.ToString()));
                             break;
                         case 180:
-                            ImageGalleryHelper.ProcessImage(fileData, image, RotateFlipType.Rotate180FlipNone);
+                            ImageGalleryHelper.ProcessImage(fileData, image, KeyValueStorage, RotateFlipType.Rotate180FlipNone);
                             Logger.Debug(string.Format("Rotate image to {0}. {1}", rotate, RotateFlipType.Rotate180FlipNone.ToString()));
                             break;
                         case 270:
-                            ImageGalleryHelper.ProcessImage(fileData, image, RotateFlipType.Rotate270FlipNone);
+                            ImageGalleryHelper.ProcessImage(fileData, image, KeyValueStorage, RotateFlipType.Rotate270FlipNone);
                             Logger.Debug(string.Format("Rotate image to {0}. {1}", rotate, RotateFlipType.Rotate270FlipNone.ToString()));
                             break;
                         default:
-                             ImageGalleryHelper.ProcessImage(fileData, image, RotateFlipType.RotateNoneFlipNone);
+                             ImageGalleryHelper.ProcessImage(fileData, image, KeyValueStorage, RotateFlipType.RotateNoneFlipNone);
                              Logger.Debug(string.Format("Rotate image to {0}. {1}", rotate, RotateFlipType.RotateNoneFlipNone.ToString()));
                             break;
                     }

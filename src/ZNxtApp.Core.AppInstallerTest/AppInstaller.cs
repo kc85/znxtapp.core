@@ -1,8 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ZNxtApp.Core.DB.Mongo;
-using ZNxtApp.Core.Interfaces;
-using ZNxtApp.Core.Web.Services;
-using ZNxtApp.Core.AppInstaller;
 
 namespace ZNxtApp.Core.AppInstallerTest
 {
@@ -19,7 +15,6 @@ namespace ZNxtApp.Core.AppInstallerTest
             //    new MongoDBService("aaa"),
             //    new EncryptionService(),
             //   new ZNxtAap.Core.ModuleInstaller.Installer.Installer(Logger.GetLogger(typeof(Installer).Name)));
-
 
             //installer.Install(new HttpContextProxyMock());
 

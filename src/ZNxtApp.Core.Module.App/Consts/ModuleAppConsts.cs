@@ -6,7 +6,6 @@
         {
             public const string BACKEND_UI_ROUTES = "backend_ui_routes";
             public const string AUTH_TOKEN_COLLECTION = "auth_tokens";
-
         }
 
         public static class Field
@@ -44,10 +43,6 @@
             public const string USER_PIC_M = "user_pic_m";
             public const string USER_PIC_S = "user_pic_s";
             public const string USER_PIC_L = "user_pic_l";
-
-          
-
-
         }
     }
 }

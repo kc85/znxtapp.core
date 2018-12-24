@@ -23,9 +23,9 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <div class="col-md-9 col-sm-9 col-xs-12" >
+                <div class="col-md-9 col-sm-9 col-xs-12">
                     <div ng-switch on="getDataType(setting)">
-                        <div class="form-group" ng-switch-when="string"> 
+                        <div class="form-group" ng-switch-when="string">
                             <label for="inputEmail3" class="col-sm-2 control-label">Data</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" placeholder="Setting Data" ng-model="setting.data">
@@ -48,8 +48,8 @@
                         <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
                                 <label ng-hide="setting.is_override">
-                                    <input type="checkbox"  ng-model="setting.is_enabled"> 
-                                    Is Enabled 
+                                    <input type="checkbox"  ng-model="setting.is_enabled">
+                                    Is Enabled
                                 </label>
                                 <label ng-show="setting.is_override">
                                     <input type="checkbox" ng-model="setting.is_enabled" disabled>
@@ -61,8 +61,7 @@
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">Auth Users</label>
                         <div class="col-sm-10">
-                            <span class="label label-default" ng-repeat="s in setting.auth_users">{{s}}  &nbsp;&nbsp;<i class="fa fa-remove" style="cursor:pointer" ng-click="removeGroup(s)"></i></span> 
-                            
+                            <span class="label label-default" ng-repeat="s in setting.auth_users">{{s}}  &nbsp;&nbsp;<i class="fa fa-remove" style="cursor:pointer" ng-click="removeGroup(s)"></i></span>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -82,7 +81,7 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-12" style="border-left:1px solid silver" >
+                <div class="col-md-3 col-sm-3 col-xs-12" style="border-left:1px solid silver">
                     <p><strong>Module Name: </strong> {{setting.module_name}}</p>
                     <p><strong>Is Override: </strong><span class="label label-default" ng-class="{'label-danger' : setting.is_override}">{{setting.is_override}}</span> </p>
                     <p><strong>Override By: </strong> {{setting.override_by}}</p>
@@ -90,11 +89,8 @@
                     <p><strong>Created By: </strong>{{setting.created_by}}</p>
                     <p><strong>Updated On: </strong>{{setting.updated_datetime * 1000 | date:'yyyy-MM-dd HH:mm:ss Z'}}: {{setting.updated_datetime}}</p>
                     <p><strong>Updated By: </strong>{{setting.updated_by}}</p>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-

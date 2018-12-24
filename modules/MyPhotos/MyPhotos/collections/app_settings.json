@@ -12,7 +12,7 @@
     {
         "auth_users": [ "*" ],
         "key": "my_photo_data_path",
-        "data": "E:\\data\\ZPic_data"
+        "data": "E:\\data\\ZPic_MyPhotos"
     }
 
 ]

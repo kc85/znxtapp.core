@@ -1,9 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Model;
@@ -17,27 +15,26 @@ namespace ZNxtApp.Core.Module.App.Services.Api.GetJs
         {
         }
 
-        public byte [] Get()
+        public byte[] Get()
         {
             try
             {
                 Logger.Debug("Calling Get JS ");
                 var path = HttpProxy.GetQueryString("path");
-                if(string.IsNullOrEmpty(path))
+                if (string.IsNullOrEmpty(path))
                 {
                     Logger.Error("Path is missing in the query string");
                     return null;
                 }
                 var filterQuery = "{" + CommonConst.CommonField.FILE_PATH + ":/.js$/i}";
-                var data = DBProxy.Get(CommonConst.Collection.STATIC_CONTECT,filterQuery, new List<string> { CommonConst.CommonField.FILE_PATH });
+                var data = DBProxy.Get(CommonConst.Collection.STATIC_CONTECT, filterQuery, new List<string> { CommonConst.CommonField.FILE_PATH });
                 Logger.Debug("Fetch value from Get JS");
-               
+
                 var listOfArrays = new List<byte[]>();
                 var queryRecords = data.Select(l => new
                 {
                     length = l[CommonConst.CommonField.FILE_PATH].ToString().Length,
                     file_path = l[CommonConst.CommonField.FILE_PATH].ToString()
-
                 }).OrderBy(o => o.length).ToList();
 
                 Logger.Debug("Apply by Order by Get JS");
@@ -62,7 +59,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.GetJs
                                 listOfArrays.Add(Encoding.UTF8.GetBytes(string.Format("\n/*File: {0}*/\n", item.file_path)));
                             }
                             listOfArrays.Add(content);
-                            
+
                             listOfArrays.Add(Encoding.UTF8.GetBytes("\n"));
                         }
                     }
@@ -77,7 +74,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.GetJs
                 Logger.Error(string.Format("Error in GetJs {0}", ex.Message), ex);
                 throw;
             }
-            
         }
     }
 }

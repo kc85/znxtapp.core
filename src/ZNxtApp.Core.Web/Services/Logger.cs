@@ -139,7 +139,7 @@ namespace ZNxtApp.Core.Web.Services
 
         private List<string> GetLogLevels()
         {
-            IAppSettingService appSetting =  ApplicationConfig.DependencyResolver.GetInstance<IAppSettingService>();
+            IAppSettingService appSetting = ApplicationConfig.DependencyResolver.GetInstance<IAppSettingService>();
             List<string> logLevals = new List<string>();
             var setting = appSetting.GetAppSetting(GetLoggerName());
             if (setting == null)

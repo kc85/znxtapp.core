@@ -1,16 +1,15 @@
 ﻿(function () {
-
     var ZApp = angular.module(__ZNxtAppName);
 
     ZApp.controller(__ZNxtAppName + '.usersCtrl', ['$scope', '$controller', '$location', '$rootScope', 'dataService', 'userData',
-    function ($scope,$controller, $location, $rootScope, dataService, userData) {
+    function ($scope, $controller, $location, $rootScope, dataService, userData) {
         angular.extend(this, $controller(__ZNxtAppName + '.gridBaseCtrl', { $scope: $scope }));
         $scope.name = "Users";
-        $scope.pageData = {};        
+        $scope.pageData = {};
         $scope.filterIncludeColumns = ["id", "name", "email"];
         $scope.showDetails = false;
         $scope.loadingData = false;
-        $scope.active = function() {
+        $scope.active = function () {
             fetchUserInfo();
         }
 
@@ -27,9 +26,9 @@
                 });
             }
         }
-        
+
         $scope.showDetailsPage = function (data) {
-            $scope.showDetails = true;            
+            $scope.showDetails = true;
             $scope.$broadcast("onShowUserDetails", data);
         }
 

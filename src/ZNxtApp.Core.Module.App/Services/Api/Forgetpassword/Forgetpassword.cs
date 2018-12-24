@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Enums;
 using ZNxtApp.Core.Helpers;
@@ -18,6 +15,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Forgetpassword
         public Forgetpassword(ParamContainer paramContainer) : base(paramContainer)
         {
         }
+
         public JObject SendForgetpassOTP()
         {
             Logger.Debug("Calling SendForgetpassOTP");
@@ -71,10 +69,8 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Forgetpassword
             }
         }
 
-
         public JObject ResetPassword()
         {
-
             try
             {
                 Logger.Debug("Calling ResetPassword");
@@ -98,7 +94,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Forgetpassword
                     return ResponseBuilder.CreateReponse(AppResponseCode._SESSION_USER_DATA_MISMATCH);
                 }
 
-
                 if (request[CommonConst.CommonField.PASSWORD].ToString() != request[CommonConst.CommonField.CONFIRM_PASSWORD].ToString())
                 {
                     return ResponseBuilder.CreateReponse(AppResponseCode._SESSION_USER_DATA_MISMATCH);
@@ -111,10 +106,9 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Forgetpassword
                     Logger.Info("Captcha validate fail");
                     return ResponseBuilder.CreateReponse(AppResponseCode._CAPTCHA_VALIDATION_FAIL);
                 }
-               
 
                 bool OTPValidate = false;
-                if (requestUser.user_type == UserIDType.PhoneNumber.ToString() && OTPService.Validate(requestUser.user_id, otp, OTPType.Forgetpassword,string.Empty))
+                if (requestUser.user_type == UserIDType.PhoneNumber.ToString() && OTPService.Validate(requestUser.user_id, otp, OTPType.Forgetpassword, string.Empty))
                 {
                     OTPValidate = true;
                 }
@@ -132,7 +126,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Forgetpassword
                 {
                     var user = DBProxy.FirstOrDefault<UserModel>(CommonConst.Collection.USERS, CommonConst.CommonField.USER_ID, requestUser.user_id);
 
-
                     var rurl = AppSettingService.GetAppSettingData(ModuleAppConsts.Field.FORGET_PASS_LENDING_PAGE_SETTING_KEY);
                     JObject resonseData = new JObject();
                     if (string.IsNullOrEmpty(redirect_url))
@@ -144,7 +137,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Forgetpassword
                         resonseData[CommonConst.CommonField.REDIRECT_URL_KEY] = string.Format("{0}?{1}={2}", rurl, CommonConst.CommonField.REDIRECT_URL_KEY, redirect_url);
                     }
                     return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, null, resonseData);
-
                 }
                 else
                 {
@@ -154,11 +146,9 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Forgetpassword
             }
             catch (Exception ex)
             {
-
                 Logger.Error(string.Format("Forgetpassword.ResetPassword error : {0}", ex.Message), ex);
                 return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
             }
-           
         }
 
         private bool ResetPass(UserModel requestUser, string password)

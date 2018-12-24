@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Module.App.Consts;
@@ -16,14 +14,15 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Menu
         public BackendMenuController(ParamContainer paramContainer) : base(paramContainer)
         {
         }
+
         public JObject GetMenuItems()
         {
             try
             {
                 Logger.Debug("Enter to GetMenuItems");
-                
+
                 // TODO need to do the session user filter;
-                var data = DBProxy.Get(ModuleAppConsts.Collection.BACKEND_UI_ROUTES,CommonConst.Filters.IS_OVERRIDE_FILTER);
+                var data = DBProxy.Get(ModuleAppConsts.Collection.BACKEND_UI_ROUTES, CommonConst.Filters.IS_OVERRIDE_FILTER);
                 List<string> userAccess = new List<string>() { "*" };
                 var sessionUser = SessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
                 if (sessionUser != null)
@@ -46,7 +45,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Menu
                 Logger.Error(string.Format("Error in  GetMenuItems: {0}", ex.Message), ex);
                 return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
             }
-
         }
     }
 }

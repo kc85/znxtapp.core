@@ -203,6 +203,7 @@ namespace ZNxtApp.Core.DB.Mongo
                 else
                 {
                     WriteData(collection, data, validateSchma);
+                    return 1;
                 }
             }
             else

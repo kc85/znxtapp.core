@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Schema;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Interfaces;
 
 namespace ZNxtApp.Core.Services.Helper
@@ -13,8 +9,8 @@ namespace ZNxtApp.Core.Services.Helper
     {
         public JSONValidator()
         {
-
         }
+
         public bool Validate(JSchema schema, JToken data, out IList<string> messages)
         {
             messages = new List<string>();

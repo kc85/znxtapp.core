@@ -41,7 +41,7 @@ namespace MyPhotos.Services.Api
                 }
                 
                 ImageProcessor ip = new ImageProcessor();
-                ip.Scan(file_path, path, DBProxy, (string mesage) => {
+                ip.Scan(file_path, path, DBProxy,KeyValueStorage, (string mesage) => {
 
                     Logger.Debug(string.Format("ImageBackgroundSync: {0}", mesage));
                     return true;

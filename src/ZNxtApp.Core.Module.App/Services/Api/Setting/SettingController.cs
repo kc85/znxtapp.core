@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Threading;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Model;
-using ZNxtApp.Core.Module.App.Services.Api.Signup;
 using ZNxtApp.Core.Services;
 
 namespace ZNxtApp.Core.Module.App.Services.Api.Setting
@@ -26,6 +24,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Setting
                 return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
             }
         }
+
         public JObject Update()
         {
             try

@@ -1,14 +1,26 @@
 [
-    {
-        "key": "GET:/api/myphotos/fetch",
+  {
+    "key": "GET:/api/myphotos/fetch",
+    "ContentType": "application/json",
+    "Method": "GET",
+    "Route": "/api/myphotos/fetch",
+    "ExecultAssembly": "MyPhotos.dll",
+    "ExecuteType": "MyPhotos.Services.Api.ImageBrowser",
+    "ExecuteMethod": "Get",
+    "auth_users": [
+      "*"
+    ]
+  },
+  {
+        "key": "GET:/api/admin/myphotos/gallery",
         "ContentType": "application/json",
         "Method": "GET",
-        "Route": "/api/myphotos/fetch",
+        "Route": "/api/admin/myphotos/gallery",
         "ExecultAssembly": "MyPhotos.dll",
         "ExecuteType": "MyPhotos.Services.Api.ImageBrowser",
-        "ExecuteMethod": "Get",
+        "ExecuteMethod": "GetGalleryListByAdmin",
         "auth_users": [
-            "*"
+            "sys_admin"
         ]
     },
     {

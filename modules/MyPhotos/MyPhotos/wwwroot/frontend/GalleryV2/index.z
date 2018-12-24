@@ -1,0 +1,110 @@
+﻿
+@{
+
+ var galleryData = ExecuteAction("/api/myphotos/gallery",null);
+
+}
+	
+<!DOCTYPE html>
+<html lang="en" ng-app="MyPhotoGalleryApp">
+<head>
+    <meta charset="utf-8">
+	<meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>ZPic</title>
+     @Include("./template/header_css.zb",null)
+
+</head>
+
+<body  ng-controller="MyPhotoGalleryApp.Main">
+
+   
+    <div class="card fix_header" id="navbar">
+        <div class="card-body" style="padding:7px">
+            <div class="row">
+                <div class="col-9">
+                    <h5 class="card-title"> <img src="./img/myphotologo.png" style="height:35px"> <span style="padding-left:5px;"> ZPic </span></h5>
+
+                </div>
+                <div class="col-3 ng-hide" ng-show="user == undefined" id="loginRequiredDiv">
+                    <a class="btn btn-danger" href="../auth/sociallogin.html?rurl=https://znxt.app/galleryv2/index.z"  style="margin: 2px;padding: 4px;float:right;" >
+                        Sign In
+                    </a>
+                </div>
+                <div class="col-3 ng-hide" ng-hide="user == undefined">
+                    <a class="btn btn-danger" href="./gallerysettings.z" onclick="alert('In progress');" style="margin: 0px;padding:5px 12px 0px 12px;float:right">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M0 0h24v24H0z" fill="none" />
+                            <path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container" style="margin-top:50px;margin-bottom: 50px">
+        
+ 
+        <div class="row" >
+
+		@foreach (var gallery in @galleryData["data"])
+       {
+
+            <div class="col-12 col-md-3 col-sm-6 gridpadding imagealbum" id="G_@gallery.id">
+
+                <div class="view overlay hm-white-slight zoom">
+                    @if(gallery["thumbnail_image"] != null)
+                    {
+                    
+                    <img file_hash="@gallery.thumbnail_image.file_hash"
+                         changeset="@gallery.thumbnail_image.changeset_no"
+                         src="../api/myphotos/image?file_hash=@gallery.thumbnail_image.file_hash&t=m&changeset_no=@gallery.thumbnail_image.changeset_no"
+                         style="width:100%"
+                         class="img-fluid gallerythumbnail rcorners3"
+                         alt="">
+                    }
+                    <a href="gallery.z?galleryid=@gallery.id">
+                        <div class="mask waves-effect waves-light"></div>
+                    </a>
+                    <div class="font-weight-light" style="padding-left:5px">@gallery.display_name. @gallery.files_count photos</div>
+                    <div class="font-weight-light font-italic" style="padding-left:5px"><small>@gallery.description</small></div>
+
+                </div>
+                
+            </div>
+		}
+            </div>
+            <div class="row" ng-hide="gallery == undefined">
+                <div class="col-12 col-md-3 col-sm-6 gridpadding" ng-repeat="g in gallery | filter : {elementfound : false}" id="G_{{g.id}}">
+                    <div class="view overlay hm-white-slight zoom">
+
+                        <img file_hash="{{g.thumbnail_image.file_hash}}"
+                             changeset="{{g.thumbnail_image.changeset_no}}"
+                             src="../api/myphotos/image?file_hash={{g.thumbnail_image.file_hash}}&t=m&changeset_no={{g.thumbnail_image.changeset_no}}"
+                             style="width:100%"
+                             class="img-fluid gallerythumbnail rcorners3"
+                             alt="">
+                        <a href="gallery.z?galleryid={{g.id}}">
+                            <div class="mask waves-effect waves-light"></div>
+                        </a>
+                        <div class="font-weight-light" style="padding-left:5px">{{g.display_name}}. {{g.files_count photos}}</div>
+                        <div class="font-weight-light font-italic" style="padding-left:5px"><small>{{g.description}}</small></div>
+                    </div>
+                </div>
+            </div>        
+    </div>
+
+
+    @Include("./template/footer_copyright.zb",null)
+	 @Include("./template/footer_toolbar.zb",null)
+	 @Include("./template/login_view.zb",null)
+	 @Include("./template/js_libs.zb",null)
+
+    <script type="text/javascript" src="./app/MyPhotoGalleryJs.js"></script>
+	<script type="text/javascript" src="./app/MyPhotoGalleryApp.js"></script>
+	
+</body>
+</html>

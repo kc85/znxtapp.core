@@ -23,7 +23,6 @@ namespace ZNxtApp.Core.Web.Helper
             IEncryption encryption = ApplicationConfig.DependencyResolver.GetInstance<IEncryption>();
             IKeyValueStorage keyValueStorage = ApplicationConfig.DependencyResolver.GetInstance<IKeyValueStorage>();
 
-
             ISMSService smsService = new SMSService(loggerController, dbService, actionExecuter, viewEngine, paramContainer);
             IEmailService emailService = new EmailService(loggerController, dbService, actionExecuter, viewEngine, paramContainer);
             IOTPService otpService = new OTPService(loggerController, dbService, smsService, emailService, appSettingService);
@@ -40,6 +39,7 @@ namespace ZNxtApp.Core.Web.Helper
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_EMAIL_SERVICE, () => { return emailService; });
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_ENCRYPTION_SERVICE, () => { return encryption; });
             paramContainer.AddKey(CommonConst.CommonValue.PARAM_KEY_VALUE_STORAGE, () => { return keyValueStorage; });
+            paramContainer.AddKey(CommonConst.CommonValue.PARAM_HTTP_CLIENT, () => { return new HttpRestClient(); });
 
             return paramContainer;
         }

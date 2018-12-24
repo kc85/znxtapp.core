@@ -22,18 +22,26 @@ namespace ZNxtApp.Core.Web.Services
 
         public T GetValue<T>(string key)
         {
-            JObject filter = new JObject();
-            filter[CommonConst.CommonField.SESSION_ID] = _httpProxy.SessionID;
-            var sessionData = _dbProxy.Get(CommonConst.Collection.SESSION_DATA, filter.ToString(), new List<string> { key });
-
-            if (sessionData.Count == 1 && sessionData[0][key] != null)
+            var tempData = _httpProxy.GetTempValue<T>(key);
+            if (tempData == null)
             {
-                var value = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(sessionData[0][key].ToString());
-                return value;
+                JObject filter = new JObject();
+                filter[CommonConst.CommonField.SESSION_ID] = _httpProxy.SessionID;
+                var sessionData = _dbProxy.Get(CommonConst.Collection.SESSION_DATA, filter.ToString(), new List<string> { key });
+
+                if (sessionData.Count == 1 && sessionData[0][key] != null)
+                {
+                    var value = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(sessionData[0][key].ToString());
+                    return value;
+                }
+                else
+                {
+                    return default(T);
+                }
             }
             else
             {
-                return default(T);
+                return tempData;
             }
         }
 
@@ -56,14 +64,17 @@ namespace ZNxtApp.Core.Web.Services
 
         public void SetValue<T>(string key, T value)
         {
-            JObject filter = new JObject();
-            filter[CommonConst.CommonField.ID] = _httpProxy.SessionID;
-            JObject sessionData = new JObject();
-            sessionData[CommonConst.CommonField.ID] = _httpProxy.SessionID;
-            sessionData[CommonConst.CommonField.SESSION_ID] = _httpProxy.SessionID;
-            sessionData[key] = Newtonsoft.Json.JsonConvert.SerializeObject(value);
+            if (!string.IsNullOrEmpty(_httpProxy.SessionID))
+            {
+                JObject filter = new JObject();
+                filter[CommonConst.CommonField.ID] = _httpProxy.SessionID;
+                JObject sessionData = new JObject();
+                sessionData[CommonConst.CommonField.ID] = _httpProxy.SessionID;
+                sessionData[CommonConst.CommonField.SESSION_ID] = _httpProxy.SessionID;
+                sessionData[key] = Newtonsoft.Json.JsonConvert.SerializeObject(value);
 
-            _dbProxy.Update(CommonConst.Collection.SESSION_DATA, filter.ToString(), sessionData, true, MergeArrayHandling.Union);
+                _dbProxy.Update(CommonConst.Collection.SESSION_DATA, filter.ToString(), sessionData, true, MergeArrayHandling.Union);
+            }
         }
     }
 }

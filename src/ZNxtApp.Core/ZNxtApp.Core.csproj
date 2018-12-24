@@ -86,6 +86,7 @@
     <Compile Include="Interfaces\IDependencyResolver.cs" />
     <Compile Include="Interfaces\IEmailService.cs" />
     <Compile Include="Interfaces\IHttpFIleUploader.cs" />
+    <Compile Include="Interfaces\IHttpRestClient.cs" />
     <Compile Include="Interfaces\IJSONValidator.cs" />
     <Compile Include="Interfaces\IKeyValueStorage.cs" />
     <Compile Include="Interfaces\IOTPService.cs" />

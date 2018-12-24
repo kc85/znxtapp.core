@@ -27,12 +27,11 @@ function validatePhone(field) {
     if (field.match(/^\d{10}/)) {
         return true;
     }
-  
+
     return false;
 }
 
-
-// facebook login 
+// facebook login
 
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
@@ -42,13 +41,12 @@ function statusChangeCallback(response) {
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
-        if (facebooksuccesscallback!=undefined) {
+        if (facebooksuccesscallback != undefined) {
             facebooksuccesscallback(response);
         }
-        
     } else {
         // The person is not logged into your app or we are unable to tell.
-       // $("#errorMessage").html('Please log into this app.');
+        // $("#errorMessage").html('Please log into this app.');
         // $("#errorMessage").show();
     }
 }
@@ -65,13 +63,13 @@ function checkLoginState() {
 window.fbAsyncInit = function () {
     FB.init({
         appId: _fbapp_id,
-        cookie: true,  // enable cookies to allow the server to access 
+        cookie: true,  // enable cookies to allow the server to access
         // the session
         xfbml: true,  // parse social plugins on this page
         version: 'v2.8' // use graph api version 2.8
     });
 
-    // Now that we've initialized the JavaScript SDK, we call 
+    // Now that we've initialized the JavaScript SDK, we call
     // FB.getLoginStatus().  This function gets the state of the
     // person visiting this page and can return one of three states to
     // the callback you provide.  They can be:
@@ -86,12 +84,10 @@ window.fbAsyncInit = function () {
     //FB.getLoginStatus(function (response) {
     //    statusChangeCallback(response);
     // });
-
 };
 
 // Load the SDK asynchronously
 (function (d, s, id) {
-
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
     js = d.createElement(s); js.id = id;
@@ -99,9 +95,7 @@ window.fbAsyncInit = function () {
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-
 var facebooksuccesscallback = function (fbresponse) {
-
     console.log(fbresponse);
     $(".login").fadeOut();
     $("#divRedirecting").show();
@@ -113,7 +107,6 @@ var facebooksuccesscallback = function (fbresponse) {
         contentType: "application/json",
         dataType: 'json',
         success: function (data) {
-
             if (data.code === success_code) {
                 $(".login").fadeOut();
                 $("#divRedirecting").show();
@@ -129,7 +122,6 @@ var facebooksuccesscallback = function (fbresponse) {
                 $("#errorMessage").show();
                 $("#errorMessage").html(data.message);
             }
-
         },
         error: function (err) {
             console.log(err);
@@ -146,7 +138,4 @@ var facebooksuccesscallback = function (fbresponse) {
     //FB.api('/me', function (response) {
     //    console.log(response);
     //});
-
-
 }
-

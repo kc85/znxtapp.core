@@ -1,10 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Enums;
 using ZNxtApp.Core.Helpers;
@@ -16,12 +12,12 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
 {
     public static class SignupHelper
     {
-        public static bool CreateUser(IDBService dbProxy, IAppSettingService appSettingService, string userid, UserIDType userType , string name,string email, string picture)
+
+        public static bool CreateUser(IDBService dbProxy, IAppSettingService appSettingService, string userid, UserIDType userType, string name, string email, string picture)
         {
             JObject userData = new JObject();
             userData[CommonConst.CommonField.USER_ID] = userData[CommonConst.CommonField.DATA_KEY] = userid;
             userData[CommonConst.CommonField.USER_TYPE] = userType.ToString();
-
 
             var updateFilter = userData.ToString();
 
@@ -29,8 +25,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             userData[CommonConst.CommonField.IS_ENABLED] = true;
             userData[CommonConst.CommonField.NAME] = name;
             userData[CommonConst.CommonField.EMAIL] = email;
-            
-            
+
             userData[CommonConst.CommonField.IS_EMAIL_VALIDATE] = userType == UserIDType.Google ? true : false;
             userData[CommonConst.CommonField.IS_PHONE_VALIDATE] = false;
             var userGroup = appSettingService.GetAppSetting(ModuleAppConsts.Field.DEFAULT_USER_GROUPS_APP_SETTING_KEY);
@@ -43,7 +38,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
                 throw new Exception("User Groups not found in AppSettings");
             }
             userData[CommonConst.CommonField.USER_GROUPS] = (userGroup[CommonConst.CommonField.DATA][CommonConst.CommonField.USER_GROUPS] as JArray);
-            if( dbProxy.Write(CommonConst.Collection.USERS, userData, updateFilter, true))
+            if (dbProxy.Write(CommonConst.Collection.USERS, userData, updateFilter, true))
             {
                 var userInfo = new JObject();
                 userInfo[CommonConst.CommonField.USER_ID] = userid;
@@ -58,12 +53,15 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
                 return false;
             }
         }
-        public static bool IsValidToken(UserModel user,ISessionProvider sessionProvider,ILogger logger)
+
+        public static bool IsValidToken(UserModel user, ISessionProvider sessionProvider, ILogger logger, bool isOauthVerification =true)
         {
-            if (user.user_type == UserIDType.Google.ToString())
+            if (!isOauthVerification) return true;
+
+                if (user.user_type == UserIDType.Google.ToString())
             {
                 var authToken = sessionProvider.GetValue<string>(ModuleAppConsts.Field.AUTH_TOKEN);
-                if(string.IsNullOrEmpty(authToken))
+                if (string.IsNullOrEmpty(authToken))
                 {
                     return false;
                 }
@@ -85,7 +83,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
                 return false;
             }
             return true;
-
         }
     }
 }

@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Helpers;
 using ZNxtApp.Core.Model;
@@ -17,6 +13,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Login
         public LoginController(ParamContainer paramContainer) : base(paramContainer)
         {
         }
+
         public JObject Login()
         {
             Logger.Debug("Calling LoginController.Login");
@@ -51,15 +48,15 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Login
             else
             {
                 return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
-
             }
         }
+
         private bool Validate(string userId, string password)
         {
             var passwordHash = EncryptionService.GetHash(password);
             JObject filter = new JObject();
-            filter[CommonConst.CommonField.USER_ID]=userId;
-            filter[CommonConst.CommonField.PASSWORD]=  passwordHash;
+            filter[CommonConst.CommonField.USER_ID] = userId;
+            filter[CommonConst.CommonField.PASSWORD] = passwordHash;
             filter[CommonConst.CommonField.IS_ENABLED] = true;
             var user = DBProxy.FirstOrDefault(CommonConst.Collection.USERS, filter.ToString());
             if (user != null)
@@ -71,6 +68,5 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Login
                 return false;
             }
         }
-
     }
 }

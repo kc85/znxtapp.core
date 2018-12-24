@@ -1,23 +1,21 @@
 ﻿using Newtonsoft.Json.Linq;
-using ZNxtApp.Core.Services;
-using ZNxtApp.Core.Model;
-using ZNxtApp.Core.Consts;
-using ZNxtApp.Core.Module.App.Consts;
-using System.Net.Http;
 using System;
+using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Collections.Generic;
-using ZNxtApp.Core.Helpers;
+using ZNxtApp.Core.Consts;
 using ZNxtApp.Core.Enums;
+using ZNxtApp.Core.Helpers;
+using ZNxtApp.Core.Model;
+using ZNxtApp.Core.Module.App.Consts;
+using ZNxtApp.Core.Services;
 
 namespace ZNxtApp.Core.Module.App.Services.Api.Signup
 {
-    public class FacebookAuthUserController: ViewBaseService
+    public class FacebookAuthUserController : SocialLoginBase
     {
-        private string AUTH_TOKEN = "auth_token";
+      
         public FacebookAuthUserController(ParamContainer paramContainer) : base(paramContainer)
         {
-
         }
 
         public JObject Auth()
@@ -27,10 +25,37 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             {
                 return ResponseBuilder.CreateReponse(CommonConst._400_BAD_REQUEST);
             }
-
+            
             var authToken = request[AUTH_TOKEN].ToString();
-            var redirect_url = HttpProxy.GetQueryString(CommonConst.CommonField.REDIRECT_URL_KEY);
+            if (isOauthVerification)
+            {
 
+                return ValidateOAuthTokenCreateUser(authToken);
+
+            }
+            else
+            {
+                if (request[CommonConst.CommonField.USER_ID] == null || request[CommonConst.CommonField.NAME] == null)
+                {
+                    return ResponseBuilder.CreateReponse(CommonConst._400_BAD_REQUEST);
+                }
+
+                Logger.Debug(string.Format("User id:{0}, Name:{1}, AuthToken:{2}", request[CommonConst.CommonField.USER_ID].ToString(), request[CommonConst.CommonField.NAME].ToString(), authToken));
+                if (CreateUser(request[CommonConst.CommonField.USER_ID].ToString(), request[CommonConst.CommonField.NAME].ToString(),UserIDType.Facebook))
+                {
+                    return CreateSesssion(authToken, request[CommonConst.CommonField.USER_ID].ToString());
+                }
+                else
+                {
+                    return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
+                }
+            }
+            
+        }
+
+        private JObject ValidateOAuthTokenCreateUser(string authToken)
+        {
+            var redirect_url = HttpProxy.GetQueryString(CommonConst.CommonField.REDIRECT_URL_KEY);
 
             var URL = string.Format("https://graph.facebook.com/v2.8/me?access_token={0}&method=get&pretty=0&sdk=joey&suppress_http_code=1", authToken);
             HttpClient client = new HttpClient();
@@ -49,31 +74,14 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
                 JObject responseJson = JObject.Parse(dataObjects);
                 if (responseJson[CommonConst.CommonField.DISPLAY_ID] == null || responseJson[CommonConst.CommonField.NAME] == null)
                 {
-                    
                     return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
                 }
                 else
                 {
-
                     var userId = responseJson[CommonConst.CommonField.DISPLAY_ID].ToString();
-                    if (CreateUser(userId, responseJson[CommonConst.CommonField.NAME].ToString()))
+                    if (CreateUser(userId, responseJson[CommonConst.CommonField.NAME].ToString(), UserIDType.Facebook))
                     {
-                        var user = DBProxy.FirstOrDefault<UserModel>(CommonConst.Collection.USERS, CommonConst.CommonField.USER_ID, userId);
-                        SessionProvider.SetValue(CommonConst.CommonValue.SESSION_USER_KEY, user);
-                        SessionProvider.SetValue(AUTH_TOKEN, authToken);
-
-                        var rurl = AppSettingService.GetAppSettingData(ModuleAppConsts.Field.SIGNUP_LENDING_PAGE_SETTING_KEY);
-
-                        JObject resonseData = new JObject();
-                        if (string.IsNullOrEmpty(redirect_url))
-                        {
-                            resonseData[CommonConst.CommonField.REDIRECT_URL_KEY] = rurl;
-                        }
-                        else
-                        {
-                            resonseData[CommonConst.CommonField.REDIRECT_URL_KEY] = string.Format("{0}?{1}={2}", rurl, CommonConst.CommonField.REDIRECT_URL_KEY, redirect_url);
-                        }
-                        return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS,null, resonseData);
+                        return CreateSesssion(authToken,userId, redirect_url);
                     }
                     else
                     {
@@ -85,35 +93,10 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             {
                 return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
             }
-
-        }
-        private bool CreateUser(string userid , string name)
-        {
-            JObject userData = new JObject();
-            userData[CommonConst.CommonField.USER_ID] = userData[CommonConst.CommonField.DATA_KEY] = userid;
-            userData[CommonConst.CommonField.USER_TYPE] = UserIDType.Facebook.ToString() ;
-
-
-            var updateFilter = userData.ToString();
-
-            userData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
-            userData[CommonConst.CommonField.IS_ENABLED] = true;
-            userData[CommonConst.CommonField.NAME] = name;
-            userData[CommonConst.CommonField.IS_EMAIL_VALIDATE] = false;
-            userData[CommonConst.CommonField.IS_PHONE_VALIDATE] = false;
-            var userGroup = AppSettingService.GetAppSetting(ModuleAppConsts.Field.DEFAULT_USER_GROUPS_APP_SETTING_KEY);
-            Logger.Debug("userGroup setting data", userGroup);
-            if (userGroup == null)
-            {
-                throw new Exception("User Group setting not found in AppSettings");
-            }
-            if (userGroup[CommonConst.CommonField.DATA] == null || userGroup[CommonConst.CommonField.DATA][CommonConst.CommonField.USER_GROUPS] == null)
-            {
-                throw new Exception("User Groups not found in AppSettings");
-            }
-            userData[CommonConst.CommonField.USER_GROUPS] = (userGroup[CommonConst.CommonField.DATA][CommonConst.CommonField.USER_GROUPS] as JArray);
-            return DBProxy.Write(CommonConst.Collection.USERS, userData,updateFilter,true);
         }
 
+       
+
+       
     }
 }

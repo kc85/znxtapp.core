@@ -1,11 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Interfaces;
 
 namespace ZNxtApp.Core.Module.SMS.TextLocal.Services.Api
@@ -37,7 +33,6 @@ namespace ZNxtApp.Core.Module.SMS.TextLocal.Services.Api
                     if (status == "success")
                     {
                         return true;
-
                     }
                     else
                     {
@@ -51,6 +46,5 @@ namespace ZNxtApp.Core.Module.SMS.TextLocal.Services.Api
                 return false;
             }
         }
-
     }
 }

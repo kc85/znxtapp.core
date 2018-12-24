@@ -22,10 +22,9 @@ namespace ZNxtApp.Core.Web.AppStart
         private ILogger _logger;
         private IDBService _dbProxy;
         private JArray _cronJobs = new JArray();
-        
+
         private InitApp()
         {
-            
         }
 
         private void InitDB()
@@ -55,7 +54,7 @@ namespace ZNxtApp.Core.Web.AppStart
             GetCronJob();
             SetCronJob();
         }
-        
+
         private void SetDepencencies()
         {
             _dependencyRegister = new UnityDependencyRegister();

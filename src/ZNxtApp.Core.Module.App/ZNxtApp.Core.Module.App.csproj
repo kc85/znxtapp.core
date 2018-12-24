@@ -48,7 +48,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="ZNxtApp.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ZNxtApp.Core.1.0.21-Beta\lib\net452\ZNxtApp.Core.dll</HintPath>
+      <HintPath>..\packages\ZNxtApp.Core.1.0.22-Beta\lib\net452\ZNxtApp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -75,6 +75,7 @@
     <Compile Include="Services\Api\Signup\Google\GoogleAuthUserController.cs" />
     <Compile Include="Services\Api\Signup\SignUpCommonController.cs" />
     <Compile Include="Services\Api\Signup\SignupHelper.cs" />
+    <Compile Include="Services\Api\Signup\SocialLoginBase.cs" />
     <Compile Include="Services\Api\Signup\UserRegistrationBase.cs" />
     <Compile Include="Services\Api\UserManagement\UpdateUserInfo.cs" />
     <Compile Include="Services\Api\UserManagement\UsersController.cs" />

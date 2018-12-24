@@ -49,8 +49,6 @@ namespace ZNxtApp.Core.Interfaces
         long Update(string collection, FilterQuery filters, JObject data, bool overrideData = false, bool validateSchma = false, MergeArrayHandling mergeType = MergeArrayHandling.Union);
 
         JObject GetPageData(string collection, IDBQueryBuilder query, List<string> fields = null, Dictionary<string, int> sortColumns = null, int pageSize = 10, int currentPage = 1);
-
-
     }
 
     [Obsolete("Use SortType")]

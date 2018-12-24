@@ -30,7 +30,6 @@ $(document).ready(function () {
         elem.append($ripple);
     };
 
-   
     $("#btnSendForgetOTP").click(function (e) {
         $("#errorMessage").hide();
         if (animating) return;
@@ -47,7 +46,7 @@ $(document).ready(function () {
         animating = true;
         $(that).addClass("processing");
         $.ajax({
-            url: appRootPath+ "/api/user/forgetpassword/SendOTP",
+            url: appRootPath + "/api/user/forgetpassword/SendOTP",
             type: 'post',
             data: '{"user_id": "' + mobileNo + '", "g-recaptcha-response" : "' + grecaptcharesponse + '", "user_type" : "' + user_type + '"}',
             contentType: "application/json",
@@ -58,7 +57,6 @@ $(document).ready(function () {
                 $(that).removeClass("success processing");
 
                 if (data.code === success_code) {
-                    
                     otp_security_token = data.security_token;
                     $("#txtMobileNumber").attr("disabled", "true");
                     $("#btnSendForgetOTP").hide();
@@ -130,9 +128,7 @@ $(document).ready(function () {
     //    });
     //});
 
-
     $("#btnResetPassword").click(function (e) {
-
         $("#errorMessage").hide();
         if (animating) return;
 
@@ -158,7 +154,7 @@ $(document).ready(function () {
             $("#errorMessage").html("Password and confirm password not match");
             return;
         }
-      
+
         $.ajax({
             url: appRootPath + "/api/user/forgetpassword/resetpassword",
             type: 'post',
@@ -166,11 +162,10 @@ $(document).ready(function () {
             contentType: "application/json",
             dataType: 'json',
             success: function (data) {
-               
                 if (data.code === success_code) {
                     $("#divOtp").fadeOut();
                     $("#divPassword").fadeIn();
-                     window.location = appRootPath+ data.rurl;
+                    window.location = appRootPath + data.rurl;
                 }
                 else {
                     animating = false;
@@ -188,10 +183,7 @@ $(document).ready(function () {
                 grecaptcha.reset();
             }
         });
-
-
     });
-
 
     function validate(val) {
         var pattern = new RegExp("^[0-9]{10}$");
@@ -216,34 +208,28 @@ $(document).ready(function () {
 });
 
 function onBlurPasswordText(txt) {
-
     if ($(txt).val().length < 5) {
         $("#errorMessage").show();
         $("#errorMessage").html("Password length should be min of 5 chars");
     }
 }
 function onBlurSignUpText(txt) {
-    
     if ($(".login__form").is(":visible")) {
         if (validateEmail($(txt).val())) {
-                $("#divSendOtp").fadeIn();
-                $("#divFbSignUp").fadeOut();
-                $("#errorMessage").fadeOut();
+            $("#divSendOtp").fadeIn();
+            $("#divFbSignUp").fadeOut();
+            $("#errorMessage").fadeOut();
 
-            
             user_type = "Email";
             $("#btnSendForgetOTP").html("Send OTP on My Email");
-
         }
         else if (validatePhone($(txt).val())) {
-          
-                $("#divSendOtp").fadeIn();
-                $("#divFbSignUp").fadeOut();
-                $("#errorMessage").fadeOut();
-          
+            $("#divSendOtp").fadeIn();
+            $("#divFbSignUp").fadeOut();
+            $("#errorMessage").fadeOut();
+
             user_type = "PhoneNumber";
             $("#btnSendForgetOTP").html("Send OTP on My Mobile");
-
         }
         else {
             $("#divPassword").fadeOut();

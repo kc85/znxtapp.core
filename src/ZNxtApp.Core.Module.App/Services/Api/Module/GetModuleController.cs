@@ -9,12 +9,11 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Module
     {
         public GetModuleController(ParamContainer paramContainer) : base(paramContainer)
         {
-
         }
 
         public JObject GetModules()
         {
-            var data = DBProxy.Get(CommonConst.Collection.MODULES,"{}");
+            var data = DBProxy.Get(CommonConst.Collection.MODULES, "{}");
             return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, data);
         }
     }

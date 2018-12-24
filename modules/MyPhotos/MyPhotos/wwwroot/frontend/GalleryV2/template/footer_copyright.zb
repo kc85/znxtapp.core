@@ -1,0 +1,32 @@
+﻿    <footer class="page-footer text-center font-small">
+
+        <!-- Social icons -->
+        <div class="pb-4" style="padding-top:20px">
+            <a href="https://www.facebook.com/znxtapp.znxtapp.5" target="_blank">
+                <i class="fa fa-facebook mr-3"></i>
+            </a>
+            <a href="https://twitter.com/ZNxtApp1" target="_blank">
+                <i class="fa fa-twitter mr-3"></i>
+            </a>
+            <a href="https://www.youtube.com/#" target="_blank">
+                <i class="fa fa-youtube mr-3"></i>
+            </a>
+            <a href="https://plus.google.com/117023252106428476016" target="_blank">
+                <i class="fa fa-google-plus mr-3"></i>
+            </a>
+            <a href="https://in.pinterest.com/znxt/" target="_blank">
+                <i class="fa fa-pinterest mr-3"></i>
+            </a>
+            <a href="https://github.com/kc85/znxtapp.core" target="_blank">
+                <i class="fa fa-github mr-3"></i>
+            </a>
+        </div>
+        <!-- Social icons -->
+        <!--Copyright-->
+        <div class="footer-copyright py-3">
+            © 2018 Copyright:
+            <a href="#" target="_blank"> ZNxt.App</a> |
+            <a href="#" target="_blank"> Terms and conditions </a>
+        </div>
+        <!--/.Copyright-->
+    </footer>

@@ -94,7 +94,6 @@ namespace ZNxtApp.Core
             throw new NotImplementedException();
         }
 
-
         public string GetContentType(string path)
         {
             throw new NotImplementedException();
@@ -120,6 +119,16 @@ namespace ZNxtApp.Core
             throw new NotImplementedException();
         }
 
+        public T GetTempValue<T>(string key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetTempValue<T>(string key, T value)
+        {
+            throw new NotImplementedException();
+        }
+
         public DateTime InitDateTime
         {
             get { throw new NotImplementedException(); }
@@ -129,7 +138,6 @@ namespace ZNxtApp.Core
         {
             get { throw new NotImplementedException(); }
         }
-
 
         public string SessionID
         {

@@ -19,7 +19,7 @@ namespace ZNxtApp.Core.Services
         protected IEmailService EmailService { get; private set; }
         protected IEncryption EncryptionService { get; private set; }
         protected IKeyValueStorage KeyValueStorage { get; private set; }
-
+        protected IHttpRestClient HttpClient{ get; private set; }
         public BaseService(ParamContainer paramContainer)
         {
             DBProxy = paramContainer.GetKey(CommonConst.CommonValue.PARAM_DBPROXY);
@@ -34,6 +34,7 @@ namespace ZNxtApp.Core.Services
             EmailService = paramContainer.GetKey(CommonConst.CommonValue.PARAM_EMAIL_SERVICE);
             EncryptionService = paramContainer.GetKey(CommonConst.CommonValue.PARAM_ENCRYPTION_SERVICE);
             KeyValueStorage = paramContainer.GetKey(CommonConst.CommonValue.PARAM_KEY_VALUE_STORAGE);
+            HttpClient = paramContainer.GetKey(CommonConst.CommonValue.PARAM_HTTP_CLIENT);
         }
     }
 }

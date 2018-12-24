@@ -1,6 +1,5 @@
 /* Magnific Popup CSS */
 .mfp-bg {
-
   width: 100%;
   height: 100%;
   z-index: 900;
@@ -8,7 +7,6 @@
   position: fixed;
   background: #1a1a1a;
   opacity: 0.9;
-  
 }
 
 .mfp-wrap {
@@ -60,8 +58,6 @@
 .mfp-ajax-cur {
   cursor: progress; }
 
-
-
 .mfp-zoom {
   cursor: pointer;
   cursor: -webkit-zoom-in;
@@ -74,7 +70,7 @@
 .mfp-close, .mfp-arrow, .mfp-preloader, .mfp-counter {
   -webkit-user-select: none;
   -moz-user-select: none;
-  user-select: none; 
+  user-select: none;
 }
 
 .mfp-loading.mfp-figure {
@@ -92,7 +88,7 @@
   margin-top: -0.8em;
   left: 8px;
   right: 8px;
-  z-index: 0; 
+  z-index: 0;
 }
   .mfp-preloader a {
     color: #cccccc; }
@@ -369,14 +365,12 @@ img.mfp-img {
   right: 0;
   padding-top: 0; }
 
-
-
-/* Inline styles for supporting local video by owwwlab 
+/* Inline styles for supporting local video by owwwlab
  **************************************************/
   .mfp-inline-holder .mfp-content {
     line-height: 0;
     width: 100%;
-    max-width: 900px; 
+    max-width: 900px;
   }
 
 .mfp-inline-holder .mfp-close{
@@ -433,7 +427,6 @@ img.mfp-img {
   left: 15px;
   padding-left: 0px;
 }
-
 
 /* overlay at start */
 .mfp-fade.mfp-bg {

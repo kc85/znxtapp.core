@@ -5,7 +5,7 @@
             <div class="x_title">
                 <h2>Page : {{page.file_path}}</h2>
                 <ul class="nav navbar-right panel_toolbox">
-                    <li >
+                    <li>
                         <button class="btn btn-primary" ng-click="save();">Save </button>
                     </li>
                     <li class="dropdown">
@@ -26,15 +26,12 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <div class="col-md-12 col-sm-12 col-xs-12" >
+                <div class="col-md-12 col-sm-12 col-xs-12">
                     <p ng-repeat="(key, val) in page"><strong>{{key}}: </strong> {{val}}</p>
                     <textarea type="text" ng-show="getContentType()=='text'" class="form-control"  rows="20" ng-model="pageContent"></textarea>
                     <img src="{{file_url}}" style="max-width:100%" ng-show="getContentType()=='image'" />
-                    
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-

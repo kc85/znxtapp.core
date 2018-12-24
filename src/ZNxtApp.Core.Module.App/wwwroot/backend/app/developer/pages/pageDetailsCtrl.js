@@ -1,14 +1,12 @@
 ﻿(function () {
-
     var ZApp = angular.module(__ZNxtAppName);
 
-    ZApp.controller(__ZNxtAppName + '.pageDetailsCtrl', ['$scope', '$controller', '$location', '$rootScope','$window', 'dataService', 'userData','loggerService',
-    function ($scope, $controller, $location, $rootScope, $window, dataService, userData,logger) {
-        
+    ZApp.controller(__ZNxtAppName + '.pageDetailsCtrl', ['$scope', '$controller', '$location', '$rootScope', '$window', 'dataService', 'userData', 'loggerService',
+    function ($scope, $controller, $location, $rootScope, $window, dataService, userData, logger) {
         $scope.page = {};
         var scrollX = 0;
         var scrollY;
-        $scope.filterIncludeColumns = ["id", "file_path","module_name"];
+        $scope.filterIncludeColumns = ["id", "file_path", "module_name"];
 
         $scope.closeDetails = function () {
             $scope.$emit("onHidePageViewDetails", $scope.page);
@@ -31,9 +29,8 @@
             if ($scope.page.file_path.indexOf("/frontend/") == 0) {
                 filePath = $scope.page.file_path.replace("/frontend/", "../");
             }
-            
-            if ($scope.getContentType() == "text") {
 
+            if ($scope.getContentType() == "text") {
                 dataService.get(filePath).then(function (response) {
                     console.log(response);
                     $scope.pageContent = response.data;
@@ -46,7 +43,6 @@
         };
 
         $scope.getContentType = function () {
-            
             if ($scope.page != undefined && $scope.page.content_type != undefined) {
                 if ($scope.page.content_type.indexOf("text") == 0 || $scope.page.content_type.indexOf("javascript") != -1) {
                     return "text";
@@ -61,7 +57,6 @@
             }
         }
         $scope.save = function () {
-
             var data = angular.copy($scope.page);
             data.data = $scope.pageContent;
             dataService.post("./api/content/update", data).then(function (response) {

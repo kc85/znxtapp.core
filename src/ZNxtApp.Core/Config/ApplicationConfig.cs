@@ -133,12 +133,15 @@ namespace ZNxtApp.Core.Config
                 return result;
             }
         }
+
         private static IDependencyResolver _dependencyResolver;
 
-        public static void SetDependencyResolver (IDependencyResolver dependencyResolver) {
+        public static void SetDependencyResolver(IDependencyResolver dependencyResolver)
+        {
             _dependencyResolver = dependencyResolver;
         }
-        public static  IDependencyResolver DependencyResolver { get { return _dependencyResolver; } }
+
+        public static IDependencyResolver DependencyResolver { get { return _dependencyResolver; } }
     }
 
     public enum ApplicationMode

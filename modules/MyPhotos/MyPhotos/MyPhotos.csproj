@@ -79,7 +79,9 @@
     <None Include="collections\server_routes.json" />
     <None Include="Consts\readme.md" />
     <None Include="module.json" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="readme.md" />
     <None Include="Services\Api\readme.md" />
     <None Include="wwwroot\frontend\font\roboto\Roboto-Bold.eot" />
@@ -102,8 +104,6 @@
     <None Include="wwwroot\frontend\font\roboto\Roboto-Thin.ttf" />
     <None Include="wwwroot\frontend\font\roboto\Roboto-Thin.woff" />
     <None Include="wwwroot\frontend\font\roboto\Roboto-Thin.woff2" />
-    <None Include="wwwroot\frontend\g2\index.z" />
-    <None Include="wwwroot\frontend\g2\template\index.z" />
     <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Bold.eot" />
     <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Bold.ttf" />
     <None Include="wwwroot\frontend\GalleryNew\font\roboto\Roboto-Bold.woff" />
@@ -190,6 +190,49 @@
     <None Include="wwwroot\frontend\GalleryNew\template\header_css.zb">
       <SubType>Designer</SubType>
     </None>
+    <None Include="wwwroot\frontend\GalleryV2\font\fontawesome-webfont.eot" />
+    <None Include="wwwroot\frontend\GalleryV2\font\fontawesome-webfont.ttf" />
+    <None Include="wwwroot\frontend\GalleryV2\font\fontawesome-webfont.woff" />
+    <None Include="wwwroot\frontend\GalleryV2\font\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\frontend\GalleryV2\font\FontAwesome.otf" />
+    <None Include="wwwroot\frontend\GalleryV2\font\lg.eot" />
+    <None Include="wwwroot\frontend\GalleryV2\font\lg.ttf" />
+    <None Include="wwwroot\frontend\GalleryV2\font\lg.woff" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Bold.eot" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Bold.ttf" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Bold.woff" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Bold.woff2" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Light.eot" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Light.ttf" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Light.woff" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Light.woff2" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Medium.eot" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Medium.ttf" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Medium.woff" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Medium.woff2" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Regular.eot" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Regular.ttf" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Regular.woff" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Regular.woff2" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Thin.eot" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Thin.ttf" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Thin.woff" />
+    <None Include="wwwroot\frontend\GalleryV2\font\roboto\Roboto-Thin.woff2" />
+    <None Include="wwwroot\frontend\GalleryV2\gallery.z" />
+    <None Include="wwwroot\frontend\GalleryV2\gallerysettings.z" />
+    <None Include="wwwroot\frontend\GalleryV2\img\lightbox\Thumbs.db" />
+    <None Include="wwwroot\frontend\GalleryV2\index.z" />
+    <None Include="wwwroot\frontend\GalleryV2\share.z" />
+    <None Include="wwwroot\frontend\GalleryV2\template\footer_copyright.zb" />
+    <None Include="wwwroot\frontend\GalleryV2\template\footer_toolbar.zb" />
+    <None Include="wwwroot\frontend\GalleryV2\template\header_css.zb" />
+    <None Include="wwwroot\frontend\GalleryV2\template\image_footer_toolbar.zb" />
+    <None Include="wwwroot\frontend\GalleryV2\template\image_like_toolbar.zb" />
+    <None Include="wwwroot\frontend\GalleryV2\template\image_view.zb" />
+    <None Include="wwwroot\frontend\GalleryV2\template\js_libs.zb" />
+    <None Include="wwwroot\frontend\GalleryV2\template\login_view.zb" />
+    <None Include="wwwroot\frontend\GalleryV2\template\user_pofile.zb" />
+    <None Include="wwwroot\frontend\GalleryV2\userprofile.z" />
     <None Include="wwwroot\frontend\Gallery\assets\css\fonts\fontawesome-webfont.eot" />
     <None Include="wwwroot\frontend\Gallery\assets\css\fonts\fontawesome-webfont.ttf" />
     <None Include="wwwroot\frontend\Gallery\assets\css\fonts\fontawesome-webfont.woff" />
@@ -229,8 +272,10 @@
   <ItemGroup>
     <Content Include="build-events-scripts\post-build\NuGet.exe" />
     <Content Include="build-events-scripts\post-build\ZNxtApp.CLI.exe" />
-    <Content Include="wwwroot\backend\app\your_module_backend\your_module.html" />
-    <Content Include="wwwroot\backend\app\your_module_backend\your_module.js" />
+    <Content Include="wwwroot\backend\app\myphotos\gallery\galleryDetail.js" />
+    <Content Include="wwwroot\backend\app\myphotos\gallery\gallerydetail.html" />
+    <Content Include="wwwroot\backend\app\myphotos\gallery\gallery.html" />
+    <Content Include="wwwroot\backend\app\myphotos\gallery\gallery.js" />
     <Content Include="wwwroot\frontend\GalleryNew\app\fileUploadService.js" />
     <Content Include="wwwroot\frontend\GalleryNew\app\MyPhotoGallerySettingApp.js" />
     <Content Include="wwwroot\frontend\GalleryNew\app\MyPhotoUserInfo.js" />
@@ -273,6 +318,58 @@
     <Content Include="wwwroot\frontend\GalleryNew\js\ng-infinite-scroll.min.js" />
     <Content Include="wwwroot\frontend\GalleryNew\js\popper.min.js" />
     <Content Include="wwwroot\frontend\GalleryNew\sw.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\app\fileUploadService.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\app\MyPhotoApp.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\app\MyPhotoAppDetails.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\app\MyPhotoGalleryApp.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\app\MyPhotoGalleryCommon.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\app\MyPhotoGalleryJs.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\app\MyPhotoGallerySettingApp.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\app\MyPhotoUserInfo.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\css\addons\datatables.css" />
+    <Content Include="wwwroot\frontend\GalleryV2\css\addons\datatables.min.css" />
+    <Content Include="wwwroot\frontend\GalleryV2\css\bootstrap-social.css" />
+    <Content Include="wwwroot\frontend\GalleryV2\css\bootstrap.css" />
+    <Content Include="wwwroot\frontend\GalleryV2\css\bootstrap.min.css" />
+    <Content Include="wwwroot\frontend\GalleryV2\css\docs.css" />
+    <Content Include="wwwroot\frontend\GalleryV2\css\font-awesome.css" />
+    <Content Include="wwwroot\frontend\GalleryV2\css\lightgallery.css" />
+    <Content Include="wwwroot\frontend\GalleryV2\css\mdb.css" />
+    <Content Include="wwwroot\frontend\GalleryV2\css\mdb.min.css" />
+    <Content Include="wwwroot\frontend\GalleryV2\css\style.css" />
+    <Content Include="wwwroot\frontend\GalleryV2\css\style.min.css" />
+    <Content Include="wwwroot\frontend\GalleryV2\font\fontawesome-webfont.svg" />
+    <Content Include="wwwroot\frontend\GalleryV2\font\lg.svg" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\lightbox\default-skin.png" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\lightbox\default-skin.svg" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\lightbox\preloader.gif" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\loading.gif" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\myphotologo.png" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\my_photos_logo.png" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\my_photos_logo_01.png" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\overlays\01.png" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\overlays\02.png" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\overlays\03.png" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\overlays\04.png" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\overlays\05.png" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\overlays\06.png" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\overlays\07.png" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\overlays\08.png" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\overlays\09.png" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\svg\arrow_left.svg" />
+    <Content Include="wwwroot\frontend\GalleryV2\img\svg\arrow_right.svg" />
+    <Content Include="wwwroot\frontend\GalleryV2\js\addons\datatables.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\js\addons\datatables.min.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\js\angular.min.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\js\bootstrap.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\js\bootstrap.min.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\js\jquery-3.3.1.min.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\js\lightgallery-all.min.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\js\mdb.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\js\mdb.min.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\js\ng-infinite-scroll.min.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\js\popper.min.js" />
+    <Content Include="wwwroot\frontend\GalleryV2\sw.js" />
     <Content Include="wwwroot\frontend\Gallery\app\MyPhotoGalleryApp.js" />
     <Content Include="wwwroot\frontend\Gallery\app\MyPhotoAppDetails.js" />
     <Content Include="wwwroot\frontend\Gallery\app\MyPhotoApp.js" />
@@ -416,7 +513,11 @@
     <None Include="wwwroot\frontend\Gallery\index.z" />
     <None Include="MyPhotos.nuspec" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="wwwroot\frontend\GalleryV2\fonts\" />
+    <Folder Include="wwwroot\frontend\GalleryV2\js\modules\" />
+    <Folder Include="wwwroot\frontend\GalleryV2\scss\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

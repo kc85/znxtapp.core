@@ -1,0 +1,30 @@
+﻿<div class="modal fade" id="myphotoLogin" tabindex="-1"  role="dialog" aria-labelledby="myphotoLogin" aria-hidden="true"  style="z-index:999999;">
+  <div class="modal-dialog cascading-modal modal-avatar modal-sm " role="document">
+    <!--Content-->
+    <div class="modal-content">
+
+      <!--Body-->
+      <div class="modal-body text-center mb-1">
+
+        <h5 class="mt-1 mb-2">Login to My Photos</h5>
+        <!--<div class="md-form ml-0 mr-0">
+          <input type="text" type="text" id="form29" class="form-control form-control-sm validate ml-0">
+            <label data-error="wrong" data-success="right" for="form29" class="ml-0">Enter user name</label>
+          </div>
+        <div class="md-form ml-0 mr-0">
+          <input type="password" type="text" id="form291" class="form-control form-control-sm validate ml-0">
+            <label data-error="wrong" data-success="right" for="form29" class="ml-0">Enter password</label>
+          </div>
+        <div class="text-center mt-4">
+          <a class="btn btn-cyan mt-1" href="../signup/login.z?rurl=../gallerynew/clearcache.z">Login</a>
+          <button class="btn mt-1" data-dismiss="modal" aria-label="Close">Cancel</button>
+        </div>-->
+
+        <div class="g-signin2" data-onsuccess="googleLoginCheck" data-theme="dark"></div>
+        
+      </div>
+
+    </div>
+    <!--/.Content-->
+  </div>
+</div>

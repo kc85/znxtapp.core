@@ -100,7 +100,7 @@ namespace MyPhotos.Services.Api
                     JArray fileHashs = new JArray();
                     foreach (var fileName  in _fileUploader.GetFiles())
                     {
-                        fileHashs.Add(UploadFile(galleryId, user, fileName));
+                        fileHashs.Add(UploadFile(galleryId, user, fileName,KeyValueStorage));
                     }
                     JObject responseData = new JObject();
                     responseData[ImageProcessor.FILE_HASHS] = fileHashs;
@@ -120,7 +120,7 @@ namespace MyPhotos.Services.Api
             }
         }
 
-        private string  UploadFile(string galleryId, UserModel user, string fileName)
+        private string  UploadFile(string galleryId, UserModel user, string fileName,IKeyValueStorage keyValueStorage)
         {
             FileInfo fi = new FileInfo(fileName);
             Logger.Debug(string.Format("Getting File Data"));
@@ -135,7 +135,7 @@ namespace MyPhotos.Services.Api
                 if (DBProxy.FirstOrDefault(ImageProcessor.MYPHOTO_COLLECTION, fileFilter.ToString()) == null)
                 {
                     Logger.Debug(string.Format("CreateFileDataJObject"));
-                    var imageJObjectData = ImageGalleryHelper.CreateFileDataJObject(fileModel, string.Empty, image);
+                    var imageJObjectData = ImageGalleryHelper.CreateFileDataJObject(fileModel, string.Empty, image, keyValueStorage);
                     imageJObjectData[CommonConst.CommonField.DISPLAY_ID] = CommonUtility.GetNewID();
                     imageJObjectData[ImageProcessor.OWNER] = user.user_id;
                     DBProxy.Write(ImageProcessor.MYPHOTO_COLLECTION, imageJObjectData);

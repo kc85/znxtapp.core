@@ -1,27 +1,21 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZNxtApp.Core.Config;
 using ZNxtApp.Core.DB.Mongo;
 using ZNxtApp.Core.Interfaces;
-using ZNxtApp.Core.Model;
 using ZNxtApp.Core.Services;
 using ZNxtApp.Core.Services.Helper;
-
 
 namespace ZNxtApp.Core.DB.MongoTest
 {
     [TestClass]
     public class MongoDBWriteDataTest
     {
-        const string DBName = "DotNetCoreTest";
-        const string CollectionName = "Test";
+        private const string DBName = "DotNetCoreTest";
+        private const string CollectionName = "Test";
 
-        IDependencyRegister _dependencyRegister;
+        private IDependencyRegister _dependencyRegister;
+
         public MongoDBWriteDataTest()
         {
             _dependencyRegister = new UnityDependencyRegister();
@@ -38,6 +32,7 @@ namespace ZNxtApp.Core.DB.MongoTest
         {
             return _dependencyRegister.GetResolver().GetInstance<IDBService>();
         }
+
         [TestMethod]
         public void WriteDataToMongoDB_Success()
         {
@@ -48,7 +43,6 @@ namespace ZNxtApp.Core.DB.MongoTest
             };
 
             Assert.AreEqual(dbService.WriteData(CollectionName, data, false), true);
-
         }
 
         [TestMethod]
@@ -64,7 +58,6 @@ namespace ZNxtApp.Core.DB.MongoTest
             };
 
             Assert.AreEqual(dbService.WriteData(CollectionName, data, schema), true);
-
         }
 
         [TestMethod]
@@ -81,8 +74,8 @@ namespace ZNxtApp.Core.DB.MongoTest
             };
 
             dbService.WriteData(CollectionName, data, schema);
-
         }
+
         [TestMethod]
         public void WriteDataToMongoDB_Schema_Validtion_From_DB_Success()
         {
@@ -98,7 +91,6 @@ namespace ZNxtApp.Core.DB.MongoTest
             };
 
             dbService.WriteData(CollectionName, data, true);
-
         }
 
         [TestMethod]
@@ -117,7 +109,6 @@ namespace ZNxtApp.Core.DB.MongoTest
             };
 
             dbService.WriteData(CollectionName, data, true);
-
         }
     }
 }

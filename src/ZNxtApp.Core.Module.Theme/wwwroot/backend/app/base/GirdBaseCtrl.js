@@ -1,5 +1,4 @@
 ﻿(function () {
-
     var ZApp = angular.module(__ZNxtAppName);
     ZApp.controller(__ZNxtAppName + '.gridBaseCtrl', ['$scope', '$location', '$rootScope', 'dataService', 'userData',
     function ($scope, $location, $rootScope, dataService, userData) {
@@ -22,7 +21,6 @@
             var filterText = "{}";
             $scope.filterCoumns = [];
             if ($scope.filter.length != 0) {
-               
                 var filters = [];
                 $scope.filterIncludeColumns.forEach(function (d) {
                     if (removeFiltyerColumn.filter(function (f) { return f.column == d }).length == 0) {
@@ -83,6 +81,5 @@
         $scope.pageSizeChanged = function () {
             $scope.active();
         }
-
     }]);
 })();

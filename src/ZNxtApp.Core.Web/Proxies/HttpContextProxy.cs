@@ -21,6 +21,7 @@ namespace ZNxtApp.Core.Web.Proxies
         private ILogger _logger;
         private DataBuilderHelper _dataBuilderHelper;
         private Dictionary<string, string> _responseHeaders = new Dictionary<string, string>();
+        private Dictionary<string, string> _tempData = new Dictionary<string, string>();
 
         public Dictionary<string, string> ResponseHeaders
         {
@@ -269,6 +270,24 @@ namespace ZNxtApp.Core.Web.Proxies
                 headers[key] = _context.Request.Headers[key];
             }
             return headers;
+        }
+
+        public void SetTempValue<T>(string key, T value)
+        {
+            _tempData[key] = Newtonsoft.Json.JsonConvert.SerializeObject(value);
+        }
+
+        public T GetTempValue<T>(string key)
+        {
+            if (_tempData.ContainsKey(key))
+            {
+                var value = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(_tempData[key]);
+                return value;
+            }
+            else
+            {
+                return default(T);
+            }
         }
     }
 }

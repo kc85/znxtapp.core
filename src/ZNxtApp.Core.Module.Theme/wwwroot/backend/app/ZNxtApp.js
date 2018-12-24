@@ -1,11 +1,10 @@
 ﻿var __ZNxtAppName = 'ZNxtAppAdmin';
 
 (function () {
-   
     var ZApp = angular.module(__ZNxtAppName, ['ngAnimate']);
     var isloaded = false;
-   
-    ZApp.controller(__ZNxtAppName + '.Main', ['$scope', '$location', '$rootScope', 'dataService', 'userData','$timeout',
+
+    ZApp.controller(__ZNxtAppName + '.Main', ['$scope', '$location', '$rootScope', 'dataService', 'userData', '$timeout',
         function ($scope, $location, $rootScope, dataService, userData, $timeout) {
             $scope.appName = __ZNxtAppName;
             $scope.user = userData;
@@ -17,12 +16,12 @@
             $scope.errorMesage = "Something worng in the server";
             $scope.successMesage = "";
             $scope.debugMesage = "";
-            
+
             $scope.errorTimeout = undefined;
             $scope.debugTimeout = undefined;
             $scope.successTimeout = undefined;
             $scope.showProgressTimeout = undefined;
-           
+
             $scope.$on("onUserInfoUpdate", function () {
                 getUserData();
             });
@@ -30,7 +29,6 @@
                 getUserData();
             }
             function getUserData() {
-
                 dataService.get("./api/user/userinfo?user_id=" + $scope.user.user_id + "").then(function (response) {
                     if (response.data.code == 1) {
                         $scope.user = response.data.data;
@@ -46,7 +44,7 @@
                 });
             }
             $scope.showUserProfile = function () {
-              //  $scope.$broadcast("onShowUserDetails", $scope.user);
+                //  $scope.$broadcast("onShowUserDetails", $scope.user);
             };
             active();
 
@@ -57,7 +55,6 @@
                 $scope.showProgressTimeout = $timeout(function () {
                     $scope.showProgress = true;
                 }, 300);
-               
             });
             $scope.$on("onHttpEnd", function (e, data) {
                 if ($scope.showProgressTimeout != undefined) {
@@ -70,12 +67,12 @@
                 $scope.showError = true;
                 if ($scope.errorTimeout != undefined) {
                     $timeout.cancel($scope.errorTimeout);
-                    $scope.errorMesage = $scope.errorMesage  + ". " + data.text;
+                    $scope.errorMesage = $scope.errorMesage + ". " + data.text;
                 }
                 else {
-                    $scope.errorMesage =  data.text;
+                    $scope.errorMesage = data.text;
                 }
-                $scope.errorTimeout  =  $timeout(function () {
+                $scope.errorTimeout = $timeout(function () {
                     $scope.closeError();
                 }, data.timeout);
             });
@@ -84,7 +81,7 @@
                 $scope.showSuccess = true;
                 if ($scope.successTimeout != undefined) {
                     $timeout.cancel($scope.successTimeout);
-                    $scope.successMesage =$scope.successMesage+". "+ data.text;
+                    $scope.successMesage = $scope.successMesage + ". " + data.text;
                 }
                 else {
                     $scope.successMesage = data.text;
@@ -93,11 +90,10 @@
                 $scope.successTimeout = $timeout(function () {
                     $scope.closeSuccess();
                 }, data.timeout);
-
             });
             $scope.$on("onDebug", function (e, data) {
                 $scope.showDebug = true;
-               
+
                 if ($scope.debugTimeout != undefined) {
                     $timeout.cancel($scope.debugTimeout);
                     $scope.debugMesage = $scope.debugMesage + ". " + data.text;
@@ -108,7 +104,6 @@
                 $scope.debugTimeout = $timeout(function () {
                     $scope.closeDebug();
                 }, data.timeout);
-
             });
             $scope.closeError = function () {
                 if ($scope.errorTimeout != undefined) {
@@ -131,18 +126,18 @@
                 }
                 $scope.showDebug = false;
             }
-        $rootScope.$on('$includeContentLoaded', function () {
-            //if (isloaded !== true) {
-            //    if (userData == undefined || userData.Code != 200) {
-            //      //  window.location = "../login.html?rurl=" + window.location + "&show=login";
-            //    }
-            //    else {
-            //        setTimeout(function () { initmainPage(); }, 10);
-            //    }
-            //    isloaded = true;
-            //}
-        });
-    }]);
+            $rootScope.$on('$includeContentLoaded', function () {
+                //if (isloaded !== true) {
+                //    if (userData == undefined || userData.Code != 200) {
+                //      //  window.location = "../login.html?rurl=" + window.location + "&show=login";
+                //    }
+                //    else {
+                //        setTimeout(function () { initmainPage(); }, 10);
+                //    }
+                //    isloaded = true;
+                //}
+            });
+        }]);
 
     ZApp.constant('menus', __menus);
     ZApp.constant('userData', __userData);
@@ -150,7 +145,6 @@
     ZApp.config(['$httpProvider', function ($httpProvider) {
         $httpProvider.interceptors.push('LoadingInterceptor');
     }]);
-
 
     ZApp.service('LoadingInterceptor',
     ['$q', '$rootScope',
@@ -177,7 +171,6 @@
                         $rootScope.$broadcast('onError', { text: "Something wrong in the request", timeout: 2000 });
                         console.log(response);
                     }
-                    
                 }
                 return response;
             },
@@ -188,7 +181,6 @@
             }
         };
     }]);
-
 
     //ZApp.constant('appInfo', __app_info);
     //ZApp.constant('appSettings', __app_settings);

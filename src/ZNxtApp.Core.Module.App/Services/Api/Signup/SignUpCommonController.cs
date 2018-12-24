@@ -14,17 +14,15 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
     {
         protected const string SIGNUP_OTP_CHECK_SETTING_KEY = "signup_otp_check";
 
-
         public SignUpCommonController(ParamContainer paramContainer) : base(paramContainer)
         {
         }
 
-        public Dictionary<string,dynamic> SignupModel()
+        public Dictionary<string, dynamic> SignupModel()
         {
             Dictionary<string, dynamic> model = new Dictionary<string, dynamic>();
             SetBaseViewModelData(model);
             return model;
-
         }
 
         public JObject SendSignUpOTP()
@@ -38,7 +36,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
 
             Logger.Debug("Request body SendMobileOTP", request);
             UserModel requestUser = GetUserDataFromRequest(request);
-
 
             var recaptchaResponse = request[ModuleAppConsts.Field.GOOGLE_RECAPTCHA_RESPONSE_KEY].ToString();
             var capchaChecked = SessionProvider.GetValue<bool>(USER_REGISTRATION_CAPCHA_VALIDATION_SESSION_KEY);
@@ -77,12 +74,10 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
                 Logger.Info(string.Format("User Exits with this phone number {0}", requestUser.user_id));
                 return ResponseBuilder.CreateReponse(AppResponseCode._USER_EXISTS);
             }
-
         }
 
         public JObject ValidateOTP()
         {
-
             Logger.Debug("Calling ValidateOTP");
             JObject request = HttpProxy.GetRequestBody<JObject>();
             if (request == null)
@@ -101,7 +96,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
                     SessionProvider.SetValue(CommonConst.CommonValue.SIGN_UP_SESSION_USER_KEY, tempUser);
                     return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS);
                 }
-               else if (requestUser.user_type == UserIDType.Email.ToString() && OTPService.ValidateEmail(requestUser.user_id, otp, OTPType.Signup, securityToken))
+                else if (requestUser.user_type == UserIDType.Email.ToString() && OTPService.ValidateEmail(requestUser.user_id, otp, OTPType.Signup, securityToken))
                 {
                     UserModel tempUser = new UserModel() { user_id = requestUser.user_id, user_type = UserIDType.Email.ToString() };
                     SessionProvider.SetValue(CommonConst.CommonValue.SIGN_UP_SESSION_USER_KEY, tempUser);
@@ -129,7 +124,7 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             {
                 return ResponseBuilder.CreateReponse(CommonConst._400_BAD_REQUEST);
             }
-            var requestUser =  GetUserDataFromRequest(request);
+            var requestUser = GetUserDataFromRequest(request);
 
             if (IsOTPCheckEnable())
             {
@@ -163,7 +158,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             }
             if (!IsUserExists(requestUser.user_id))
             {
-
                 if (CreateUser(requestUser, request[CommonConst.CommonField.PASSWORD].ToString()))
                 {
                     var user = DBProxy.FirstOrDefault<UserModel>(CommonConst.Collection.USERS, CommonConst.CommonField.USER_ID, requestUser.user_id);
@@ -208,7 +202,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             return otpSignupAuthCheck;
         }
 
-
         protected void SetBaseViewModelData(Dictionary<string, dynamic> viewModel)
         {
             viewModel[CommonConst.CommonField.GUID] = Guid.NewGuid().ToString();
@@ -224,7 +217,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
             viewModel[ModuleAppConsts.Field.FACEBOOK_OAUTH_CALLBACK_URL_SETTING_KEY] = AppSettingService.GetAppSettingData(ModuleAppConsts.Field.FACEBOOK_OAUTH_CALLBACK_URL_SETTING_KEY);
             viewModel[ModuleAppConsts.Field.FACEBOOK_OAUTH_URL_SETTING_KEY] = AppSettingService.GetAppSettingData(ModuleAppConsts.Field.FACEBOOK_OAUTH_URL_SETTING_KEY);
             viewModel[ModuleAppConsts.Field.FACEBOOK_REQUEST_OBJECT_ACCESS_SETTING_KEY] = AppSettingService.GetAppSettingData(ModuleAppConsts.Field.FACEBOOK_REQUEST_OBJECT_ACCESS_SETTING_KEY);
-            
         }
 
         private bool CreateUser(UserModel user, string password)
@@ -241,7 +233,6 @@ namespace ZNxtApp.Core.Module.App.Services.Api.Signup
                 userData[CommonConst.CommonField.PHONE] = user.user_id;
                 userData[CommonConst.CommonField.NAME] = user.user_id;
                 userData[CommonConst.CommonField.IS_PHONE_VALIDATE] = (true && IsOTPCheckEnable());
-
             }
             else if (user.user_type == UserIDType.Email.ToString())
             {

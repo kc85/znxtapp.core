@@ -1,0 +1,96 @@
+/* Required height of parents of the Full Page Intro and Intro itself */
+html,
+body,
+.view {
+  height: 100%; }
+
+/* Navbar animation */
+.navbar {
+  background-color: rgba(0, 0, 0, 0.2); }
+
+.top-nav-collapse {
+  background-color: #1C2331; }
+
+/* Adding color to the Navbar on mobile */
+@media only screen and (max-width: 768px) {
+  .navbar {
+    background-color: #1C2331; } }
+
+/* Footer color for sake of consistency with Navbar */
+.page-footer {
+  background-color: #1C2331; }
+
+#time-counter {
+  font-size: 5rem; }
+
+
+ .gridpadding {
+        padding: 5px;
+    }
+
+    .fix_header {
+        /*Opacity start*/
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+        filter: alpha(opacity=80);
+        -moz-opacity: 0.80;
+        -khtml-opacity: 0.8;
+        opacity: 0.8;
+        /*Opacity end*/
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        transition: top 0.4s;
+        padding: 0;
+        margin: 0;
+        z-index: 9999;
+    }
+
+    .fix_footer {
+        /*Opacity start*/
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+        filter: alpha(opacity=80);
+        -moz-opacity: 0.80;
+        -khtml-opacity: 0.8;
+        opacity: 0.8;
+        /*Opacity end*/
+        position: fixed;
+        bottom: 0%;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        padding: 0;
+        margin: 0;
+        z-index: 9999;
+         transition: bottom 0.3s;
+    }
+	 .toolMenuItem 
+	  {
+		text-align: center;
+	  }
+	  .toolMenuItemIcon{
+	  padding: 10px;
+	  }
+	
+
+img {
+   /*
+       pointer-events: none;
+   */ 
+}
+
+
+.scaleSvg{
+        transform: scale(.12);
+        -ms-transform: scale(.12);/* IE 9 */
+        -webkit-transform : scale(.12);
+        
+}
+ .rcorners3 {
+			border-radius: 15px;
+	}
+
+ .bodyScrollBlock{
+     overflow :hidden !important;
+ }

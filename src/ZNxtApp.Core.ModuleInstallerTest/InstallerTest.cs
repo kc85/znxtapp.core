@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ZNxtApp.Core.ModuleInstaller.Installer;
 
 namespace ZNxtApp.Core.ModuleInstallerTest
 {

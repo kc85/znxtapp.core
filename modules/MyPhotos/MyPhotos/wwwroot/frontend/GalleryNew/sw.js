@@ -1,5 +1,5 @@
-﻿const PRECACHE = 'precache-v1.390';
-const RUNTIME = 'runtime-v1.390';
+﻿const PRECACHE = 'precache-v1.340';
+const RUNTIME = 'runtime-v1.340';
 
 
 const BACKGROUND_CACHE_URLS = [

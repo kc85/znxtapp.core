@@ -4,8 +4,8 @@
 @import url(vendors/magnific-popup.css);
 @import url(vendors/mediaelementplayer.css);
 
-@import url(../masterslider/style/masterslider.css); /*Base MasterSlider style sheet*/ 
-@import url(../masterslider/skins/default/style.css); /*Base MasterSlider style sheet*/ 
+@import url(../masterslider/style/masterslider.css); /*Base MasterSlider style sheet*/
+@import url(../masterslider/skins/default/style.css); /*Base MasterSlider style sheet*/
 
 @import url(style.css);          	   /*template style*/
 

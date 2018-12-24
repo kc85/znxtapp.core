@@ -1,0 +1,292 @@
+﻿@{
+
+    var galleryid = QueryString("galleryid");
+    var download= QueryString("download");
+    if(download == null){
+        download = "false";
+    }
+    else{
+        download  = "true";
+    }
+
+    var param = new  Newtonsoft.Json.Linq.JObject();
+	param["pagesize"] = 1000;
+	param["currentpage"] = 0;
+	param["id"] = galleryid;
+
+	var galleryData = ExecuteAction("/api/myphotos/gallery",param);
+    var userdata = ExecuteAction("/api/user/me",null);
+
+    var bgurl = "https://mdbootstrap.com/img/Photos/Others/images/93.jpg";
+     if((galleryData["code"] == 1 || galleryData["code"] == 401) && galleryData["data"]!=null)
+        {
+               bgurl  ="../api/myphotos/image?file_hash="+ galleryData["data"]["thumbnail"]+"&t=l&changeset_no=1";
+        }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    @if(@galleryData["code"] == "1"){
+    <title>ZPic : @galleryData.data.display_name </title>
+    }
+    else{
+    <title>ZPic</title>
+    }
+
+    @if(@galleryData["data"] != null){
+        <meta property="og:title" content="ZPic : @galleryData.data.display_name" />
+        <meta property="og:description" content="@galleryData.data.description" />
+        <meta property="og:url" content="https://znxt.app/galleryv2/gallery.z?galleryid=@galleryid" />
+        <meta property="og:image" content="https://znxt.app/api/myphotos/image?file_hash=@galleryData["data"]["thumbnail"]&t=l" />
+        <meta property="og:type" content="website" />
+        <meta property="fb:app_id" content="254923325185142" />
+    }
+
+    @Include("./template/header_css.zb",null)
+   
+
+</head>
+
+<body ng-controller="MyPhotoApp.Main">
+
+    <div>
+
+        <div style="height:100%;display:none" id="gallery401Error">
+
+            <!-- Full Page Intro -->
+            <div class="view" style="background-image: url('@bgurl'); background-repeat: no-repeat;background-size: cover;background-position: center;">
+                <!-- Mask & flexbox options-->
+                <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+                    <!-- Content -->
+                    <div class="text-center white-text mx-5 wow fadeIn">
+                        <h1 class="mb-4">
+                            <strong>ZPic</strong>
+                        </h1>
+                      
+                        @if(@userdata.code == 1 && @galleryData.code == 401 ){
+                        <div id="acccessRequiredDiv">
+                            <p>
+                                <strong> You don't have access to this gallery</strong>
+                            </p>
+                            <a class="btn btn-outline-white btn-lg" href='mailto:znxtapp%40gmail.com?subject=ZPic access request for gallery :@galleryid&body=Hi ZPic Team, I am @userdata.data.name, (user id: @userdata.data.id) request for gallery "@galleryData.data.display_name" access (gallery id :@galleryid )'>Request for access </a>
+                            <br />
+                           <!-- <a href="./index.z" class="btn btn-outline-white btn-lg">Back to Home </a>-->
+                        </div>
+                        }
+                        else if(@userdata.code == 401){
+                        <div id="loginRequiredDiv">
+                            <p>
+                                <strong>Please login to access the gallery</strong>
+                            </p>
+                            <a href="../auth/sociallogin.html" rurl='../galleryv2/gallery.z?galleryid=@QueryString("galleryid")' class="btn btn-outline-white btn-lg">Login </a>
+                        </div>
+                        }
+                        else{
+                        <div >
+                            <p>
+                                <strong>Something went wrong</strong>
+                            </p>
+                        </div>
+                        
+                        }
+
+                    </div>
+                    <!-- Content -->
+                </div>
+                <!-- Mask & flexbox options-->
+            </div>
+            <!-- Full Page Intro -->
+            <!--/.Footer-->
+            @Include("./template/footer_copyright.zb",null)
+        </div>
+
+        @if(@galleryData["code"] == "1"){
+        <div class="card fix_header" id="navbar">
+            <div class="card-body row" style="padding:7px">
+                <div class="col-10">
+                    <h5 class="card-title">
+                        <a href="./index.z">
+                            <img src="./img/myphotologo.png" style="height:35px">
+                        </a>
+                        <span style="padding-left:5px;"> @galleryData.data.display_name</span>
+                    </h5>
+                </div>
+                <div class="col-2">
+                    <a data-text="@galleryData.data.display_name" data-link="https://znxt.app/galleryv2/share.z?thumbnail_image=@galleryData.data.thumbnail_image.file_hash&galleryid=@galleryid" id="btnShareImage" class="whatsapp">
+                        <div class="mask toolMenuItemIcon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z" />
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid" style="margin-bottom: 50px;margin-top:70px;" id="galleryImages">
+            @if(@galleryData["code"] == "1"){
+            <div class="demo-gallery" style="z-index:999999">
+                <div id="lightgallery" class="list-unstyled row">
+                    @foreach (var image in @galleryData["data"]["images"])
+                    {
+                    <div class="col-4 col-md-2 col-sm-3 gridpadding zoom view" data-responsive=""
+                         data-src="../api/myphotos/image?file_hash=@image.file_hash&t=l&changeset_no=@image.changeset_no"
+                         data-sub-html="<h4 onclick='showDetails(this)'>@galleryData.data.display_name &nbsp;&nbsp; <i class='fa fa-info-circle' aria-hidden='true' file_hash='@image.file_hash' onclick='showDetails(this)'></i></h4><p>@galleryData.data.description</p>"
+                         file_hash="@image.file_hash">
+                        <a href="" >
+                            <img class="img-responsive gallery-image "
+                                 src="../api/myphotos/image?file_hash=@image.file_hash&t=m&changeset_no=@image.changeset_no"  />
+                            <div class="mask flex-center waves-effect">
+
+                            </div>
+                        </a>
+                    </div>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+        }
+        @Include("./template/footer_toolbar.zb",null)
+
+        <div class="modal fade bottom" id="imageDetailView" tabindex="-1" role="dialog" aria-hidden="true">
+            <!-- Add class .modal-frame and then add class .modal-bottom (or other classes from list above) to set a position to the modal -->
+            <div class="modal-dialog modal-frame modal-bottom" role="document" style="margin: 0px;bottom:0px;position: absolute;">
+                <div class="modal-content" style="border-radius: 0px;padding-left: 15px;padding-right: 15px;">
+                    <div class="modal-header">
+                        <h4 class="modal-title w-100 text-center" id="myModalLabel"></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <div class="text-center" id="imageViewDetails">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    @Include("./template/js_libs.zb",null)
+
+   <script type="text/javascript">
+        $(document).ready(function () {
+            var options = {};
+            options.download = @download;
+
+
+            options.counter = false;
+            options.hideBarsDelay = 500;
+
+            $.get("./api/user/me", function (data) {
+                var userdata =dataParseToJson(data);
+                console.log("user data", data);
+                if (userdata != undefined && userdata.code != @userdata.code) {
+                    removeCacheKey(window.location.pathname + window.location.search, function () {
+                        window.location.reload();
+                    });
+                }
+                $.get("./api/myphotos/gallery?id=@galleryid&pagesize=1", function (gdata) {
+                    var gallerydata = dataParseToJson(gdata);
+                    if (gallerydata != undefined && gallerydata.code != 500 && gallerydata.code != '@galleryData["code"]') {
+                        removeCacheKey(window.location.pathname + window.location.search, function () {
+                            window.location.reload();
+                        });
+                    }
+                    else {
+                        if (gallerydata.code != 1) {
+                            $("#gallery401Error").css("height" , ($(window).height() -119)+ "px");
+                            $("#galleryImages").fadeOut();
+                            $("#gallery401Error").show();
+                            hideToolbars();
+                            $("#navbarfooter").hide();
+                            $("#acccessRequiredDiv").hide();
+                            $("#loginRequiredDiv").hide();
+
+                            if (userdata.code == 401) {
+                                $("#loginRequiredDiv").show();
+                            }
+                            else if (userdata.code == 1) {
+                                $("#acccessRequiredDiv").show();
+                            }
+                            else {
+                                $("#errorDiv").show();
+                            }
+                        }
+                        else {
+                            $("#galleryImages").show();
+                            $("#gallery401Error").hide();
+                        }
+                    }
+                });
+            });
+
+            $('#lightgallery').lightGallery(options);
+            $('#lightgallery').on('onBeforeSlide.lg', function (event, prevIndex, index) {
+                $('.lg-outer').css('z-index', "99999");
+                console.log($(data.$items[index]).attr("file_hash"));
+                fetchImageDetails($(data.$items[index]).attr("file_hash"));
+            });
+            $('#lightgallery').on('onBeforeOpen.lg', function (event) {
+                history.pushState("close", "close", window.location.toString());
+                $('body').addClass("bodyScrollBlock");
+                hideToolbars();
+            });
+            $('#lightgallery').on('onAfterOpen.lg', function (event) {
+               
+            });
+
+            $('#lightgallery').on('onBeforeClose.lg', function (event) {
+                $('body').removeClass("bodyScrollBlock");
+                $("#imageDetailView").modal("hide");
+            });
+
+            
+            data = $('#lightgallery').data('lightGallery');
+
+        });
+
+
+        function dataParseToJson(data){
+            try {
+             return   JSON.parse(data);
+            } catch (e) {
+                return data;
+            }
+        }
+
+        function fetchImageDetails(imageHash){
+
+            var url = "../api/myphotos/fetch?file_hash=" +imageHash + "&galleryid=@galleryid";
+            $.get(url, function (imagedetails) {
+                console.log(imagedetails);
+                $('#imageDetailView').find("#myModalLabel").html(imagedetails.data.date_taken);
+                $('#imageDetailView').find("#imageViewDetails").html("");
+                imagedetails.data.metadata.forEach(function(d){
+                    $('#imageDetailView').find("#imageViewDetails").append("<h5>"+d.key +" : "+ d.value + "</h5>");
+                });
+                $('#imageDetailView').find("#imageViewDetails").append("<h5>Views : "+ imagedetails.data.views_count + "</h5>");
+            });
+        }
+        function showDetails(div){
+            $('#imageDetailView').find(".modal-content").css("width", $(window).width()+ "px");
+            $('#imageDetailView').css("z-index", "999999").css("opacity",".95");
+           // $('#imageDetailView').find(".modal-content").css("height", Math.round(($(window).height()/4)) + "px");
+            $("#imageDetailView").modal("show");
+            console.log($(div).attr("file_hash"));
+        }
+    </script>
+
+</body>
+</html>

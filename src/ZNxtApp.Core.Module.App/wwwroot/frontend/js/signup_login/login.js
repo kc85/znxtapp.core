@@ -1,11 +1,10 @@
 var grecaptcharesponse = undefined;
 
 var animating = false;
-      
+
 var capchaExpiredCallback = function () {
     grecaptcha.reset();
 };
-
 
 var imNotARobotCallback = function (val) {
     grecaptcharesponse = val;
@@ -27,7 +26,6 @@ var imNotARobotCallback = function (val) {
         contentType: "application/json",
         dataType: 'json',
         success: function (data) {
-         
             if (data.code === success_code) {
                 $("#btnSingin").html("Redirecting....");
                 window.location = redirectUrl;
@@ -40,13 +38,12 @@ var imNotARobotCallback = function (val) {
                 $("#errorMessage").show();
                 $("#errorMessage").html(data.message);
             }
-            
         },
         error: function (err) {
             console.log(err);
             grecaptcha.reset();
             $("#btnSingin").html("Sign in");
-          
+
             $(that).removeClass("success processing");
             $("#errorMessage").show();
             $("#errorMessage").html("Username or Password incorrect<br/>");
@@ -65,10 +62,8 @@ function ripple(elem, e) {
     elem.append($ripple);
 };
 function onBlur() {
-   
-        $("#errorMessage").fadeOut();
+    $("#errorMessage").fadeOut();
 };
-
 
 $(document).ready(function () {
     var redirectUrl = GetParameterValues("rurl");
@@ -108,5 +103,4 @@ $(document).ready(function () {
     $("#btnOTPLogin").click(function () {
         window.location = "./mobilelogin";
     });
-
 });

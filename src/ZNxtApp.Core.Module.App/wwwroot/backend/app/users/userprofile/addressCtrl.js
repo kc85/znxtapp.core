@@ -1,17 +1,14 @@
 ﻿(function () {
-
     var ZApp = angular.module(__ZNxtAppName);
 
-    ZApp.controller(__ZNxtAppName + '.userprofile.addressCtrl', ['$scope', 'dataService','loggerService',
+    ZApp.controller(__ZNxtAppName + '.userprofile.addressCtrl', ['$scope', 'dataService', 'loggerService',
     function ($scope, dataService, logger) {
-       
         $scope.address = {};
         $scope.addresses = [];
         $scope.addNewState = false;
         $scope.showDeleteComment = false;
         $scope.$on("onShowUserProfileItem", function (e, menu, user) {
-            if (menu.key == "user_profile_address")
-            {
+            if (menu.key == "user_profile_address") {
                 console.log(user);
                 $scope.userData = angular.copy(user);
                 addUserInfo($scope.userData);
@@ -29,7 +26,7 @@
         });
         $scope.save = function (callback) {
             if ($scope.address.is_default) {
-                $scope.userData.user_info[0].addresses.filter(function (f) { return f.id != $scope.address.id }).forEach(function (d) { d.is_default = false;})
+                $scope.userData.user_info[0].addresses.filter(function (f) { return f.id != $scope.address.id }).forEach(function (d) { d.is_default = false; })
             }
 
             var editProfileUrl = "./api/admin/userinfo/update";
@@ -67,15 +64,13 @@
             $scope.address.id = Date().toString();
             $scope.address.is_deleted = false;
             $scope.address.is_default = false;
-            $scope.userData.user_info[0].addresses.push($scope.address);            
+            $scope.userData.user_info[0].addresses.push($scope.address);
         };
         $scope.delete = function () {
             $scope.showDeleteComment = true;
-           
         }
         $scope.deleteCancel = function () {
             $scope.showDeleteComment = false;
-
         }
 
         $scope.deleteAddress = function () {
@@ -87,7 +82,6 @@
                 }
                 $scope.address.is_default = false;
             }
-            
 
             $scope.save(function () {
                 $scope.showDeleteComment = false;

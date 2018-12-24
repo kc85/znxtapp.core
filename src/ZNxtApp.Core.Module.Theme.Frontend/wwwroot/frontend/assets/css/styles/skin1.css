@@ -104,7 +104,6 @@
 	left:0px;
 	background-color:#7cfd73;
 	}
-
 }
 
 @-webkit-keyframes bounce_followingBallsG{
@@ -122,7 +121,6 @@
 	left:0px;
 	background-color:#7cfd73;
 	}
-
 }
 
 @-ms-keyframes bounce_followingBallsG{
@@ -140,7 +138,6 @@
 	left:0px;
 	background-color:#7cfd73;
 	}
-
 	}
 
 @-o-keyframes bounce_followingBallsG{
@@ -158,7 +155,6 @@
 	left:0px;
 	background-color:#7cfd73;
 	}
-
 	}
 
 @keyframes bounce_followingBallsG{
@@ -176,7 +172,6 @@
 	left:0px;
 	background-color:#7cfd73;
 	}
-
 }
 
 blockquote{
@@ -205,7 +200,7 @@ a{
 .back-to-top:hover,
 .back-to-top:focus,
 #back-to-top:hover,
-#back-to-top:focus{	
+#back-to-top:focus{
 	background-color: #7cfd73;
 }
 .lined:after{
@@ -228,8 +223,8 @@ ul.list-iconed-square i{
 #navigation > li.current-menu-parent > a{
 	/* border-left: 4px solid #7cfd73; */
 }
-#navigation li.current-menu-item a:before, 
-#navigation li.current-menu-parent >a:before, 
+#navigation li.current-menu-item a:before,
+#navigation li.current-menu-parent >a:before,
 #navigation .nav-prev>a:before {
 	background: #7cfd73;
 }
@@ -284,7 +279,7 @@ ul.list-items .list-label{
 }
 #blog-more {
 	border: 1px solid #7cfd73;
-	color: #7cfd73; 
+	color: #7cfd73;
 }
 #blog-more:hover,
 #blog-more:focus {
@@ -306,10 +301,10 @@ ul.list-items .list-label{
 	color: #7cfd73;
 }
 .section-title:after{
-	background: #7cfd73; 
+	background: #7cfd73;
 }
 .team-item .team-content .subtitle:after{
-	background: #7cfd73;  
+	background: #7cfd73;
 }
 .team-socials li a{
 	color: #7cfd73;
@@ -330,7 +325,7 @@ ul.list-items .list-label{
 .skill-item .bar{
 	background-color: #7cfd73;
 }
-.accordion .item.active .head a,	
+.accordion .item.active .head a,
 .accordion .item .head a:hover,
 .accordion .item .head a:focus{
 	color:#7cfd73;
@@ -359,7 +354,7 @@ ul.list-items .list-label{
 	background-color: #7cfd73;
 }
 .cap-toranj .cap-title:after{
-	background: #7cfd73; 
+	background: #7cfd73;
 }
 .owl-caption a:hover i,
 .owl-caption a:focus i{
@@ -372,23 +367,23 @@ ul.list-items .list-label{
 .ms-skin-toranj .ms-nav-prev,
 .tj-playbtn{
 	color: #7cfd73;
-}	
+}
 .ms-skin-toranj .tj-ms-counter{
   color: #7cfd73;
 }
 .tj-ms-gallery .ms-thumb-list{
 	color: #7cfd73;
 }
-.ms-skin-toranj  .ms-slide .ms-slide-vpbtn, 
+.ms-skin-toranj  .ms-slide .ms-slide-vpbtn,
 .ms-skin-toranj  .ms-video-btn {
 	color: #7cfd73;
 	border:1px solid #7cfd73;
 }
-.ms-skin-toranj  .ms-slide .ms-slide-vpbtn:after, 
+.ms-skin-toranj  .ms-slide .ms-slide-vpbtn:after,
 .ms-skin-toranj  .ms-video-btn:after{
 	color: #7cfd73;
 }
-.ms-skin-toranj  .ms-slide .ms-slide-vpbtn:hover, 
+.ms-skin-toranj  .ms-slide .ms-slide-vpbtn:hover,
 .ms-skin-toranj  .ms-video-btn:hover{
 	background:#7cfd73;
 }
@@ -408,8 +403,6 @@ ul.list-items .list-label{
 	background-color:#7cfd73;
 }
 
-
-
 .blog-list .post-header a:hover, .blog-list .post-header a:focus, .blog-list .post-meta span a:hover, .blog-list .post-meta span a:focus{
 	color:#72F469;
 }
@@ -427,7 +420,7 @@ ul.list-items .list-label{
 .portfolio-nav li a{
 	color: #72F469;
 }
-.portfolio-nav li a:hover i, 
+.portfolio-nav li a:hover i,
 .portfolio-nav li a:focus i {
 	background: #72F469;
 	color: #1c1c1c;
@@ -441,4 +434,3 @@ ul.list-items .list-label{
 .team-members .left-side .item .info:before{
 	background: #72F469;
 }
-

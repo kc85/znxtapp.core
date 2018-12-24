@@ -1,3 +1,34 @@
 [
-    
+  {
+    "key": "myphotos",
+    "label": "My Photos",
+    "href": "#",
+    "icon": "fa-gear",
+    "url": "#",
+    "config": {
+      "templateUrl": "#"
+    },
+    "auth_users": [
+      "sys_admin"
+    ],
+    "index": 110
+  },
+  {
+    "key": "myphotos_gallery",
+    "label": "Gallery",
+    "href": "/myphotos_gallery",
+    "icon": "fa-paw",
+    "display_area": "main_body",
+    "url": "#",
+    "config": {
+      "templateUrl": "app/myphotos/gallery/gallery.html"
+    },
+    "parent_links": [
+      "myphotos"
+    ],
+    "auth_users": [
+      "sys_admin"
+    ],
+    "index": 10
+  }
 ]

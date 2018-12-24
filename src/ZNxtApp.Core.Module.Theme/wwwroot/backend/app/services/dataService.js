@@ -15,6 +15,5 @@
         function postApiCall(url, data) {
             return $http.post(url, data);
         };
-      
     }
 })();

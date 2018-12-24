@@ -27,6 +27,7 @@ namespace MyPhotos.Services.Api
         {
             try
             {
+                return 0;
                 Logger.Debug("Calling CronJob ImageBackgroundSync");
 
                 JObject crobJob = _paramContainer.GetKey(CRON_JOB);
@@ -40,7 +41,7 @@ namespace MyPhotos.Services.Api
                     return 0;
                 }
                 ImageProcessor ip = new ImageProcessor();
-                ip.Scan(file_path,string.Empty,DBProxy,(string mesage)=>{ 
+                ip.Scan(file_path,string.Empty,DBProxy,KeyValueStorage,(string mesage)=>{ 
                     
                     Logger.Debug(string.Format("ImageBackgroundSync: {0}" , mesage));
                     return true;

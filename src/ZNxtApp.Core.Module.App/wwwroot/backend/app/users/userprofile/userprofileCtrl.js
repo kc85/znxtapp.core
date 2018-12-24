@@ -1,9 +1,8 @@
 ﻿(function () {
-
     var ZApp = angular.module(__ZNxtAppName);
 
-    ZApp.controller(__ZNxtAppName + '.userprofileCtrl', ['$scope', '$controller', '$window','$location', '$rootScope', 'dataService', 'userData', 'menus', 'fileUploadService', 'loggerService',
-    function ($scope, $controller, $window,$location, $rootScope, dataService, userData, menus, fileUploadService, logger) {
+    ZApp.controller(__ZNxtAppName + '.userprofileCtrl', ['$scope', '$controller', '$window', '$location', '$rootScope', 'dataService', 'userData', 'menus', 'fileUploadService', 'loggerService',
+    function ($scope, $controller, $window, $location, $rootScope, dataService, userData, menus, fileUploadService, logger) {
         $scope.user = {};
         $scope.loadingUseData = false;
         $scope.userProfileMenus = [];
@@ -56,7 +55,6 @@
                         $scope.isError = true;
                         $scope.errorMessage = "Something went wrong in the server";
                     }
-                    
                 }, function () {
                     $scope.loadingUseData = false;
                 });
@@ -67,7 +65,6 @@
             $scope.user = user;
             $scope.user_profile_image = "";
             if (user.user_info[0] != undefined) {
-
                 if (user.user_info[0].user_pic_l != undefined) {
                     $scope.user_profile_image = user.user_info[0].user_pic_l.replace("/frontend/", "../");
                 }
@@ -81,7 +78,6 @@
         }
 
         function uploadUserImage() {
-
             if ($scope.userProfileImage != undefined) {
                 console.log($scope.userProfileImage);
 
@@ -156,6 +152,5 @@
                 $scope.$broadcast("onShowUserProfileItem", { key: 'info' }, $scope.user);
             }
         }
-        
     }]);
 })();

@@ -311,6 +311,18 @@
       "user"
     ]
   },
+   {
+    "key": "ACTION:/api/user/me",
+    "ContentType": "application/json",
+    "Method": "ACTION",
+    "Route": "/api/user/me",
+    "ExecultAssembly": "ZNxtApp.Core.Module.App.dll",
+    "ExecuteType": "ZNxtApp.Core.Module.App.Services.Api.UserManagement.UsersController",
+    "ExecuteMethod": "GetSessionUser",
+    "auth_users": [
+      "*"
+    ]
+  },
   {
     "key": "ACTION:/api/zblock/getblocks",
     "ContentType": "application/json",

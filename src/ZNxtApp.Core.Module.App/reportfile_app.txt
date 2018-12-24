@@ -5,85 +5,85 @@ Response:
 {
   "code": 1,
   "message": "SUCCESS",
-  "transaction_id": "20181006033100330038",
+  "transaction_id": "20181211112728473819",
   "debug": {
-    "time_span": 4578.8769,
+    "time_span": 1423.1027000000001,
     "logs": [
       {
-        "created_datetime": 1538796660,
-        "id": "d0c42273-3d84-4201-8d88-8f88719c519e",
+        "created_datetime": 1544527648,
+        "id": "a5ca7284-3fa5-44cc-a89f-54b71b03db77",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Info",
-        "transaction_id": "20181006033100330038",
+        "transaction_id": "20181211112728473819",
         "message": "RouteExecuter.Exec:: Route: [POST: /api/module/reinstall, Type: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller, Assembly: ZNxtApp.Core.Web.dll, Method: Reinstall, Module:ZApp]",
         "data": {},
-        "updated_datetime": 1538796660,
+        "updated_datetime": 1544527648,
         "created_by": ""
       },
       {
-        "created_datetime": 1538796660,
-        "id": "bfe90ca9-7531-44ee-b12a-f04684557f14",
+        "created_datetime": 1544527648,
+        "id": "4ceeff25-c7cb-42d1-8e14-3011c9eb3532",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Info",
-        "transaction_id": "20181006033100330038",
+        "transaction_id": "20181211112728473819",
         "message": "GetType: ZNxtApp.Core.Web.dll, executeType: ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "data": {},
-        "updated_datetime": 1538796660,
+        "updated_datetime": 1544527648,
         "created_by": ""
       },
       {
-        "created_datetime": 1538796664,
-        "id": "699a6a7d-bf6d-4975-a06a-e1d7930ed2a1",
+        "created_datetime": 1544527649,
+        "id": "bfdd000a-0dba-4dfe-9610-3a182590ca78",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Debug",
-        "transaction_id": "20181006033100330038",
-        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.App_1.0.11.6298-Beta\\Content\\collections\\app_settings.json",
+        "transaction_id": "20181211112728473819",
+        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.App_1.0.11.20622-Beta\\Content\\collections\\app_settings.json",
         "data": {},
-        "updated_datetime": 1538796664,
+        "updated_datetime": 1544527649,
         "created_by": ""
       },
       {
-        "created_datetime": 1538796664,
-        "id": "f84b251e-839b-4611-94f6-f9a56677e549",
+        "created_datetime": 1544527649,
+        "id": "7247de96-e04b-4988-87f9-62ec63469d34",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Debug",
-        "transaction_id": "20181006033100330038",
-        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.App_1.0.11.6298-Beta\\Content\\collections\\backend_ui_routes.json",
+        "transaction_id": "20181211112728473819",
+        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.App_1.0.11.20622-Beta\\Content\\collections\\backend_ui_routes.json",
         "data": {},
-        "updated_datetime": 1538796664,
+        "updated_datetime": 1544527649,
         "created_by": ""
       },
       {
-        "created_datetime": 1538796664,
-        "id": "10b41732-e4f5-4094-a58a-dabec2365033",
+        "created_datetime": 1544527649,
+        "id": "80b52efa-c484-4591-8e8f-d35b632a1c8e",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Debug",
-        "transaction_id": "20181006033100330038",
-        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.App_1.0.11.6298-Beta\\Content\\collections\\email_template.json",
+        "transaction_id": "20181211112728473819",
+        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.App_1.0.11.20622-Beta\\Content\\collections\\email_template.json",
         "data": {},
-        "updated_datetime": 1538796664,
+        "updated_datetime": 1544527649,
         "created_by": ""
       },
       {
-        "created_datetime": 1538796664,
-        "id": "88dfde4e-4922-45ef-81ee-2cf6cd6ac445",
+        "created_datetime": 1544527649,
+        "id": "f67a5183-73de-4ee8-b504-c54716b7d191",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Debug",
-        "transaction_id": "20181006033100330038",
-        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.App_1.0.11.6298-Beta\\Content\\collections\\server_routes.json",
+        "transaction_id": "20181211112728473819",
+        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.App_1.0.11.20622-Beta\\Content\\collections\\server_routes.json",
         "data": {},
-        "updated_datetime": 1538796664,
+        "updated_datetime": 1544527649,
         "created_by": ""
       },
       {
-        "created_datetime": 1538796664,
-        "id": "22577fff-69af-4648-8f8d-7363e8e6f163",
+        "created_datetime": 1544527649,
+        "id": "1b93af27-492c-4e15-9e53-58d60034a0f0",
         "logger": "ZNxtApp.Core.Web.Services.Api.ModuleInstaller.ModuleInstaller",
         "type": "Debug",
-        "transaction_id": "20181006033100330038",
-        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.App_1.0.11.6298-Beta\\Content\\collections\\sms_template.json",
+        "transaction_id": "20181211112728473819",
+        "message": "InstallCollections File:C:\\temp\\ZNxtApp\\ZNxtApp.Core.Module.App_1.0.11.20622-Beta\\Content\\collections\\sms_template.json",
         "data": {},
-        "updated_datetime": 1538796664,
+        "updated_datetime": 1544527649,
         "created_by": ""
       }
     ]
@@ -92,14 +92,14 @@ Response:
       
 Headers:
 Cache-Control: private
-Date: Fri, 05 Oct 2018 22:01:04 GMT
-Content-Length: 3794
+Date: Tue, 11 Dec 2018 05:57:30 GMT
+Content-Length: 3808
 Content-Type: application/json
-Set-Cookie: za_s_k=153879666096287654; expires=Sat, 06-Oct-2018 00:01:00 GMT; path=/; secure; HttpOnly
+Set-Cookie: za_s_k=1544527648LHR04322; expires=Tue, 11-Dec-2018 07:57:28 GMT; path=/; secure; HttpOnly
 
 
 URL:
-https://znxt.app/api/module/reinstall?module_name=ZNxtApp.Core.Module.App/1.0.11.6298-Beta
+https://znxt.app/api/module/reinstall?module_name=ZNxtApp.Core.Module.App/1.0.11.20622-Beta
 URL Code Page:
 65001
 User Agent:

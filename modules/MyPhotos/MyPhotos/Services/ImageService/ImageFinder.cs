@@ -103,7 +103,7 @@ namespace MyPhotos.Services.ImageService
                         }
                         catch (Exception ex)
                         {
-                            logger(string.Format("Error in file {0}, Error {1}", filePath, ex.Message));
+                            logger(string.Format("Error in file {0}, Error {1} : {2}", filePath, ex.Message, ex.StackTrace));
                         }
 
                         count++;

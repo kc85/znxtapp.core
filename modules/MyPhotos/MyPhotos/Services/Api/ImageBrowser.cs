@@ -21,7 +21,7 @@ namespace MyPhotos.Services.Api
             _paramContainer = paramContainer;
         }
 
-       
+
         public byte[] GetImage()
         {
             try
@@ -59,13 +59,34 @@ namespace MyPhotos.Services.Api
                 }
                 else
                 {
-                    var base64 = data[0][imageType].ToString();
+                    var base64 = string.Empty;
+                    if (data[0][imageType] != null)
+                    {
+                        base64 = data[0][imageType].ToString();
+                    }
+                    else
+                    {
+                        try
+                        {
+                            base64 = KeyValueStorage.Get<string>(ImageProcessor.IMAGE_KEY_VALUE_BUCKET, ImageProcessor.GetFileKey(imageType, fileHash));
+                        }
+                        catch (KeyNotFoundException ex)
+                        {
+                            Logger.Error(ex.Message, ex);
+                        }
+                    }
+                    if (string.IsNullOrEmpty(base64))
+                    {
+                        HttpProxy.SetResponse(404);
+                        return null;
+                    }
                     HttpProxy.ResponseHeaders["Cache-Control"] = "public, max-age=172800";
                     return System.Convert.FromBase64String(base64);
                 }
             }
             catch (Exception ex)
             {
+                HttpProxy.SetResponse(500);
                 Logger.Error(ex.Message, ex);
                 return null;
             }
@@ -75,9 +96,9 @@ namespace MyPhotos.Services.Api
         public JObject MyPhotoUsers()
         {
             try
-            {  
+            {
                 JObject filter = new JObject();
-                var data = DBProxy.Get(CommonConst.Collection.USERS,filter.ToString(), new List<string> { CommonConst.CommonField.USER_ID, CommonConst.CommonField.NAME, CommonConst.CommonField.USER_TYPE});
+                var data = DBProxy.Get(CommonConst.Collection.USERS, filter.ToString(), new List<string> { CommonConst.CommonField.USER_ID, CommonConst.CommonField.NAME, CommonConst.CommonField.USER_TYPE });
                 return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, data);
             }
             catch (Exception ex)
@@ -85,11 +106,22 @@ namespace MyPhotos.Services.Api
                 Logger.Error(ex.Message, ex);
                 return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
             }
+        }
 
+        public JObject GetGalleryListByAdmin()
+        {
+            try
+            {
+                return GetPaggedData(ImageProcessor.MYPHOTO_GALLERY_COLLECTION,null,null,null, new List<string> { CommonConst.CommonField.DISPLAY_ID, ImageProcessor.DISPLAY_NAME, ImageProcessor.DESCRIPTION, CommonConst.CommonField.NAME, ImageProcessor.FILES_COUNT, ImageProcessor.GALLERY_THUMBNAIL, ImageProcessor.AUTH_USERS, ImageProcessor.OWNER });
+            }
 
+            catch (Exception ex)
+            {
+                Logger.Error(ex.Message, ex);
+                return ResponseBuilder.CreateReponse(CommonConst._500_SERVER_ERROR);
+            }
 
         }
-        
         public JObject GetGallery()
         {
             try
@@ -128,15 +160,17 @@ namespace MyPhotos.Services.Api
             if (data != null)
             {
                 ImageGalleryHelper.AddDefaultOwner(data);
-                if (ImageGalleryHelper.IsValidaUser(data,SessionProvider))
+                if (ImageGalleryHelper.IsValidaUser(data, SessionProvider))
                 {
                     AddGalleryThumbnailImage(data);
-                    
+
                     return ResponseBuilder.CreateReponse(CommonConst._1_SUCCESS, GetGalleryPageData(data));
                 }
                 else
                 {
-                    return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
+                    data.Remove(ImageProcessor.AUTH_USERS);
+                    data.Remove(ImageProcessor.FILE_HASHS);
+                    return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED, data);
                 }
             }
             else
@@ -205,6 +239,7 @@ namespace MyPhotos.Services.Api
 
         private JObject GetAllGalleries()
         {
+            string filterKey = "filter";
             var user = SessionProvider.GetValue<UserModel>(CommonConst.CommonValue.SESSION_USER_KEY);
             var userId =  HttpProxy.GetQueryString(CommonConst.CommonField.USER_ID);
 
@@ -217,10 +252,28 @@ namespace MyPhotos.Services.Api
                 return ResponseBuilder.CreateReponse(CommonConst._401_UNAUTHORIZED);
             }
 
-            var sort = new Dictionary<string, int>();
-            sort[CommonConst.CommonField.NAME] = 1;
-            sort[CommonConst.CommonField.ID] = 1;
-            var response = GetPagedData(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, "{}", new List<string> { CommonConst.CommonField.DISPLAY_ID, ImageProcessor.DISPLAY_NAME, ImageProcessor.DESCRIPTION, CommonConst.CommonField.NAME, ImageProcessor.FILES_COUNT, ImageProcessor.GALLERY_THUMBNAIL, ImageProcessor.AUTH_USERS, ImageProcessor.OWNER },sort,100,1);
+            int pagesize = 100;
+            int currentpage = 1;
+            string filter = "{}";
+            if(!string.IsNullOrEmpty(HttpProxy.GetQueryString(CommonConst.CommonField.PAGE_SIZE_KEY)))
+                int.TryParse(HttpProxy.GetQueryString(CommonConst.CommonField.PAGE_SIZE_KEY), out pagesize);
+
+            if (!string.IsNullOrEmpty(HttpProxy.GetQueryString(CommonConst.CommonField.CURRENT_PAGE_KEY)))
+                int.TryParse(HttpProxy.GetQueryString(CommonConst.CommonField.CURRENT_PAGE_KEY), out currentpage);
+
+            if (!string.IsNullOrEmpty(HttpProxy.GetQueryString(filterKey)))
+            {
+                var filterValue = HttpProxy.GetQueryString(filterKey);
+                filter = "{display_name:{'$regex' : '"+ filterValue + "', '$options' : 'i'}}";
+                Logger.Debug(filter);
+            }
+
+
+            //var sort = new Dictionary<string, int>();
+            //sort[CommonConst.CommonField.NAME] = 1;
+            //sort[CommonConst.CommonField.ID] = 1;
+
+            var response = GetPagedData(ImageProcessor.MYPHOTO_GALLERY_COLLECTION, filter, new List<string> { CommonConst.CommonField.DISPLAY_ID, ImageProcessor.DISPLAY_NAME, ImageProcessor.DESCRIPTION, CommonConst.CommonField.NAME, ImageProcessor.FILES_COUNT, ImageProcessor.GALLERY_THUMBNAIL, ImageProcessor.AUTH_USERS, ImageProcessor.OWNER },null, pagesize, currentpage);
 
             List<JToken> filterData = new List<JToken>();
             foreach (var item in response[CommonConst.CommonField.DATA])
@@ -294,12 +347,11 @@ namespace MyPhotos.Services.Api
             }
             if (galleryItem[ImageProcessor.DESCRIPTION]==null)
             {
-                galleryItem[ImageProcessor.DESCRIPTION] = "";
+                galleryItem[ImageProcessor.DESCRIPTION] = string.Empty;
             }
             if (galleryItem[ImageProcessor.GALLERY_THUMBNAIL] != null)
             {
                 galleryItem[ImageProcessor.GALLERY_THUMBNAIL_IMAGE] = ImageGalleryHelper.GetImageData(DBProxy, SessionProvider, galleryItem[ImageProcessor.GALLERY_THUMBNAIL].ToString())[0];
-                (galleryItem as JObject).Remove(ImageProcessor.GALLERY_THUMBNAIL);
             }
 
         }

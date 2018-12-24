@@ -143,7 +143,7 @@ var __userData = {};
                    setShareLink();
                    
                    if (response.data.code == 401) {
-                       $scope.user = undefined;
+                       //$scope.user = undefined;
                        window.location.hash = "#";
 
                    }
@@ -169,7 +169,7 @@ var __userData = {};
                $http.get(url).then(function (response) {
 
                    if (response.data.code == 401) {
-                       $scope.user = undefined;
+                      // $scope.user = undefined;
                        $scope.userLoginRequired = true;
                        $scope.busy = false;
                    }
@@ -239,6 +239,7 @@ var __userData = {};
                var keys = getUrlHashKeys();
                if (keys.file_hash != undefined) {
                    if (callback != undefined) callback(keys);
+                   $("#imageViewDetails").modal({ keyboard: false, backdrop: 'static' });
                    $("#imageViewDetails").modal("show");
                }
                else {

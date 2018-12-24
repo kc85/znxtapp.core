@@ -37,6 +37,8 @@
             public const string PARAM_EMAIL_SERVICE = "_param_email_service";
             public const string PARAM_ENCRYPTION_SERVICE = "_param_encryption_service";
             public const string PARAM_KEY_VALUE_STORAGE = "_param_keyvalue_service";
+            public const string PARAM_HTTP_CLIENT = "_param_http_client";
+
 
             public const string SESSION_USER_KEY = "_session_user";
             public const string SIGN_UP_SESSION_USER_KEY = "_signup_session_user";

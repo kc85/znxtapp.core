@@ -33,6 +33,8 @@ namespace MyPhotos.Services.ImageService
         public const string IMAGE_S_BASE64 = "image_s_base64";
         public const string IMAGE_M_BASE64 = "image_m_base64";
         public const string IMAGE_L_BASE64 = "image_l_base64";
+        public const string IMAGE_KEY_VALUE_BUCKET = "my_photo_bucket";
+
         public const string IMAGE_ROTATE= "rotate";
         
         private const string IMAGE_S_URL = "image_s_url";
@@ -70,9 +72,13 @@ namespace MyPhotos.Services.ImageService
         public const string PATH = "path";
         public const string RELATED_FILES = "related_files";
 
+        public static string GetFileKey(string type, string fileHash)
+        {
+            return string.Format("{0}-{1}", type, fileHash);
+        }
         private List<FileModel> _existingFiles = new List<FileModel>();
 
-        public void Scan(string baseFolderPath, string folderPath, IDBService dbProxy, Func<string, bool> logger)
+        public void Scan(string baseFolderPath, string folderPath, IDBService dbProxy, IKeyValueStorage keyValueStorage, Func<string, bool> logger)
         {
 
             DirectoryInfo di = new DirectoryInfo(string.Format("{0}{1}", baseFolderPath,folderPath));
@@ -96,7 +102,7 @@ namespace MyPhotos.Services.ImageService
                 }
                 else
                 {
-                    AddFile(file, baseFolderPath, dbProxy, logger);
+                    AddFile(file, baseFolderPath, dbProxy,keyValueStorage, logger);
                    
                 }
                 return true;
@@ -172,7 +178,7 @@ namespace MyPhotos.Services.ImageService
             return _existingFiles;
         }
 
-        private JObject AddFile(FileModel fileModel, string baseFolderPath, IDBService dbProxy, Func<string, bool> logger)
+        private JObject AddFile(FileModel fileModel, string baseFolderPath, IDBService dbProxy, IKeyValueStorage keyValueStorage, Func<string, bool> logger)
         {
             if (fileModel.IsAdded)
             {
@@ -181,7 +187,7 @@ namespace MyPhotos.Services.ImageService
 
                 using (var image = ImageGalleryHelper.GetImageBitmapFromFile(path))
                 {
-                    fileData = ImageGalleryHelper.CreateFileDataJObject(fileModel, path, image);
+                    fileData = ImageGalleryHelper.CreateFileDataJObject(fileModel, path, image, keyValueStorage);
                 }
 
                 if (!dbProxy.Write(MYPHOTO_COLLECTION, fileData))
